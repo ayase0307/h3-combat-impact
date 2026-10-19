@@ -181,6 +181,69 @@ non_diegetic_music: <高速節拍>. <撞擊瞬間抽空>. <回來>.
 
 **解法：每一刀都點名主角的識別特徵**——`her black gloves`, `her green striped top`, `her orange graffiti pants`。讓它無法混淆。
 
+### 每刀一次交換（不是每刀一個動作）
+
+**「沒有互相打架」的原因是每刀只有一方在動。**
+
+| ❌ 一個動作 | ✅ 一次交換 |
+|---|---|
+| `The coral-haired fighter throws a straight.` | `The coral-haired fighter throws a straight and the seafoam-haired fighter parries it aside and fires back with a hook.` |
+| `The seafoam-haired fighter sweeps low.` | `The seafoam-haired fighter sweeps at the shin; the coral-haired fighter lifts her leg over it and shoves her back.` |
+
+**結構：A 攻 → B 擋 → B 反。** 三個動作寫在一個鏡頭裡，0.8 秒就夠。
+
+### 特寫與定格的上限：總長 10%
+
+實測：10 刀裡放 4 刀特寫／定格（40% 片長）→ 使用者評價「在特寫浪費太多時間，動作完全不足」。
+
+| 項目 | 上限 |
+|---|---|
+| 極特寫／定格圖 | 每支片 **2 刀**，各 **0.25–0.35 秒** |
+| 合計佔比 | **≤10% 片長** |
+| 其餘鏡頭 | 全部是交手 |
+
+特寫是**標點**，不是內容。0.3 秒的拳套撞前臂比 0.8 秒的眼睛特寫有力。
+
+### 運鏡是「切角度追蹤」，不是各自推拉
+
+原片的運鏡不是每個鏡頭獨立推拉，而是**換一個角度繼續跟著打**：
+
+```text
+the camera swings around them with large amplitude at fast speed, tracking the exchange
+the camera whips around to the pillar with large amplitude at fast speed
+the camera tracks with her at fast speed
+```
+
+**主語是「跟著誰」，不是「鏡頭自己在動」。** 寫 `tracking the exchange` / `tracks with her` 比 `push in` 更接近原片。
+
+### 動作預算是固定的（7.5 秒的取捨）
+
+實測同一段打鬥：
+
+| 策略 | 刀數 | 每刀動作 | 全程運動 | 交手感 |
+|---|---:|---|---:|---|
+| 快而碎 | 9 | 1 個 | 16.61 | 差 |
+| 慢而有交手 | 5 | 3 個（攻→擋→反） | 18.59 | 好 |
+
+**7.5 秒的動作總量固定，刀數與每刀動作數互斥。**
+
+原片能兩者兼得是因為手繪逐格控制。H3 有預算上限。
+
+| 你要的 | 配置 |
+|---|---|
+| 速度感、cut 得爽 | 9–10 刀，每刀 1 動作 |
+| 打鬥感、有來有回 | 5–6 刀，每刀 3 動作 |
+| **兩者都要** | **生成 12 秒，剪成 8 秒** |
+
+### 特寫要寫死幀數
+
+```text
+❌ The camera cuts to an extreme close-up of her eye.              ← 會被演成 1 秒
+✅ The camera cuts to an extreme close-up of her eye; this shot holds for seven frames.
+```
+
+**7 格 = 0.29 秒。** 沒寫死，模型會把 0.3 秒演成 1 秒。
+
 ### 剪點與動作的關係（最重要的一條）
 
 **加剪點不會增加動作。**
