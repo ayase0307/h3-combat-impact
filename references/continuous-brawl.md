@@ -189,6 +189,37 @@ non_diegetic_music: <高速節拍>. <撞擊瞬間抽空>. <回來>.
 
 **動作必須寫在每一刀裡面。** 剪點只決定「什麼時候換畫面」，不決定「畫面裡有沒有事發生」。
 
+### 一刀三動（峰值翻倍的關鍵）
+
+同樣 6 刀，動作段數不同，峰值差一倍：
+
+| 寫法 | 峰值 |
+|---|---:|
+| 每刀一段：`she drives a short right into her guard` | **10** |
+| 每刀三段：見下例 | **21** |
+
+```text
+the pink-haired fighter comes up with an uppercut;
+the black-haired fighter catches it on a raised forearm,
+and the block jolts her head back;
+she rides the snap into a one-two
+```
+
+**結構：對方出招 → 我接住 → 我順勢反擊。** 一句話裡有三個動作，模型就會演三段。
+
+### 平面／抽象背景要給尺度參照物
+
+角色圖是平面色塊、沒有實景時，模型無法判斷人物大小，廣角鏡頭會變成「兩個小點站在色塊裡」。
+
+補一個可參照的物件：
+
+```text
+a cracked concrete slab under their feet
+a single steel pillar at frame right
+```
+
+**沒有參照物，就沒有尺度感。**
+
 ### 細節插切 = 身份錨定（不只是節奏）
 
 | | 角色一致性 |
