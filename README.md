@@ -79,7 +79,20 @@ Both clips below are my own H3 test runs, scored with the bundled script.
 
 <p align="center"><img src="assets/strip-v06.jpg" alt="Frame strip of V06 at 2 fps" width="90%"><br><sub>V06 at 2 fps. Different subject and aspect ratio from V01; the point is the motion curve, not a like-for-like swap.</sub></p>
 
-Seven runs, one script:
+### Same subject, before vs after the skill
+
+<p align="center"><img src="assets/demo-ab-skill.gif" alt="Side-by-side animated comparison: before the skill rules versus after" width="88%"><br>
+<sub><b>Same subject, same first frame, same 9:16, same 8 s.</b> Left: written without the skill. Right: written with it.<br>
+End-of-clip motion 57% → 93%; the tail-stall and static-symmetry flags are gone.</sub></p>
+
+| | Before | After |
+|---|---:|---:|
+| Whole-clip motion | 18.43 | **21.89** |
+| End 2 s ÷ middle | 57% | **93%** |
+| Longest lull | 0.33 s | 0.29 s |
+| Flags | tail stall, static symmetry | **none** |
+
+> **Honest caveat:** the two runs use different random seeds, so this is a matched-composition comparison, not a single-variable controlled test. The new A/B workflow below fixes the seed, so future comparisons are strictly controlled.
 
 | Run | Words | Shots | Opening 0.8 s | End 2 s ÷ middle | Longest lull | Flags |
 |---|---:|---:|---:|---:|---:|---|
@@ -89,6 +102,24 @@ Seven runs, one script:
 | **V06** | **1022** | **5** | **20.44** | **108%** | **0.04 s** | **none** |
 
 What the data changed: a wrong duration setting causes stalled endings more than wording does, and one sentence, `First contact occurs within the opening half-second.`, took the opening from 3.24 to 20.44. The score measures *frame change*, so VFX can inflate it; always check by eye that the subject moves.
+
+## After a skill update, prove it
+
+**Every rule change ships with a before/after pair.** Same subject, same seed, same everything — only the prompt differs — then the two clips are scored and rendered as one animated comparison on this page.
+
+```bash
+# 1. run both prompt versions through the local H3
+python analysis/submit_ab.py --before before.txt --after after.txt \
+    --label-before "A · before skill" --label-after "B · after skill" \
+    --width 960 --height 544 --seconds 8 --quality light --seed 20261019
+
+# 2. score + render the side-by-side animated comparison
+python scripts/compare_clips.py --before before.mp4 --after after.mp4 \
+    --out compare.gif --label-before "A · before skill" --label-after "B · after skill" \
+    --width 240 --fps 8 --colors 64 --dither-scale 3
+```
+
+`compare_clips.py` prints the motion-metric table for both clips, so the numbers on this page are reproducible rather than asserted.
 
 ## Install
 
@@ -130,22 +161,26 @@ python scripts/measure_motion.py --dir ./outputs --symmetry   # flags "static sy
 | [`references/impact-design.md`](references/impact-design.md) | Beat detail, power tiers, material reactions, timing budgets |
 | [`references/move-library.md`](references/move-library.md) | 16 named moves, 4 three-move chains, EN/ZH translation rules |
 | [`references/continuous-brawl.md`](references/continuous-brawl.md) | Non-stop four-beat mode |
+| [`references/blade-light-cinema.md`](references/blade-light-cinema.md) | 21:9 high-speed blade cinematography: 1.57 cuts/s, manga impact panels, single-hue night |
 | [`references/force-field.md`](references/force-field.md) | Four channels, three field types, phrase bank |
 | [`references/impact-frame-and-shake.md`](references/impact-frame-and-shake.md) | Impact-frame forms and frame counts, shake decay, hit-stop numbers |
-| [`references/camera-grammar.md`](references/camera-grammar.md) | Official camera vocabulary, fight camera patterns |
-| [`references/vfx-vocabulary.md`](references/vfx-vocabulary.md) | Bilingual VFX word bank, colour scripts |
+| [`references/camera-grammar.md`](references/camera-grammar.md) | Official camera vocabulary, fight camera patterns, frame-rate traps |
+| [`references/vfx-vocabulary.md`](references/vfx-vocabulary.md) | Bilingual VFX word bank, colour scripts, night-scene colour logic |
 | [`references/prompt-templates.md`](references/prompt-templates.md) | Fill-in T2VA / FL2VA / Ref2VA templates |
 | [`references/qa-checklist.md`](references/qa-checklist.md) | Pre- and post-generation checks, failure → fix |
+| [`references/guided-mode.md`](references/guided-mode.md) | Guided mode: three entry paths, six scenario options |
 | [`references/case-wuxia-duel.md`](references/case-wuxia-duel.md) | A 27.5 s duel broken down and rebuilt in four segments |
 | [`scripts/validate_prompt.py`](scripts/validate_prompt.py) | Format validator |
 | [`scripts/measure_motion.py`](scripts/measure_motion.py) | Motion-curve scorer |
+| [`scripts/compare_clips.py`](scripts/compare_clips.py) | Side-by-side animated comparison + metric table |
 
 ## Honest limits
 
-- Numbers come from seven of my own runs on one rig. They are evidence, not a benchmark.
+- Numbers come from my own runs on one rig. They are evidence, not a benchmark.
 - The motion score measures picture change, not subject motion.
 - The case study analyses a third-party reference clip; the clip itself is not included.
 - H3 has no negative-prompt field; every "don't" is rewritten as a positive constraint.
+- Reference-clip frame rates are not always what the container claims. Verify before converting.
 
 ## License
 

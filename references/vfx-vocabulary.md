@@ -111,6 +111,61 @@ H3 沒有 speed ramp 參數，只能用自然語言描述：
 
 **用法**：主色給主角的能量，對比色給環境光源（燈籠、火、城市）。兩色面積比約 3:7，讓主色成為視覺焦點。
 
+### 7.1 夜戲的相反邏輯：把環境調成單一色相（實測蒸餾）
+
+上面的色彩腳本是「主色給主角」。**但夜戰有另一套更有效的邏輯，而且與上面是反的。**
+
+42.6 秒的雪原夜戰參考片量測結果：
+
+| 項目 | 值 |
+|---|---|
+| 環境中間調 RGB | **(0, 74, 123)** —— 近乎單一的藍綠 |
+| 冰藍能量佔高飽和像素 | **97.6%**（hue 210–230°） |
+| 紫羅蘭能量佔高飽和像素 | **1.4%**（hue 250–260°） |
+| 琥珀色作為能量 | **0 幀**（琥珀只出現在眼睛） |
+
+**冰藍色佔了 97.6%——它其實是「環境色」。紫羅蘭只有 1.4%——它才是「異物色」。**
+
+| 角色 | 作用 | 寫法 |
+|---|---|---|
+| **大量、低對比** | 環境色（幾乎等於背景） | `a single saturated teal-blue night` |
+| **少量、高對比** | 異物色（觀眾的視線焦點） | `violet is the only chromatic intruder in the teal frame` |
+
+**這種配色比互補色更適合夜戰**，因為觀眾的眼睛會自動找「唯一的異物」，不需要靠面積堆焦點。
+
+### 7.2 能量色要用「眼瞳／寶石」當錨點
+
+AI 生成時能量顏色會飄移。解法是把顏色綁到角色身上**看得見的固定特徵**：
+
+```text
+❌ one fighter has blue magic and the other has purple magic
+✅ The cold fighter's irises glow ice-blue; the warm fighter's irises are amber,
+   with a violet diamond set in her forehead.
+```
+
+量測佐證：片中的色彩歸屬**跟著角色走，不跟著畫面位置走**（左右互換時顏色不換邊）。眼睛與寶石是不會互換的錨點。
+
+### 7.3 刃形光的四種形態
+
+| 形態 | 描述 | 寫法 |
+|---|---|---|
+| **貼刃光邊** | 光沿刃口流動，不包住整把劍 | `a thin, sharp ice-blue glow clings to the blade's edge and flows along the cutting line` |
+| **揮砍弧** | 軌跡凝成月牙，弧長＝揮砍半徑 | `the swing leaves a crescent of blade-light whose arc length equals the radius of her swing` |
+| **離手光線** | 揮完不散，橫貫整幅、兩端出框 | `the light does not disperse; it stays as a hair-thin white thread crossing the entire frame and running off both edges` |
+| **地面餘光帶** | 斬擊餘光沿地面拖出狹長光帶 | `the afterglow of the cut drags a long way along the snow, lighting the ground into a narrow luminous band` |
+
+**第三種「離手光線」是 21:9 限定的構圖效應**——長度超過畫幅寬度，16:9 做不出來。
+
+### 7.4 爆發的主軸：X 形十字，不是放射球
+
+```text
+❌ a spherical burst radiating outward in every direction
+✅ the burst is not spherical; it is a cross of one horizontal and one vertical axis,
+   an X-shaped flare
+```
+
+X 形在 21:9 裡能同時佔滿寬度與高度；放射球只會變成一團。
+
 ---
 
 ## 8. 特效的三個禁用寫法

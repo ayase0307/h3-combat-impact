@@ -387,6 +387,36 @@ python scripts/measure_motion.py --dir ./outputs --symmetry   # 額外偵測「�
 
 **限制**：這是「畫面變化」不是「主體運動」，特效大幅運動會拉高分數。分數達標仍要目視確認主體有動。
 
+### 量測參考片之前的兩個必查（會讓你得出錯的結論）
+
+**① 封裝宣告的幀率可能是假的。**
+
+一支標示 `r_frame_rate=60` 的參考片，實測只有 723 幀 / 30.14s = **24.06fps**——幀間隔嚴格在 0.050s 與 0.0333s 之間交替，是 **24fps 母版的 2:3 pulldown**。
+
+**H3 是 24fps，所以這類素材「幀數 1:1 對應」，不需要任何 60→24 換算。**
+
+```bash
+ffprobe -v error -select_streams v:0 -show_entries "packet=pts_time" -of csv=p=0 clip.mp4
+```
+
+看相鄰時間差有幾種值：只有一種 → 固定幀率；兩種且交錯 → pulldown。
+
+> 逐幀分析時**必須加 `-fps_mode passthrough`**，否則 ffmpeg 會重抽成 CFR60，差異中位數歸零、自適應門檻失效——實測炸出 618 個假切點。
+
+**② 跨片比運動量必須先統一幀率。**
+
+`measure_motion.py` 取的是「每幀平均差異」，同樣的實際運動：24fps = 1.00、30fps = **0.80**、60fps = **0.50**。**30fps 素材的運動分數系統性偏低約 20%。**
+
+真實案例：兩支參考片原生分數 16.51 vs 14.06 看似前者活躍 17%；**正規化到 24fps 後是 15.94 vs 16.06，幾乎相同**。
+
+| 指標 | 幀率敏感度 |
+|---|---|
+| `overall` / `opening` / `mid` / `ending` | 偏低（30fps −20%、60fps −50%） |
+| `peaks`（峰值格） | 偏高（30fps +25%，幀數多） |
+| 靜止對稱 | 相對判定，仍有效 |
+
+**引用絕對值時乘 1.25 折回 24fps；跨片比較前先統一幀率。**
+
 ### 跨版本比較的禁忌
 
 **運動分數不能跨比例、跨景別比較。**
@@ -402,6 +432,40 @@ python scripts/measure_motion.py --dir ./outputs --symmetry   # 額外偵測「�
 | 末2s÷中段 | ⚠️ 僅同比例可比 |
 | 全程運動 | ❌ 不可比 |
 
+## 產出前後對照圖（每次改版都要做）
+
+**技能改版之後，必須實跑「技能使用前」與「技能使用後」兩版提示詞，把結果做成並排動態圖放回 repo。**
+
+這是這個 skill 唯一的「成果證明」。沒有對照圖的規則更新，只是主張。
+
+```bash
+# 1. 兩版提示詞各存成一份 .txt（同一個場景、同一顆 seed，只有寫法不同）
+# 2. 送本機 H3 實跑
+python analysis/submit_ab.py --before before.txt --after after.txt \
+    --label-before "A · 技能使用前" --label-after "B · 套用技能後" \
+    --width 960 --height 544 --seconds 8 --quality light --seed 20261019
+
+# 3. 量測 + 做成並排動態圖
+python scripts/compare_clips.py --before before.mp4 --after after.mp4 \
+    --out compare.gif --label-before "A · 技能使用前" --label-after "B · 套用技能後" \
+    --width 240 --fps 8 --colors 64 --dither-scale 3
+```
+
+`compare_clips.py` 會同時輸出兩片的運動量對照表（全程／開場／末÷中／低潮／峰值），把數字寫進 README 就是證據。
+
+**設計要點：**
+
+| 項目 | 要求 |
+|---|---|
+| 變因 | **只有提示詞不同**——同 seed、同解析度、同時長、同首幀（`--seed` 必須固定） |
+| 「前」版 | 用**沒有 skill 時的直覺寫法**，不是故意寫壞 |
+| 「後」版 | 套用全部規則的版本 |
+| 尺寸 | 單片寬 240、8fps、64 色 → 4–5 MB，適合放 repo |
+| 標籤 | 一定要有，否則看圖的人不知道哪邊是哪邊 |
+
+> **種子沒固定就會得到假對照。** repo 裡現有的 `assets/demo-ab-skill.gif` 用的是兩支隨機種子不同的實跑，
+> 它是「構圖對齊的比較」而不是嚴格單變因實驗——新的流程用 `--seed` 固定種子才是嚴格受控的。
+
 ## 參考檔案
 
 | 檔案 | 內容 |
@@ -409,10 +473,11 @@ python scripts/measure_motion.py --dir ./outputs --symmetry   # 額外偵測「�
 | `references/impact-design.md` | 六拍細節、力度分級（輕/中/重/必殺）、材質反應對照表、節奏時間預算、優雅角色的姿勢先驗 |
 | `references/move-library.md` | 16 招具名動作（突進/下盤/拳掌/兵器/落地/防守）、四層結構、4 組三招串接配方、中英翻譯規則 |
 | `references/continuous-brawl.md` | 連續對轟模式：衝擊四拍、動作鏈句型、深度錯位、鏡頭參與、細節插切、實驗設計 |
+| `references/blade-light-cinema.md` | 21:9 高速斬擊電影語言：1.57 刀/秒、漫畫衝擊格、單色環境+異物色、剪影構圖、尺度手法 |
 | `references/force-field.md` | 力場四通道模型、三種場型、中英句庫、診斷表 |
-| `references/impact-frame-and-shake.md` | 衝擊幀三形態與幀數、震屏 trauma 數學、hitstop 參數、三段式爆炸時序 |
-| `references/camera-grammar.md` | H3 官方運鏡詞彙表、打鬥運鏡套路、主體/鏡頭分離寫法 |
-| `references/vfx-vocabulary.md` | 中英特效詞彙庫（能量、粒子、破碎、光、大氣）、色彩腳本 |
+| `references/impact-frame-and-shake.md` | 衝擊幀四形態與幀數、漫畫格三段式、震屏 trauma 數學、hitstop 參數、三段式爆炸時序 |
+| `references/camera-grammar.md` | H3 官方運鏡詞彙表、打鬥運鏡套路、主體/鏡頭分離寫法、最大衝擊可鎖死相機、幀率陷阱 |
+| `references/vfx-vocabulary.md` | 中英特效詞彙庫（能量、粒子、破碎、光、大氣）、色彩腳本、夜戲單色環境邏輯、刃光四形態 |
 | `references/prompt-templates.md` | 可直接填空的 T2VA / FL2VA / Ref2VA 模板 + 完整範例 |
 | `references/qa-checklist.md` | 生成前自檢、生成後驗收、常見失敗與對應修法 |
 | `references/case-wuxia-duel.md` | 完整實例：27.5 秒仙俠對決的拆解與四段式重現 |
@@ -420,9 +485,16 @@ python scripts/measure_motion.py --dir ./outputs --symmetry   # 額外偵測「�
 | `references/guided-mode.md` | 引導模式：三種進入路徑、六個情境選項、素材對應、話術模板、無圖時的 T2VA 寫法 |
 | `scripts/validate_prompt.py` | 檢查提示詞是否符合官方格式、能否直接貼進模型 |
 | `scripts/measure_motion.py` | 量測生成影片的運動曲線，自動標記開場過靜／尾端停滯／低潮過長 |
+| `scripts/compare_clips.py` | 把兩支影片做成並排動態圖 + 運動量對照表（改版後的成果證明） |
 
 ## 最常被寫錯的三件事
 
 1. **寫「一瞬間閃白」而不寫幀數。** 模型會給 0.3–0.5 秒的長閃，看起來像燈光故障。永遠寫 `for two frames`。
 2. **震屏沒有衰減。** 恆定震動 = 相機壞了。必須寫 `decays rapidly and settles back to steady within a third of a second`。
 3. **只用術語不用描述。** `Field 力場擾動模擬`、`沖擊幀`、`震屏` 這類術語在中文模型上有效，但 H3 要的是結構化物理描述。術語留給自己記索引，送進模型的必須是具體句子。
+
+## 新增的三個最容易漏掉的點
+
+4. **最大的衝擊那一鏡，相機應該是鎖死的。** 43% 的 3D CG 參考片鏡頭相機不動，而且鎖死的正是關鍵時刻——衝擊感來自「特效把背景推開」，不是相機在抖。前面的鏡頭要動，這一鏡要靜。
+5. **衝擊幀不只有爆白。** 「漫畫放射線格」（整幀去飽和成黑白 + 全 360° 放射線，2 幀 + 1 幀黑）是另一種裝置，而且更適合高速斬擊。
+6. **參考片標示的幀率可能是假的。** 標 60fps 可能是 24fps 的 pulldown；而且 30fps 素材的運動分數系統性偏低 20%。**先驗證再換算。**
