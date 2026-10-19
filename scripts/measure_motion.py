@@ -154,6 +154,8 @@ def analyse(path):
         flags.append(f"低潮{low:.2f}s")
     if peaks < 4:
         flags.append("節拍過少")
+    if overall < 14:
+        flags.append("整體過靜(比例可能失真)")
 
     return dict(name=os.path.basename(path), dur=dur, overall=overall,
                 opening=opening, mid=mid, ending=ending, ratio=ratio,

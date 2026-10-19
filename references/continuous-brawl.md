@@ -108,9 +108,7 @@ keeping one body nearer the lens and the other clearly behind it with air betwee
 
 ---
 
-## 7. 提示詞骨架（7.5 秒單鏡）
-
-```text
+## 7. 提示詞骨架（7.5 秒單鏡）```text
 integrated_multimodal_description: [Shot 1] <風格錨定>. <場景 + 錨點>. <兩人的位置與外觀>. <鏡頭第一個動作：從哪裡開始、往哪去>. <交換 1：命中 → 2 幀衝擊幀 → 拖影 → 回彈>. <交換 2：動作鏈接續>. <交換 3：動作鏈接續>. Every motion flows directly into the next strike, and both fighters stay sharp and anatomically correct throughout.
 
 overall_soundscape: <環境底噪>. <三種物理音：拳套、鞋底、飾品>. <撞擊音>.
@@ -122,16 +120,125 @@ non_diegetic_music: <高速節拍>. <撞擊瞬間抽空>. <回來>.
 
 ---
 
-## 8. 實驗建議（未驗證，需實測）
+## 8. 快切模式（實測結論）
 
-| 實驗 | 對照 | 想驗證什麼 |
-|---|---|---|
-| E1 | 單鏡到底 vs 加 0.3 秒細節插切 | 插切是加分還是破壞連續感 |
-| E2 | 四拍 vs 六拍 | 7.5 秒內能放幾次可辨識命中 |
-| E3 | 深度錯位 vs 並排 | 空間感 vs 兩人可辨性 |
-| E4 | 鏡頭參與 vs 固定側拍 | 運動量 vs 可看性 |
+如果參考片是**剪接驅動**（不是長鏡頭），改用快切而不是連續長鏡。判斷方法：數原片的剪點。
 
-**驗收門檻（比一般動作更嚴）**：最長低潮 ≤0.5 秒、末 2s÷中段 ≥70%、無「靜止對稱」、7.5 秒內 ≥3 次可辨識命中。
+實測案例：30 秒動畫 40 個剪點（平均 0.75 秒一刀），前 7.5 秒 14 刀。
+
+### 六條硬規則
+
+| 規則 | 數據依據 |
+|---|---|
+| **7.5 秒最多 6 刀** | 寫 7 刀落地 5 刀；寫 8 刀反而落地 10 刀（模型自己在鏡頭內亂切） |
+| **時間碼往前寫 0.2 秒** | 設 1.7s，實際剪在 1.875s（系統性延遲 0.15–0.3s） |
+| **最後一鏡不要寫寬景 reset** | `wide shot ... both fighters reset and lunge` → 生成靜止對峙，尾端掉到 57% |
+| **兩角色同框要防複製** | 動漫風寬景出現 3–4 個人影（應為 2 個）；寫 `exactly two figures` 有效 |
+| **主語永遠是主角** | 寫「粉髮選手出拳」→ 2.5–5.5 秒全是對手的特寫，主角消失 |
+| **但兩個角色都要有穩定標籤** | 只把對手改成「她／the other」→ 兩人融合、同臉、甚至打自己 |
+| **特寫必須有內部運動** | 極特寫本身可動元素少，模型會讓它靜止 2 秒 |
+
+### 標籤規則（雙人場景最容易犯的錯）
+
+**鏡頭焦點是主角，但每個角色都必須有穩定、可視、互斥的標籤。標籤靠髮色／服裝，不靠代名詞。**
+
+實測對照（同一個 7.5 秒打鬥）：
+
+| 版本 | 對手標籤數 | `she/her` 數 | 結果 |
+|---|---:|---:|---|
+| A | 3 | 7 | 兩人清楚可辨 |
+| A3 | **0** | **26** | 兩人融合、同臉、打自己 |
+
+**兩個女性角色都叫「she／her」，模型只能猜。猜不出來時，最省事的解法就是把兩人畫成同一個人。**
+
+| ❌ 錯（代名詞 / 懸空所有格） | ✅ 對（標籤 + 明確歸屬） |
+|---|---|
+| `She catches her uppercut on her forearm.` | `The black-haired fighter catches the pink-haired fighter's uppercut on a raised forearm.` |
+| `the other guard` | `the pink-haired fighter's guard` |
+| `letting the forearm drive into her own chin` | `the block jolts the black-haired fighter's head back` |
+
+**`her own chin` 這種寫法會被字面執行成「她打自己」。** 身體部位一定要有明確歸屬。
+
+標籤優先序（越好認越前面）：
+1. **髮色**：`the black-haired fighter` / `the pink-haired fighter`（最強）
+2. **手部**：`the black-gloved fighter` / `the bare-knuckled fighter`
+3. **下身**：`the orange-pants fighter` / `the black-shorts fighter`
+
+**主角的鏡頭份額靠景別與剪輯**（主角特寫 3 刀、對手最多 1 刀），不是靠刪掉對手的名字。
+
+### 特寫的內部運動
+
+```text
+❌ an extreme close-up of her glove against the fence
+✅ an extreme close-up of her glove as the fingers flex and the strap pulls tight against the fence
+```
+
+特寫不給內部運動，就會變成兩秒的靜止畫面（實測：6.0–7.5 秒完全不動）。
+
+### 角色元素混搭
+
+兩個角色的服裝都寫得很詳細時，模型會把特徵交叉組合（實測：粉髮對手穿上了主角的綠條紋上衣）。
+
+**解法：每一刀都點名主角的識別特徵**——`her black gloves`, `her green striped top`, `her orange graffiti pants`。讓它無法混淆。
+
+### 剪點與動作的關係（最重要的一條）
+
+**加剪點不會增加動作。**
+
+實測：10 刀的版本（A5）全程運動 12.75，是三版裡最低的。因為每一刀都很短，刀內幾乎沒有動作——模型把「0.5 秒」理解成「一張圖停 0.5 秒」。
+
+**動作必須寫在每一刀裡面。** 剪點只決定「什麼時候換畫面」，不決定「畫面裡有沒有事發生」。
+
+### 細節插切 = 身份錨定（不只是節奏）
+
+| | 角色一致性 |
+|---|---|
+| 有插切（每 2–3 刀插角色特寫） | 拳套、髮色、褲子紋樣全部保持 |
+| 無插切 | 黑拳套變白、粉髮變紫 |
+
+**每次特寫都在重新宣告角色設計。** 插切不只看起來有節奏，它同時是防止身份漂移的手段。
+
+### 快切骨架
+
+```text
+[Shot 1] <風格錨定>. <首幀延續的動作>. for two frames <衝擊幀>. <拖影>.
+[Shot 2] At 00:00.700, the camera cuts to an extreme close-up: <角色特徵物件>.
+[Shot 3] At 00:01.500, the camera cuts to <景別>. <下一個交換>.
+[Shot 4] At 00:02.300, the camera cuts to a half-second insert: <眼睛／飾品／鞋底>.
+[Shot 5] At 00:03.100, ...
+[Shot 6] At 00:03.900, ...
+[Shot 7] At 00:05.000, the camera cuts to a tight close shot as she <動作中段>. The frame holds on the impact through the final frame.
+```
+
+**收尾用特寫或動作中段，不要用寬景。** 寬景在 H3 等於「停下來對看」。
+
+---
+
+## 9. 實驗紀錄（已驗證）
+
+| 實驗 | 結果 |
+|---|---|
+| 快切 vs 單鏡（同角色、同首幀） | 快切版前 5 秒最接近原片；但尾端崩（57%）。單鏡版尾端穩（90%）但角色漂移 |
+| 細節插切 | 有效。A 版插切後角色一致；B 版無插切，拳套變白、髮色變紫 |
+| 8 刀 vs 實際 | 7 刀只落地 5 刀，且全部延遲 0.15–0.3s |
+| 寬景兩人 | 出現 3–4 個人影 |
+
+**結論：快切負責「風格」，特寫負責「收尾與身份」。兩者都要，但不能用寬景收尾。**
+
+### 收尾定格（實測五版）
+
+H3 在最後 1–2 秒會自動減速，五種寫法全部收斂到定格：
+
+| 收尾寫法 | 末段絕對運動 |
+|---|---:|
+| 中景 + 全身往前走 | **15.45** |
+| 寬景 + reset 再衝 | 11.49 |
+| 貼身特寫 + 兩具身體鎖住 | 11.00 |
+| 極特寫 + 手指收緊 | **8.70** |
+
+**解法：生成時多要 1.5 秒，剪輯時切掉尾段。** 想留 6 秒就生成 7.5 秒。
+
+**收尾用中景**，不要寬景（會變對峙）、不要極特寫（會變靜止）。
 
 ---
 
