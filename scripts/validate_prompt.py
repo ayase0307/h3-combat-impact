@@ -150,7 +150,7 @@ def check(path, duration):
 
     # 字數預算
     words = len(body.split())
-    limit = 520
+    limit = 820 if is_ref else 520
     if words > limit:
         out.append(("WARN", f"字數 {words} 超過預算 {limit}，末段約束易失效")); warn += 1
 

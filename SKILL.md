@@ -29,6 +29,20 @@ agent_created: true
 - 需要把參考影片（真人或 AI）拆解後用 H3 重現。
 - 需要統一的打鬥分鏡節奏表、特效詞彙或驗收標準。
 
+## 模式選擇：角色圖是「參考」還是「首幀」
+
+| 你想要 | 模式 | 角色圖的角色 |
+|---|---|---|
+| 只要「長這個樣子」，人在畫面哪裡都行 | **Ref2VA** | `<Subject N>` 參考，**比例自由** |
+| 從那張圖的構圖展開 | I2VA | `<Picture N>` 首幀，**比例被綁死** |
+
+**只有當畫面比例必須與圖一致時才用 I2VA。** 想拍 16:9 就用 Ref2VA——用 I2VA 會把 9:16 的圖裁掉手腳或拉寬，改用 T2VA 則直接失去角色。
+
+Ref2VA 的三個前提：
+1. 提醒詞用六欄位（`subject_definitions` / `summary` / `retention_analysis` / `detailed_description` / `overall_soundscape` / `non_diegetic_music`）
+2. 每個角色在 `subject_definitions` 裡定義成 `<Subject N>`，全篇沿用同一編號
+3. `retention_analysis` 標 `fully_preserved`，並列出必須保留的特徵
+
 ## 硬約束：H3 提示詞規格（先記住，違反會直接掉品質）
 
 | 項目 | 規格 |
