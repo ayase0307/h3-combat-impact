@@ -132,10 +132,68 @@ def static_symmetric(path):
     return hits
 
 
+def detect_fps(path):
+    """偵測實際帧率（含 2:3 pulldown 的偽 60fps）。
+
+    回傳 (fps, is_pulldown, frame_count)。
+    容器宣告的 r_frame_rate 可能是假的：一支標 60fps 的片實測只有 24fps
+    （幀間隔在 0.050s 與 0.0333s 之間交替 = 24fps 母版的 2:3 pulldown）。
+    """
+    out = subprocess.run(
+        ["ffprobe", "-v", "error", "-select_streams", "v:0",
+         "-show_entries", "packet=pts_time", "-of", "csv=p=0", path],
+        capture_output=True, text=True, errors="ignore").stdout
+    ts = []
+    for line in out.splitlines():
+        line = line.strip().rstrip(",")
+        if not line:
+            continue
+        try:
+            ts.append(float(line))
+        except ValueError:
+            pass
+    if len(ts) < 8:
+        return 0.0, False, len(ts)
+    ts.sort()
+    span = ts[-1] - ts[0]
+    if span <= 0:
+        return 0.0, False, len(ts)
+    fps = len(ts) / span
+    # 檢查是否有兩種交替的間隔（pulldown 的特徵）
+    deltas = [round(ts[i] - ts[i - 1], 4) for i in range(1, len(ts))]
+    common = {}
+    for d in deltas:
+        common[d] = common.get(d, 0) + 1
+    # 把相近的間隔合併（浮點誤差）
+    merged = {}
+    for d, c in common.items():
+        key = min((k for k in merged if abs(k - d) < 0.002), default=d)
+        merged[key] = merged.get(key, 0) + c
+    top2 = sorted(merged.values(), reverse=True)[:2]
+    pulldown = len(top2) == 2 and top2[1] > len(ts) * 0.15
+    return fps, pulldown, len(ts)
+
+
+def normalise_to_24(value, fps):
+    """把「每幀平均差異」換算回 24fps 等效值。
+
+    30fps 素材的每幀差異只有 24fps 的 0.8 倍，60fps 只有 0.5 倍。
+    不換算就不能跟以 24fps 校準的門檻比較。
+
+    換算係數是 fps/24（不是 24/fps）：幀率越高 → 每幀位移越小 → 分數越低，
+    所以要「乘回來」而不是「乘下去」。
+    實測：30fps 的 24.52 → 24fps 等效 30.67；30fps 的 14.06 → 17.59。
+    """
+    if fps <= 0 or abs(fps - 24.0) < 0.5:
+        return value
+    return value * (fps / 24.0)
+
+
 def analyse(path):
     ts, ys = measure(path)
     if len(ys) < 8:
         return None
+    fps, pulldown, nframes = detect_fps(path)
     dur = ts[-1] + 1 / 24
     overall = st.mean(ys)
     opening = seg(ts, ys, 0.0, 0.8)
@@ -145,6 +203,14 @@ def analyse(path):
     low, low_at = longest_low(ts, ys, overall * 0.35)
     peaks = sum(1 for y in ys if y > overall * 1.8)
 
+    # 折回 24fps 等效值，讓不同幀率的素材可以比較
+    overall24 = normalise_to_24(overall, fps)
+    opening24 = normalise_to_24(opening, fps)
+    mid24 = normalise_to_24(mid, fps)
+    ending24 = normalise_to_24(ending, fps)
+    # 峰值格是「幀數」，幀率越高格數越多 → 折回 24fps
+    peaks24 = int(round(peaks * (24.0 / fps))) if fps > 0 else peaks
+
     flags = []
     if mid and opening < 0.5 * mid:
         flags.append("開場過靜")
@@ -152,14 +218,19 @@ def analyse(path):
         flags.append("尾端停滯")
     if low > 0.8:
         flags.append(f"低潮{low:.2f}s")
-    if peaks < 4:
+    if peaks24 < 4:
         flags.append("節拍過少")
-    if overall < 14:
+    if overall24 < 14:
         flags.append("整體過靜(比例可能失真)")
+    if pulldown:
+        flags.append(f"pulldown(實{nframes}幀/{fps:.0f}fps,幀間隔交替)")
 
     return dict(name=os.path.basename(path), dur=dur, overall=overall,
                 opening=opening, mid=mid, ending=ending, ratio=ratio,
-                low=low, low_at=low_at, peaks=peaks, flags=flags)
+                low=low, low_at=low_at, peaks=peaks,
+                overall24=overall24, opening24=opening24, mid24=mid24,
+                ending24=ending24, peaks24=peaks24,
+                fps=fps, pulldown=pulldown, nframes=nframes, flags=flags)
 
 
 def main():
@@ -168,6 +239,8 @@ def main():
     ap.add_argument("--dir", help="掃描目錄下所有 mp4")
     ap.add_argument("--symmetry", action="store_true",
                     help="額外檢查「靜止對稱段」（遊戲技能展示式的姿勢）")
+    ap.add_argument("--fps24", action="store_true",
+                    help="顯示折回 24fps 等效值（跨幀率比較用）")
     a = ap.parse_args()
 
     files = list(a.files)
@@ -178,6 +251,23 @@ def main():
         return 1
 
     rows = [r for r in (analyse(f) for f in files) if r]
+    if a.fps24:
+        hdr = (f"{'檔案':<26}{'時長':>6}{'實際fps':>8}{'幀數':>6}{'全程24':>8}"
+               f"{'開場24':>8}{'末2s24':>8}{'末/中':>7}{'峰值24':>7}  旗標")
+        print(hdr)
+        print("-" * 122)
+        for r, f in zip(rows, files):
+            flags = list(r["flags"])
+            if a.symmetry:
+                hits = static_symmetric(f)
+                if hits:
+                    flags.append("靜止對稱 " + ",".join(f"{s}-{s+1}s" for s in hits))
+            print(f"{r['name'][:24]:<26}{r['dur']:>6.2f}{r['fps']:>8.2f}{r['nframes']:>6}"
+                  f"{r['overall24']:>8.2f}{r['opening24']:>8.2f}{r['ending24']:>8.2f}"
+                  f"{r['ratio'] * 100:>6.0f}%{r['peaks24']:>7}  "
+                  f"{'、'.join(flags) or '—'}")
+        return 0
+
     hdr = (f"{'檔案':<26}{'時長':>6}{'全程':>7}{'開場':>7}{'中段':>7}"
            f"{'末2s':>7}{'末/中':>7}{'最長低潮':>9}{'峰值':>5}  旗標")
     print(hdr)

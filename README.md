@@ -143,6 +143,7 @@ python scripts/validate_prompt.py prompt.txt --duration 8
 # motion curve of generated clips (needs ffmpeg on PATH)
 python scripts/measure_motion.py --dir ./outputs
 python scripts/measure_motion.py --dir ./outputs --symmetry   # flags "static symmetric" hero poses
+python scripts/measure_motion.py ref.mp4 --fps24              # normalise to 24 fps before comparing
 ```
 
 | Metric | Pass |
@@ -151,6 +152,8 @@ python scripts/measure_motion.py --dir ./outputs --symmetry   # flags "static sy
 | End 2 s ÷ middle | ≥ 60% |
 | Longest lull | ≤ 0.8 s |
 | Peaks | ≥ 4 |
+
+> The thresholds are calibrated on 24 fps footage. A clip that *claims* 60 fps may actually be 24 fps with 2:3 pulldown, and 30 fps footage scores ~20% low. Use `--fps24` before comparing clips of different frame rates.
 
 ## What's inside
 

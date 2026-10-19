@@ -146,6 +146,7 @@ python scripts/validate_prompt.py prompt.txt --duration 8
 # 量測生成影片的運動曲線（需要 ffmpeg 在 PATH）
 python scripts/measure_motion.py --dir ./outputs
 python scripts/measure_motion.py --dir ./outputs --symmetry   # 標記「靜止對稱」的技能展示構圖
+python scripts/measure_motion.py ref.mp4 --fps24              # 折回 24fps 等效值，跨幀率比較用
 ```
 
 | 指標 | 合格 |
@@ -154,6 +155,9 @@ python scripts/measure_motion.py --dir ./outputs --symmetry   # 標記「靜止�
 | 末 2s ÷ 中段 | ≥ 60% |
 | 最長低潮 | ≤ 0.8s |
 | 峰值格 | ≥ 4 |
+
+> 這些門檻是以 24fps 素材校準的。標示 60fps 的片可能其實是 24fps 的 2:3 pulldown，
+> 而 30fps 素材的分數會系統性偏低約 20%。**跨幀率比較前先跑 `--fps24`。**
 
 ## 檔案一覽
 

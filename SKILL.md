@@ -371,9 +371,12 @@ She remains the dominant subject, occupying approximately 65–80% of the frame 
 ```bash
 python scripts/measure_motion.py --dir ./outputs
 python scripts/measure_motion.py --dir ./outputs --symmetry   # 額外偵測「靜止對稱」
+python scripts/measure_motion.py ref.mp4 --fps24              # 折回 24fps 等效值（跨幀率比較）
 ```
 
 輸出欄位：全程／開場 0.8s／中段／末 2s／末÷中／最長低潮／峰值格，並自動標記 `開場過靜`、`尾端停滯`、`低潮 Xs`、`節拍過少`。
+
+**`--fps24` 會先偵測實際幀率再折回 24fps 等效值**，並標記 `pulldown(...)`（幀間隔交替的偽幀率素材）。跨幀率比較時一定要用這個模式。
 
 **判讀門檻：**
 
@@ -416,6 +419,9 @@ ffprobe -v error -select_streams v:0 -show_entries "packet=pts_time" -of csv=p=0
 | 靜止對稱 | 相對判定，仍有效 |
 
 **引用絕對值時乘 1.25 折回 24fps；跨片比較前先統一幀率。**
+
+> `measure_motion.py --fps24` 會自動完成這件事（先偵測實際幀率，再折回 24fps 等效值），
+> 並把 pulldown 素材標出來。**跨片比時直接用 `--fps24`，不要手動換算。**
 
 ### 跨版本比較的禁忌
 
