@@ -574,6 +574,10 @@ ffmpeg -v error -i clip.mp4 -vf "signalstats,metadata=print:key=lavfi.signalstat
 | `scripts/compare_clips.py` | 把兩支影片做成並排動態圖 + 運動量對照表（改版後的成果證明） |
 | `scripts/submit_ab.py` | 把技能前/後兩版提示詞以固定種子送出本機 H3 |
 | `scripts/poll_ab.py` | 等生成完成並下載（可續跑） |
+| `scripts/submit_ref2va.py` | 上傳多張參考圖並送出 Ref2VA 生成工作 |
+| `scripts/impact_frame.py` | 衝擊幀分開生成，再後製合成到主片 |
+| `scripts/measure_staging.py` | 量測取景變化與鏡長分布（運鏡感的客觀指標） |
+| `scripts/measure_light_event.py` | 量測每一鏡有沒有光影事件（光影華麗度的客觀指標） |
 
 ## 最常被寫錯的三件事
 

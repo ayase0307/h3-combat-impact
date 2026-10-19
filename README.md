@@ -223,6 +223,11 @@ python scripts/measure_motion.py ref.mp4 --fps24              # normalise to 24 
 | [`scripts/compare_clips.py`](scripts/compare_clips.py) | Side-by-side animated comparison + metric table |
 | [`scripts/submit_ab.py`](scripts/submit_ab.py) | Submit the before/after pair to the local H3 with a fixed seed |
 | [`scripts/poll_ab.py`](scripts/poll_ab.py) | Wait for and download the pair (resumable) |
+| [`scripts/poll_ab.py`](scripts/poll_ab.py) | Wait for and download the pair (resumable) |
+| [`scripts/submit_ref2va.py`](scripts/submit_ref2va.py) | Upload multiple reference images and submit a Ref2VA job |
+| [`scripts/impact_frame.py`](scripts/impact_frame.py) | Generate an impact frame separately, then composite it in post |
+| [`scripts/measure_staging.py`](scripts/measure_staging.py) | Measure staging variation and shot-length distribution |
+| [`scripts/measure_light_event.py`](scripts/measure_light_event.py) | Measure how many shots carry a light event |
 
 ## Honest limits
 
