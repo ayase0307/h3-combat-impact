@@ -111,13 +111,16 @@ AI 打鬥片常見的毛病都一樣：動作軟、特效像貼圖、兩個人�
 **每一條規則改版，都要附一組「使用前／使用後」的實跑對照。** 同角色、同 seed、同一切，只有提示詞不同，跑完再做成並排動態圖放回這個頁面。
 
 ```bash
-# 1. 兩版提示詞各跑一次本機 H3
-python analysis/submit_ab.py --before before.txt --after after.txt \
+# 1. 兩版提示詞各跑一次本機 H3（種子一定要固定）
+python scripts/submit_ab.py --before before.txt --after after.txt \
     --label-before "A · 技能使用前" --label-after "B · 套用技能後" \
     --width 960 --height 544 --seconds 8 --quality light --seed 20261019
 
-# 2. 量測並做成並排動態圖
-python scripts/compare_clips.py --before before.mp4 --after after.mp4 \
+# 2. 等生成完成並下載（可續跑，已下載的會跳過）
+python scripts/poll_ab.py --jobs analysis/ab/jobs.json
+
+# 3. 量測並做成並排動態圖
+python scripts/compare_clips.py --before analysis/ab/before.mp4 --after analysis/ab/after.mp4 \
     --out compare.gif --label-before "A · 技能使用前" --label-after "B · 套用技能後" \
     --width 240 --fps 8 --colors 64 --dither-scale 3
 ```
@@ -180,6 +183,8 @@ python scripts/measure_motion.py ref.mp4 --fps24              # 折回 24fps 等
 | [`scripts/validate_prompt.py`](scripts/validate_prompt.py) | 格式驗證 |
 | [`scripts/measure_motion.py`](scripts/measure_motion.py) | 運動曲線量測 |
 | [`scripts/compare_clips.py`](scripts/compare_clips.py) | 並排動態圖對照 ＋ 運動量對照表 |
+| [`scripts/submit_ab.py`](scripts/submit_ab.py) | 把技能前/後兩版以固定種子送本機 H3 |
+| [`scripts/poll_ab.py`](scripts/poll_ab.py) | 等生成完成並下載（可續跑） |
 
 ## 誠實的限制
 

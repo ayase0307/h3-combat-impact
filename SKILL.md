@@ -447,12 +447,15 @@ ffprobe -v error -select_streams v:0 -show_entries "packet=pts_time" -of csv=p=0
 ```bash
 # 1. 兩版提示詞各存成一份 .txt（同一個場景、同一顆 seed，只有寫法不同）
 # 2. 送本機 H3 實跑
-python analysis/submit_ab.py --before before.txt --after after.txt \
+python scripts/submit_ab.py --before before.txt --after after.txt \
     --label-before "A · 技能使用前" --label-after "B · 套用技能後" \
     --width 960 --height 544 --seconds 8 --quality light --seed 20261019
 
-# 3. 量測 + 做成並排動態圖
-python scripts/compare_clips.py --before before.mp4 --after after.mp4 \
+# 3. 等生成完成並下載（可續跑，已下載的會跳過）
+python scripts/poll_ab.py --jobs analysis/ab/jobs.json
+
+# 4. 量測 + 做成並排動態圖
+python scripts/compare_clips.py --before analysis/ab/before.mp4 --after analysis/ab/after.mp4 \
     --out compare.gif --label-before "A · 技能使用前" --label-after "B · 套用技能後" \
     --width 240 --fps 8 --colors 64 --dither-scale 3
 ```
@@ -492,6 +495,8 @@ python scripts/compare_clips.py --before before.mp4 --after after.mp4 \
 | `scripts/validate_prompt.py` | 檢查提示詞是否符合官方格式、能否直接貼進模型 |
 | `scripts/measure_motion.py` | 量測生成影片的運動曲線，自動標記開場過靜／尾端停滯／低潮過長 |
 | `scripts/compare_clips.py` | 把兩支影片做成並排動態圖 + 運動量對照表（改版後的成果證明） |
+| `scripts/submit_ab.py` | 把技能前/後兩版提示詞以固定種子送出本機 H3 |
+| `scripts/poll_ab.py` | 等生成完成並下載（可續跑） |
 
 ## 最常被寫錯的三件事
 

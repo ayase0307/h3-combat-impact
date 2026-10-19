@@ -108,13 +108,16 @@ What the data changed: a wrong duration setting causes stalled endings more than
 **Every rule change ships with a before/after pair.** Same subject, same seed, same everything — only the prompt differs — then the two clips are scored and rendered as one animated comparison on this page.
 
 ```bash
-# 1. run both prompt versions through the local H3
-python analysis/submit_ab.py --before before.txt --after after.txt \
+# 1. run both prompt versions through the local H3 (same seed!)
+python scripts/submit_ab.py --before before.txt --after after.txt \
     --label-before "A · before skill" --label-after "B · after skill" \
     --width 960 --height 544 --seconds 8 --quality light --seed 20261019
 
-# 2. score + render the side-by-side animated comparison
-python scripts/compare_clips.py --before before.mp4 --after after.mp4 \
+# 2. wait for both to finish and download them (resumable)
+python scripts/poll_ab.py --jobs analysis/ab/jobs.json
+
+# 3. score + render the side-by-side animated comparison
+python scripts/compare_clips.py --before analysis/ab/before.mp4 --after analysis/ab/after.mp4 \
     --out compare.gif --label-before "A · before skill" --label-after "B · after skill" \
     --width 240 --fps 8 --colors 64 --dither-scale 3
 ```
@@ -176,6 +179,8 @@ python scripts/measure_motion.py ref.mp4 --fps24              # normalise to 24 
 | [`scripts/validate_prompt.py`](scripts/validate_prompt.py) | Format validator |
 | [`scripts/measure_motion.py`](scripts/measure_motion.py) | Motion-curve scorer |
 | [`scripts/compare_clips.py`](scripts/compare_clips.py) | Side-by-side animated comparison + metric table |
+| [`scripts/submit_ab.py`](scripts/submit_ab.py) | Submit the before/after pair to the local H3 with a fixed seed |
+| [`scripts/poll_ab.py`](scripts/poll_ab.py) | Wait for and download the pair (resumable) |
 
 ## Honest limits
 
