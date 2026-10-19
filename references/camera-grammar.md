@@ -210,6 +210,96 @@ The camera drops to a POV as the fist fills the frame, then rolls counterclockwi
 
 ---
 
+## 3.4 ⛔ 禁止「繞著人物轉圈圈」
+
+**`arcs around` / `orbits` 全片最多 1 個，而且只能當「轉接鏡」**（用來從一個位置接到下一個位置）。
+
+早期這份 skill 唯一主推的套路就是 Arc Shot，結果每一鏡都在繞同一個人轉——
+觀眾感受到的是「攝影機繞著模特兒轉」，不是「無人機在拍一場戰鬥」。
+
+| | 繞圈圈（arc / orbit） | 無人機式 |
+|---|---|---|
+| 機位變化 | 繞同一個中心，距離不變 | 每鏡換一個**完全不同**的位置與高度 |
+| 焦段 | 主角一直同樣大小 | 主角時大時小，時而佔滿畫面、時而是小點 |
+| 觀感 | 展示角色 | **觀看一場戰鬥** |
+| 空間 | 平面，看不出深度 | 有高、有低、有遠、有近 |
+
+**要無人機式運鏡（8 個機位、五種尺度、穿前景、大遠景）→ 見 `references/drone-camera.md`。**
+
+---
+## 3.5 「運鏡感」的三個條件（2026-10-19 實測補完）
+
+**「每個鏡頭都要有運鏡」只說了必要條件，沒有說充分條件。**
+實跑三版之後量測，發現寫了運鏡 ≠ 有運鏡感。真正決定觀眾感覺「鏡頭在動」的是下面三件事。
+
+### 條件一｜每鏡的取景必須不一樣（不要主體在同一位置）
+
+只寫 `the camera trucks right` 不夠。**如果每一鏡的主體都在畫面同一個位置、同一個大小**，
+觀眾感受到的是「同一個鏡頭在微調」，不是「運鏡」。
+
+| 做法 | 效果 |
+|---|---|
+| 每鏡換一個機位（低角／俯角／極特寫／跟拍／越肩） | 有運鏡感 |
+| 每鏡只換運鏡方向，機位不變 | 像同一鏡頭在晃 |
+
+實測對照（同一顆種子、同一場景）：
+
+| 版本 | 寫法 | 中位鏡長 | 短鏡% | 觀感 |
+|---|---|---:|---:|---|
+| B | 每鏡一個運鏡，但全是廣角／中景 | 0.73s | 30% | **單調** |
+| C | 每鏡換景別＋運鏡 | 0.50s | 60% | 明顯改善 |
+| D | 再加每鏡一個光影事件 | 0.375s | 73% | 接近參考片 |
+
+**寫法要點：景別詞與運鏡詞一起改變。** 只寫運鏡不寫景別，模型會給你十個一樣的廣角。
+
+### 條件二｜鏡長要短，而且要「雙峰」
+
+參考片（42.6 秒 / 68 鏡）：**中位鏡長 0.20 秒**，68.8% 的鏡短於 0.5 秒，但仍有 18.8% 的鏡長於 1 秒。
+
+這是**雙峰分布**：幾個長鏡交代空間與動作，大量短鏡負責衝擊與特效插入。
+均勻的 0.7 秒一鏡 = 節奏單調。
+
+> **長鏡與短鏡的比例 ≈ 1:4。** 8 秒裡大約 2 個長鏡（1.5–2.5 秒）＋ 8–10 個短鏡。
+
+### 條件三｜每一鏡都要有光影事件，不只有「命中」那一鏡
+
+量測指標「鏡內是否有亮度急遽變化」：
+
+| 版本 | 有光事件的鏡% | 亮度擺幅中位 |
+|---|---:|---:|
+| 參考片 | **71.4%** | **85.7** |
+| 我的實跑版 | 40–50% | 17–32 |
+
+**參考片幾乎每一鏡都有一個光影事件**——能量浪、X 形爆、放射線漫畫格、光刃。
+只有「命中」才給光的版本，會有半片是暗的。
+
+> **規則：一個 8 秒片段裡，至少 7 成的鏡要有光影事件。**
+> 寫法：每一鏡都指定一個光源（核心爆點／放射線／能量浪／光刃／白熱節點），
+> 不要只寫在「命中」那一鏡。
+
+### 三個條件的寫法模板
+
+```text
+[Shot 1] ... chest to chest, filling the frame from the waist up ...
+          the instant they meet, a white-hot core bursts at the contact point
+          and ice-blue lightning branches outward from it ...
+          The camera arcs around the locked pair with large amplitude at fast speed.
+
+[Shot 2] At 00:01.900, the camera cuts to an extreme close-up of the two blades
+          crossed at the contact point, a white-hot core where they grind,
+          a violet halo closing around the crossing steel, and sparks tearing
+          off the impact in a narrow cone. The camera pushes in with large
+          amplitude at fast speed.
+
+[Shot 3] At 00:03.700, the frame cuts to a black-and-white manga panel:
+          a solid white core at the point of contact with clean radial speed
+          lines bursting in every direction ...
+```
+
+**三樣東西每一鏡都要有：新的景別、新的運鏡、新的光。**
+
+---
+
 ## 4. 打鬥分鏡的景別節奏
 
 一段 15 秒的打鬥，景別必須有呼吸：
