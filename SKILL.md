@@ -472,8 +472,34 @@ python scripts/compare_clips.py --before analysis/ab/before.mp4 --after analysis
 | 尺寸 | 單片寬 240、8fps、64 色 → 4–5 MB，適合放 repo |
 | 標籤 | 一定要有，否則看圖的人不知道哪邊是哪邊 |
 
-> **種子沒固定就會得到假對照。** repo 裡現有的 `assets/demo-ab-skill.gif` 用的是兩支隨機種子不同的實跑，
+> **種子沒固定就會得到假對照。** repo 裡的 `assets/demo-ab-skill.gif` 用的是兩支隨機種子不同的實跑，
 > 它是「構圖對齊的比較」而不是嚴格單變因實驗——新的流程用 `--seed` 固定種子才是嚴格受控的。
+
+### 受控對照的實測結果（2026-10-19）
+
+同種子（20261019）、同 960×544、同 8 秒、同 light 品質、同採樣步數，**唯一變因是提示詞**：
+
+| 指標 | 未套用 skill | 套用 skill |
+|---|---:|---:|
+| 字數 / 鏡數 | 122 / 1 | 631 / 10 |
+| 全程運動 | 13.79 | **20.46** |
+| 末 2s ÷ 中段 | 97% | **210%** |
+| 末 2s | 13.30 | **33.75** |
+| 峰值格 | 24 | **30** |
+| 完全去飽和幀數 | **0** | **44**（漫畫衝擊格） |
+| 亮度動態範圍 | 43 階 | **178 階** |
+
+**「套用規則」不只是分數變高，是換成另一種畫面語言**：快切、逆光剪影、
+黑白漫畫衝擊格、橫貫整幅的刀光、能量色錨在眼睛與寶石上。
+
+量測飽和度與亮度的指令（`signalstats`）：
+
+```bash
+ffmpeg -v error -i clip.mp4 -vf "signalstats,metadata=print:key=lavfi.signalstats.SATAVG:file=-" -f null -
+```
+
+> **漫畫格的幀數控不住**：寫 `for two frames`，實跑出 23 幀（958 ms）與 21 幀（875 ms）。
+> 詳見 `references/impact-frame-and-shake.md` §1.1.1。
 
 ## 參考檔案
 

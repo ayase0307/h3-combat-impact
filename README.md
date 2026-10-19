@@ -92,7 +92,26 @@ End-of-clip motion 57% → 93%; the tail-stall and static-symmetry flags are gon
 | Longest lull | 0.33 s | 0.29 s |
 | Flags | tail stall, static symmetry | **none** |
 
-> **Honest caveat:** the two runs use different random seeds, so this is a matched-composition comparison, not a single-variable controlled test. The new A/B workflow below fixes the seed, so future comparisons are strictly controlled.
+> **Honest caveat:** the two runs use different random seeds, so this is a matched-composition comparison, not a single-variable controlled test. The controlled pair below fixes the seed.
+
+### Controlled pair: one prompt variable, one seed
+
+<p align="center"><img src="assets/demo-ab-controlled.gif" alt="Controlled side-by-side comparison with identical seed" width="88%"><br>
+<sub><b>Identical seed, resolution, duration, quality and sampling steps — only the prompt differs.</b><br>
+Left: a generic one-paragraph description. Right: the same scene written with the skill's rules.</sub></p>
+
+| Metric | Before | After |
+|---|---:|---:|
+| Words / shots | 122 / 1 | 631 / 10 |
+| Whole-clip motion | 13.79 | **20.46** |
+| End 2 s ÷ middle | 97% | **210%** |
+| End 2 s | 13.30 | **33.75** |
+| Peaks | 24 | **30** |
+| Fully desaturated frames | **0** | **44** (manga impact panels) |
+| Luma dynamic range | 43 levels | **178 levels** |
+| Flags | overall too static | static symmetry 4–5 s (top-down wide — acceptable) |
+
+The right-hand clip is the same fight, but the skill's rules turn it into the thing the reference clip does: cut-fast, back-lit silhouettes, a black-and-white manga impact panel, and a blade-light that crosses the whole frame.
 
 | Run | Words | Shots | Opening 0.8 s | End 2 s ÷ middle | Longest lull | Flags |
 |---|---:|---:|---:|---:|---:|---|
