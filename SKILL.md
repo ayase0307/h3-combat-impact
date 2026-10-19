@@ -8,6 +8,20 @@ agent_created: true
 
 把「打得好看」拆成可寫、可複製、可驗收的提示詞結構。適用於 MiniMax H3（Hailuo 海螺）的 T2VA / I2VA / FL2VA / L2VA / Ref2VA 全模式。
 
+## 先決定：直接做，還是給選項
+
+| 使用者的狀態 | 做法 |
+|---|---|
+| 已明確指定（有角色、有場景、有參考片、有具體描述） | **直接執行，不要問** |
+| 給了參考圖但沒說要做什麼 | 依素材給 3–5 個情境選項，**先給建議再給選項** |
+| 什麼都沒有 | 給情境選項，並用 **T2VA** 文生影片（角色寫進提示詞） |
+
+六個已實測的情境：**A 連續對轟**、B 單鏡纏鬥、C 電影級大招、D 氣場覺醒、E 純氛圍、F 首幀延續。
+
+完整決策樹、素材對應表、話術模板見 `references/guided-mode.md`。
+
+**引導模式只用在「使用者不知道要什麼」的時候，不是每次都要走一遍。**
+
 ## 何時使用
 
 - 撰寫或修改 H3 的動作、打鬥、仙俠、武俠、超能力、機甲、怪獸類提示詞。
@@ -374,6 +388,7 @@ python scripts/measure_motion.py --dir ./outputs --symmetry   # 額外偵測「�
 | `references/qa-checklist.md` | 生成前自檢、生成後驗收、常見失敗與對應修法 |
 | `references/case-wuxia-duel.md` | 完整實例：27.5 秒仙俠對決的拆解與四段式重現 |
 | `references/output-format.md` | 官方輸出格式契約：三／六欄位、首行對齊句、對白與標籤語法、常見錯誤對照 |
+| `references/guided-mode.md` | 引導模式：三種進入路徑、六個情境選項、素材對應、話術模板、無圖時的 T2VA 寫法 |
 | `scripts/validate_prompt.py` | 檢查提示詞是否符合官方格式、能否直接貼進模型 |
 | `scripts/measure_motion.py` | 量測生成影片的運動曲線，自動標記開場過靜／尾端停滯／低潮過長 |
 
