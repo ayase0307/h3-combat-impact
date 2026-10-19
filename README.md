@@ -122,6 +122,24 @@ The right-hand clip is the same fight, but the skill's rules turn it into the th
 
 What the data changed: a wrong duration setting causes stalled endings more than wording does, and one sentence, `First contact occurs within the opening half-second.`, took the opening from 3.24 to 20.44. The score measures *frame change*, so VFX can inflate it; always check by eye that the subject moves.
 
+## Drone-style high-speed combat (Ref2VA + identity lock)
+
+<p align="center"><img src="assets/demo-drone-ab.gif" alt="Drone camera versus drone camera plus a light event in every shot" width="88%"><br>
+<sub><b>Same seed, same reference images, same 8 s.</b> Left: drone camera. Right: drone camera plus a light event in every shot.<br>
+Whole-clip motion 19.86 → 24.94, end-of-clip 77% → 96%, shots with a light event 18% → 31%.</sub></p>
+
+This run is Ref2VA with three reference assets (the black-armoured swordswoman, the white-kimono swordswoman, the moonlit ruin), all preserved: grey eyes, the scar under the right eye, three iron hoop earrings, asymmetrical black iron armour, the rust-red rope sash, the molten-orange nodachi, and the broken pillars, torn banners, wet stone and braziers of the arena.
+
+| Metric | Drone camera | + light event per shot |
+|---|---:|---:|
+| Whole-clip motion | 19.86 | **24.94** |
+| Opening 0.8 s | 14.76 | **20.27** |
+| End 2 s ÷ middle | 77% | **96%** |
+| Shots / median shot | 13 / 0.458 s | 13 / 0.458 s |
+| Shots with a light event | 18.2% | **30.8%** |
+| Median brightness range | 11.2 | **36.5** |
+
+**The impact frame goes through post-production**: the main clip carries no impact frame at all; a separate 4-second impact clip is generated, one frame is pulled from it, and it is composited over the main clip at 7.05 s with `hold 0.083s` (2 frames = 67 ms). The measurements barely move across the composite (24.94 → 24.95), which shows the seam is clean.
 ## After a skill update, prove it
 
 **Every rule change ships with a before/after pair.** Same subject, same seed, same everything — only the prompt differs — then the two clips are scored and rendered as one animated comparison on this page.
@@ -187,6 +205,11 @@ python scripts/measure_motion.py ref.mp4 --fps24              # normalise to 24 
 | [`references/move-library.md`](references/move-library.md) | 16 named moves, 4 three-move chains, EN/ZH translation rules |
 | [`references/continuous-brawl.md`](references/continuous-brawl.md) | Non-stop four-beat mode |
 | [`references/blade-light-cinema.md`](references/blade-light-cinema.md) | 21:9 high-speed blade cinematography: 1.57 cuts/s, manga impact panels, single-hue night |
+| [`references/blade-light-cinema.md`](references/blade-light-cinema.md) | 21:9 high-speed blade cinematography: 1.57 cuts/s, manga impact panels, single-hue night |
+| [`references/ref-identity-lock.md`](references/ref-identity-lock.md) | Reference-image fidelity: 9 identity-feature classes, art-style anchors, environment reference |
+| [`references/drone-camera.md`](references/drone-camera.md) | Drone camera: 8 positions, five scales, no orbit-only |
+| [`references/ultra-speed.md`](references/ultra-speed.md) | ULTRA_SPEED rhythm mode: 10–14 shots, per-shot light event |
+| [`references/impact-frame-post.md`](references/impact-frame-post.md) | Impact frame generated separately, then composited in post |
 | [`references/force-field.md`](references/force-field.md) | Four channels, three field types, phrase bank |
 | [`references/impact-frame-and-shake.md`](references/impact-frame-and-shake.md) | Impact-frame forms and frame counts, shake decay, hit-stop numbers |
 | [`references/camera-grammar.md`](references/camera-grammar.md) | Official camera vocabulary, fight camera patterns, frame-rate traps |

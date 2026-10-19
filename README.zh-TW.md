@@ -126,6 +126,28 @@ AI 打鬥片常見的毛病都一樣：動作軟、特效像貼圖、兩個人�
 右邊是同一場打鬥，但套用規則之後，它長成參考片的那個樣子：快切、逆光剪影、
 黑白漫畫衝擊格，以及橫貫整個畫面的刀光。
 
+## 無人機式高速打鬥（Ref2VA ＋ 參考圖保真）
+
+<p align="center"><img src="assets/demo-drone-ab.gif" alt="無人機運鏡 vs 再加上每鏡光影事件" width="88%"><br>
+<sub><b>同種子、同參考圖、同 8 秒。</b> 左：無人機運鏡版。右：再加上「每一鏡都有光影事件」。<br>
+全程運動 19.86 → 24.94、末段 77% → 96%、有光事件的鏡 18% → 31%。</sub></p>
+
+用的是 Ref2VA：三位參考素材（黑甲女劍客、白衣女劍客、月下焦土競技場）全部保留——
+灰色眼睛、右眼下疤、三只鐵環耳飾、黑鐵不對稱甲、赭紅繩腰帶、橘紅太刀，
+以及競技場的斷柱、殘旗、積水石地與火盆。
+
+| 指標 | 無人機運鏡 | ＋每鏡光影事件 |
+|---|---:|---:|
+| 全程運動 | 19.86 | **24.94** |
+| 開場 0.8s | 14.76 | **20.27** |
+| 末 2s ÷ 中段 | 77% | **96%** |
+| 鏡數 / 中位鏡長 | 13 / 0.458s | 13 / 0.458s |
+| 有光影事件的鏡 | 18.2% | **30.8%** |
+| 亮度擺幅中位 | 11.2 | **36.5** |
+
+**衝擊幀走後製**：主片完全不寫衝擊幀，衝擊幀另外生成一支 4 秒的短片，
+再抽一幀以 `hold 0.083s`（2 幀 = 67 ms）疊到主片 7.05 秒處。
+後製前後的量測幾乎不變（24.94 → 24.95），證明合成的接縫是乾淨的。
 ## 改版之後要拿出證據
 
 **每一條規則改版，都要附一組「使用前／使用後」的實跑對照。** 同角色、同 seed、同一切，只有提示詞不同，跑完再做成並排動態圖放回這個頁面。
@@ -192,6 +214,11 @@ python scripts/measure_motion.py ref.mp4 --fps24              # 折回 24fps 等
 | [`references/move-library.md`](references/move-library.md) | 16 招具名動作、4 組三招串接、中英翻譯規則 |
 | [`references/continuous-brawl.md`](references/continuous-brawl.md) | 連續對轟四拍模式 |
 | [`references/blade-light-cinema.md`](references/blade-light-cinema.md) | 21:9 高速斬擊電影語言：1.57 刀/秒、漫畫衝擊格、單色環境＋異物色、剪影構圖 |
+| [`references/blade-light-cinema.md`](references/blade-light-cinema.md) | 21:9 高速斬擊電影語言：1.57 刀/秒、漫畫衝擊格、單色環境 |
+| [`references/ref-identity-lock.md`](references/ref-identity-lock.md) | 參考圖保真：9 類身份特徵、畫風錨定、環境參考 |
+| [`references/drone-camera.md`](references/drone-camera.md) | 無人機運鏡：8 個機位、五種尺度、禁止繞圈圈 |
+| [`references/ultra-speed.md`](references/ultra-speed.md) | ULTRA_SPEED 節奏模式：10–14 鏡、每鏡光影事件 |
+| [`references/impact-frame-post.md`](references/impact-frame-post.md) | 衝擊幀分開生成再後製合成 |
 | [`references/force-field.md`](references/force-field.md) | 力場四通道、三種場型、句庫 |
 | [`references/impact-frame-and-shake.md`](references/impact-frame-and-shake.md) | 衝擊幀四形態與幀數、漫畫格三段式、震屏衰減、hitstop 參數 |
 | [`references/camera-grammar.md`](references/camera-grammar.md) | 官方運鏡詞彙、打鬥運鏡套路、最大衝擊可鎖死相機、幀率陷阱 |
