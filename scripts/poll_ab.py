@@ -91,7 +91,7 @@ def main():
         return 2
     client = Client(a.api, token_file)
 
-    meta = json.loads(jobs_path.read_text(encoding="utf-8"))
+    meta = json.loads(jobs_path.read_text(encoding="utf-8-sig"))
     outdir = jobs_path.parent
     targets = [("before", meta.get("before"), "before.mp4"),
                ("after", meta.get("after"), "after.mp4")]
