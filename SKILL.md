@@ -635,6 +635,8 @@ ffmpeg -v error -i clip.mp4 -vf "signalstats,metadata=print:key=lavfi.signalstat
 | `scripts/impact_frame.py` | 衝擊幀分開生成，再後製合成到主片 |
 | `scripts/measure_staging.py` | 量測取景變化與鏡長分布（運鏡感的客觀指標） |
 | `scripts/measure_light_event.py` | 量測每一鏡有沒有光影事件（光影華麗度的客觀指標） |
+| `scripts/submit_chain.py` | 兩段 15 秒 FL2VA 接續：送 A → 抽末幀 → 送 B → concat |
+| `scripts/seam_check.py` | 量接縫那一格有沒有「死格」（比率 <50% = 接縫對不上） |
 
 ## 最常被寫錯的三件事
 

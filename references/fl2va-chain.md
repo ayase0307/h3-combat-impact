@@ -139,6 +139,51 @@ ffmpeg -v error -i full_30s.mp4 -vf "tblend=all_mode=difference,signalstats,meta
 
 ---
 
+## 5.5 實測：接縫可以完美，但結尾會爛（2026-10-20）
+
+兩段 15 秒（362 幀 ×2 = 724 幀 = 30.2 秒）的實測數據：
+
+| | 全程運動 | 開場 | 末 2s ÷ 中段 | 旗標 |
+|---|---:|---:|---:|---|
+| 段 A | 24.69 | 25.66 | **87%** | 無 |
+| 段 B | 22.17 | 34.57 | **50%** | **尾端停滯** |
+| 合計 30.2s | 23.40 | 24.54 | 48% | 尾端停滯 |
+
+**接縫本身是完美的**：接縫格 YAVG 差 14.54、前後 8 格中位數 16.86、比值 **86%**，
+而且逐格看 360→368 那八格，刀鎖的構圖完全連續，看不出接點。
+
+**但段 B 自己爛尾了（50%）。** 原因很明確：
+
+> 段 B 的最後一鏡我寫了
+> `Both fighters hold the lock as the frame ends, their faces turned toward each other.`
+> ——**「hold the lock as the frame ends」就是在要求一個靜止結尾。**
+
+這是自找的。`SKILL.md` 的收尾定格規則早就講過 H3 會自動減速，
+結果我還在最後一鏡寫「維持不動」。
+
+### 正確寫法
+
+| ❌ 錯 | ✅ 對 |
+|---|---|
+| `Both fighters hold the lock as the frame ends.` | `The lock breaks and she drives through, the blade clipping past and the camera still moving as the frame ends.` |
+| `settling into the final pose` | `still mid-step as the frame ends` |
+| `they stand facing each other` | `she is already stepping in as the frame ends` |
+
+**要「停在一個動作的過程中」，不是「停在一個姿勢上」。**
+
+### 另一個發現：第 2 段開場反而最強（34.57）
+
+段 B 的開場運動量 34.57 遠高於段 A 的 25.66。
+**證明「第 2 段首鏡 0.5 秒內打破」這條規則有效**——
+接續段的起步不但沒有掉速，還比第 1 段更快。
+
+**所以問題只在結尾，不在接縫。**
+
+### 修正後的檢查
+
+- [ ] 最後一鏡**不要**出現 `hold` / `settling` / `stand` / `facing each other`
+- [ ] 最後一鏡要有位移或姿態變化（`drives through` / `still mid-step`）
+- [ ] 生成多要 0.5–1 秒，剪輯切掉尾巴
 ## 6. 常見失敗
 
 | 症狀 | 根因 | 修法 |
