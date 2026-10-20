@@ -78,7 +78,7 @@ strongly, and the image returns immediately with no glowing residue.
 
 ```bash
 # 抽出衝擊幀片的那一幀
-ffmpeg -y -i impact.mp4 -vf "select=eq(n\,12)" -vsync 0 -frames:v 1 impact_frame.png
+ffmpeg -y -i impact.mp4 -vf "select=eq(n\,12)" -fps_mode passthrough -frames:v 1 impact_frame.png
 
 # 疊到主片的指定時間點
 python scripts/impact_frame.py composite \
@@ -91,11 +91,28 @@ python scripts/impact_frame.py composite \
 | hold | 幀數（24fps） | 效果 |
 |---|---|---|
 | 0.042 | 1 幀 | 太硬，像壞掉 |
-| **0.083** | **2 幀（67 ms）** | **推薦**——和參考片同長 |
+| **0.083** | **2 幀（24fps 下 83 ms）** | **推薦**——參考片 30fps 的 2 幀為 67 ms，換算 ≈1.6 幀，取 2 幀；換算公式：24fps 幀數 = round(參考幀數 × 0.8)，最少 1 幀 |
 | 0.125 | 3 幀 | 稍長 |
 | 0.167 | 4 幀 | 開始像慢動作 |
 
 ---
+
+### 2.1 多階段序列（白 → 黑白 → 主色）
+
+一個高潮要 3 階段各 2 幀時，從素材 B 抽 3 幀，同一支主片連續疊 3 次，`--at` 每次加一個 hold：
+
+```bash
+IN=main.mp4; F0=163   # 起始幀號（主片 24fps；163/24 ≈ 6.79s）
+for i in 0 1 2; do
+  python scripts/impact_frame.py composite --main $IN --impact B.mp4     --at $(python -c "print(($F0+2*$i)/24)") --frame $((12+i*3)) --hold 0.083 --out step$i.mp4
+  IN=step$i.mp4
+done
+```
+
+驗收：逐幀 YAVG 序列看得出插入的 6 幀連續即可；整體驗收照 §3。
+
+**實測（2026-10-21）**：主片＝超高速 1280×704 高畫質片，衝擊素材＝H3 生成的 4 秒漫畫放射片，`--at` 取 24fps 的整數幀（93/24、95/24、97/24）、`--hold 0.083`、`--frame 3/9/15`。第 93–98 幀 YAVG＝62.5, 62.8, 115, 115, 117, 127，連續 6 幀無交錯；插入點前 66.5 → 後 81.7（落差 15 階，是剪接點本身的亮度跳動，不是合成錯誤）。第 2、3 段（兩張漫畫放射）亮度差不明顯，不要期待肉眼分得出三個平台。
+**注意**：`impact_frame.py` 舊版用 `between(t, start, start+dur)` 以時間開關，浮點邊界會讓 2 幀變 1 幀、多次疊加時與主片交錯；現已改成 `between(n, 首幀, 末幀)` 以幀序號開關，`--at` 請直接給 `幀號/幀率`（腳本會讀主片自己的幀率換算幀號；舊語意取 ceil，新版取 round，同一組參數可能提早 1 幀）。
 
 ## 3. 合成後的驗收
 

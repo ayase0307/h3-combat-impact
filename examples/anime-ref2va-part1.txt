@@ -1,0 +1,49 @@
+subject_definitions:
+<Subject 1> is Kai, the cyborg brawler from <Picture 1>. Preserve his exact design: blond tousled hair, the orange LED visor over his eyes, the oversized beige sweatshirt, dark blue shorts, black mechanical arms and legs with orange and white armor plates, and heavy mechanical boots. <Picture 1> provides his character identity while his pose and background are adapted to the new fight.
+
+<Subject 2> is Vex, the cyborg brawler from <Picture 2>. Preserve her exact design: white spiky hair with two black horn-like headphone spikes, red goggles, the red crop top and red shorts, a white mechanical right arm, a white mechanical left leg, and red spiked sneakers. <Picture 2> provides her character identity while her pose and background are adapted to the new fight.
+
+summary:
+[reference generation] Two cyborg fighters trade a nonstop brawl inside a space-station cargo hangar tearing itself apart, crates stacked at screen left, a fuel line along the floor, a reactor pod in the back right corner, a wide window onto space along the back wall. Fire underlights their faces and every blast re-colors the frame.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1], [Shot 2], [Shot 3], [Shot 4], [Shot 5], [Shot 6], [Shot 7], [Shot 8], [Shot 9], [Shot 10], [Shot 11], [Shot 12], [Shot 13], [Shot 14]): fully_preserved - Maintain the blond hair, orange LED visor, beige oversized sweatshirt, dark blue shorts, black mechanical limbs with orange and white plates, and the 2D anime linework throughout all visible shots.
+
+<Subject 2> (appears in [Shot 1], [Shot 2], [Shot 3], [Shot 4], [Shot 5], [Shot 6], [Shot 7], [Shot 8], [Shot 9], [Shot 10], [Shot 11], [Shot 12], [Shot 13], [Shot 14]): fully_preserved - Maintain the white spiky hair with black horn spikes, red goggles, red crop top and shorts, white mechanical right arm and left leg, red spiked sneakers, and the 2D anime linework throughout all visible shots.
+
+detailed_description:
+High-sakuga 2D anime with bold linework, hard cel shading, and speed smears. Kai stays the larger of the two; Vex stays lighter and quicker. The action runs continuously from the first frame to the last, every landed hit snaps into a one-frame white-black impact flash while the struck body whips away in a smear and re-enters at once, and every blast re-colors the whole palette. When they close, one body is nearer the camera and the other clearly behind it with air between.
+
+[Shot 1] High-sakuga 2D anime with bold linework and hard cel shading. A low-angle wide shot at floor level as <Subject 1> and <Subject 2> are already airborne, lunging at each other. First contact occurs within the opening half-second: <Subject 1>'s black mechanical right fist meets the sole of <Subject 2>'s red spiked sneaker in mid-air and sparks burst outward. The camera rockets upward through the gap between them with large amplitude at fast speed.
+
+[Shot 2] At 00:00.900, a hard cut to a tight side view, both bodies smeared backward from the clash, then <Subject 1> plants his boots and <Subject 2> kicks off the floor to dive back in. The camera crash-zooms toward the hit point with large amplitude at fast speed.
+
+[Shot 3] At 00:01.700, a hard cut to a ground-level view as <Subject 1> throws a left hook and <Subject 2> ducks beneath it while a floor panel beside her bursts open and hurls her upward into his chin. The camera whips sideways with large amplitude at fast speed.
+
+[Shot 4] At 00:02.500, a hard cut to a close-up as <Subject 2>'s white mechanical fist drives up under <Subject 1>'s jaw, his head snapping back into a smear with the orange visor drawing an arc of light. The camera tilts up with small amplitude at fast speed and shakes strongly.
+
+[Shot 5] At 00:03.200, a hard cut to a wide low angle as a ruptured fuel line explodes behind them, a column of fire sweeping the floor, firelight blazing orange up under both faces, and the blast hurls them left and right toward the walls. The camera pulls back with the shockwave with large amplitude at fast speed.
+
+[Shot 6] At 00:04.200, a hard cut to a medium shot as both rebound off the walls and leap at the same moment on either side of the wall of flame, colliding through it with a burst of armor fragments. The camera whips around the collision with large amplitude at fast speed.
+
+[Shot 7] At 00:05.200, a hard cut to a tracking shot at waist height racing between stacked striped cargo crates as the fighters bound across the crate tops and <Subject 2> spins off a crate corner into a white mechanical-arm sweep. The camera follows with large amplitude at fast speed.
+
+[Shot 8] At 00:06.200, a hard cut to a close view as <Subject 1> ducks and his fist smashes a crate into splinters while <Subject 2>'s spiked sneaker is already kicking through the debris. The camera arcs under the kick with large amplitude at fast speed.
+
+[Shot 9] At 00:07.200, a hard cut to a wide view as <Subject 1> slams sideways into another crate, rebounds off it instantly, and lands a flying right fist on the edge of <Subject 2>'s red goggles, her white hair arcing through the smear. The camera pushes in with large amplitude at fast speed.
+
+[Shot 10] At 00:08.200, a hard cut to a high-angle shot as <Subject 2> kicks a crate toward <Subject 1>, who shatters it with a single punch, and the floor beneath him blows open so one foot drops through the hole. The camera dives with large amplitude at fast speed.
+
+[Shot 11] At 00:09.300, a hard cut to a low angle as <Subject 2>'s red spiked sneaker drives into his unbalanced body and he blocks with his black mechanical arm, skidding back into the crate stack as a second explosion erupts from deep inside it. The camera rides the shockwave with large amplitude at fast speed.
+
+[Shot 12] At 00:10.500, a hard cut to a distant top-down view of the whole hangar as the fireball climbs to the ceiling and both fighters are flung upward into zero gravity, fuel floating as wobbling orange spheres and sparks drifting in the air. The camera pulls far back with large amplitude at fast speed.
+
+[Shot 13] At 00:12.000, a hard cut to a tumbling camera between the weightless fighters as <Subject 2> grabs <Subject 1>'s collar and drives a headbutt into his visor, and he flips backward and kicks her white mechanical leg with a spray of sparks. The camera spins with large amplitude at fast speed.
+
+[Shot 14] At 00:13.500, a hard cut to a point-of-view view as a fuel sphere tears open around a fist and <Subject 2>'s spiked sole rushes straight at the lens, then gravity returns and both slam onto the floor and roll back up already moving into the next lunge, still in motion as the frame ends. The camera shakes strongly with large amplitude at fast speed.
+
+overall_soundscape:
+A bass drop on every impact, metal-on-metal clangs, sparks crackling, explosions roaring then a second of muffled ringing, an alarm klaxon, cables whipping, decompression roar.
+
+non_diegetic_music:
+Driving cyberpunk percussion and low synth bass at a fast tempo, pulsing with each blast.

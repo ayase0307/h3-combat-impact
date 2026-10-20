@@ -1,0 +1,19 @@
+integrated_multimodal_description: [Shot 1] 3D CG, cinematic wuxia, a narrow stone colonnade lit by amber lanterns with teal moonlight. First contact occurs within the opening half-second: the tall swordswoman in black and the older swordsman in a blue-grey robe trade a rising cut and a parry, sparks bursting at the crossing blades. The camera tracks sideways with large amplitude at fast speed.
+
+[Shot 2] At 00:00.800, the camera cuts to a low angle as she hooks her blade under his guard and he steps back onto a stone step, dust jumping from the flagstones. The camera pushes in with small amplitude at fast speed.
+
+[Shot 3] At 00:01.500, the camera cuts to a close-up of his shoulder driving into her blade arm, her sleeve ripping, his free hand shoving her wrist wide. The camera whips with large amplitude at fast speed.
+
+[Shot 4] At 00:02.200, the camera cuts to a medium shot from behind a pillar as she spins low and sweeps his legs, a lantern swinging and throwing light across both faces. The camera arcs with small amplitude at fast speed.
+
+[Shot 5] At 00:02.900, the camera cuts to a close view as he jumps the sweep and brings the pommel down onto her collarbone, her knees dipping while her blade flicks up against his ribs. The camera shakes strongly.
+
+[Shot 6] At 00:03.600, the camera cuts to a wide shot down the colonnade as both lunge together, the blades crossing at the center, a stone pillar beside them cracking from the pressure wave. The camera pushes in with large amplitude at fast speed.
+
+[Shot 7] At 00:04.400, the camera cuts to a high angle as she drives him backward three steps, his boots gouging the flagstones, torn banners whipping overhead. The camera tilts down with large amplitude at fast speed.
+
+[Shot 8] At 00:05.300, the camera cuts to a tight shot of his hand catching her blade arm and twisting, her body rotating into a spinning elbow that lands on his jaw. The camera tracks with small amplitude at fast speed.
+
+[Shot 9] At 00:06.200, the camera cuts to a low angle as he staggers into a railing that snaps in half, splinters flying toward the lens, and she is already charging through the debris as the frame ends. The camera whips forward with large amplitude at fast speed.
+overall_soundscape: Rapid metallic clashes, boots scraping stone, sharp breaths, a wooden railing snapping, cloth tearing, distant wind through the colonnade.
+non_diegetic_music: Fast driving taiko and low strings at a steady urgent tempo.

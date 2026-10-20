@@ -1,0 +1,9 @@
+integrated_multimodal_description: [Shot 1] 3D CG, cinematic fantasy, a vaulted stone hall lit by cold moonlight through tall windows. A sorceress in a long white silk robe is already mid-stride toward the camera when she slams her staff into the floor, her jaw muscles bunching and her teeth clenching. First contact occurs within the opening half-second as the stone cracks and a dense wave of pressure rolls out from the staff: the air ripples in a heat-haze ring and the wind pressure flattens the silk against her body and whips her long hair backward. The camera pushes in with large amplitude at fast speed.
+
+[Shot 2] At 00:01.500, the camera cuts to a low angle at floor level as dust leaps off the flagstones in a ring, stone fragments lift and tear outward toward the lens, and the tall window glass shivers and bursts into glittering shards. The camera whips sideways with large amplitude at fast speed and shakes strongly, the shake decaying within a third of a second.
+
+[Shot 3] At 00:02.800, the camera cuts to a wide shot as the warm orange blast light sweeps across the whole hall in step with the shockwave, shifting every shadow, banners snapping, candle flames flattening, while she strides forward through the rolling dust with her robe streaming behind her. The camera pulls back with large amplitude at fast speed.
+
+[Shot 4] At 00:04.200, the camera cuts to a medium shot as she swings the staff in a wide arc and a second ring of pressure bursts outward, her silk and hair whipping, falling masonry bouncing across the floor, her stride carrying forward as the frame ends. The camera tilts up with small amplitude at fast speed.
+overall_soundscape: A deep concussive boom, stone cracking, glass bursting, debris pattering across the floor, a long low reverberation.
+non_diegetic_music: A sustained low brass swell with a heavy percussion hit at each blast.

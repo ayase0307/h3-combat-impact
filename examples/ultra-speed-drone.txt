@@ -1,0 +1,25 @@
+integrated_multimodal_description: [Shot 1] 3D CG, cinematic action, a moonlit ruined courtyard with burning braziers and torn red banners. First contact occurs within the opening half-second: a tall armored swordswoman and a slender swordswoman in white collide on the wet flagstones, spray and rubble bursting from their heels. The camera dives from a high overhead aerial view with large amplitude at fast speed.
+
+[Shot 2] At 00:00.500, the camera cuts to a ground-level view almost touching the stone as their blades crash together, sparks and flagstone fragments tearing toward the lens. The camera whips sideways with large amplitude at fast speed.
+
+[Shot 3] At 00:01.000, the camera cuts to a distant wide shot across the courtyard as the armored swordswoman swings a full circle and drives the other through a stone pillar that explodes into rubble and grey dust lit orange from within. The camera pushes in with large amplitude at fast speed.
+
+[Shot 4] At 00:01.600, the camera cuts to an over-the-shoulder close-up from behind the armored swordswoman, the slender swordswoman beyond with a violet-white flare along her blade. The camera arcs sharply with large amplitude at fast speed.
+
+[Shot 5] At 00:02.100, the camera cuts to a bird's-eye view straight down as they spin together, a ring of firelight and stone spraying outward. The camera tracks the ring with large amplitude at fast speed.
+
+[Shot 6] At 00:02.700, the camera cuts to a low-angle close-up of the armored swordswoman's face lit orange from below, her jaw muscles bunching and her teeth clenching, sparks drifting past the lens. The camera pushes in with small amplitude at fast speed and shakes strongly.
+
+[Shot 7] At 00:03.200, the camera cuts to a high crane shot rising above the broken colonnade, both fighters locked mid-exchange far below amid smoke and falling masonry, banners whipping. The camera pedestals up with large amplitude at fast speed.
+
+[Shot 8] At 00:03.900, the camera cuts to a ground-level view as the slender swordswoman slides to one knee and whips her blade up, a wall of cold-blue flame sweeping across the frame. The camera trucks left with large amplitude at fast speed.
+
+[Shot 9] At 00:04.500, the camera cuts to a medium shot as the armored swordswoman drives a full strike across the guard, faces inches apart, white sparks tearing between the blades. The camera tracks with them with large amplitude at fast speed.
+
+[Shot 10] At 00:05.200, the camera cuts to a top-down view as the slender swordswoman breaks away along the colonnade, a brazier toppling and spilling fire across the stone behind her. The camera tracks along the colonnade with large amplitude at fast speed.
+
+[Shot 11] At 00:05.900, the camera cuts to a wide crane shot sweeping low over the rubble as the armored swordswoman charges through a line of broken pillars, each bursting into dust as she passes. The camera trucks right with large amplitude at fast speed.
+
+[Shot 12] At 00:06.800, the camera cuts to a close three-quarter view as the blades meet and lock, sparks pouring off the contact point, both fighters still pushing and sliding their feet as the frame ends. The camera pushes in with small amplitude at fast speed.
+overall_soundscape: Layered metallic clashes, heavy low impacts, boots skidding on wet stone, breaking masonry, fire crackle, cloth whipping.
+non_diegetic_music: Restrained cinematic percussion with low strings at a fast tempo.

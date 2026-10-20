@@ -1,0 +1,3 @@
+integrated_multimodal_description: [Shot 1] 2D manga-style impact panel, flat graphic design, no characters. The full frame is a stark black-and-white radial burst of speed lines exploding outward from a single point at the center, white lines on solid black, high contrast. The burst pulses, and the lines sweep outward fast. The camera holds a static shot, the burst flickering to a pure white flash and back to a gold radial burst on black within the first second.
+overall_soundscape: A single sharp metallic crack followed by a deep low impact boom.
+non_diegetic_music: A single heavy percussion hit with a short sub-bass drop.

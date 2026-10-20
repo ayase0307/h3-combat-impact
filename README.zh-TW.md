@@ -5,7 +5,7 @@
 <h1 align="center">h3-combat-impact</h1>
 
 <p align="center">
-  <b>讓 MiniMax H3 / 海螺的打鬥「真的有打到」的 Agent Skill：六拍打擊、具名招式、力場、衝擊幀、震屏。</b>
+  <b>讓 MiniMax H3 / 海螺的打鬥「真的有打到」的 Agent Skill：六拍打擊、具名招式、力場、衝擊幀、無人機式運鏡。</b>
 </p>
 
 <p align="center">
@@ -16,24 +16,78 @@
   <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
   <img alt="Agent Skill" src="https://img.shields.io/badge/agent-skill-8A2BE2">
   <img alt="MiniMax H3" src="https://img.shields.io/badge/MiniMax-H3%20%2F%20海螺-ff5a36">
-  <img alt="零依賴" src="https://img.shields.io/badge/scripts-stdlib%20%2B%20ffmpeg-0a7">
-  <img alt="實測" src="https://img.shields.io/badge/7%20版-實測-2ea44f">
+  <img alt="提示詞類型" src="https://img.shields.io/badge/提示詞類型-11%20種實測-2ea44f">
+  <img alt="腳本" src="https://img.shields.io/badge/scripts-stdlib%20%2B%20ffmpeg-0a7">
 </p>
 
 ---
 
+## 成品展示
+
+下面每一支都是 MiniMax H3 在本機 RTX 4060 Ti（8 GB）上，用 [`examples/`](examples/) 裡的提示詞生成：固定種子、24 fps、`high` 畫質、1280×704（21:9 那支是 1280×544）。點標題可看完整 MP4。
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <a href="assets/showcase/blade-light.mp4"><img src="assets/showcase/blade-light.gif" alt="21:9 夜間雪地：冰藍新月弧、X 形光、放射閃電、紫色刀光"></a><br>
+      <b><a href="assets/showcase/blade-light.mp4">21:9 刃光電影</a></b><br>
+      <sub>藍雪上的逆光剪影，唯一的紫色異物色 · <a href="examples/blade-light-21x9.txt">提示詞</a></sub>
+    </td>
+    <td align="center" width="50%">
+      <a href="assets/showcase/ultra-speed.mp4"><img src="assets/showcase/ultra-speed.gif" alt="8 秒 12 鏡的庭院對決，機位在俯拍、貼地、升降之間切換"></a><br>
+      <b><a href="assets/showcase/ultra-speed.mp4">超高速・無人機式運鏡</a></b><br>
+      <sub>8 秒 12 鏡，每次切鏡都換機位 · <a href="examples/ultra-speed-drone.txt">提示詞</a></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="assets/showcase/ink-wash.mp4"><img src="assets/showcase/ink-wash.gif" alt="老虎與持槍劍客，米黃紙色背景上的放射黑墨爆"></a><br>
+      <b><a href="assets/showcase/ink-wash.mp4">水墨墨爆</a></b><br>
+      <sub>用墨刺加 1 幀亮暗翻轉取代凍結 · <a href="examples/ink-wash.txt">提示詞</a></sub>
+    </td>
+    <td align="center">
+      <a href="assets/showcase/six-beat.mp4"><img src="assets/showcase/six-beat.gif" alt="屋頂對決，刀鋒相觸瞬間出現 2 幀爆白"></a><br>
+      <b><a href="assets/showcase/six-beat.mp4">六拍單次重擊</a></b><br>
+      <sub>蓄力、爆白、衝擊波、被打飛 · <a href="examples/six-beat-single-hit.txt">提示詞</a></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="assets/showcase/anime-30s.mp4"><img src="assets/showcase/anime-sakuga.gif" alt="空間站貨艙裡兩名改造人格鬥：衝擊閃光、火球、藍色反應堆、炸開的觀景窗"></a><br>
+      <b><a href="assets/showcase/anime-30s.mp4">兩張參考圖生成的 30 秒 2D 動漫格鬥</a></b><br>
+      <sub>2 × 15 秒 Ref2VA，角色保真 · <a href="examples/anime-ref2va-part1.txt">上半</a> · <a href="examples/anime-ref2va-part2.txt">下半</a></sub>
+    </td>
+    <td align="center">
+      <a href="assets/showcase/face.mp4"><img src="assets/showcase/face.gif" alt="女劍客特寫：咬牙、眉頭擰緊、瞪大眼睛、低吼"></a><br>
+      <b><a href="assets/showcase/face.mp4">臉部表演</a></b><br>
+      <sub>寫肌肉動作，不寫形容詞 · <a href="examples/facial-performance.txt">提示詞</a></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">
+      <a href="assets/showcase/impact-composite.mp4"><img src="assets/showcase/impact-composite.gif" alt="超高速片段，後製合成三階段漫畫衝擊序列" width="50%"></a><br>
+      <b><a href="assets/showcase/impact-composite.mp4">後製加上衝擊幀</a></b><br>
+      <sub>主片完全沒有衝擊幀；另外生成一支 H3 漫畫放射片，取 3 × 2 幀逐幀精準合成 · <a href="references/impact-frame-post.md">做法</a></sub>
+    </td>
+  </tr>
+</table>
+
+30 秒格鬥是「重現」不是複製：它參考一支公開的 Seedance 2.5 展示片的結構（分鏡表、每次爆炸換色調、貨艙佈局），改寫成 H3 的格式與限制。參考角色圖不在此 repo。
+
 ## 為什麼需要這個 skill
 
-AI 打鬥片常見的毛病都一樣：動作軟、特效像貼圖、兩個人像木頭人擺姿勢、鏡頭亂晃、最後兩秒人站著不動。光寫「史詩爆炸」解決不了任何一個。
+AI 打鬥片的毛病都差不多：動作軟、特效像貼圖、兩個人像木頭人擺姿勢、臉像死人、鏡頭一直繞圈、最後兩秒站著不動。光寫「史詩爆炸」解決不了。
 
 這個 skill 把「打得更有力」拆成能寫、能複製、**能量測**的結構：
 
-- **六拍打擊**：每一擊都是 蓄 → 觸 → 停 → 洩 → 退 → 收，每拍有時間佔比。
-- **力場而非光效**：四通道（光／空氣／物質／粒子）。最便宜的力量證明，是衣襬或髮絲被推開。
-- **招式必須具名**：16 招，每招四層（位移、身體機制、物理結果、戰術目的），不再被模型平均成「揮、擋、退」。
-- **交換・壓縮・後果**：三條設計原則，重要性高於任何提示詞字句。
-- **產出可直接貼上**：最終交付是一個官方 H3 三欄位格式的 code block，並附驗證腳本。
-- **用數據驗收**：`measure_motion.py` 對生成的 mp4 量測開場過靜、尾端停滯、動作低潮。
+- **六拍打擊**：蓄 → 觸 → 停 → 洩 → 退 → 收，每拍有時間佔比。
+- **力場而非光效**：光／空氣／物質／粒子四通道；最便宜的力量證明，是衣襬或髮絲被推開。
+- **具名招式**：16 招，每招四層，不再被平均成「揮、擋、退」。
+- **三種節奏模式**：六拍、連續對轟、ULTRA_SPEED（8 秒 10–14 鏡，每次切鏡換機位）。
+- **參考圖保真**：Ref2VA 的 9 類身份清單，讓角色保持「就是那一個」。
+- **衝擊幀走後製**：H3 做不穩 2 幀閃光，所以分開生成、逐幀精準合成。
+- **產出可直接貼上**：官方 H3 格式的單一 code block，附驗證器。
+- **用數據驗收**：腳本對成品 MP4 量測運動、光事件、分鏡、接縫。
 
 ## 六拍結構
 
@@ -51,7 +105,7 @@ AI 打鬥片常見的毛病都一樣：動作軟、特效像貼圖、兩個人�
 | 5 退 | 15% | 受擊者被打飛、衣髮延遲甩動、**震屏衰減** | `the shake decays within a third of a second` |
 | 6 收 | 5% | 回到防禦姿勢、餘燼飄落、鏡頭回穩 | `settles into a low guard` |
 
-三條鐵律：蓄 ≥ 觸的 5 倍；停（Hit Stop）是「重量」唯一來源；一擊只給一個視覺高潮。「壓著打」的連續纏鬥另有四拍模式、沒有凍結幀（[`continuous-brawl.md`](references/continuous-brawl.md)）。
+蓄 ≥ 觸的 5 倍；一擊只給一個視覺高潮。「壓著打」用沒有凍結的四拍模式（[`continuous-brawl.md`](references/continuous-brawl.md)）；要「喘不過氣」的快切用 [`ultra-speed.md`](references/ultra-speed.md)。
 
 ## 力場：光效只是顏色，力場才是空氣
 
@@ -66,108 +120,30 @@ AI 打鬥片常見的毛病都一樣：動作軟、特效像貼圖、兩個人�
    roof tiles rattle loose
 ```
 
-## 實際生成對照
+## 每一種提示詞類型，都實測過
 
-下面兩支都是我自己的 H3 測試片，並用內附腳本量測。
+全部固定同一個種子。「末段÷中段」是片尾 2 秒運動量除以中段（[`measure_motion.py`](scripts/measure_motion.py)，合格 ≥ 60%）。數字預設為草稿（`light`）畫質，HQ 欄另標。
 
-<table>
-  <tr>
-    <td align="center" width="55%"><img src="assets/demo-before-v01.gif" alt="V01：開場過靜"><br><sub><b>V01 · 初版</b> · 開場 3.24 · 旗標：<code>開場過靜</code></sub></td>
-    <td align="center" width="45%"><img src="assets/demo-after-v06.gif" alt="V06：套用規則"><br><sub><b>V06 · 套用規則後</b> · 開場 20.44 · 零旗標</sub></td>
-  </tr>
-</table>
+| 提示詞類型 | 範例 | 初版 | 修正後／高畫質 | 結論 |
+|---|---|---|---|---|
+| 六拍單次重擊 | [`six-beat-single-hit.txt`](examples/six-beat-single-hit.txt) | 110%；爆白幀有出現，開場偏慢 | HQ 73% | 過門檻；蓄力要短 |
+| 連續對轟 | [`continuous-brawl.txt`](examples/continuous-brawl.txt) | 末段÷中段 118%，動作偏平靜 | – | 可用但平穩，不放展示 |
+| ULTRA_SPEED＋無人機運鏡 | [`ultra-speed-drone.txt`](examples/ultra-speed-drone.txt) | 95% | HQ 80% | **強** |
+| 21:9 刃光 | [`blade-light-21x9.txt`](examples/blade-light-21x9.txt) | 84% | HQ 67% | 過門檻（HQ 勉強）；暗畫面會壓低分數，要目視 |
+| 力場爆炸 | [`force-field-explosion.txt`](examples/force-field-explosion.txt) | **28%**，主體凍住 | 改寫後 66%；HQ 43% | 弱，仍待改進 |
+| 水墨墨爆 | [`ink-wash.txt`](examples/ink-wash.txt) | 71% | HQ 52%（尾端偏靜） | HQ 未過 60%；畫面對，結尾偏安靜 |
+| 臉部表演 | [`facial-performance.txt`](examples/facial-performance.txt) | **40%** | 改寫後 133%；HQ 182% | 修正後強 |
+| Ref2VA 角色保真 | [`anime-ref2va-part1.txt`](examples/anime-ref2va-part1.txt) | 94% | HQ 89% | **強** |
+| Ref2VA 第二段 15 秒 | [`anime-ref2va-part2.txt`](examples/anime-ref2va-part2.txt) | **34%** | 改寫後 88%；HQ 93% | 修正後強 |
+| I2VA 特效插入鏡 | [`SKILL.md`](SKILL.md) | 保住配色（鋼藍＋金）；首幀 PSNR ≈ 20 dB | – | 適合 1–4 秒插入鏡，運動偏低 |
+| 後製衝擊幀 | [`impact-frame-source.txt`](examples/impact-frame-source.txt) | 6 幀連續，已驗證 | – | 24fps 主片可行，逐幀精準 |
 
-<p align="center"><img src="assets/strip-v06.jpg" alt="V06 每秒 2 格的抽格條" width="90%"><br><sub>V06 以 2 fps 抽格。與 V01 主題、比例不同，重點是運動曲線，不是同題前後對照。</sub></p>
+這幾支同時做了兩個修改，無法分開歸因：
 
-七版實測，同一支腳本：
+- **最後一鏡寫成「動作進行中」**：`both fighters are still mid-motion as the frame ends` 讓力場片從 28% 到 66%、臉部片從 40% 到 133%、15 秒動漫下半從 34% 到 88%。末鏡寫「hold」「settle」，H3 就會把它凍住。
+- **單鏡靜態場景改寫成 3–4 鏡**，每鏡有機位變化與環境反應。
 
-| 版 | 字數 | 鏡數 | 開場 0.8s | 末2s÷中段 | 最長低潮 | 旗標 |
-|---|---:|---:|---:|---:|---:|---|
-| V01 | 525 | 4 | 3.24 | 80% | 0.17s | 開場過靜 |
-| V02 | 667 | 4 | 23.59 | 32% | 1.17s | 尾端停滯、低潮 |
-| V04 | 885 | 5 | 18.12 | 27% | 0.17s | 尾端停滯（提示詞寫 8 秒、實際生成 10.1 秒） |
-| **V06** | **1022** | **5** | **20.44** | **108%** | **0.04s** | **無** |
-
-數據改變了什麼：尾端停滯的主因是時長設定錯配，不是文字；一句 `First contact occurs within the opening half-second.` 就把開場從 3.24 拉到 20.44。分數量的是「畫面變化」，特效會灌水，所以仍要目視確認主體有動。
-
-### 同題對照：技能使用前 vs 使用後
-
-<p align="center"><img src="assets/demo-ab-skill.gif" alt="並排動態對照：未套用技能與套用技能後" width="88%"><br>
-<sub><b>同角色、同首幀、同 9:16、同 8 秒。</b> 左：沒有 skill 時的寫法。右：套用規則後。<br>
-末段運動量 57% → 93%，尾端停滯與靜止對稱旗標都消失。</sub></p>
-
-| 指標 | 使用前 | 使用後 |
-|---|---:|---:|
-| 全程運動 | 18.43 | **21.89** |
-| 末 2s ÷ 中段 | 57% | **93%** |
-| 最長低潮 | 0.33s | 0.29s |
-| 旗標 | 尾端停滯、靜止對稱 | **無** |
-
-> **誠實說明**：這兩支用的隨機種子不同，所以是「構圖對齊的比較」，不是嚴格的單變因實驗。
-> 下面這組則是固定種子的受控比較。
-
-### 受控對照：唯一變因是提示詞
-
-<p align="center"><img src="assets/demo-ab-controlled.gif" alt="固定種子的受控並排對照" width="88%"><br>
-<sub><b>種子、解析度、時長、品質、採樣步數全部相同——只有提示詞不同。</b><br>
-左：泛泛的一段描述。右：同一個場景用 skill 的規則重寫。</sub></p>
-
-| 指標 | 使用前 | 使用後 |
-|---|---:|---:|
-| 字數 / 鏡數 | 122 / 1 | 631 / 10 |
-| 全程運動 | 13.79 | **20.46** |
-| 末 2s ÷ 中段 | 97% | **210%** |
-| 末 2s | 13.30 | **33.75** |
-| 峰值格 | 24 | **30** |
-| 完全去飽和幀數 | **0** | **44**（漫畫衝擊格） |
-| 亮度動態範圍 | 43 階 | **178 階** |
-| 旗標 | 整體過靜 | 靜止對稱 4–5s（俯角廣角，可接受） |
-
-右邊是同一場打鬥，但套用規則之後，它長成參考片的那個樣子：快切、逆光剪影、
-黑白漫畫衝擊格，以及橫貫整個畫面的刀光。
-
-## 無人機式高速打鬥（Ref2VA ＋ 參考圖保真）
-
-<p align="center"><img src="assets/demo-drone-ab.gif" alt="無人機運鏡 vs 再加上每鏡光影事件" width="88%"><br>
-<sub><b>同種子、同參考圖、同 8 秒。</b> 左：無人機運鏡版。右：再加上「每一鏡都有光影事件」。<br>
-全程運動 19.86 → 24.94、末段 77% → 96%、有光事件的鏡 18% → 31%。</sub></p>
-
-用的是 Ref2VA：三位參考素材（黑甲女劍客、白衣女劍客、月下焦土競技場）全部保留——
-灰色眼睛、右眼下疤、三只鐵環耳飾、黑鐵不對稱甲、赭紅繩腰帶、橘紅太刀，
-以及競技場的斷柱、殘旗、積水石地與火盆。
-
-| 指標 | 無人機運鏡 | ＋每鏡光影事件 |
-|---|---:|---:|
-| 全程運動 | 19.86 | **24.94** |
-| 開場 0.8s | 14.76 | **20.27** |
-| 末 2s ÷ 中段 | 77% | **96%** |
-| 鏡數 / 中位鏡長 | 13 / 0.458s | 13 / 0.458s |
-| 有光影事件的鏡 | 18.2% | **30.8%** |
-| 亮度擺幅中位 | 11.2 | **36.5** |
-
-**衝擊幀走後製**：主片完全不寫衝擊幀，衝擊幀另外生成一支 4 秒的短片，
-再抽一幀以 `hold 0.083s`（2 幀 = 67 ms）疊到主片 7.05 秒處。
-後製前後的量測幾乎不變（24.94 → 24.95），證明合成的接縫是乾淨的。
-## 改版之後要拿出證據
-
-**每一條規則改版，都要附一組「使用前／使用後」的實跑對照。** 同角色、同 seed、同一切，只有提示詞不同，跑完再做成並排動態圖放回這個頁面。
-
-```bash
-# 1. 兩版提示詞各跑一次本機 H3（種子一定要固定）
-python scripts/submit_ab.py --before before.txt --after after.txt \
-    --label-before "A · 技能使用前" --label-after "B · 套用技能後" \
-    --width 960 --height 544 --seconds 8 --quality light --seed 20261019
-
-# 2. 等生成完成並下載（可續跑，已下載的會跳過）
-python scripts/poll_ab.py --jobs analysis/ab/jobs.json
-
-# 3. 量測並做成並排動態圖
-python scripts/compare_clips.py --before analysis/ab/before.mp4 --after analysis/ab/after.mp4 \
-    --out compare.gif --label-before "A · 技能使用前" --label-after "B · 套用技能後" \
-    --width 240 --fps 8 --colors 64 --dither-scale 3
-```
-
-`compare_clips.py` 會一併印出兩片的運動量對照表，所以這個頁面上的數字是**可重現的**，不是隨口說的。
+提示詞格式 A/B（15 秒 Ref2VA、同參考圖同種子）：作者風格的中文提示詞、`[Shot 1]` 帶時間區間前綴，末段÷中段 108%；官方格式 113%，兩者都沒有停滯。驗證器仍以官方格式為準（[`fl2va-chain.md`](references/fl2va-chain.md) §5.6）。
 
 ## 安裝
 
@@ -181,6 +157,7 @@ git clone https://github.com/ayase0307/h3-combat-impact ~/.claude/skills/h3-comb
 
 > 「幫我寫一段 8 秒屋頂對決的 H3 提示詞，現在很飄，要有打擊感。」
 > 「拆解這支打鬥參考片，用 H3 格式重現。」
+> 「讓這個參考角色在太空站貨艙打 30 秒。」
 
 ## 工具
 
@@ -190,8 +167,11 @@ python scripts/validate_prompt.py prompt.txt --duration 8
 
 # 量測生成影片的運動曲線（需要 ffmpeg 在 PATH）
 python scripts/measure_motion.py --dir ./outputs
-python scripts/measure_motion.py --dir ./outputs --symmetry   # 標記「靜止對稱」的技能展示構圖
-python scripts/measure_motion.py ref.mp4 --fps24              # 折回 24fps 等效值，跨幀率比較用
+python scripts/measure_motion.py ref.mp4 --fps24            # 比較前先換算成 24fps
+
+# 後製合成衝擊幀（逐幀精準：--at 請給 幀號/24）
+python scripts/impact_frame.py composite --main main.mp4 --impact burst.mp4 \
+    --at 3.875 --frame 3 --hold 0.083 --out out.mp4
 ```
 
 | 指標 | 合格 |
@@ -201,50 +181,43 @@ python scripts/measure_motion.py ref.mp4 --fps24              # 折回 24fps 等
 | 最長低潮 | ≤ 0.8s |
 | 峰值格 | ≥ 4 |
 
-> 這些門檻是以 24fps 素材校準的。標示 60fps 的片可能其實是 24fps 的 2:3 pulldown，
-> 而 30fps 素材的分數會系統性偏低約 20%。**跨幀率比較前先跑 `--fps24`。**
+> 門檻以 24fps 素材校準。宣稱 60fps 的片可能其實是 24fps 加 pulldown，30fps 素材分數約低 20%；比較前請加 `--fps24`。
 
 ## 檔案一覽
 
 | 檔案 | 內容 |
 |---|---|
-| [`SKILL.md`](SKILL.md) | 規格、六拍方法、力場、設計原則、可量測規則、工作流程 |
-| [`references/output-format.md`](references/output-format.md) | 官方三／六欄位格式、對齊句、對白標籤、常見錯誤 |
-| [`references/impact-design.md`](references/impact-design.md) | 六拍細節、力度分級、材質反應、節奏預算 |
-| [`references/move-library.md`](references/move-library.md) | 16 招具名動作、4 組三招串接、中英翻譯規則 |
+| [`SKILL.md`](SKILL.md) | 規格、六拍方法、力場、設計原則、工作流程 |
+| [`references/output-format.md`](references/output-format.md) | 官方三／六欄位格式、對齊句、對白標籤 |
+| [`references/impact-design.md`](references/impact-design.md) | 六拍細節、力度分級、材質反應 |
+| [`references/move-library.md`](references/move-library.md) | 16 招具名動作、4 組串接、中英翻譯規則 |
 | [`references/continuous-brawl.md`](references/continuous-brawl.md) | 連續對轟四拍模式 |
-| [`references/blade-light-cinema.md`](references/blade-light-cinema.md) | 21:9 高速斬擊電影語言：1.57 刀/秒、漫畫衝擊格、單色環境＋異物色、剪影構圖 |
-| [`references/blade-light-cinema.md`](references/blade-light-cinema.md) | 21:9 高速斬擊電影語言：1.57 刀/秒、漫畫衝擊格、單色環境 |
-| [`references/ref-identity-lock.md`](references/ref-identity-lock.md) | 參考圖保真：9 類身份特徵、畫風錨定、環境參考 |
-| [`references/drone-camera.md`](references/drone-camera.md) | 無人機運鏡：8 個機位、五種尺度、禁止繞圈圈 |
-| [`references/ultra-speed.md`](references/ultra-speed.md) | ULTRA_SPEED 節奏模式：10–14 鏡、每鏡光影事件 |
+| [`references/ultra-speed.md`](references/ultra-speed.md) | ULTRA_SPEED：8 秒 10–14 鏡、每鏡一個光事件 |
+| [`references/drone-camera.md`](references/drone-camera.md) | 無人機運鏡：8 種機位、五種尺度、禁止只繞圈 |
+| [`references/blade-light-cinema.md`](references/blade-light-cinema.md) | 21:9 刃光電影語言、漫畫衝擊格、單色夜戰 |
+| [`references/ref-identity-lock.md`](references/ref-identity-lock.md) | 參考圖保真：9 類身份特徵、畫風材質錨 |
+| [`references/facial-performance.md`](references/facial-performance.md) | 用肌肉動作寫表情 |
+| [`references/impact-frame-and-shake.md`](references/impact-frame-and-shake.md) | 衝擊幀形態與幀數、震屏衰減、墨爆 |
 | [`references/impact-frame-post.md`](references/impact-frame-post.md) | 衝擊幀分開生成再後製合成 |
+| [`references/fl2va-chain.md`](references/fl2va-chain.md) | 兩段接續、接縫、結尾規則 |
 | [`references/force-field.md`](references/force-field.md) | 力場四通道、三種場型、句庫 |
-| [`references/impact-frame-and-shake.md`](references/impact-frame-and-shake.md) | 衝擊幀四形態與幀數、漫畫格三段式、震屏衰減、hitstop 參數 |
-| [`references/camera-grammar.md`](references/camera-grammar.md) | 官方運鏡詞彙、打鬥運鏡套路、最大衝擊可鎖死相機、幀率陷阱 |
-| [`references/vfx-vocabulary.md`](references/vfx-vocabulary.md) | 中英特效詞彙庫、色彩腳本、夜戲單色環境邏輯、刃光四形態 |
+| [`references/camera-grammar.md`](references/camera-grammar.md) | 官方運鏡詞彙、打鬥運鏡套路 |
+| [`references/vfx-vocabulary.md`](references/vfx-vocabulary.md) | 中英特效詞彙庫、色彩腳本 |
 | [`references/prompt-templates.md`](references/prompt-templates.md) | T2VA / FL2VA / Ref2VA 填空模板 |
 | [`references/qa-checklist.md`](references/qa-checklist.md) | 生成前後檢查、失敗對應修法 |
-| [`references/guided-mode.md`](references/guided-mode.md) | 引導模式：三種進入路徑、六個情境選項 |
-| [`references/case-wuxia-duel.md`](references/case-wuxia-duel.md) | 27.5 秒對決的拆解與四段式重現 |
-| [`scripts/validate_prompt.py`](scripts/validate_prompt.py) | 格式驗證 |
-| [`scripts/measure_motion.py`](scripts/measure_motion.py) | 運動曲線量測 |
-| [`scripts/compare_clips.py`](scripts/compare_clips.py) | 並排動態圖對照 ＋ 運動量對照表 |
-| [`scripts/submit_ab.py`](scripts/submit_ab.py) | 把技能前/後兩版以固定種子送本機 H3 |
-| [`scripts/poll_ab.py`](scripts/poll_ab.py) | 等生成完成並下載（可續跑） |
-| [`scripts/poll_ab.py`](scripts/poll_ab.py) | 等生成完成並下載（可續跑） |
-| [`scripts/submit_ref2va.py`](scripts/submit_ref2va.py) | 上傳多張參考圖並送出 Ref2VA 生成工作 |
-| [`scripts/impact_frame.py`](scripts/impact_frame.py) | 衝擊幀分開生成，再後製合成到主片 |
-| [`scripts/measure_staging.py`](scripts/measure_staging.py) | 量測取景變化與鏡長分布（運鏡感的客觀指標） |
-| [`scripts/measure_light_event.py`](scripts/measure_light_event.py) | 量測每一鏡有沒有光影事件（光影華麗度的客觀指標） |
+| [`references/guided-mode.md`](references/guided-mode.md) | 引導模式：入口與情境選項 |
+| [`references/case-wuxia-duel.md`](references/case-wuxia-duel.md) | 27.5 秒對決的拆解與重現 |
+| [`examples/`](examples/) | 展示與上方實測表用到的十份提示詞 |
+| [`scripts/`](scripts/) | `validate_prompt`、`measure_motion`、`measure_staging`、`measure_light_event`、`impact_frame`、`submit_ref2va`、`submit_chain`、`seam_check`、`submit_ab`、`poll_ab`、`compare_clips` |
 
 ## 誠實的限制
 
-- 數據來自我自己在單一環境的實測（共 23 支生成片），是佐證，不是基準測試。
-- 運動分數量的是畫面變化，不是主體運動。
-- 案例分析的對象是第三方參考片，影片本身不包含在此 repo。
+- 數據來自我自己在單一環境的實測，每種提示詞一個種子，是佐證，不是基準測試。
+- 運動分數量的是畫面變化，不是主體運動；暗畫面或剪影片即使看起來對，分數也會偏低，仍要目視。
+- 高畫質重跑與草稿是不同樣本，分數會變動，表格兩者都列。
+- 力場類在高畫質下仍偏弱。
+- 案例分析與 30 秒格鬥分析的是第三方參考片，影片與角色圖不包含在此 repo。
 - H3 沒有負面提示欄；所有「不要」都改寫成正面約束句。
-- 參考片標示的幀率不一定是真的，換算前先驗證。
 
 ## 授權
 

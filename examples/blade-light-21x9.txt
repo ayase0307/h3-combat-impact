@@ -1,0 +1,17 @@
+integrated_multimodal_description: [Shot 1] 3D CG, cinematic, 21:9 widescreen snowfield at night. The upper half of the frame is a near-black tree line and the lower half is overexposed blue snow, and two swordsmen travel along the boundary between them as black silhouettes. The cold fighter's irises glow ice-blue and the other fighter's irises are amber with a violet diamond set in her forehead. First contact occurs within the opening half-second: a ribbon of ice-blue light flows along the cold fighter's blade edge and cuts a crescent through the air toward her. The camera tracks sideways with large amplitude at fast speed.
+
+[Shot 2] At 00:00.700, the camera cuts to a low angle as a thin white line of light stays across the whole frame width after the swing, its ends leaving the frame, the snow behind them drawing the silhouettes' outline. The camera pushes in with small amplitude at fast speed.
+
+[Shot 3] At 00:01.400, the camera cuts to a close-up of the amber-eyed fighter's face, a violet spark jumping from her forehead gem as she blocks, her jaw muscles bunching and her brows slamming into a knot. The camera holds a static shot.
+
+[Shot 4] At 00:02.000, the camera cuts to a wide shot as the two clash and a radial branching of ice-blue lightning spreads from the point of contact like a crack in glass, snow lifting in a ring. The camera pulls back with large amplitude at fast speed.
+
+[Shot 5] At 00:03.000, the camera cuts to a high angle as the cold fighter leaps and a crossing X of ice-blue light slashes down, the violet fighter rolling sideways under it and leaving a violet trail. The camera tilts down with large amplitude at fast speed.
+
+[Shot 6] At 00:04.100, the camera cuts to a medium shot as the violet fighter drives her blade up and the blast of cold light tears the snowfield open, spray of ice crystals sweeping toward the lens. The camera shakes strongly then steadies.
+
+[Shot 7] At 00:05.200, the camera cuts to a wide silhouette shot as both fighters circle on the light boundary, each swing leaving a glowing crescent hanging in the air. The camera trucks left with large amplitude at fast speed.
+
+[Shot 8] At 00:06.200, the camera cuts to a close view of the blades locked, ice-blue light and a violet flare mixing, both fighters still pushing forward as the frame ends. The camera pushes in with small amplitude at fast speed.
+overall_soundscape: Crisp ringing steel, snow crunching underfoot, a low wind, deep whooshes as each light swing passes.
+non_diegetic_music: Sparse icy synth pads with a fast low percussion pulse.

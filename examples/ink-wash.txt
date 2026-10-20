@@ -1,0 +1,11 @@
+integrated_multimodal_description: [Shot 1] Chinese ink-wash martial-arts VFX, a warm sepia rice-paper palette with grey shadows, photorealistic tiger fur and cloth simulation overlaid with black ink splashes, the only accent colour is a red silk sash. First contact occurs within the opening half-second: a giant tiger swipes down at a white-robed swordsman holding a long spear, the red silk sash on his waist whipping forward and trailing a black ink tail like a brush stroke. The camera tracks sideways with large amplitude at fast speed.
+
+[Shot 2] At 00:00.900, the camera cuts to a medium shot as the swordsman leaps and thrusts the spear tip, a radial burst of black ink spikes larger than the figures erupting from the impact for under half a second, then the frame flips to white for one frame and black for one frame and the ink disperses.
+
+[Shot 3] At 00:01.900, the camera cuts to a low angle as the tiger lunges at the lens beside a stone pillar that cracks and collapses, rubble scattering and dust drifting across the paper-toned ground. The camera pushes in with large amplitude at fast speed.
+
+[Shot 4] At 00:03.100, the camera cuts to a front view as the tiger charges and a second radial ink burst fills the frame, the swordsman's red sash flicking out of the black. The camera shakes strongly then steadies.
+
+[Shot 5] At 00:04.200, the camera cuts to a medium shot as the ink settles and drifts away, the tiger turning with heavy steps and the swordsman skidding back a half step with the spear levelled, both still moving as the frame ends. The camera pulls back with small amplitude at slow speed.
+overall_soundscape: Heavy breathing and growls, ink splashing, stone cracking, cloth snapping, a deep drum on each burst.
+non_diegetic_music: A sparse guzheng pluck over a slow low drum pulse that quickens at each ink burst.

@@ -105,16 +105,20 @@ def composite(args):
         return 1
 
     # 2. 算出衝擊幀要覆蓋的時間區間
-    nframes = int(run(["ffprobe", "-v", "error", "-select_streams", "v:0",
-                       "-count_frames", "-show_entries",
-                       "stream=nb_read_frames", "-of", "csv=p=0",
-                       args.main]).stdout.strip() or 0)
-    fps = 24.0
+    rate = run(["ffprobe", "-v", "error", "-select_streams", "v:0",
+                "-show_entries", "stream=r_frame_rate", "-of", "csv=p=0",
+                args.main]).stdout.strip() or "24/1"
+    num, _, den = rate.partition("/")
+    src_fps = float(num) / float(den or 1)  # 開關以主片自身的幀率換算
+    fps = 24.0  # 輸出一律 24fps
     start = args.at
     dur = args.hold
     # 3. overlay：衝擊幀圖在 [start, start+dur] 區間出現在主片最上層
+    # 以幀序號開關（t 的浮點邊界會讓 2 幀變 1 幀或 3 幀，多次疊加時會交錯）
+    first = round(start * src_fps)
+    last = first + max(1, round(dur * src_fps)) - 1
     fc = (f"[1:v]format=rgba,scale=iw:ih[if];"
-          f"[0:v][if]overlay=enable='between(t,{start},{start + dur})':"
+          f"[0:v][if]overlay=enable='between(n,{first},{last})':"
           f"eof_action=pass[ov];"
           f"[ov]fps={fps},format=yuv420p[v]")
     r = run(["ffmpeg", "-v", "error", "-y", "-i", args.main, "-loop", "1",

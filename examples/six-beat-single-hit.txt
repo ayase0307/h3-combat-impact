@@ -1,0 +1,9 @@
+integrated_multimodal_description: [Shot 1] 3D CG, cinematic wuxia, teal lantern glow against amber torchlight. A rain-soaked rooftop at night: a tall swordswoman in a black high-collar top and a white lotus-leaf skirt faces a bare-chested veteran swordsman in a dark blue-grey open robe. First contact occurs within the opening half-second as she steps in and draws her black-sheathed blade back, her weight sinking into the rear leg, the blade trembling with teal spirit flame, rain streaks bending toward it. The camera pushes in with small amplitude at slow speed.
+
+[Shot 2] At 00:02.800, the camera cuts to an extreme close-up of the two blades meeting, a white-hot spark bloom at the point of contact, and for two frames the entire frame blows out to pure white.
+
+[Shot 3] At 00:03.300, the camera cuts to a wide low angle. The action decelerates to a near-freeze for two frames, dust and sparks hanging in the air, then a ring of shockwave dust bursts outward, the rain is pushed into a radial sheet, the lanterns swing, roof tiles rattle loose, and the silk of her skirt presses flat against her body. The camera pulls back with large amplitude at fast speed.
+
+[Shot 4] At 00:05.700, the camera cuts to a medium shot. The veteran is hurled backward across the wet tiles, his robe and hair whipping a beat late, the camera shake decays and settles back to steady within a third of a second, and she settles into a low guard, her jaw muscles bunching and her brows knotting, with embers drifting down, already stepping forward again as the frame ends. The camera shakes strongly then steadies.
+overall_soundscape: Heavy rain on tiles, a ringing steel clash, a low thud of impact, tiles rattling loose, cloth snapping in the wind.
+non_diegetic_music: Sparse low strings and a single deep taiko hit at the moment of contact.

@@ -1,0 +1,9 @@
+integrated_multimodal_description: [Shot 1] 3D CG, cinematic, a rain-soaked night alley lit by a flickering neon sign. A young woman swordfighter with short black hair and a scar under her right eye is locked blade-to-blade with a masked opponent. First contact occurs within the opening half-second as the blades grind together between them. In an extreme close-up of her face her jaw muscles bunch and her teeth clench, her brows slam down into a hard knot above her nose, the lower lids tighten and the skin at the corners crinkles, rain running off her chin. The camera pushes in with small amplitude at fast speed.
+
+[Shot 2] At 00:01.800, the camera cuts to a close-up as her eyes fly wide and her lips part on a sharp intake of breath when the opponent's blade slips and grazes her cheek, a thin line of blood and a spark. The camera shakes strongly.
+
+[Shot 3] At 00:03.000, the camera cuts to a medium shot as she snarls, drives forward and shoves the opponent back three steps, the neon light flickering across her face and rain spraying from her hair. The camera tracks with her with large amplitude at fast speed.
+
+[Shot 4] At 00:04.200, the camera cuts to a low angle close-up as her mouth sets in a hard line and her eyes narrow with the whites showing, then she whips her head and blade around into a spinning cut that slashes the opponent's mask in half, rain and sparks spraying across the lens, her body still rotating into the follow-through as the frame ends. The camera whips around with large amplitude at fast speed.
+overall_soundscape: Heavy rain, grinding steel, ragged breathing, boots splashing through puddles, an electric buzz from the neon.
+non_diegetic_music: Tense low pulsing synth with a slow heartbeat percussion.

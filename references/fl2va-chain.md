@@ -55,7 +55,7 @@ ffmpeg -y -sseof -0.5 -i segA.mp4 -update 1 -q:v 2 segA_last.png
 
 | 對策 | 做法 |
 |---|---|
-| **① 第 1 段結尾寫成「動作中」而非「完成」** | 別寫 `settles into a low guard`；寫 `Both fighters hold the lock as the frame ends, their faces turned toward each other.` |
+| **① 第 1 段結尾寫成「動作中」而非「完成」** | 別寫 `settles into a low guard`；寫 `The lock breaks and she drives through, the blade clipping past and the camera still moving as the frame ends.` |
 | **② 第 2 段首鏡立刻打破** | 首鏡前 0.5 秒內就要有動作：`The lock breaks within the first half-second: ... shoves through and drives ... back two steps.` |
 | ③ 生成多要 0.5 秒再切 | 第 1 段切在動作轉折點，不切在末尾 |
 
@@ -178,6 +178,20 @@ ffmpeg -v error -i full_30s.mp4 -vf "tblend=all_mode=difference,signalstats,meta
 接續段的起步不但沒有掉速，還比第 1 段更快。
 
 **所以問題只在結尾，不在接縫。**
+
+### 5.6 15 秒單段的結尾（2026-10-21，E1 實測：結論是看末鏡寫法，不是 15 秒本身）
+
+另兩支 15 秒 Ref2VA（同參考圖、同 seed 20261019、7 個事件，唯一變因＝提示詞格式），末鏡都寫成
+`both fighters are still mid-motion as the frame ends`：
+
+| 版本 | 全程 | 開場 | 末 2s ÷ 中段 | 旗標 |
+|---|---:|---:|---:|---|
+| A 作者格式（中文、`[Shot1] At 00:00.00, 0–2.0s｜…`） | 18.11 | 9.70 | **108%** | 無 |
+| B skill 格式（英文、`[Shot 1]` 無時間碼） | 19.62 | 14.18 | **113%** | 無 |
+
+兩支都沒有爛尾，目視最後一鏡仍是兩人對撞、光爆。**所以 §5.5 的爛尾很可能來自「hold the lock」這句，而不是 15 秒長度。**
+單 seed、單組圖，樣本小；結論只用來降級「15 秒必爛」的印象，不當作保證。
+
 
 ### 修正後的檢查
 
