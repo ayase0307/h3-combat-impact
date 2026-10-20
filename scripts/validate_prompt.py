@@ -19,6 +19,15 @@ REF_FIELDS = ["subject_definitions", "summary", "retention_analysis",
               "detailed_description", "overall_soundscape", "non_diegetic_music"]
 
 NEG = re.compile(r"\b(no|not|never|without|instead of|rather than)\b", re.I)
+# 表情肌肉詞：沒有這些詞的「情緒描述」等於沒寫
+MUSCLE = re.compile(
+    r"\b(brows?|eyelids?|lids?|jaw|jaws|teeth|clench\w*|lips?|mouth|throat|"
+    r"nostrils?|temple|cheeks?|chin|breath\w*|gasp\w*|swallow\w*|"
+    r"heaves?|heaving|sweat\w*|flinch\w*|wince\w*|grimace\w*)\b", re.I)
+# 只描述眼睛形狀／打光、不含肌肉的寫法
+FAKE_FACE = re.compile(
+    r"\b(irises?|pupils?|eyes?)\s+(narrow\w*|widen\w*|glow\w*|lit|lit up|"
+    r"reflecting|reflected)\b", re.I)
 TS = re.compile(r"At\s+(\d{2}):(\d{2}\.\d{2,3})")
 SHOT = re.compile(r"\[Shot (\d+)\]")
 LABEL = re.compile(r"<(Subject|Picture|Video|Audio) (\d+)>")
@@ -148,6 +157,32 @@ def check(path, duration):
             out.append(("WARN", "出現標籤但無對應 Picture 引用"))
             warn += 1
 
+    # 表情：有臉部特寫卻沒有肌肉動作 = 死人臉
+    # 特寫的判斷窗：從 close-up 起算到「本鏡結束」（下一個 [Shot 或欄位）
+    close_ups = re.findall(
+        r"(?:extreme )?close[- ]up.*?(?=\[Shot\s|\n\n|\Z)", body, re.I | re.S)
+    if close_ups:
+        # 只有「畫面裡有人臉」的特寫才需要肌肉動作；兵器/手部特寫不算
+        FACE = re.compile(r"\b(face|faces|eyes?|irises?|expression)\b", re.I)
+        BLADE_FACE = re.compile(r"flat faces|blade faces|faces of the", re.I)
+        face_cu = [c for c in close_ups
+                   if FACE.search(c) and not BLADE_FACE.search(c)]
+        no_muscle = [c for c in face_cu if not MUSCLE.search(c)]
+        if no_muscle:
+            out.append(("WARN",
+                        f"{len(no_muscle)}/{len(face_cu)} 個臉部特寫沒有肌肉動作"
+                        "（只寫眼睛形狀/打光會得到死人臉；改寫眉毛、下眼瞼、"
+                        "咀嚼肌、嘴、喉）"))
+            warn += 1
+    if not MUSCLE.search(body):
+        out.append(("WARN", "全篇沒有任何表情肌肉動作"
+                            "（brow/jaw/teeth/lip/throat/breath…），"
+                            "角色會全程面無表情"))
+        warn += 1
+    if len(FAKE_FACE.findall(body)) >= 2 and not MUSCLE.search(body):
+        out.append(("WARN", "用眼睛形狀代替表情（如 irises narrow），"
+                            "那不是肌肉動作"))
+        warn += 1
     # 字數預算
     words = len(body.split())
     limit = 820 if is_ref else 520

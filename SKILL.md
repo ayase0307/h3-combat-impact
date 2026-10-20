@@ -293,6 +293,57 @@ First contact occurs within the opening half-second.
 
 實測：寫了這句的版本開場運動量 20.44，沒寫的只有 3.24（相差 6 倍）。
 
+## 核心方法四之二：表情與表演（臉不能是死的）
+
+**運鏡再炫、特效再華麗，只要角色的臉是死的，整段就是在看兩尊雕像打架。**
+
+### 診斷：三種寫法一定失敗
+
+| ❌ 寫法 | 為什麼無效 |
+|---|---|
+| `her amber irises narrow` | 這是**眼睛形狀**，不是臉部肌肉 |
+| `pale gray eyes lit from below` | 這是**打光**，燈光打在死人臉上還是死人臉 |
+| `a determined expression` | 這是**形容詞**，模型不知道對應哪塊肌肉 |
+
+**三種都只碰到「眼睛」和「光」，沒有碰到「肌肉」。**
+
+### 原理：表情是肌肉，不是形容詞
+
+| ❌ 形容詞 | ✅ 肌肉動作 |
+|---|---|
+| `a determined expression` | `her jaw muscles bunch and her teeth clench` |
+| `fierce eyes` | `her brows slam down into a hard knot above her nose` |
+| `she looks shocked` | `her eyes fly wide and her lips part on a sharp intake of breath` |
+
+**規則：每一句表情描述都必須有「可以動的部位 ＋ 一個動作」。**
+
+可用部位：眉／上眼瞼／下眼瞼與眼周／鼻翼／下顎與咀嚼肌／齒／唇／頸與喉／太陽穴／汗淚／呼吸。
+
+### 四階段表情（不是一個表情用到底）
+
+| 階段 | 情緒 | 寫法 |
+|---|---|---|
+| 交手前 | 緊繃 | `her jaw locks and her brows pull together` |
+| 吃到重擊 | 痛、失重 | `her eyes fly wide and her mouth wrenches open on a gasp` |
+| 反擊 | 狠、決斷 | `her brows slam down and her lips peel back off clenched teeth` |
+| 收尾 | 喘息 | `her chest heaves, a bead of sweat cutting through the dust on her cheek` |
+
+### 兩人要有對比：收 vs 放
+
+- **佔上風**：表情**收**（`her jaw locks, her mouth a flat line`）
+- **處於下風**：表情**放**（`her brows climb, her lips part, a bead of sweat at her temple`）
+
+**不用寫誰強誰弱，觀眾看臉就知道。**
+
+### 三個不可省的生理反應
+
+再快的打鬥人也會喘。沒有呼吸＝沒有力氣消耗＝看起來很輕。
+
+- **呼吸**：`her chest heaves`（每 4–6 秒至少一次）
+- **汗**：`sweat tracks down her temple`（中後段開始）
+- **吞嚥**：`her throat works on a swallow`
+
+完整部位清單、綁定寫法、失敗對照見 `references/facial-performance.md`。
 ## 核心方法五：奇觀構圖（避免「遊戲技能展示」感）
 
 大招展示最容易掉進的坑：**背景巨型奇觀 + 主體居中 + 左右對稱 = 靜止的遊戲技能展示**。
@@ -560,6 +611,12 @@ ffmpeg -v error -i clip.mp4 -vf "signalstats,metadata=print:key=lavfi.signalstat
 | `references/move-library.md` | 16 招具名動作（突進/下盤/拳掌/兵器/落地/防守）、四層結構、4 組三招串接配方、中英翻譯規則 |
 | `references/continuous-brawl.md` | 連續對轟模式：衝擊四拍、動作鏈句型、深度錯位、鏡頭參與、細節插切、實驗設計 |
 | `references/blade-light-cinema.md` | 21:9 高速斬擊電影語言：1.57 刀/秒、漫畫衝擊格、單色環境+異物色、剪影構圖、尺度手法 |
+| `references/ref-identity-lock.md` | 參考圖保真：9 類身份特徵列舉、畫風材質錨、環境參考只鎖建築 |
+| `references/drone-camera.md` | 無人機運鏡：8 個機位、五種尺度、穿前景、禁止繞圈圈 |
+| `references/facial-performance.md` | 表情與表演：肌肉動作為主、四階段表情、收放對比、生理反應、特寫必配表情 |
+| `references/ultra-speed.md` | ULTRA_SPEED 模式：8 秒 10–14 鏡、每鏡四件套、周圍連動清單、鏡頭密度統一表 |
+| `references/impact-frame-post.md` | 衝擊幀分開生成再後製：三素材工作流、hold 0.083s、接縫亮度檢查 |
+| `references/fl2va-chain.md` | 兩段接續：幀數換算、接縫三層（畫面／速率／身份）、接縫驗收 |
 | `references/force-field.md` | 力場四通道模型、三種場型、中英句庫、診斷表 |
 | `references/impact-frame-and-shake.md` | 衝擊幀四形態與幀數、漫畫格三段式、震屏 trauma 數學、hitstop 參數、三段式爆炸時序 |
 | `references/camera-grammar.md` | H3 官方運鏡詞彙表、打鬥運鏡套路、主體/鏡頭分離寫法、最大衝擊可鎖死相機、幀率陷阱 |
