@@ -210,6 +210,46 @@ The camera drops to a POV as the fist fills the frame, then rolls counterclockwi
 
 ---
 
+## 3.3 電影級運鏡：幅度與速度要有變化
+
+**機位多 ≠ 有電影感。** 實測我自己寫的 20 個鏡頭，機位確實多樣
+（高空俯拍／貼地／鳥瞰／越肩／吊臂／遠景／特寫），
+但 **14 個鏡頭全部寫 `with large amplitude at fast speed`** ——
+二十種機位、同一個節奏。
+
+### 三檔速度（不要全用 fast）
+
+| 檔 | 寫法 | 佔比 |
+|---|---|---|
+| 爆速 | `at extreme speed` | 20% |
+| 快 | `at fast speed` | 45% |
+| 慢 | `at slow speed` | 20% |
+| 靜 | `holds a static shot` | 15% |
+
+**慢是為了讓快更明顯。** 全片都快的，等於全片都一樣快。
+同一段至少要有 1 個慢鏡 + 1 個靜鏡。
+
+### 幅度要跳級
+
+`large` → `small` → `large` → 靜 → `large`。
+**連著寫三個 `large amplitude`，第三個改成 `small`。**
+
+### 運鏡要有因果（最重要的差別）
+
+| ❌ 描述式 | ✅ 因果式 |
+|---|---|
+| `The camera pushes in with large amplitude.` | `He drives her back and the camera gives ground with them, pulling back.` |
+| `The camera trucks left.` | `She breaks left and the camera whips after her, lagging half a beat.` |
+| `The camera holds a static shot.` | `The camera holds dead still as the impact lands and the frame shudders once.` |
+
+**「鏡頭不跟」也是一種運鏡。**
+`the camera stays locked on her as he circles behind` 比 `arcs around them` 有戲得多。
+
+十個電影級機位（地面前置／前景穿越／高度落體／長焦壓縮／廣角貼臉／
+人掠過鏡頭／完全靜止／吊臂升降／甩到物件／跟焦轉移）
+見 `references/cinematic-camera.md`。
+
+---
 ## 3.4 ⛔ 禁止「繞著人物轉圈圈」
 
 **`arcs around` / `orbits` 全片最多 1 個，而且只能當「轉接鏡」**（用來從一個位置接到下一個位置）。

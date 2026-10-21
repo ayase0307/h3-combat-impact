@@ -20,6 +20,28 @@ REF_FIELDS = ["subject_definitions", "summary", "retention_analysis",
 
 NEG = re.compile(r"\b(no|not|never|without|instead of|rather than)\b", re.I)
 # 表情肌肉詞：沒有這些詞的「情緒描述」等於沒寫
+# 招式類別詞（用來自動檢查招式多樣性）
+MOVE_CATS = {
+    # 只算「刀路動詞」，不含 blade/katana 這類名詞（名詞每個鏡頭都會出現，會誤判）
+    "blade": r"\b(cut|cuts|cutting|slash|slashes|thrust|thrusts|rip|rips|"
+             r"cleave|swings?|stabs?|strikes?|drives through|"
+             r"descending cut|rising cut|overhead cut)\b",
+    "kick": r"\b(kick|kicks|knee|knees|shin|stomp|stamps?)\b",
+    "punch": r"\b(punch|punches|hook|hooks|elbow|elbows|backfist|jab|"
+             r"palm|palms|fist|forearm|headbutt)\b",
+    "throw": r"\b(throw|throws|hip-throw|hurl|hurls|slam|slams|dump|dumps|"
+             r"underhook|overhook|mounts?|pins?)\b",
+    "sweep": r"\b(sweep|sweeps|sweeping|trip|trips|low kick|ankle|take her legs)\b",
+    "grab": r"\b(grab|grabs|grapple|seize|seizes|wrist|wrench|wrenches|"
+            r"choke|chokes|clinched|clinch)\b",
+    "block": r"\b(parr(y|ies|ied)|block|blocks|blocked|catches|catching|"
+             r"guards? against|deflect|deflects|absorbs)\b",
+    "move": r"\b(vault|vaults|leaps|dash|dashes|sidestep|sidesteps|rolls|"
+            r"slides|spins|charges|closes the gap|backpedal)\b",
+}
+BLADE_LIMIT_15 = 12
+BLADE_LIMIT_8 = 7
+
 MUSCLE = re.compile(
     r"\b(brows?|eyelids?|lids?|jaw|jaws|teeth|clench\w*|lips?|mouth|throat|"
     r"nostrils?|temple|cheeks?|chin|breath\w*|gasp\w*|swallow\w*|"
@@ -183,6 +205,30 @@ def check(path, duration):
         out.append(("WARN", "用眼睛形狀代替表情（如 irises narrow），"
                             "那不是肌肉動作"))
         warn += 1
+# 招式多樣性：看「刀路佔比」，不是絕對次數（長提示詞刀路次數自然高）
+    counts = {k: len(re.findall(v, body, re.I)) for k, v in MOVE_CATS.items()}
+    blade = counts.get("blade", 0)
+    others = sum(v for k, v in counts.items() if k != "blade")
+    total = blade + others
+    if total >= 8:
+        blade_pct = 100.0 * blade / total
+        # 15 秒以上容許刀路 55%；8 秒容許 60%（短片段沒空間放全套）
+        cap = 55.0 if (duration and duration >= 12) else 60.0
+        if blade_pct > cap:
+            out.append(("WARN",
+                        f"刀路佔比 {blade_pct:.0f}%（刀路 {blade} / 其他 {others}，"
+                        f"上限 {cap:.0f}%）—— 招式單一。"
+                        "加踢擊/拳肘/摔投/下盤/擒拿，"
+                        "見 references/choreography.md 的配額表"))
+            warn += 1
+        if counts.get("throw", 0) == 0 and blade >= 4:
+            out.append(("WARN", "完全沒有摔投/擒拿 —— 距離不會變化，"
+                                "容易變成兩人站著互砍"))
+            warn += 1
+        if counts.get("sweep", 0) == 0:
+            out.append(("WARN", "完全沒有下盤/絆 —— 全程在同一個高度打"))
+            warn += 1
+
     # 字數預算
     words = len(body.split())
     limit = 820 if is_ref else 520
