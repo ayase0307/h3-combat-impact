@@ -191,6 +191,8 @@ python scripts/impact_frame.py composite --main main.mp4 --impact burst.mp4 \
 | [`references/output-format.md`](references/output-format.md) | 官方三／六欄位格式、對齊句、對白標籤 |
 | [`references/impact-design.md`](references/impact-design.md) | 六拍細節、力度分級、材質反應 |
 | [`references/move-library.md`](references/move-library.md) | 16 招具名動作、4 組串接、中英翻譯規則 |
+| [`references/choreography.md`](references/choreography.md) | 招式編排：配額制（刀路上限）、真摔與僵持的分辨、三招三高度 |
+| [`references/cinematic-camera.md`](references/cinematic-camera.md) | 電影級運鏡：三檔速度、幅度跳級、因果運鏡、十個電影級機位 |
 | [`references/continuous-brawl.md`](references/continuous-brawl.md) | 連續對轟四拍模式 |
 | [`references/ultra-speed.md`](references/ultra-speed.md) | ULTRA_SPEED：8 秒 10–14 鏡、每鏡一個光事件 |
 | [`references/drone-camera.md`](references/drone-camera.md) | 無人機運鏡：8 種機位、五種尺度、禁止只繞圈 |
@@ -222,3 +224,7 @@ python scripts/impact_frame.py composite --main main.mp4 --impact burst.mp4 \
 ## 授權
 
 MIT
+
+
+
+

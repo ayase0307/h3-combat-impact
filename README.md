@@ -192,7 +192,9 @@ python scripts/impact_frame.py composite --main main.mp4 --impact burst.mp4 \
 | [`references/impact-design.md`](references/impact-design.md) | Beat detail, power tiers, material reactions |
 | [`references/move-library.md`](references/move-library.md) | 16 named moves, 4 chains, EN/ZH translation rules |
 | [`references/continuous-brawl.md`](references/continuous-brawl.md) | Non-stop four-beat mode |
-| [`references/ultra-speed.md`](references/ultra-speed.md) | ULTRA_SPEED mode: 10–14 shots in 8 s, light event per shot |
+| [`references/choreography.md`](references/choreography.md) | Move quotas (blade-verb cap), real throws vs locks, three heights per chain |
+| [`references/cinematic-camera.md`](references/cinematic-camera.md) | Three speed tiers, amplitude jumps, causal camera moves, ten cinematic positions |
+| [`references/ultra-speed.md`](references/ultra-speed.md) | ULTRA_SPEED mode: 10-14 shots in 8 s, light event per shot |
 | [`references/drone-camera.md`](references/drone-camera.md) | Drone camera: 8 positions, five scales, no orbit-only |
 | [`references/blade-light-cinema.md`](references/blade-light-cinema.md) | 21:9 blade cinematography, manga impact panels, single-hue night |
 | [`references/ref-identity-lock.md`](references/ref-identity-lock.md) | Reference fidelity: 9 identity classes, art-style anchors |
