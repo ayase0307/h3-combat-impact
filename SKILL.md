@@ -1,6 +1,6 @@
 ---
 name: h3-combat-impact
-description: This skill should be used when writing, revising, or debugging MiniMax H3 / Hailuo (海螺) video prompts for action, combat, wuxia/xianxia, VFX-heavy or impact-driven shots — especially when the user asks for 打擊感 / 力度 / 拳拳到肉, 打鬥特效, 招式編排 / 動作設計 / 打鬥太單調沒感覺, 衝擊幀 / impact frame, 震屏 / 鏡頭震動, 力場 / 空氣扭曲 / 熱浪 / 衝擊波, 法術爆炸, 打鬥運鏡節奏, or wants to break down and recreate a fight or explosion reference video in H3 format. It provides the official H3 prompt schema, a six-beat impact design method, three structural principles (exchange / compression / consequence), a named-move library, a four-channel force-field model, impact-frame and screen-shake timings, bilingual camera and VFX vocabulary, fill-in prompt templates, and a post-generation QA checklist.
+description: This skill should be used when writing, revising, or debugging MiniMax H3 / Hailuo (海螺) video prompts for action, combat, wuxia/xianxia, VFX-heavy or impact-driven shots — especially when the user asks for 打擊感 / 力度 / 拳拳到肉, 打鬥特效, 招式編排 / 動作設計 / 打鬥太單調沒感覺, 打鬥太慢 / 提速 / 急速, 衝擊幀 / impact frame, 震屏 / 鏡頭震動, 力場 / 空氣扭曲 / 熱浪 / 衝擊波, 法術爆炸, 打鬥運鏡節奏, 角色技能設計 / 獨特技能 / 角色設定圖重現, or wants to break down and recreate a fight or explosion reference video in H3 format. It provides the official H3 prompt schema, the upstream five-part per-shot contract (Camera/Motion/Performance/Light/Sound) with weight-transfer rules, a six-beat impact design method, three structural principles (exchange / compression / consequence), an action-density speed law, a named-move library, a VFX space-and-shape translation method, a four-channel force-field model, impact-frame routes (inline multi-card, transformation layers, post compositing), screen-shake timings, a portable character × signature-skill system with generated reference assets, bilingual camera and VFX vocabulary, fill-in prompt templates, and a post-generation QA checklist with zero-dependency scripts.
 agent_created: true
 ---
 
@@ -142,6 +142,56 @@ python scripts/validate_prompt.py prompt.txt --duration 8
 
 完整格式規範（含對白、畫外音、`<scenetrans>`、畫面文字、Ref2VA 六欄位）見 `references/output-format.md`。
 
+## 預設寫作單位：每鏡五小節（打鬥最需要的一條）
+
+> 來源：上游 `h3-video-prompting` 雲端 `origin/main`（2026-10-21，commit `1db923b`）的
+> 上游 repo `h3-video-prompting` 的 `references/shot-five-part.md`：「每個 `[Shot N]` 寫滿五小節（Camera／Motion／Performance／Light／Sound）」。
+> 打鬥比任何題材都更需要它——**一鏡同時要做四件事**：換機位、跑動作、演表情、炸特效。
+> 只寫一句動作時，模型會把這四件事都補成平均值：運鏡沒有落點、動作沒有重心、臉是死的、光是平的、聲音是空的。
+
+```text
+[Shot N] At MM:SS.mmm, the shot cuts to a <景別> (<焦距>, <物距>) of <主體>, as the camera <官方運鏡詞>. Camera: …  Motion: …  Performance: …  Light: …  Sound: …  <台詞>
+```
+
+| 小節 | 打鬥時必須寫進去 | 一句範例 |
+|---|---|---|
+| **① Camera** | 焦距＋物距＋機位高度；運鏡幅度／速度／時長；**起幅與落幅**（她在畫左還是畫右、落在哪條線） | `85mm from three metres at knee height, circling a third of the way around at medium speed over 1.8 s` |
+| **② Motion** | 起始 → 施力點 → **支撐與重心** → 慣性 → 結束；每鏡仍只 1 個主動作 | `her weight sinks into the rear leg, she drives off that heel, the front foot takes the whole body, her hips rotate ahead of her shoulders` |
+| **③ Performance** | 眉／下眼瞼／咀嚼肌／唇／喉／呼吸，寫「**部位＋動作**」與轉折 | `her jaw locks, her brows slam down, her lips peel back off clenched teeth` |
+| **④ Light** | 光源方向＋色溫；**特效本身是光源**（要照亮臉、地面、霧）；跨鏡一致 | `the column becomes the only key, washing her coat to pure white while her shadow is thrown back across the petals` |
+| **⑤ Sound** | 鏡內音效的**秒數**、環境音、台詞起口時間 | `stone cracks at 0.4 s, a pressure thump at 0.6 s, then a sustained roar` |
+
+**打鬥版的兩個加碼：**
+
+1. **Motion 一定要寫「支撐重心」**（承重腳／重心位移／支點／失衡慣性）。這是打擊感成本最低的來源——比加特效便宜，
+   而且只有「打中」沒有「重心到位」就是觀眾說的「軟」。
+2. **Light 一定要把特效當成光源**。特效不照亮場景，就會像貼上去的圖層。
+
+**四條不可違反：** 運鏡詞只出現在頭句（五小節內不寫第二個運鏡動詞、不寫 `the camera`）／不重述參考圖外觀／
+Performance 不能寫形容詞／Sound 不寫配樂。
+
+**預算**：五小節寫滿後每鏡約 120–190 英文字。8 秒 4–5 鏡 ≈ 750 字／4.4k 字元；
+**Ref2VA 六欄位 ＋ 五小節的 10 秒 6 鏡 ≈ 1300 字／7.4k 字元，已經貼著 7500 字元上限**，再長就要拆段。
+
+```bash
+python scripts/validate_prompt.py prompt.txt --duration 8 --five-part
+```
+
+`--five-part` 逐鏡檢查五個標籤齊全、順序正確、五小節內沒有第二個運鏡動詞，並提醒「整篇沒有重心描述」。
+完整寫法、四種重心參數、8 秒 5 鏡完整範例、什麼時候不要用，見 `references/shot-five-part-combat.md`。
+
+### 速度的鐵律：1 秒 3 個詳細動作
+
+| 寫法 | 結果 |
+|---|---|
+| `high-speed fighting`／`急速打鬥` | ❌ 模型當成風格標籤，動作反而更慢（像老頭打太極） |
+| 0.2 秒一動作（每秒 5 個） | ❌ 超過時序解析度，相鄰姿勢被插值抹平，動作糊成一團 |
+| **分鏡 1–2 秒 × 每鏡 3 個具名動作** | ✅ **唯一能出極限速度的寫法** |
+
+8 秒的動作預算：**10 鏡 × 每鏡 2 個具名動作 = 18–24 個動作**。副乘數依 CP 值：鏡頭運動 → 動態模糊／殘影 →
+**寫次數**（`繞龍連閃七次` 比 `極速繞龍` 快得多，因為模型有事件計數可以排時序）。
+完整八級排行與四種風格配方見 `references/speed-acceleration.md`。
+
 ## 核心方法：六拍打擊結構（HIT BEAT）
 
 ### 先選節奏模式（三選一，不可混用）
@@ -161,12 +211,25 @@ python scripts/validate_prompt.py prompt.txt --duration 8
 連續對轟的四拍公式、動作鏈句型、深度錯位、鏡頭參與、細節插切見 `references/continuous-brawl.md`。
 ULTRA_SPEED 的四件套、每鏡光影事件、周圍連動清單見 `references/ultra-speed.md`。
 
-### 衝擊幀做不到時：分開生成後製
+### 衝擊幀：三條路線，先選一條
 
 **實測：在高速動作的同一段提示詞裡寫 `for two frames`，模型會給 23 幀（958 ms），
 而且角色會整個消失。** 這是「風格跳轉」事件，模型把它當成一個黑白風格的鏡頭。
 
-解法是拆成三個素材再合成：
+| 路線 | 做法 | 精度 | 什麼時候用 |
+|---|---|---|---|
+| **A 多卡閃切** | 給衝擊幀一個**獨立時間段**，寫明幾張、每張停幾幀、每張的底色與畫法 | 卡級（3–4 幀） | 動畫／漫畫風、水墨、手繪 |
+| **B 變身六層** | 白閃 3f → 發光線稿 5f → 閃切 2D 漫畫 5f → 色調分離 4f → 白閃 2f → **同一姿勢**落定（總 0.3 s） | 卡級 | 變身、開大、切換形態 |
+| **C 後製合成** | 主片與衝擊幀分開生成，再抽幀疊回主片 | 逐幀 | 要精確 2 幀、真人／3D 寫實 |
+
+**路線 A 的三個數字**（《衝擊幀教學》逐字轉錄）：給 **0.3 秒**模型會把八張擠進一屏；給 **1.2 秒**
+才會一張一張整屏閃（每張 3–4 幀）；給 2 秒可以，成片再開 5 倍速。
+畫法要寫「粗暴的手繪、墨點飛濺、粗筆刷、飛白、刮痕」，每張換一套配色。
+
+**路線 B 的關鍵詞**：`flash-cuts` ＋ `holds exactly the same pose` ＋ `without any morphing in between`。
+寫 `transform` 會讓模型做形體漸變，得到一團黏在一起的東西。
+
+**路線 C（後製合成）的流程**——需要逐幀精確時才動：
 
 ```
 素材 A：主片        → 只有高速動作與運鏡，完全不寫衝擊幀
@@ -175,9 +238,11 @@ ULTRA_SPEED 的四件套、每鏡光影事件、周圍連動清單見 `reference
 合成：   A + C 疊在指定時間點，hold 0.083s = 24fps 的 2 幀 = 83 ms（參考片 30fps 的 2 幀為 67 ms，換算 ≈1.6 幀，取 2 幀）
 ```
 
-完整流程與驗收見 `references/impact-frame-post.md`。
+完整流程與驗收見 `references/impact-frame-post.md`；A／B 兩條路線的逐字提示詞與換算表見
+`references/impact-frame-inline.md`。
 
-> **後製路徑的價值：把不可控的東西變成可裁切。**
+> **A／B 拿「讀得出來」，C 拿「逐幀精確」。時間膨脹法（先給 1.2 秒多卡、剪輯只留 2 幀）是繞過
+> 「H3 做不出 2 幀」最便宜的一招：把精度換成素材量。**
 > 素材 B 生成 4 秒都無所謂，最後只會取用 2 幀。
 
 ### 六拍
@@ -666,6 +731,11 @@ ffmpeg -v error -i clip.mp4 -vf "signalstats,metadata=print:key=lavfi.signalstat
 | `references/cinematic-camera.md` | 電影級運鏡：三檔速度、幅度跳級、因果運鏡、十個電影級機位 |
 | `references/ultra-speed.md` | ULTRA_SPEED 模式：8 秒 10–14 鏡、每鏡四件套、周圍連動清單、鏡頭密度統一表 |
 | `references/impact-frame-post.md` | 衝擊幀分開生成再後製：三素材工作流、hold 0.083s、接縫亮度檢查 |
+| `references/impact-frame-inline.md` | 衝擊幀寫進提示詞：多卡閃切（8 卡／1.2 s）、變身六層 0.3 s 序列、時間膨脹法換算表 |
+| `references/shot-five-part-combat.md` | 每鏡五小節（Camera／Motion／Performance／Light／Sound）打鬥版：四種重心參數、字數預算、8 秒 5 鏡完整範例 |
+| `references/speed-acceleration.md` | 打鬥提速：八級排行、1 秒 3 動作的動作密度公式、速度詞庫（有效 vs 無效）、四種風格配方 |
+| `references/vfx-choreography.md` | 特效編排五點骨架：邏輯動線／動作／**空間範圍**／鏡頭／風格，未知招式的三步翻譯法 |
+| `references/character-signature-skill.md` | 角色 × 獨特技能：角色卡十欄、技能四節點、八個母題原型、移植法、兩份完整實例與素材 |
 | `references/fl2va-chain.md` | 兩段接續：幀數換算、接縫三層（畫面／速率／身份）、接縫驗收 |
 | `references/force-field.md` | 力場四通道模型、三種場型、中英句庫、診斷表 |
 | `references/impact-frame-and-shake.md` | 衝擊幀四形態與幀數、漫畫格三段式、震屏 trauma 數學、hitstop 參數、三段式爆炸時序 |
@@ -699,3 +769,11 @@ ffmpeg -v error -i clip.mp4 -vf "signalstats,metadata=print:key=lavfi.signalstat
 4. **最大的衝擊那一鏡，相機應該是鎖死的。** 43% 的 3D CG 參考片鏡頭相機不動，而且鎖死的正是關鍵時刻——衝擊感來自「特效把背景推開」，不是相機在抖。前面的鏡頭要動，這一鏡要靜。
 5. **衝擊幀不只有爆白。** 「漫畫放射線格」（整幀去飽和成黑白 + 全 360° 放射線，2 幀 + 1 幀黑）是另一種裝置，而且更適合高速斬擊。
 6. **參考片標示的幀率可能是假的。** 標 60fps 可能是 24fps 的 pulldown；而且 30fps 素材的運動分數系統性偏低 20%。**先驗證再換算。**
+7. **衝擊幀可以寫進提示詞——只要你把它當「一段多卡閃切」。** 給 1.2 秒、寫明八張卡與每張的底色，
+   剪輯只留你要的 2 幀。給 0.3 秒會被擠成一屏。見 `references/impact-frame-inline.md`。
+8. **特效一定要有形狀與空間範圍。** 只寫「發光、爆炸」就是貼圖；寫「兩米寬的布帶繃直如刀、由左下斜掃到右上、
+   敵人胸口一道平整切口」才有招式。見 `references/vfx-choreography.md`。
+9. **速度是動作密度，不是形容詞。** 寫 `high-speed` 會更慢；分鏡 1–2 秒 × 每鏡 3 個具名動作才是極限速度。
+   見 `references/speed-acceleration.md`。
+10. **每鏡五小節寫滿，但 Motion 一定要有重心。** 打擊感最便宜的來源是「哪隻腳承重、重心從哪移到哪」，
+    不是特效。見 `references/shot-five-part-combat.md`。

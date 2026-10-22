@@ -36,8 +36,12 @@ class Client:
         req = urllib.request.Request(self.api + path, data=data,
                                      method=method, headers=headers)
         op = urllib.request.build_opener(urllib.request.ProxyHandler({}))
-        with op.open(req, timeout=300) as r:
-            payload = r.read()
+        try:
+            with op.open(req, timeout=300) as r:
+                payload = r.read()
+        except urllib.error.HTTPError as exc:
+            detail = exc.read().decode("utf-8", "replace")
+            raise SystemExit(f"{method} {path} -> HTTP {exc.code}: {detail[:1200]}")
         if raw:
             return payload
         return json.loads(payload.decode("utf-8"))
@@ -104,7 +108,9 @@ def main():
     ap.add_argument("--width", type=int, default=960)
     ap.add_argument("--height", type=int, default=544)
     ap.add_argument("--seconds", type=float, default=8.0)
-    ap.add_argument("--quality", default="light")
+    ap.add_argument("--quality", default="light",
+                    choices=["light", "medium", "high", "max"],
+                    help="light = 草稿最快。API 只接受這四個值，送 draft 會回 422")
     ap.add_argument("--seed", type=int, default=None)
     ap.add_argument("--wait", action="store_true")
     ap.add_argument("--outdir", default="analysis/drone")
