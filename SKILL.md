@@ -1,701 +1,191 @@
 ---
 name: h3-combat-impact
-description: This skill should be used when writing, revising, or debugging MiniMax H3 / Hailuo (海螺) video prompts for action, combat, wuxia/xianxia, VFX-heavy or impact-driven shots — especially when the user asks for 打擊感 / 力度 / 拳拳到肉, 打鬥特效, 招式編排 / 動作設計 / 打鬥太單調沒感覺, 衝擊幀 / impact frame, 震屏 / 鏡頭震動, 力場 / 空氣扭曲 / 熱浪 / 衝擊波, 法術爆炸, 打鬥運鏡節奏, or wants to break down and recreate a fight or explosion reference video in H3 format. It provides the official H3 prompt schema, a six-beat impact design method, three structural principles (exchange / compression / consequence), a named-move library, a four-channel force-field model, impact-frame and screen-shake timings, bilingual camera and VFX vocabulary, fill-in prompt templates, and a post-generation QA checklist.
+description: 綜合打鬥技能（MiniMax H3／海螺）：角色招式設計、交手編排、對打交換節拍、特效 VFX 分層、打鬥運鏡、表情、衝擊幀／閃白／漫畫格／hit stop、衝擊波與震屏、參考圖保真、接續生成、組裝變速與後製。凡 H3 提示詞含打鬥、對打、招式、必殺技／大招／絕招、秒殺、變身、法術爆炸、刀光劍氣、特效，或使用者說打擊感不夠、大招沒感覺、招式太慢、要毀天滅地，就載入；與 h3-video-prompting（通用 H3 提示詞）並用，打鬥／招式／特效／衝擊幀以本技能為準。Use for MiniMax H3 / Hailuo combat and action prompts - move design, fight choreography, exchange beats, VFX layering, fight camera, facial performance, impact frames (white flash, manga panel, burst strip), shockwave, screen shake, hit stop, blade light, one-hit kill, transformation, ultimate or special moves, reference identity lock, FL2VA chaining, speed-ramp assembly and compositing. Load together with h3-video-prompting whenever a prompt has fighting, moves or VFX; this skill wins on combat pacing, impact frames and shot-length exceptions.
 agent_created: true
 ---
 
-# H3 打鬥與打擊感提示詞
+# H3 綜合打鬥技能
 
-把「打得好看」拆成可寫、可複製、可驗收的提示詞結構。適用於 MiniMax H3（Hailuo 海螺）的 T2VA / I2VA / FL2VA / L2VA / Ref2VA 全模式。
+把「打得好看」拆成可設計、可寫、可驗收、可組裝的流程：**招式 → 編排 → 特效 → 運鏡 → 衝擊點 → 提示詞 → 驗證 → 後製**。適用 MiniMax H3（海螺）T2VA／I2VA／FL2VA／L2VA／Ref2VA。
 
-## 先決定：直接做，還是給選項
+衝擊幀是其中一條必經支線，不是全部：沒有好招式與交換，衝擊幀救不了；有好招式卻沒有衝擊點計畫，大招就沒感覺。
 
-| 使用者的狀態 | 做法 |
+## 0. 與其他技能的分工
+
+| 事項 | 以誰為準 |
 |---|---|
-| 已明確指定（有角色、有場景、有參考片、有具體描述） | **直接執行，不要問** |
-| 給了參考圖但沒說要做什麼 | 依素材給 3–5 個情境選項，**先給建議再給選項** |
-| 什麼都沒有 | 給情境選項，並用 **T2VA** 文生影片（角色寫進提示詞） |
+| 欄位格式、對白、`<scenetrans>` 等通用語法 | 官方 schema（`references/output-format.md`）＞ h3-video-prompting |
+| 打鬥節奏、招式、特效、衝擊幀、變速、**鏡長例外** | **本技能** |
+| 鏡長 | 衝擊幀串段、打擊短鏡、ULTRA_SPEED 鏡可短於 2 s，不套用 h3-video-prompting 的「每鏡 ≥2 s」「鏡距 <2 s 警訊」 |
+| 漫劇專案（ai-comic-drama） | 分鏡／segments 多填「衝擊幀計畫」；組裝階段照計畫做變速／合成 |
 
-六個已實測的情境：**A 連續對轟**、B 單鏡纏鬥、C 電影級大招、D 氣場覺醒、E 純氛圍、F 首幀延續。
+## 1. 直接做，還是給選項
 
-完整決策樹、素材對應表、話術模板見 `references/guided-mode.md`。
+| 使用者狀態 | 做法 |
+|---|---|
+| 有角色、場景、參考片或具體描述 | **直接做，不要問** |
+| 給了參考圖但沒說要做什麼 | 先給建議，再給 3–5 個情境選項 |
+| 什麼都沒有 | 給情境選項，用 T2VA（角色寫進提示詞） |
 
-**引導模式只用在「使用者不知道要什麼」的時候，不是每次都要走一遍。**
+六個已實測情境：A 連續對轟、B 單鏡纏鬥、C 電影級大招、D 氣場覺醒、E 純氛圍、F 首幀延續。決策樹與話術見 `references/guided-mode.md`。
 
-## 何時使用
+## 2. 必經流程（每次都走；每步標了必讀檔）
 
-- 撰寫或修改 H3 的動作、打鬥、仙俠、武俠、超能力、機甲、怪獸類提示詞。
-- 使用者抱怨「動作軟」、「特效華麗但沒力量」、「像兩個木頭人」、「鏡頭亂轉」。
-- 需要把參考影片（真人或 AI）拆解後用 H3 重現。
-- 需要統一的打鬥分鏡節奏表、特效詞彙或驗收標準。
+1. **角色招式設計**：每個角色定 3–5 招具名招式（位移／身體機制／物理結果／戰術目的四層）、一招一色、招牌符號。大招／必殺／秒殺／變身另寫「起勢 → 命中 → 後果」。
+   → `references/move-library.md`；有大招、秒殺、變身：`references/ultimate-moves.md`
+2. **交手編排**：選節奏模式（§4），排交換（弱勢方至少打中一次）、配額（刀路上限）、三招三高度、主導權換手、後果。
+   → `references/choreography.md`；連續對轟 `continuous-brawl.md`；超高速 `ultra-speed.md`
+3. **特效分層**：每擊最多三層（主體能量／接觸能量／環境反應），力場最多開三通道，配色三選一（§6.6）。
+   → `references/vfx-vocabulary.md`、`references/force-field.md`
+4. **運鏡**：景別與運鏡一起換、因果運鏡、幅度跳級、受力方鏡頭；最大衝擊鏡「鎖死」或「回來猛震三下」二選一。
+   → `references/cinematic-camera.md`、`camera-grammar.md`；高速跟拍 `drone-camera.md`
+5. **列衝擊點清單＋選路徑**：把每一次 L3 以上命中、大招、爆炸列成一行（時間碼／具名打擊點／力度 L1–L4），每行選 P0–P3（§3）。**清單是空的才能跳過，並在交付說明寫「本段無衝擊幀（理由）」。**
+   → 選 P2 必讀 `references/impact-frame/burst-strip.md`；P3 必讀 `impact-frame/post.md`；寫實／半寫實或不確定形態 `impact-frame/forms.md`；爆炸與震屏 `impact-frame/shake-and-timing.md`
+6. **寫提示詞**：套模板（大招用模板 F），守硬約束（§5）。主片只寫「可剪的素材」，不寫幀數控制、不寫慢詞。有參考圖必列九類身份特徵。
+   → `references/prompt-templates.md`、`output-format.md`；有參考圖 `ref-identity-lock.md`；表情 `facial-performance.md`
+7. **驗證**：`python scripts/validate_prompt.py prompt.txt --duration 8`。FAIL 全修；IMPACT 類 WARN 要修或在交付說明寫理由。再過一次 `references/qa-checklist.md`。
+8. **交付＋後製／組裝指令**：提示詞 code block ＋ 衝擊幀計畫表 ＋ 組裝指令（P2 `ramp`、P3 `composite`）。超過 15 秒用 FL2VA 接續（`references/fl2va-chain.md`）。生成後照計畫組裝，再量測（§9）。
 
-## 模式選擇：角色圖是「參考」還是「首幀」
+## 3. 衝擊幀決策卡（H3 實測，2026-10-26 版）
 
-| 你想要 | 模式 | 角色圖的角色 |
-|---|---|---|
-| 只要「長這個樣子」，人在畫面哪裡都行 | **Ref2VA** | `<Subject N>` 參考，**比例自由** |
-| 從那張圖的構圖展開 | I2VA | `<Picture N>` 首幀，**比例被綁死** |
+**原則：提示詞負責生出「夠長、可剪」的衝擊素材；幀數與速度一律在組裝決定。**
+H3 不遵守幀數：`for two frames` 的白閃實際亮 11–45 幀，同段漫畫格 21–23 幀（角色會消失）。
 
-**特效插入鏡也走 I2VA**：想要「特效圖那種密度與色調」，把特效靜圖當首幀、寫低運動的 1–4 秒插入鏡（E2 實測：同提示詞下，有首幀的版本保住鋼藍灰＋金的配色，純文字版會漂成滿屏橘紅；首幀相似度 PSNR 約 20 dB，是「重新渲染」不是原圖複製，且運動量偏低，只適合當插入鏡）。不要把特效圖當 Ref2VA 的風格參考；參考片 `特效滿點打鬥` 的鏡 04 看起來就是這樣用的（推論，非作者確認）。
-
-**只有當畫面比例必須與圖一致時才用 I2VA。** 想拍 16:9 就用 Ref2VA——用 I2VA 會把 9:16 的圖裁掉手腳或拉寬，改用 T2VA 則直接失去角色。
-
-Ref2VA 的三個前提：
-1. 提醒詞用六欄位（`subject_definitions` / `summary` / `retention_analysis` / `detailed_description` / `overall_soundscape` / `non_diegetic_music`）
-2. 每個角色在 `subject_definitions` 裡定義成 `<Subject N>`，全篇沿用同一編號
-3. `retention_analysis` 標 `fully_preserved`，並列出必須保留的特徵
-
-**但這三點只是骨架，不足以保真。** 要讓生成結果「看起來就是參考圖裡那個人」，
-必須照 `references/ref-identity-lock.md` 的 **9 類特徵清單**逐項列舉
-（臉型／眼睛／疤／髮型／配件含數量／服裝結構／顏色綁衣物／剪影比例／武器型號＋相對長度），
-外加 **3–4 個畫風材質錨**（`detailed_description` 首句與 `[Shot 1]` 首句兩處一致）。
-
-> ⚠️ **畫風錨定不可膨脹**：超過 3 個形容詞會讓模型把參考圖當成「要重現的內容」，
-> 整段變成靜止圖（實測運動量 0.49）。**保真與活力是互相拉扯的**，錨 3 個就夠。
-
-## 節奏模式：三選一
-
-| 模式 | 節奏單位 | 什麼時候用 | 規則 |
+| 路徑 | 什麼時候用 | 提示詞寫什麼 | 組裝做什麼 |
 |---|---|---|---|
-| **六拍** | 一次交手 | 單次重擊、有蓄力與收勢 | `references/impact-design.md` |
-| **連續對轟** | 一次交換（0.8–1.5s） | 近身纏鬥、壓著打 | `references/continuous-brawl.md` |
-| **ULTRA_SPEED** | **一個鏡頭（0.4–0.8s）** | **無人機高速跟拍、不間斷** | `references/ultra-speed.md` |
+| **P0 不用全幀** | L1–L2、弱事件、3D CG 寫實質感 | 接觸點局部星芒＋背景徑向拖影（點名 background）＋色彩遞進 | 無 |
+| **P1 同段亮度事件** | L3 單擊、不在乎精確幀數 | `the frame blows out to white at the instant of contact, then snaps straight back`；不寫 hold／freeze／幀數 | 可選：把過長的白段裁到 1–2 幀 |
+| **P2 衝擊幀串＋變速（L4 大招／必殺／秒殺預設）** | 大招、毀天滅地、一招秒殺、變身 | 獨立一段 0.8–1.2 s：N 張（3–5）、每張約 0.2 s、同構圖、每張換底色與畫法、中間不插回正常畫面、一張比一張狠；回原鏡頭時特效已全開、第一格衝擊波環已外擴 | `impact_frame.py ramp`：衝擊幀段 5×、主特效 1.5× |
+| **P3 分開生成＋合成** | 漫畫格、要對齊某一格、ULTRA_SPEED、多次衝擊、P2 失敗補救 | 主片不寫任何衝擊幀；另寫 3–4 s 衝擊片 | `impact_frame.py composite`（自動縮放、保留音軌、多組 `--insert`） |
 
-**ULTRA_SPEED** 是使用者明確要的模式：8 秒 10–14 鏡、每鏡 0.4–0.8 秒、
-**不追求「攻→擋→反」的交換結構**，追求的是「鏡頭位置一直在換、動作一直在跑、周圍一直在壞」。
-每鏡四件套：**鏡位 + 動作 + 運鏡 + 特效/周圍連動**。
+**成品長度三級**（參考片量測）：短閃 **1–2 幀**（白閃、翻色）｜連續序列 **6–13 幀**（白→黑白→主色→剪影→反相→白→黑 3 幀）｜放射定格板 **9–12 幀**。形態表（14 種）見 `impact-frame/forms.md`。
 
-**鏡頭密度統一表（優先級高於其他所有檔案）：**
+**H3 禁用慢詞（大招段）**：`near-freeze`、`hangs poised`、`poised and still`、`still for half a second`、`like a meteor`、`for half a second`（閃光）、`swallows the whole frame`、`slowly`、`gradually`。
 
-| 模式 | 8 秒的鏡數 | 中位鏡長 | 短鏡占比 |
-|---|---|---|---|
-| 六拍 | 4–5 鏡 | 1.2–2.0s | ≤20% |
-| 連續對轟 | 9–10 鏡 | 0.6–0.9s | ≥30% |
-| **ULTRA_SPEED** | **10–14 鏡** | **0.4–0.8s** | **≥30%** |
+**停頓不寫進提示詞**：參考片命中後減速只有 26%，停頓真正在**命中前**或**切鏡後的 0.15–0.25 s reveal**；要停就在組裝時複製 1–3 幀。蓄力用動作與光（能量聚集、碎石浮起、燈一片片滅），不寫靜止詞。
 
-## 硬約束：H3 提示詞規格（先記住，違反會直接掉品質）
+**鏡頭二選一**：最大衝擊時相機鎖死讓特效推開背景，**或**回原鏡頭第一格猛震三下、一下比一下小、0.5 s 內停穩。不要閃白配持續震屏。
+
+**命中不拍飛行**：`within a single frame … is already rammed into <具名部位>, with no visible travel`；受擊在同一句 `in the same unbroken moment` 被掀飛。
+
+## 4. 節奏模式：三選一（不可混用）
+
+| 模式 | 節奏單位 | 什麼時候用 | 8 秒鏡數 | 鏡長 | 必讀 |
+|---|---|---|---|---|---|
+| **打擊結構**（原六拍） | 一次交手 | 單次重擊、有蓄力與後果 | 4–5 鏡 | 中位 1.2–2.0 s | `impact-design.md` |
+| **連續對轟** | 一次交換 0.8–1.5 s | 近身纏鬥、壓著打、「不停」「沒有喘息」 | 9–10 鏡 | 中位 0.6–0.9 s | `continuous-brawl.md` |
+| **ULTRA_SPEED** | 一個鏡頭 | 無人機高速跟拍、「超高速」「一直打」「運鏡一直在動」 | 10–14 鏡 | **雙峰**：1–2 個 1.2–2.0 s 錨定鏡＋8–10 個 0.25–0.6 s＋2–3 個 ≤0.2 s 插入 | `ultra-speed.md` |
+
+**鏡長要雙峰，不要節拍器**：參考片鏡長 CV 0.90–1.17；等距 0.7 s 一鏡（CV 0.3–0.5）就是單調。validator 對時間碼間隔 CV <0.4 給 WARN。本表優先於其他檔案的鏡數規則。
+
+## 5. 硬約束與輸出契約
 
 | 項目 | 規格 |
 |---|---|
-| 單次時長 | 4–15 秒（超過 15 秒必須切段，用末幀接續） |
-| 幀率 / 音訊 | 24 fps、32 kHz 原生立體聲 |
-| 解析度 | 768p 基礎，2K 需 Regenerate |
-| 比例 | 21:9 / 16:9 / 4:3 / 1:1 / 3:4 / 9:16 |
-| 模式 | T2VA、I2VA、FL2VA、L2VA、Ref2VA |
-| 對白語言 | 11 種，含中文：`<d>[Chinese] 台詞</d>` |
+| 單次時長 | 4–15 秒（超過切段，FL2VA 接續） |
+| 幀率／音訊 | 24 fps、32 kHz 原生立體聲（有聲生成，組裝時要保留音軌） |
+| 比例 | 21:9／16:9／4:3／1:1／3:4／9:16 |
+| 欄位 | 三欄位 `integrated_multimodal_description`／`overall_soundscape`／`non_diegetic_music`；Ref2VA 六欄位 |
 
-**輸出只有三個欄位**（T2VA / I2VA / FL2VA / L2VA）：
+**寫作規則**：
+1. `[Shot 1]` 不加時間碼、開頭寫風格錨定；後續 `[Shot N] At 00:0X.XXX, …` 嚴格遞增、落在時長內，末鏡 ≤ 總長 30%。
+2. 運鏡寫成自然語句：類型＋幅度＋速度；主體動作與鏡頭運動分開寫。
+3. 沒有負面欄：「不要」改寫成正面約束句（`the blade stays perfectly straight and rigid`）。
+4. 欄位名與內容同一行；I2VA／FL2VA 首行對齊句；對白 `<d>[Chinese] 台詞</d>`。
+5. **字數預算**：4–8 秒 ≤520 字、9–15 秒 ≤700 字；Ref2VA 再 +300。超過砍形容詞，不砍動作；重要約束往前放。（validator 同一張表）
+6. **時長與時間碼一致**；H3 最後 1–2 秒會自動減速 → 多生成 1.5 秒、剪掉。
+7. 有參考圖：九類身份特徵逐項列、畫風錨 3–4 個材質特徵（超過 3 個形容詞會變靜止圖）。
 
-```text
-integrated_multimodal_description: [Shot 1] <風格錨定> + <主體> + <動作> + <運鏡> + <特效> + <聲畫同步>
-overall_soundscape: <環境音 + 物理音 + 非語言人聲，1–4 句>
-non_diegetic_music: <只有觀眾聽得到的配樂，1–3 句，只寫樂器/速度/節奏/動態>
-```
+**交付物（三件，缺一不可）**：
+1. 提示詞 code block（區塊內只有提示詞，無註解、無 Markdown）。
+2. **衝擊幀計畫表**（block 外）：`# | 時間碼 | 打擊點 | 力度 | 路徑 | 組裝`；無衝擊點寫一行「本段無衝擊幀（理由）」。格式見 `output-format.md` §1.1。
+3. **組裝指令**：P2 的 `ramp --seg`、P3 的 `composite --insert`、接續的 concat；並註明「生成後先 `find-peak` 校正區間」。
 
-Ref2VA 另用六欄位：`subject_definitions` / `summary` / `retention_analysis` / `detailed_description` / `overall_soundscape` / `non_diegetic_music`。
+## 6. 核心方法摘要（細節在 references）
 
-**六條不可違反的寫作規則：**
+### 6.1 打擊結構（H3 版）
+蓄 → 觸 → 洩 → 退 → 收。**蓄**用反向預備與光（不寫靜止）；**觸**＝衝擊點（§3 路徑）；**洩**＝力場三通道，方向與攻擊一致；**退**＝受擊者被打飛、衣髮延遲半拍、攻擊者過衝；**收**＝回到架勢、粒子飄落。舊版的「停 Hit Stop」拍移到組裝。攻擊寫三段路徑（起始位置 → 軌跡 → 終點）。→ `impact-design.md`
 
-1. `[Shot 1]` **不加時間碼**（官方格式；E1 實測 Ref2VA 帶 `At 00:00.00, 0–2.0s｜` 前綴也能生成，末段沒有爛尾（108% vs 官方格式 113%），但開場運動量較低（9.70 vs 14.18），見 `fl2va-chain.md` §5.6，但仍以官方格式為準）；後續鏡頭一律 `[Shot 2] At 00:03.500, the camera cuts to ...`，時間嚴格遞增且落在時長內。
-2. 運鏡一律寫成**自然語句**：動作類型 + 幅度 + 速度（`the camera pushes in with large amplitude at fast speed`），不可在句尾堆標籤。
-3. `[Shot 1]` 開頭必須有**風格錨定**（`3D CG, cinematic`、`live-action`、`2D-animated` 等）。
-4. 主體動作與鏡頭運動**分開寫**，避免運動疊加糊成一團。
-5. 對白只把語言標籤與台詞放進 `<d>`，說話者身分、語氣、動作放在外面。
-6. **官方三欄位沒有負面提示欄**。所有「不要」都改寫成正面約束句，放在該鏡頭結尾（見下方「負面約束」）。
+### 6.2 三條設計原則（優先於節拍與特效）
+**有交換**（弱勢方至少打中一次）、**空間壓小**（窄道／台階／貼牆）、**有後果**（撞斷、摔下、面具裂、刀脫手）。
 
-## 輸出契約：產出必須能直接貼進模型
+### 6.3 招式
+- **具名**：抽象動詞＝平均化動作；每招四層（位移／機制／結果／目的）。→ `move-library.md`
+- **配額**：15 秒約 20 鏡，刀路**上限** 8，踢 ≥3、拳肘 ≥2、真摔 ≥2、下盤 ≥1、格擋 ≥3、身法 ≥3。→ `choreography.md`
+- **每擊寫打哪**（下顎、膝、兩角之間），上中下輪換；動作前加速度詞（瞬間、蹬地、殘影），不寫「飛向」。
+- **每秒最多 3 個具體動作**、一鏡 1–2 秒；只寫「高速打鬥」無效。
+- **開局 0.5 秒內第一次接觸**：`First contact occurs within the opening half-second.`
 
-**本 skill 的最終交付物是一個可直接貼上的提示詞，不是設計說明。**
+### 6.4 特效
+三層能量（主體能量／接觸能量／環境反應），環境層最能救打擊感。力場四通道（光、空氣、物質、粒子）一次最多三個，優先 空氣 ＞ 物質 ＞ 光 ＞ 粒子；最便宜的證明是**衣襬或頭髮被推**。特效寫「形態＋空間範圍＋與誰互動」，自創招名要翻成畫面。→ `vfx-vocabulary.md`、`force-field.md`
 
-### 交付形態
+### 6.5 運鏡與表情
+- 運鏡跟著因果走（被打飛才甩、衝擊波推才退），全片繞圈 ≤1 次，同一 15 秒內俯拍 ≤2 次且內容不同。→ `cinematic-camera.md`
+- 表情是肌肉不是形容詞：`her jaw muscles bunch`、`her brows slam down`；四階段（緊繃／痛／狠／喘），兩人收放對比，呼吸／汗／吞嚥。→ `facial-performance.md`
 
-只給一個 code block，區塊內只有提示詞本體：
+### 6.6 配色與構圖
+- **配色三選一**：互補雙色（兩人各一色）／單色環境＋唯一異物色（夜戲）／爆炸換調（每次 L3 以上爆炸換一次全片色調）。能量色錨在眼瞳或寶石上。
+- **奇觀不放正後方、被角色掃出來、高潮要有位移**；高潮後 ≤1 s 的對稱 reveal 可以（靠次級運動撐住）。
 
-````text
-```text
-integrated_multimodal_description: [Shot 1] 3D CG, cinematic, ...
-overall_soundscape: ...
-non_diegetic_music: ...
-```
-````
+## 7. 何時必讀哪份 reference
 
-區塊內**禁止**：標題、項目符號、粗體、編號清單、中文註解、分隔線。中文說明寫在 block 外面。
-
-### 四個最常寫錯的語法（實測 7/7 全錯）
-
-| 錯誤 | 正確 |
+| 出現這個情況 | 必讀 |
 |---|---|
-| 欄位名換行後才寫內容 | `integrated_multimodal_description: [Shot 1] ...`（**同一行**） |
-| 標註 I2VA 卻沒寫對齊句 | 首行必須是 `For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.` |
-| `[Shot 1]` 加了時間碼 | `[Shot 1]` 只有風格錨定與內容 |
-| 用 `no` / `not` / `without` 表達禁止 | 改寫成正面動作 |
+| 大招、必殺、秒殺、變身、毀天滅地 | `references/ultimate-moves.md` ＋ `impact-frame/burst-strip.md` |
+| 漫畫格、要對齊某一格、ULTRA_SPEED 的衝擊、P2 失敗 | `impact-frame/post.md` |
+| 不確定衝擊幀長什麼樣、寫實／3D CG／水墨 | `impact-frame/forms.md` |
+| 爆炸、法術轟擊、震屏 | `impact-frame/shake-and-timing.md` ＋ `force-field.md` |
+| 單次重擊、力度分級 L1–L4、材質反應 | `impact-design.md` |
+| 招式不夠、刀來刀去 | `move-library.md` ＋ `choreography.md` |
+| 近身纏鬥、不停 | `continuous-brawl.md` |
+| 超高速、無人機跟拍 | `ultra-speed.md` ＋ `drone-camera.md` |
+| 運鏡平、鏡頭亂轉 | `cinematic-camera.md` ＋ `camera-grammar.md` |
+| 刀光、劍氣、21:9 斬擊 | `blade-light-cinema.md` |
+| 特效詞彙、配色、閃電、能量煙 | `vfx-vocabulary.md` |
+| 臉是死的 | `facial-performance.md` |
+| 有參考圖、要保真 | `ref-identity-lock.md` |
+| 超過 15 秒、接續 | `fl2va-chain.md` |
+| 輸出格式、計畫表 | `output-format.md` ＋ `prompt-templates.md` |
+| 生成後驗收、量參考片、A/B | `lab-notes.md` ＋ `qa-checklist.md` |
+| 完整案例 | `case-wuxia-duel.md` |
+| 使用者不知道要什麼 | `guided-mode.md` |
 
-### 交付前必須跑檢查
+## 8. 腳本速查（輸入 → 輸出）
 
-```bash
-python scripts/validate_prompt.py prompt.txt --duration 8
-```
-
-會檢查：欄位齊全與順序、對齊句、`[Shot 1]` 時間碼、時間碼遞增與否、末鏡長度 ≤30%、否定詞、Markdown 殘留、`<d>` 配對、標籤定義、字數預算。
-
-**FAIL 必須修掉才能交付。**
-
-完整格式規範（含對白、畫外音、`<scenetrans>`、畫面文字、Ref2VA 六欄位）見 `references/output-format.md`。
-
-## 核心方法：六拍打擊結構（HIT BEAT）
-
-### 先選節奏模式（三選一，不可混用）
-
-| 模式 | 適用 | 節奏單位 | 關鍵差異 |
+| 腳本 | 用途 | 一行範例 | 在哪跑 |
 |---|---|---|---|
-| **六拍**（預設） | 對決、單次交手、有蓄力與收勢 | 一次交手 | 有 4–6 幀凍結 |
-| **連續對轟** | 近身纏鬥、誰都不退、壓著打 | 一次交換（0.8–1.5 秒） | 只有 2 幀衝擊幀 + 拖影，**沒有凍結** |
-| **ULTRA_SPEED** | **無人機高速跟拍、不間斷** | **一個鏡頭（0.4–0.8 秒）** | **不追求交換結構**，靠換機位與連續連動 |
+| `validate_prompt.py` | 格式＋招式＋衝擊幀檢查 | `python scripts/validate_prompt.py p.txt --duration 8`（衝擊片加 `--impact-clip`） | 任何地方 |
+| `impact_frame.py find-peak` | 找衝擊幀實際落在哪幾格 | `python scripts/impact_frame.py find-peak --in clip.mp4` | 任何地方（需 ffmpeg） |
+| `impact_frame.py ramp` | P2 分段變速（含音軌） | `python scripts/impact_frame.py ramp --in a.mp4 --seg 1.40-2.21:5 --seg 2.21-3.96:1.5 --out a.ramped.mp4` | 任何地方 |
+| `impact_frame.py composite` | P3 疊衝擊幀（縮放、保留音軌、印驗收值） | `python scripts/impact_frame.py composite --main m.mp4 --impact i.mp4 --insert 163:auto:2 --out f.mp4` | 任何地方 |
+| `impact_frame.py gen` | 生成衝擊片 | `--api URL --token-file F`（或環境變數 `H3_API_BASE`／`H3_TOKEN_FILE`） | 需本機 FreeVideo |
+| `measure_motion.py` | 運動曲線與旗標 | `python scripts/measure_motion.py out.mp4 --fps24 --symmetry` | 任何地方 |
+| `measure_staging.py`／`measure_light_event.py` | 鏡長分布／每鏡光影事件 | 見 `lab-notes.md` | 任何地方 |
+| `submit_ab.py`／`poll_ab.py`／`compare_clips.py` | 技能前後 A/B 對照 | 見 `lab-notes.md` §3 | 送件需本機 |
+| `submit_ref2va.py`／`submit_chain.py`／`seam_check.py` | Ref2VA 送件／接續鏈／接縫檢查 | 見 `fl2va-chain.md` | 送件需本機 |
 
-判斷訊號：
-- 「不停」「連續」「沒有喘息」「壓著打」→ 用連續對轟（四拍）
-- **「超高速」「一直打」「喘不過氣」「運鏡一直在動」→ ULTRA_SPEED**
+## 9. 量測門檻速查（細節 → `lab-notes.md`）
 
-六拍需要停頓，四拍需要不停，ULTRA_SPEED 需要每鏡都有光。**混用會兩邊都不成立。**
-
-連續對轟的四拍公式、動作鏈句型、深度錯位、鏡頭參與、細節插切見 `references/continuous-brawl.md`。
-ULTRA_SPEED 的四件套、每鏡光影事件、周圍連動清單見 `references/ultra-speed.md`。
-
-### 衝擊幀做不到時：分開生成後製
-
-**實測：在高速動作的同一段提示詞裡寫 `for two frames`，模型會給 23 幀（958 ms），
-而且角色會整個消失。** 這是「風格跳轉」事件，模型把它當成一個黑白風格的鏡頭。
-
-解法是拆成三個素材再合成：
-
-```
-素材 A：主片        → 只有高速動作與運鏡，完全不寫衝擊幀
-素材 B：衝擊幀片    → 單獨生成，只要那一兩幀
-素材 C：放射線 PNG  → 從素材 B 抽出來的那一幀
-合成：   A + C 疊在指定時間點，hold 0.083s = 24fps 的 2 幀 = 83 ms（參考片 30fps 的 2 幀為 67 ms，換算 ≈1.6 幀，取 2 幀）
-```
-
-完整流程與驗收見 `references/impact-frame-post.md`。
-
-> **後製路徑的價值：把不可控的東西變成可裁切。**
-> 素材 B 生成 4 秒都無所謂，最後只會取用 2 幀。
-
-### 六拍
-
-每一個「命中」都拆成六拍。這是打擊感的骨架，缺拍就會軟。
-
-| 拍 | 名稱 | 佔比 | 畫面該有什麼 | 提示詞關鍵詞 |
-|---|---|---|---|---|
-| 1 | 蓄 Anticipation | 35% | 反向預備、重心下沉、布料/肌肉繃緊、鏡頭微停或反向緩推 | `draws back`, `weight sinks into the rear leg`, `the camera holds a static shot`, `the blade trembles under tension` |
-| 2 | 觸 Contact | 5% | **衝擊幀**：1–2 幀爆白/爆黑/單色剪影、徑向速度線、畫面微變形 | `for two frames the entire frame blows out to pure white` |
-| 3 | 停 Hit Stop | 15% | 時間近乎凍結（hitstop 0.05–0.15s），塵埃與火花懸浮 | `the action decelerates to a near-freeze for two frames` |
-| 4 | 洩 Release | 25% | **力場四通道**：衝擊波、碎片、塵環、水花、氣浪、光影聯動 | `a ring of shockwave dust bursts outward`, `the whole scene's lighting shifts in step` |
-| 5 | 退 Reaction | 15% | 受擊者被打飛/滑退、衣物頭髮延遲甩動、**震屏衰減** | `is hurled backward`, `the shake decays within a third of a second` |
-| 6 | 收 Recovery | 5% | 回到 ready pose、殘留粒子飄落、鏡頭回穩 | `settles into a low guard`, `embers drift down`, `the camera steadies` |
-
-**三條比例鐵律：**
-
-- 蓄 ≥ 觸的 5 倍長度。沒有蓄力，力量無從比較。
-- 停（Hit Stop）是「重量」的唯一來源。寧可多 0.1 秒，不要沒有。
-- 一擊只給一個視覺高潮。同時爆閃 + 大爆炸 + 慢動作 = 全部互相抵銷。
-
-**爆炸類鏡頭另有一套結構**：爆發點（衝擊幀）→ 力量輸出（力場四通道）→ 體感（震屏衰減）→ 餘韻。見 `references/impact-frame-and-shake.md`。
-
-## 核心方法二：力場四通道（特效為什麼不像貼圖）
-
-> **光效只是顏色，力場才是空氣。**
-
-AI 生成爆炸的預設行為是給一顆發光火球，但不會給「世界被影響」的證據。診斷三症狀：**周圍物體一動不動 / 空氣沒有波瀾 / 光影完全脫節**。
-
-把「力場」拆成四個可獨立增減的通道：
-
-```
-場源 → 傳播（形狀+速度+方向）
-        ├─ ① 光    全域亮度、色溫、陰影、暗部、反射
-        ├─ ② 空氣  折射、熱浪、壓縮、色散、撕裂
-        ├─ ③ 物質  布料、髮絲、玻璃、塵土、碎石
-        └─ ④ 粒子  體積粒子、火星、煙塵、熱霧
-```
-
-**一次最多開三個通道。優先順序：空氣 > 物質 > 光 > 粒子。**
-
-最便宜也最有效的力場證明：**主角的衣襬或頭髮被推。** 一句 `wind pressure flattens the silk against her body` 勝過十句 `epic explosion`。
-
-完整句庫與三種場型（一次性／持續性／附著型）見 `references/force-field.md`。
-
-## 核心方法三：打鬥的三條設計原則（比提示詞更重要）
-
-提示詞寫得再好，設計錯了就是「優雅但沒感覺」。三個實測有效的結構原則：
-
-### ① 必須有交換
-
-**讓弱勢方至少打中一次。** 單向的攻防是「閃避示範」，不是戲。
-
-- 失敗案例：7 秒裡主角 0 次命中，只有閃避與格擋 → 觀眾無感
-- 成功做法：先被壓制 4 秒，第 5 秒逆轉一次 → 有勝負未卜的緊張
-
-### ② 把空間壓小
-
-**能貼身就不要分開。** 距離是打鬥的敵人。
-
-| 空間 | 效果 |
-|---|---|
-| 大廳中央、四周空曠 | 畫面散、無壓迫、容易擺姿勢 |
-| 柱廊窄道、台階、貼牆 | 無處可退、視線有落點、動作被迫連續 |
-
-附帶好處：貼身時模型沒有空間擺姿勢，「優雅角色擺拍先驗」自動失效。
-
-### ③ 給一個「後果」
-
-撞斷欄杆、摔下台階、面具裂、刀脫手——**觀眾需要看見代價**。
-
-沒有後果的打鬥 = 兩個人在跳舞。後果不必是血，但必須是不可逆的破壞。
-
-> 這三條的優先級高於六拍與力場。先確定「有交換、有壓迫、有後果」，再談節拍與特效。
-
-## 核心方法四之一：招式要有配額（不然只會刀來刀去）
-
-**招式庫有 16 招，實際寫的時候還是會滑回「砍、擋、退」。**
-
-實測我自己寫的兩段 15 秒（各 20 鏡）的動詞統計：
-
-| 類別 | 段 A | 段 B |
-|---|---:|---:|
-| **刀路／斬擊** | **36** | **32** |
-| 踢擊 | 1 | 0 |
-| 拳肘 | 1 | 0 |
-| 下盤／絆 | **0** | **0** |
-| 位移／身法 | 4 | 2 |
-
-**刀路動詞是其他所有類別的 20 倍以上。** 根因不是招式不夠，是**沒有配額**——
-逐鏡想動作時，自然滑向最熟的動詞。而且「摔投」那幾次大半是 `lock`（刀鎖住），不是真的摔。
-
-### 15 秒（約 20 鏡）的配額
-
-| 類別 | 配額 |
-|---|---|
-| **刀路／斬擊** | **上限 8 次**（不是最少，是上限） |
-| 踢擊（腿／膝） | ≥3 |
-| 拳肘（拳／肘／掌） | ≥2 |
-| 摔投／擒拿（真的摔） | ≥2 |
-| 下盤／絆 | ≥1 |
-| 格擋／卸力 | ≥3 |
-| 位移／身法 | ≥3 |
-
-**「刀路上限 8 次」是最重要的一條。** 沒有上限，其他類別永遠長不出來。
-
-### 判斷「真的摔」
-
-| ❌ 僵持（不算） | ✅ 真的摔 |
-|---|---|
-| `their blades lock` | `she hooks her ankle and dumps her over her hip` |
-| `hold the lock` | `she takes his wrist and whips him past her into the pillar` |
-
-**標準：有沒有一個人離開地面，或被迫移動超過一步。**
-
-### 每個動作要寫「目標」
-
-`she kicks` → `she snaps a low kick at the front knee to take her base`。
-**目標決定動作的形狀**——「踢膝蓋」和「踢頭」是完全不同的動作。
-
-完整配額表、15 秒招式配方、換手節奏見 `references/choreography.md`。
-## 核心方法四：招式必須具名
-
-**模型的預設行為是生成「平均化的打鬥」——揮、擋、退。它不會自己發明具體動作。**
-
-寫 `he slashes at her` 只會得到最通用的版本。寫 `he flips his wrist and rips the blade upward from below in a reverse cut, the edge drawing a crescent of light` 才會得到「反手撩刀」。
-
-**抽象動詞 = 平均化動作 = 單調。**
-
-每一招必須包含四層：
-
-| 層 | 內容 | 缺了會怎樣 |
+| 指標 | 合格 | 備註 |
 |---|---|---|
-| 1 位移 | 從哪到哪 | 沒有空間感 |
-| 2 身體機制 | 哪個部位發力 | 沒有重量 |
-| 3 物理結果 | 塵土、氣流、裂紋、火花 | 沒有打擊感 |
-| 4 戰術目的 | 破站勢、破防、繞後 | 沒有方向 |
-
-第 4 層最常被忽略，卻決定動作「有沒有意義」。
-
-**串接規則**：三招一組 ≈ 1.2–1.5 秒，每招 0.4–0.5 秒，且必須涵蓋三個不同的空間層次（上／中／下）。三招都在同一高度 = 單調。
-
-完整招式庫（16 招 + 4 組串接配方 + 中英翻譯規則）見 `references/move-library.md`。
-
-### 開局：0.5 秒內必須有第一次接觸
-
-**不要用「站著對視」開場。** 對峙是打鬥裡最無聊的部分，而模型的預設開場就是對峙。
-
-```text
-❌ 0.0–1.5s  兩人對視、風吹、衣襬飄動
-✅ 0.0–0.5s  第一刀已經劈下來，或第一招已經衝出去
-```
-
-要交代距離與氣氛，用**動作中**的畫面交代（他走進來時已經在拔刀），不要用靜止的對視。
-
-**最有效的做法是把它寫成獨立一句，放在 `[Shot 1]` 裡：**
-
-```text
-First contact occurs within the opening half-second.
-```
-
-實測：寫了這句的版本開場運動量 20.44，沒寫的只有 3.24（相差 6 倍）。
-
-## 核心方法四之二：表情與表演（臉不能是死的）
-
-**運鏡再炫、特效再華麗，只要角色的臉是死的，整段就是在看兩尊雕像打架。**
-
-### 診斷：三種寫法一定失敗
-
-| ❌ 寫法 | 為什麼無效 |
-|---|---|
-| `her amber irises narrow` | 這是**眼睛形狀**，不是臉部肌肉 |
-| `pale gray eyes lit from below` | 這是**打光**，燈光打在死人臉上還是死人臉 |
-| `a determined expression` | 這是**形容詞**，模型不知道對應哪塊肌肉 |
-
-**三種都只碰到「眼睛」和「光」，沒有碰到「肌肉」。**
-
-### 原理：表情是肌肉，不是形容詞
-
-| ❌ 形容詞 | ✅ 肌肉動作 |
-|---|---|
-| `a determined expression` | `her jaw muscles bunch and her teeth clench` |
-| `fierce eyes` | `her brows slam down into a hard knot above her nose` |
-| `she looks shocked` | `her eyes fly wide and her lips part on a sharp intake of breath` |
-
-**規則：每一句表情描述都必須有「可以動的部位 ＋ 一個動作」。**
-
-可用部位：眉／上眼瞼／下眼瞼與眼周／鼻翼／下顎與咀嚼肌／齒／唇／頸與喉／太陽穴／汗淚／呼吸。
-
-### 四階段表情（不是一個表情用到底）
-
-| 階段 | 情緒 | 寫法 |
-|---|---|---|
-| 交手前 | 緊繃 | `her jaw locks and her brows pull together` |
-| 吃到重擊 | 痛、失重 | `her eyes fly wide and her mouth wrenches open on a gasp` |
-| 反擊 | 狠、決斷 | `her brows slam down and her lips peel back off clenched teeth` |
-| 收尾 | 喘息 | `her chest heaves, a bead of sweat cutting through the dust on her cheek` |
-
-### 兩人要有對比：收 vs 放
-
-- **佔上風**：表情**收**（`her jaw locks, her mouth a flat line`）
-- **處於下風**：表情**放**（`her brows climb, her lips part, a bead of sweat at her temple`）
-
-**不用寫誰強誰弱，觀眾看臉就知道。**
-
-### 三個不可省的生理反應
-
-再快的打鬥人也會喘。沒有呼吸＝沒有力氣消耗＝看起來很輕。
-
-- **呼吸**：`her chest heaves`（每 4–6 秒至少一次）
-- **汗**：`sweat tracks down her temple`（中後段開始）
-- **吞嚥**：`her throat works on a swallow`
-
-完整部位清單、綁定寫法、失敗對照見 `references/facial-performance.md`。
-## 核心方法五：奇觀構圖（避免「遊戲技能展示」感）
-
-大招展示最容易掉進的坑：**背景巨型奇觀 + 主體居中 + 左右對稱 = 靜止的遊戲技能展示**。
-
-這個構圖即使畫質升到 4K、加了次表面散射與景深，**依然是靜止的**。模板感不是畫質問題，是構圖問題。
-
-實測：兩支「電影級重製版」的高潮段對稱殘差比全片平均低 20% 與 45%，同時出現 1.0 秒的運動死區——**最貴的兩秒，畫面最不動**。
-
-### 三條規則
-
-| 規則 | 錯 | 對 |
-|---|---|---|
-| **奇觀不放正後方** | `a lightning crown splits the darkness directly behind her` | `A branch of lightning tears down through the vault on her left, throwing her shadow across the floor to the right.` |
-| **奇觀被她掃出來** | `The crown opens behind her.` | `She drags the filament sideways and the vault splits along its path.` |
-| **高潮要有位移** | 她站在奇觀前面 | `She steps into the collapsing crown — one step, then a second — and the arcs bend around her as she passes through.` |
-
-第三條最有效：**走進奇觀**同時解決主體運動、構圖不對稱（她不在中心）、尺度對照（走過去才知道多大）三件事。
-
-### 判斷訊號
-
-生成後跑 `measure_motion.py --symmetry`，若出現 `靜止對稱` 旗標，而且落在最高潮的鏡頭 → **改構圖，不要改光影**。
-
-## 三層能量語言（特效不亂加）
-
-打鬥特效不是裝飾，是「力的可視化」。每一擊最多同時存在三層，且必須分工：
-
-1. **內層｜主體能量**：氣的顏色、形狀、附著位置（`teal spirit flame licking along the blade`）。
-2. **中層｜武器/接觸能量**：撞擊點的產物（`a white-hot spark bloom at the point of contact`）。
-3. **外層｜環境反應**：場景被推動的證據（`lanterns swing`, `roof tiles rattle loose`, `rain is pushed into a radial sheet`）。
-
-**環境層是最常被忽略、卻最能救打擊感的一層。** 沒有環境反應，觀眾會覺得特效是貼上去的。
-
-## 工作流程
-
-1. **定節奏表**：先寫時間碼 / 景別 / 拍數，不寫形容詞。一個 7 秒片段放 4–5 個鏡頭。
-2. **配能量色**：全片只允許一組互補色（例：青綠 vs 琥珀橙），並指定誰用哪一色。
-3. **套模板**：從 `references/prompt-templates.md` 取 T2VA / FL2VA / Ref2VA 模板填空。
-4. **寫三欄位**：`integrated_multimodal_description` 逐鏡頭寫；`overall_soundscape` 寫物理音；`non_diegetic_music` 只寫樂器與節奏。
-5. **自檢**：跑 `references/qa-checklist.md`，逐項確認六拍、力場四通道、運鏡語法、時長預算。
-6. **格式檢查**：跑 `scripts/validate_prompt.py`，FAIL 全修掉。
-7. **交付**：只輸出一個 code block，區塊內不得有註解。
-8. **接續生成**：超過 15 秒時，取上一段末幀當下一段 `<Picture 1>`，用 FL2VA 續接，並在提示詞第一行寫對齊句。
-
-## 負面約束的正確寫法
-
-官方沒有 negative prompt 欄位，把「不要」翻譯成「保持」：
-
-| 想避免 | 寫成 |
-|---|---|
-| 臉部變形 | `her face stays sharp and anatomically correct throughout the motion` |
-| 武器彎曲/融化 | `the blade stays perfectly straight and rigid` |
-| 肢體穿模 | `the two bodies never intersect; contact happens only at the blade` |
-| 鏡頭亂跳 | `the camera moves in one continuous take with no jump cuts` |
-| 特效閃爍 | `the teal flame burns continuously without flicker` |
-| 動作糊掉 | `each pose is clearly readable, with distinct silhouettes` |
-
-## 可量測的四條硬規則（實測驗證）
-
-這四條不是感覺，是可以檢查的。實測七版生成紀錄後補上。
-
-### ① 時長必須與時間碼一致
-
-**時間碼寫到幾秒，生成時長就要設幾秒。** 差 2 秒，最後一鏡會被拉長一倍，模型只能填「站著、粒子飄」。
-
-| 症狀 | 原因 |
-|---|---|
-| 尾端停滯、人物站定不動 | 生成 10 秒但時間碼只寫到 8 秒 |
-
-**檢查**：`最後一個剪點 + 最後一鏡設計長度 = 總時長`。末鏡不要超過總長的 30%。
-
-### ② 動態結尾要分「主體」與「特效」
-
-**畫面在動 ≠ 主體在動。** 銀河旋轉、光帶流動會讓運動量翻倍，但角色可能站著不動四秒。
-
-達標的定義是**主體有位移或姿勢變化**：
-
-```text
-❌ 星系繼續旋轉，光帶繼續流動（特效在動，人沒動）
-✅ She advances two steps into the storm, her heels cracking the marble, stole whipping behind her.
-```
-
-### ③ 字數預算
-
-| 時長 | 上限 | 超過就砍 |
-|---|---|---|
-| 4–8 秒（不論幾鏡） | 520 字 | 形容詞、同義疊加 |
-| 9–15 秒 | 700 字 | 形容詞、同義疊加 |
-
-**不要砍動作。** 砍掉一個動作，比砍掉十個形容詞損失更大。
-
-實測：七版從 525 字膨脹到 1022 字（+95%），最長的那版反而最好——所以長度不是絕對。真正的風險是**超過 520 字後，寫在最後的約束會失效**。重要約束一律往前放，不要放在最後一段。
-
-### ④ 人物佔比
-
-主體要在畫面裡夠大，特效才不會吃掉它。明寫一句：
-
-```text
-She remains the dominant subject, occupying approximately 65–80% of the frame height.
-```
-
-沒寫這句的版本，主角會被巨大的特效環、星門、法陣擠成畫面中央的一個小點。
-
-### ⑤ 收尾定格：多要 1.5 秒，剪輯時切掉
-
-**H3 在片段最後 1–2 秒會自動減速。** 實測五版、四種收尾寫法（寬景 reset／貼身特寫／極特寫／中景前進）、三種景別，**全部收斂到同一個結果：定格**。
-
-末段絕對運動：中景 15.45 ＞ 寬景 11.49 ＞ 貼身特寫 11.00 ＞ 極特寫 8.70。
-
-這不是提示詞寫得不夠。**解法是剪輯，不是改字。**
-
-| 想要的長度 | 生成時長 | 取用 |
-|---|---|---|
-| 5 秒 | 6.5 秒 | 0–5.0 |
-| 6 秒 | 7.5 秒 | 0–6.0 |
-| 8 秒 | 9.5 秒 | 0–8.0 |
-
-多要的 1.5 秒是**安全邊界**，不是內容。切在「動作剛完成、下一擊還沒出」的瞬間，張力最大。
-
-**收尾景別選中景**：全身可見（有位移空間）＋主體夠大（不會變小點）＋有環境可參照。極特寫最差，可動元素太少。
-
----
-
-## 量測工具
-
-`scripts/measure_motion.py` 對任何生成好的 mp4 輸出運動曲線與旗標：
-
-```bash
-python scripts/measure_motion.py --dir ./outputs
-python scripts/measure_motion.py --dir ./outputs --symmetry   # 額外偵測「靜止對稱」
-python scripts/measure_motion.py ref.mp4 --fps24              # 折回 24fps 等效值（跨幀率比較）
-```
-
-輸出欄位：全程／開場 0.8s／中段／末 2s／末÷中／最長低潮／峰值格，並自動標記 `開場過靜`、`尾端停滯`、`低潮 Xs`、`節拍過少`。
-
-**`--fps24` 會先偵測實際幀率再折回 24fps 等效值**，並標記 `pulldown(...)`（幀間隔交替的偽幀率素材）。跨幀率比較時一定要用這個模式。
-
-**判讀門檻：**
-
-| 指標 | 合格 | 說明 |
-|---|---|---|
-| 開場 0.8s | ≥ 中段的 50% | 低於此 = 開場過靜 |
-| 末 2s ÷ 中段 | ≥ 60% | 低於此 = 尾端停滯 |
-| 最長低潮 | ≤ 0.8s | 超過就是無效等待 |
-| 峰值格 | ≥ 4 | 太少 = 動作節拍不足 |
-| 靜止對稱（`--symmetry`） | 不出現在高潮鏡頭 | 出現 = 構圖正在變成技能展示 |
-
-**限制**：這是「畫面變化」不是「主體運動」，特效大幅運動會拉高分數。分數達標仍要目視確認主體有動。
-
-### 量測參考片之前的兩個必查（會讓你得出錯的結論）
-
-**① 封裝宣告的幀率可能是假的。**
-
-一支標示 `r_frame_rate=60` 的參考片，實測只有 723 幀 / 30.14s = **24.06fps**——幀間隔嚴格在 0.050s 與 0.0333s 之間交替，是 **24fps 母版的 2:3 pulldown**。
-
-**H3 是 24fps，所以這類素材「幀數 1:1 對應」，不需要任何 60→24 換算。**
-
-```bash
-ffprobe -v error -select_streams v:0 -show_entries "packet=pts_time" -of csv=p=0 clip.mp4
-```
-
-看相鄰時間差有幾種值：只有一種 → 固定幀率；兩種且交錯 → pulldown。
-
-> 逐幀分析時**必須加 `-fps_mode passthrough`**，否則 ffmpeg 會重抽成 CFR60，差異中位數歸零、自適應門檻失效——實測炸出 618 個假切點。
-
-**② 跨片比運動量必須先統一幀率。**
-
-`measure_motion.py` 取的是「每幀平均差異」，同樣的實際運動：24fps = 1.00、30fps = **0.80**、60fps = **0.50**。**30fps 素材的運動分數系統性偏低約 20%。**
-
-真實案例：兩支參考片原生分數 16.51 vs 14.06 看似前者活躍 17%；**正規化到 24fps 後是 15.94 vs 16.06，幾乎相同**。
-
-| 指標 | 幀率敏感度 |
-|---|---|
-| `overall` / `opening` / `mid` / `ending` | 偏低（30fps −20%、60fps −50%） |
-| `peaks`（峰值格） | 偏高（30fps +25%，幀數多） |
-| 靜止對稱 | 相對判定，仍有效 |
-
-**引用絕對值時乘 1.25 折回 24fps；跨片比較前先統一幀率。**
-
-> `measure_motion.py --fps24` 會自動完成這件事（先偵測實際幀率，再折回 24fps 等效值），
-> 並把 pulldown 素材標出來。**跨片比時直接用 `--fps24`，不要手動換算。**
-
-### 跨版本比較的禁忌
-
-**運動分數不能跨比例、跨景別比較。**
-
-16:9 廣角裡兩人只佔畫面一小塊，動作再大，像素變化也有限；9:16 近景人物填滿畫面，一點動作就是大幅變化。
-
-實測：編排最好的一版（9 種招式、主導權換手 3 次、峰值 35）運動分數 14.64，反而低於動作單調的一版（21.89）。
-
-| 指標 | 可否跨版本比 |
-|---|---|
-| **峰值格** | ✅ 可以（動作節拍數量，最可靠） |
-| 開場／末段絕對值 | ⚠️ 僅同比例同景別可比 |
-| 末2s÷中段 | ⚠️ 僅同比例可比 |
-| 全程運動 | ❌ 不可比 |
-
-## 產出前後對照圖（每次改版都要做）
-
-**技能改版之後，必須實跑「技能使用前」與「技能使用後」兩版提示詞，把結果做成並排動態圖放回 repo。**
-
-這是這個 skill 唯一的「成果證明」。沒有對照圖的規則更新，只是主張。
-
-```bash
-# 1. 兩版提示詞各存成一份 .txt（同一個場景、同一顆 seed，只有寫法不同）
-# 2. 送本機 H3 實跑
-python scripts/submit_ab.py --before before.txt --after after.txt \
-    --label-before "A · 技能使用前" --label-after "B · 套用技能後" \
-    --width 960 --height 544 --seconds 8 --quality light --seed 20261019
-
-# 3. 等生成完成並下載（可續跑，已下載的會跳過）
-python scripts/poll_ab.py --jobs analysis/ab/jobs.json
-
-# 4. 量測 + 做成並排動態圖
-python scripts/compare_clips.py --before analysis/ab/before.mp4 --after analysis/ab/after.mp4 \
-    --out compare.gif --label-before "A · 技能使用前" --label-after "B · 套用技能後" \
-    --width 240 --fps 8 --colors 64 --dither-scale 3
-```
-
-`compare_clips.py` 會同時輸出兩片的運動量對照表（全程／開場／末÷中／低潮／峰值），把數字寫進 README 就是證據。
-
-**設計要點：**
-
-| 項目 | 要求 |
-|---|---|
-| 變因 | **只有提示詞不同**——同 seed、同解析度、同時長、同首幀（`--seed` 必須固定） |
-| 「前」版 | 用**沒有 skill 時的直覺寫法**，不是故意寫壞 |
-| 「後」版 | 套用全部規則的版本 |
-| 尺寸 | 單片寬 240、8fps、64 色 → 4–5 MB，適合放 repo |
-| 標籤 | 一定要有，否則看圖的人不知道哪邊是哪邊 |
-
-> **種子沒固定就會得到假對照。** 早期用隨機種子的 A/B 只是「構圖對齊的比較」，不是嚴格單變因實驗；
-> 現在的流程一律用 `--seed` 固定種子。
-
-### 受控對照的實測結果（2026-10-19）
-
-同種子（20261019）、同 960×544、同 8 秒、同 light 品質、同採樣步數，**唯一變因是提示詞**：
-
-| 指標 | 未套用 skill | 套用 skill |
-|---|---:|---:|
-| 字數 / 鏡數 | 122 / 1 | 631 / 10 |
-| 全程運動 | 13.79 | **20.46** |
-| 末 2s ÷ 中段 | 97% | **210%** |
-| 末 2s | 13.30 | **33.75** |
-| 峰值格 | 24 | **30** |
-| 完全去飽和幀數 | **0** | **44**（漫畫衝擊格） |
-| 亮度動態範圍 | 43 階 | **178 階** |
-
-**「套用規則」不只是分數變高，是換成另一種畫面語言**：快切、逆光剪影、
-黑白漫畫衝擊格、橫貫整幅的刀光、能量色錨在眼睛與寶石上。
-
-量測飽和度與亮度的指令（`signalstats`）：
-
-```bash
-ffmpeg -v error -i clip.mp4 -vf "signalstats,metadata=print:key=lavfi.signalstats.SATAVG:file=-" -f null -
-```
-
-> **漫畫格的幀數控不住**：寫 `for two frames`，實跑出 23 幀（958 ms）與 21 幀（875 ms）。
-> 詳見 `references/impact-frame-and-shake.md` §1.1.1。
-
-## 參考檔案
-
-| 檔案 | 內容 |
-|---|---|
-| `references/impact-design.md` | 六拍細節、力度分級（輕/中/重/必殺）、材質反應對照表、節奏時間預算、優雅角色的姿勢先驗 |
-| `references/move-library.md` | 16 招具名動作（突進/下盤/拳掌/兵器/落地/防守）、四層結構、4 組三招串接配方、中英翻譯規則 |
-| `references/continuous-brawl.md` | 連續對轟模式：衝擊四拍、動作鏈句型、深度錯位、鏡頭參與、細節插切、實驗設計 |
-| `references/blade-light-cinema.md` | 21:9 高速斬擊電影語言：1.57 刀/秒、漫畫衝擊格、單色環境+異物色、剪影構圖、尺度手法 |
-| `references/ref-identity-lock.md` | 參考圖保真：9 類身份特徵列舉、畫風材質錨、環境參考只鎖建築 |
-| `references/drone-camera.md` | 無人機運鏡：8 個機位、五種尺度、穿前景、禁止繞圈圈 |
-| `references/facial-performance.md` | 表情與表演：肌肉動作為主、四階段表情、收放對比、生理反應、特寫必配表情 |
-| `references/choreography.md` | 招式編排：配額制（刀路上限）、真摔與僵持的差別、三招三高度、換手節奏 |
-| `references/cinematic-camera.md` | 電影級運鏡：三檔速度、幅度跳級、因果運鏡、十個電影級機位 |
-| `references/ultra-speed.md` | ULTRA_SPEED 模式：8 秒 10–14 鏡、每鏡四件套、周圍連動清單、鏡頭密度統一表 |
-| `references/impact-frame-post.md` | 衝擊幀分開生成再後製：三素材工作流、hold 0.083s、接縫亮度檢查 |
-| `references/fl2va-chain.md` | 兩段接續：幀數換算、接縫三層（畫面／速率／身份）、接縫驗收 |
-| `references/force-field.md` | 力場四通道模型、三種場型、中英句庫、診斷表 |
-| `references/impact-frame-and-shake.md` | 衝擊幀四形態與幀數、漫畫格三段式、震屏 trauma 數學、hitstop 參數、三段式爆炸時序 |
-| `references/camera-grammar.md` | H3 官方運鏡詞彙表、打鬥運鏡套路、主體/鏡頭分離寫法、最大衝擊可鎖死相機、幀率陷阱 |
-| `references/vfx-vocabulary.md` | 中英特效詞彙庫（能量、粒子、破碎、光、大氣）、色彩腳本、夜戲單色環境邏輯、刃光四形態 |
-| `references/prompt-templates.md` | 可直接填空的 T2VA / FL2VA / Ref2VA 模板 + 完整範例 |
-| `references/qa-checklist.md` | 生成前自檢、生成後驗收、常見失敗與對應修法 |
-| `references/case-wuxia-duel.md` | 完整實例：27.5 秒仙俠對決的拆解與四段式重現 |
-| `references/output-format.md` | 官方輸出格式契約：三／六欄位、首行對齊句、對白與標籤語法、常見錯誤對照 |
-| `references/guided-mode.md` | 引導模式：三種進入路徑、六個情境選項、素材對應、話術模板、無圖時的 T2VA 寫法 |
-| `scripts/validate_prompt.py` | 檢查提示詞是否符合官方格式、能否直接貼進模型 |
-| `scripts/measure_motion.py` | 量測生成影片的運動曲線，自動標記開場過靜／尾端停滯／低潮過長 |
-| `scripts/compare_clips.py` | 把兩支影片做成並排動態圖 + 運動量對照表（改版後的成果證明） |
-| `scripts/submit_ab.py` | 把技能前/後兩版提示詞以固定種子送出本機 H3 |
-| `scripts/poll_ab.py` | 等生成完成並下載（可續跑） |
-| `scripts/submit_ref2va.py` | 上傳多張參考圖並送出 Ref2VA 生成工作 |
-| `scripts/impact_frame.py` | 衝擊幀分開生成，再後製合成到主片 |
-| `scripts/measure_staging.py` | 量測取景變化與鏡長分布（運鏡感的客觀指標） |
-| `scripts/measure_light_event.py` | 量測每一鏡有沒有光影事件（光影華麗度的客觀指標） |
-| `scripts/submit_chain.py` | 兩段 15 秒 FL2VA 接續：送 A → 抽末幀 → 送 B → concat |
-| `scripts/seam_check.py` | 量接縫那一格有沒有「死格」（比率 <50% = 接縫對不上） |
-
-## 最常被寫錯的三件事
-
-1. **寫「一瞬間閃白」而不寫幀數。** 模型會給 0.3–0.5 秒的長閃，看起來像燈光故障。永遠寫 `for two frames`。
-2. **震屏沒有衰減。** 恆定震動 = 相機壞了。必須寫 `decays rapidly and settles back to steady within a third of a second`。
-3. **只用術語不用描述。** `Field 力場擾動模擬`、`沖擊幀`、`震屏` 這類術語在中文模型上有效，但 H3 要的是結構化物理描述。術語留給自己記索引，送進模型的必須是具體句子。
-
-## 新增的三個最容易漏掉的點
-
-4. **最大的衝擊那一鏡，相機應該是鎖死的。** 43% 的 3D CG 參考片鏡頭相機不動，而且鎖死的正是關鍵時刻——衝擊感來自「特效把背景推開」，不是相機在抖。前面的鏡頭要動，這一鏡要靜。
-5. **衝擊幀不只有爆白。** 「漫畫放射線格」（整幀去飽和成黑白 + 全 360° 放射線，2 幀 + 1 幀黑）是另一種裝置，而且更適合高速斬擊。
-6. **參考片標示的幀率可能是假的。** 標 60fps 可能是 24fps 的 pulldown；而且 30fps 素材的運動分數系統性偏低 20%。**先驗證再換算。**
+| 開場 0.8 s | ≥ 中段 50% | — |
+| 末 2 s ÷ 中段 | ≥ 60% | 只在要接下一段或要求動態結尾時硬性要求 |
+| 最長低潮 | ≤ 0.8 s | L4 前刻意蓄力可豁免（先目視） |
+| 峰值格 | ≥ 4 | 唯一可跨版本比的指標 |
+| 衝擊幀可見 | 插入幀與鄰幀 YAVG 差 ≥40 或 SATAVG <15 | composite 自動印出 |
+| 音軌 | 組裝後仍在 | `ffprobe` |
+
+參考片先驗幀率（標 60 可能是 24 pulldown），跨片比用 `--fps24`。
+
+## 10. 最常見的錯
+
+1. **有大招卻沒有衝擊幀計畫**（validator：IMPACT WARN）。
+2. **寫 near-freeze／poised／still 當重量**，H3 放大成 0.5–3.7 s 空等。
+3. **光束寫成流星**（`like a meteor`），畫出飛行全程。
+4. **同段寫漫畫格**，21–23 幀、角色消失 → P3。
+5. **閃白配持續震屏**，或震屏沒有衰減。
+6. **刀來刀去**：刀路沒有上限、每擊沒寫打哪、三招同高度。
+7. **臉是死的**：用眼睛形狀／打光代替肌肉。
+8. **鏡長節拍器**：等距 0.7 s 一鏡。
+9. **選了 P2／P3 卻沒附組裝指令**，成品就沒有衝擊幀（37／38 號的教訓）。
+10. **只用術語**（`沖擊幀`、`Field 力場擾動`）不寫物理描述；這些術語在 H3 是否有效**未經 A/B 驗證**，送進模型的一律寫具體句子。
