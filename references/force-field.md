@@ -103,7 +103,7 @@ AI 生成爆炸的預設行為是「給你一顆發光火球」，但不會給�
 - 時間結構：爆發點 → 擴散 → 沉降
 
 ```text
-the blast core bursts outward; for two frames the frame blows out to white.
+the blast core bursts outward and the frame blows out to white, then snaps straight back.
 The shockwave flattens into concentric rings racing outward. The whole scene's
 lighting shifts in step with the energy, dust and gravel are ripped off the
 ground, and the air tears into layered sheets that bend the background.

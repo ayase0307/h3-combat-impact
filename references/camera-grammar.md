@@ -113,7 +113,7 @@ background behind them is pushed outward into radial streaks.
 **定格圖是一個獨立鏡頭**，畫面靜止、但有放射線撐住張力。它讀成「衝擊」，不是「慢動作」。
 
 ❌ 錯：`for two frames the action near-freezes`（在連續動作裡凍結 → 慢動作）
-✅ 對：切一個新鏡頭，寫 `a held impact frame ... this frame holds for eight frames, then cuts away`
+✅ 對：切一個新鏡頭，寫 `a held impact frame ... then cuts away`（這就是「放射定格板」，成品 9–12 幀；H3 不守幀數，長度在組裝裁，見 `impact-frame/forms.md`）
 
 ### 尺度要跳
 
@@ -183,7 +183,7 @@ The camera tilts up with small amplitude at slow speed from the cracked flagston
 ```text
 The camera pedestals up with large amplitude at fast speed into a top-down view as the shockwave ring races outward across the courtyard.
 ```
-用途：L4 的擴散拍。俯拍是唯一能拍出「衝擊波規模」的角度。
+用途：L4 的擴散拍。俯拍是拍出「衝擊波規模」最直接的角度之一（另有超遠景人物極小、貼地超廣角）。**同一 15 秒內俯拍 ≤2 次、且兩次內容不同**（一次衝擊波、一次位移）——37 號每段 4–5 個 top-down，模型每次都給同一個塵環。
 
 ### 2.7 跟拍位移（Tracking the Knockback）
 ```text
