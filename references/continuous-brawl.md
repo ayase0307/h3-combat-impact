@@ -23,12 +23,12 @@
 
 | 拍 | 寫法 |
 |---|---|
-| ① 衝擊幀 | `for two frames the background flashes hot pink and radial speed lines burst from the contact` |
+| ① 衝擊幀 | `the background slams to hot pink with radial speed lines bursting from the contact, then snaps back`（背景翻色、角色保留原色；參考片 3–12 幀，精準長度在組裝裁） |
 | ② 拖影 | `both bodies whip away in long smears` |
 | ③ 回彈 | `land in a skid, and are already lunging again` |
 | ④ 再入 | `she rides that snap into a one-two` |
 
-對比六拍：六拍的「停」是 4–6 幀凍結；四拍的「停」只有 2 幀衝擊幀，緊接著就是拖影。**沒有凍結，只有拖影。**
+對比打擊結構：兩種模式都**不在提示詞裡寫凍結**（H3 會放大成慢動作）；四拍的衝擊幀之後緊接拖影與再入。**沒有凍結，只有拖影。**
 
 ---
 
@@ -295,7 +295,7 @@ a single steel pillar at frame right
 ### 快切骨架
 
 ```text
-[Shot 1] <風格錨定>. <首幀延續的動作>. for two frames <衝擊幀>. <拖影>.
+[Shot 1] <風格錨定>. <首幀延續的動作>. <衝擊幀：亮度事件＋then snaps back>. <拖影>.
 [Shot 2] At 00:00.700, the camera cuts to an extreme close-up: <角色特徵物件>.
 [Shot 3] At 00:01.500, the camera cuts to <景別>. <下一個交換>.
 [Shot 4] At 00:02.300, the camera cuts to a half-second insert: <眼睛／飾品／鞋底>.
@@ -341,7 +341,7 @@ H3 在最後 1–2 秒會自動減速，五種寫法全部收斂到定格：
 | 症狀 | 原因 | 修法 |
 |---|---|---|
 | 打成一團看不清 | 兩人同深度、動作太密 | 加深度錯位；把交換數從 4 降到 3 |
-| 每擊之間有停頓 | 用了六拍的凍結 | 刪掉 `near-freeze`，改成拖影 |
-| 像在跳舞 | 沒有衝擊幀、沒有回彈 | 每擊都要有 `for two frames` + `smears` + `already lunging again` |
+| 每擊之間有停頓 | 寫了凍結 | 刪掉 `near-freeze`，改成拖影 |
+| 像在跳舞 | 沒有衝擊幀、沒有回彈 | 每擊都要有亮度／翻色事件（`then snaps back`）+ `smears` + `already lunging again` |
 | 動作各自獨立 | 寫成清單 | 改用 `turns into` / `rides` / `drives out of` |
 | 空間感消失 | 沒有錨點 | 給 2–3 個可互動物件 |

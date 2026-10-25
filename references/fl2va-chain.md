@@ -235,3 +235,16 @@ ffmpeg -y -f concat -safe 0 -i concat.txt -c copy analysis/chain/full_30s.mp4
 # 5. 量測（含接縫）
 python scripts/measure_motion.py analysis/chain/segA.mp4 analysis/chain/segB.mp4 analysis/chain/full_30s.mp4 --fps24
 ```
+
+## 8. 用「白」當段落接縫（2026-10-26 新增，教學 v6；H3 未實測）
+
+段尾整屏純白＋聲音抽空 → 下一段第一幀滿屏白光中、鏡頭正從近處猛往後拉開成全景。白幀把兩段的畫面差異遮掉，比硬接末幀更不挑。
+
+- 段 A 末鏡：`the largest point of light bursts into a white ring that fills the entire frame as pure white, and the sound drops out`
+- 段 B 首鏡：`[Shot 1] … the frame opens in full white light as the camera pulls back hard from close range into a wide shot`
+- 組裝時可以在接縫處再「接一幀白」。
+- 變身段特別適合：白光退開後，同一機位、同一步子，已經變身（`ultimate-moves.md` §9）。
+
+## 9. 每段寫剪輯計畫
+
+每段在交付說明寫「出 N 秒，成片用 a–b 秒（X 倍速）」（教學 v6 的做法），組裝時照著 `impact_frame.py ramp --keep a-b --seg …` 做；這就是 `output-format.md` 的衝擊幀計畫表。接續鏈 concat 之後，如果有 P3 衝擊點，**再跑 composite**（`impact-frame/post.md` §5）。

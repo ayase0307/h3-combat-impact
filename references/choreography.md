@@ -179,3 +179,56 @@
 | 摔投看不出是摔 | 寫成 `lock` / `brace` | 要有人離地或被推超過一步 |
 | 兩人黏在一起不動 | 全程近身，沒有位移 | 位移 ≥3，距離要有變化 |
 | 招式中斷不連貫 | 每招獨立寫 | 用動作鏈：上一招的殘餘動能當下一招起點 |
+
+## 9. 速度、可見性與強約束（2026-10-26 新增）
+
+> 來源：老大的教學片 v2（打鬥特效）、v3（提高打鬥的方法）、v7（雙女劍鬥原提示詞）、1026 圖文提示詞。**以下全部 H3 未實測**，但都是提示詞層技巧，成本低。
+
+### 9.1 提速方法排名（v3 作者經大量測試的 tier list）
+
+| 排名 | 方法 | 結論 |
+|---|---|---|
+| 最差 | 只寫「高速打鬥」「急速打鬥」 | 堆再多次都沒用，慢得像打太極 |
+| 低 | 0.2 秒一個動作（每秒 5 招） | 不慢，但 AI 跑不動（超載） |
+| 低 | 速度形容詞（閃電般出拳） | 特定幀有用，整體提速有限 |
+| 低 | 負面提示詞 | 加比不加好，差距不大 |
+| 中 | 節奏鐵律（告訴 AI 這是快速打鬥）、高速鏡頭參數 | 只能快，出不了極限速度 |
+| **頂級** | **身法特效＋動態模糊殘影** | 速度加權非常高 |
+| **頂級** | **分鏡拆成 1–2 秒、每秒 3 個具體動作** | 極限速度方法 |
+
+**規則**：一鏡 1–1.5 秒、三個具名動作、加 `motion blur`／`afterimage`，不寫 `high-speed fight`。
+
+```text
+[Shot 2] At 00:01.000, a low tracking shot with heavy directional motion blur: in one second she sidesteps his thrust, traps his wrist under her arm, and drives her elbow into his jaw, leaving a smeared afterimage behind each move.
+```
+
+### 9.2 速度詞
+
+✅ `kicks off the ground`、`instantly`、`at blinding speed`、`leaving an afterimage`、`blinks`
+❌ `flies toward`（「機甲飛向巨龍」→ 軟綿綿）
+
+### 9.3 每擊寫打哪，上下左右換著打（v2）
+
+「只寫『機甲攻擊巨龍』→ 每下都一樣」。四刀四位置：額頭橫切、由下往上挑下顎、低位撞前腿、斜劈兩角之間。與 §3「寫目標」、§4「三招三高度」同一件事，大型對手也適用。
+
+### 9.4 ACT 追尾與換位（1026 圖文）
+
+- 「3A 第三人稱 ACT 追尾機位」：鏡頭死咬攻擊者後肩。
+- **無站樁、無隔空對波**：全程近身兵刃纏鬥；兩人站著各自放波＝最無聊的打法。
+- **人物每 0.2–0.3 秒完成一次換位**（成品時間軸；生成時可寫慢一點再加速）。
+- **重擊命中必觸發擊飛，攻擊者瞬間追擊**。
+- **三連輕擊**：`a 0.1-second blink across half the frame, triggering three light clashes in a row`。
+
+### 9.5 強約束句（v7 原提示詞翻譯，可直接搬）
+
+```text
+Sparks appear only at the exact point where the blades touch.
+Every leap has a clear take-off, arc and landing.
+Every movement carries weight and momentum; both fighters keep their feet on the ground between leaps.
+Each fighter moves in a clear direction through one continuous space.
+Fast shots keep directional motion blur, but faces, hands and blade contact stay readable.
+The camera serves the action and steadies between strikes.
+The effects frame the fighters and leave their faces and hands visible.
+```
+
+對應的負面版本（v7 原文「不要全程亂閃白光、不要過曝、不要特效完全遮擋人物、不要無意義旋轉、不要動作重複循環」）要改寫成上面的正面句。**「不要全程亂閃白光」**特別重要：閃白只給衝擊點清單裡的那幾下。

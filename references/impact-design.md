@@ -1,4 +1,6 @@
-# 打擊感設計：六拍、力度分級與材質反應
+# 打擊感設計：打擊結構、力度分級與材質反應
+
+> 2026-10-26 改版：原「六拍」的第 3 拍「停 Hit Stop」在 H3 上不寫進提示詞（實測會被放大成 0.5–1 s 停頓，參考片命中後也幾乎不減速），改在組裝做。衝擊幀的形態與長度一律見 `impact-frame/forms.md`，路徑選擇見 `SKILL.md` §3。
 
 ## 0. 為什麼 AI 打鬥會「軟」
 
@@ -8,15 +10,16 @@ AI 影片模型傾向生成**平均化的中間狀態**：它會把「出拳」�
 2. **停頓**（命中瞬間物理上必須有能量轉移的停滯）
 3. **不對稱**（攻擊者過衝、受擊者延遲反應、布料晚半拍）
 
-所以提示詞的任務不是「描述打鬥」，而是**強制插入變速、停頓與不對稱**。
+所以提示詞的任務不是「描述打鬥」，而是**強制插入變速與不對稱**；停頓交給組裝（複製幀，放在命中前或切鏡後）。
 
 ---
 
-## 1. 六拍結構（HIT BEAT）
+## 1. 打擊結構（原六拍；H3 版是五拍＋組裝停頓）
 
 ### 拍 1｜蓄 Anticipation
 - **畫面**：反向預備動作（要往右打，先往左收）；重心壓到後腳；握把處指節泛白；衣襬與髮尾因急停而向前甩。
-- **鏡頭**：`the camera holds a static shot` 或 `the camera pushes in with small amplitude at slow speed`。**蓄力時鏡頭必須穩或反向**，任何同向運動都會洩掉張力。
+- **鏡頭**：`the camera pushes in with small amplitude at slow speed`，或反向緩推。**蓄力時鏡頭必須穩或反向**，任何同向運動都會洩掉張力。
+- **不寫靜止詞**：`hangs poised`、`still for half a second` 在 H3 會變成 1–3.7 s 空等（EP03 實測）。蓄力用**動作與光**：能量在掌心聚集、碎石浮起、燈一片片滅、環境「預反應」（見 `ultimate-moves.md`）。
 - **可寫**：`her weight sinks into the rear leg as the blade draws back behind her shoulder`
 - **別寫**：`she prepares to attack`（太抽象，模型只會給一個站姿）
 
@@ -42,18 +45,16 @@ on his mask the whole time. ...
 
 第一句就鎖定，模型會把它當成整鏡的狀態。
 
-### 拍 2｜觸 Contact
-- **畫面**：1–2 幀的爆白、爆黑或單色剪影；徑向速度線；畫面輕微徑向拉伸；色差（紅藍邊）。
-- **鏡頭**：`the camera shakes strongly` 或 `the camera punches in with small amplitude at extreme speed`。
-- **可寫**：`for two frames the frame blows out to white as radial speed lines tear outward from the point of contact`
-- **關鍵**：一定要寫「幾幀」。H3 固定 24 fps，`two frames` ≈ 83 ms，模型對這個尺度有反應；寫 `briefly` 通常會給 0.5 秒的長閃，看起來像特效而不是打擊。
-- **三種形態**（白閃＝爆發、黑閃＝終結、單色剪影＝儀式感）見 `impact-frame-and-shake.md`。
+### 拍 2｜觸 Contact（衝擊點）
+- **畫面**：衝擊點。L1–L2 用局部星芒（P0）；L3 用同段亮度事件（P1）；L4 用衝擊幀串（P2）或分開合成（P3）——見 `SKILL.md` §3 決策卡。
+- **鏡頭**：二選一——相機鎖死讓特效推開背景，或 `the frame jolts hard for a few frames on the impact and settles almost immediately`。
+- **可寫（P1）**：`the frame blows out to white at the instant of contact as radial speed lines tear outward, then snaps straight back`
+- **關鍵**：H3 不遵守幀數（`for two frames` 實測亮 11–45 幀）。寫「回來」（`then snaps straight back`），精準長度交給組裝。
+- **形態**（白閃、黑閃／負片、單色剪影、漫畫格、背景翻色、曝光壓暗…）見 `impact-frame/forms.md`。
 
-### 拍 3｜停 Hit Stop
-- **畫面**：時間近乎凍結；只有塵埃、火花、碎屑還在慣性飄移；主角與受擊者姿勢鎖死。
-- **鏡頭**：`the camera holds a static shot`（停頓期間鏡頭必須停，否則觀眾讀不到）。
-- **可寫**：`the action decelerates to a near-freeze for a fraction of a second; only the sparks keep drifting`
-- **關鍵**：這是最容易被模型忽略、也最有效的一拍。若一次生成常漏掉，把它獨立成一個 `[Shot N]`，用 0.5 秒單獨描述。
+### （原拍 3｜停 Hit Stop → 移到組裝）
+- 參考片 94 個強白事件，命中後減速只有 26%；Seedance 原提示詞寫 `two-frame hit-stop`，命中處 0 段重複幀；H3 寫 `near-freeze` 被放大成 0.5–1 s。
+- **重量改由三件事給**：命中前微停（組裝時複製 2–10 幀，或寫成「頂住半拍」的畫面）、命中後切到下一鏡的 0.15–0.25 s reveal、命中後加速（`then the camera accelerates with the shockwave`）。見 `impact-frame/shake-and-timing.md` §2。
 
 ### 拍 4｜洩 Release
 - **畫面**：衝擊波環、碎片、塵環、水幕、氣浪；方向必須與攻擊方向一致（橫掃 → 扇形，下劈 → 地面環）。
@@ -63,6 +64,7 @@ on his mask the whole time. ...
 
 ### 拍 5｜退 Reaction
 - **畫面**：受擊者被打飛／滑退／破防；頭髮與衣襬延遲半拍；攻擊者過衝半步。
+- **受擊不延遲**：重擊的命中 → 衝擊波 → 人被掀起，寫在同一句（`in the same unbroken moment`）；只有衣髮延遲，身體不延遲（EP03 實測：分開寫，模型讓人跪著等 1 秒才飛）。
 - **可寫**：`he is hurled backward, boots gouging two lines in the wet stone`, `her ponytail whips a beat late`, `his follow-through carries him half a step past the strike`
 - **關鍵**：**overlapping action**（延遲跟隨）是 AI 打鬥最缺的物理細節，一句就能補上。
 
@@ -74,19 +76,35 @@ on his mask the whole time. ...
 
 ## 2. 力度分級（選一級，不要混）
 
-| 級別 | 適用 | 總長（24fps） | 停頓 | 鏡頭 | 特效預算 |
+| 級別 | 適用 | 總長（24fps） | 衝擊點路徑 | 鏡頭 | 特效預算 |
 |---|---|---|---|---|---|
-| **L1 輕** | 試探、格擋、擦身 | 5–8 幀 | 0–1 幀 | `shakes slightly` | 只有火花，不加衝擊波 |
-| **L2 中** | 乾淨命中、破招 | 10–16 幀 | 2–3 幀 | `shakes strongly` | 火花 + 局部碎片 |
-| **L3 重** | 擊退、破防、撞牆 | 20–32 幀 | 3–5 幀 | `shakes strongly` + 短暫失焦 | 衝擊波環 + 塵 + 環境物件晃動 |
-| **L4 必殺** | 收尾、對撞、大絕 | 40–90 幀，**多鏡頭** | 5–8 幀 | 撞擊後 `pulls out with large amplitude` | 三段式：蓄能 → 對撞 → 環境毀壞 |
+| **L1 輕** | 試探、格擋、擦身 | 5–8 幀 | P0 局部星芒 | 短抖或不震 | 只有火花，不加衝擊波 |
+| **L2 中** | 乾淨命中、破招 | 10–16 幀 | P0／P1 | 短抖 | 火花 + 局部碎片 |
+| **L3 重** | 擊退、破防、撞牆 | 20–32 幀 | P1（要精準走 P3） | 短抖 + 短暫失焦 | 衝擊波環 + 塵 + 環境物件晃動 |
+| **L4 必殺** | 收尾、對撞、大絕、秒殺 | 多鏡頭 | **P2**（或 P3） | 鎖死，或回來猛震三下 0.5 s 停穩 | 三拍：命中 → 衝擊幀串＋衝擊波 → 後果 |
 
-**L4 的標準結構**（不可壓縮成一個鏡頭）：
-1. 蓄能（能量在武器/掌心聚集、地面碎石浮起、鏡頭緩推）
-2. 對撞（兩股能量相接、畫面過曝、鏡頭強震）
-3. 凍結（0.3 秒全畫面近白，聲音抽空）
-4. 擴散（俯拍或大廣角，衝擊波以環狀掃過場景）
-5. 餘韻（慢動作碎片落下、主角背影）
+「停頓幀數」欄已刪：停頓在組裝做（見上）。
+
+**L4 的三拍結構**（取代舊五段版；舊版第 3 段「凍結 0.3 秒全畫面近白」在 H3 上會變長時間發光）：
+1. **命中**（具名部位、寫明與被保護者的距離；命中不拍飛行：`within a single frame … is already rammed into …`）
+2. **衝擊幀串＋衝擊波**（獨立一段，P2；回原鏡頭時特效已全開、第一格衝擊波環已外擴，隔一下再炸第二圈）
+3. **後果**（受擊者在同一句被掀飛；傷害寫成命中當下的分解事件；下一段承接殘破）
+
+蓄力可以放在命中前，但用動作與光蓄。完整寫法見 `impact-frame/burst-strip.md` 與 `ultimate-moves.md`。
+
+### 2.1 三級碰撞體系（先定義、後文用代號觸發）
+
+〔教學 v5 與 1026 圖文提示詞；H3 未實測。秒數類（抽幀、定格）在 H3 只會被理解成風格詞，精度要後製〕
+
+在提示詞開頭（或交付說明）把碰撞特效**定義一次**，後面每次碰撞只寫「觸發輕／重碰撞」，省字數也讓每次碰撞一致：
+
+| 級別 | 衝擊幀 | 負片範圍 | 鏡頭 | 粒子／物質 | 組裝端 |
+|---|---|---|---|---|---|
+| **輕碰撞** | 黑白水墨衝擊（局部） | 局部負片 | 沿軸向微甩 | 墨點、水珠、暗金粒子飛濺 | 複製 1 幀（約 0.05 s） |
+| **重碰撞** | 放射水墨衝擊 | 中心負片 | 猛沉、猛甩回彈 | 前景潑墨／中層水片／後層石屑**三層爆開** | 複製 2 幀（約 0.1 s） |
+| **大招** | 全屏黑白衝擊（P2） | 全屏負片後閃白 | 徑向劇烈震動＋中心魚眼 | 三層環形衝擊波 | 定格 3–4 幀（約 0.15 s）＋魚眼後製 |
+
+H3 寫法：開頭一句 `Every light clash triggers a small black-and-white ink flash at the contact point and a sideways jolt along the camera axis; every heavy clash triggers a radial ink burst at the centre of the frame, the camera sinking hard then rebounding, with ink, water and stone bursting out in three layers.` 後面就寫 `triggering a light clash`／`triggering a heavy clash`。
 
 ---
 
@@ -105,18 +123,18 @@ on his mask the whole time. ...
 
 ---
 
-## 4. 時間預算（以 24 fps 換算）
+## 4. 時間預算（以 24 fps 換算，成品時間軸）
 
 | 節拍 | 秒 | 幀 |
 |---|---|---|
 | 蓄 | 0.30–0.45 | 7–11 |
-| 觸 | 0.04–0.08 | 1–2 |
-| 停 | 0.12–0.25 | 3–6 |
+| 觸 | 0.04–0.08 | 1–2（成品；生成端不寫幀數） |
+| （命中前微停，組裝） | 0.08–0.4 | 2–10 |
 | 洩 | 0.20–0.30 | 5–7 |
 | 退 | 0.15–0.20 | 4–5 |
 | 收 | 0.05–0.10 | 1–2 |
 
-一個 L2 命中 ≈ 0.9–1.2 秒。**7 秒片段 = 5–6 個 L1/L2 命中，或 1 個 L3 + 2 個 L1。** 超過這個密度，模型會把所有動作壓成模糊。
+一個 L2 命中 ≈ 0.8–1.1 秒。**7 秒片段 = 5–6 個 L1/L2 命中，或 1 個 L3 + 2 個 L1。** 超過這個密度，模型會把所有動作壓成模糊。
 
 ---
 
@@ -128,90 +146,32 @@ on his mask the whole time. ...
 L1 ─ L1 ─ L2 ─ L1 ─ L3 ──（靜 0.8s 對峙）── L4
 ```
 
-- **每 3–4 擊必須插入一次「靜」**：對峙、呼吸、眼神、雨滴、燈火搖曳。靜是為了讓下一擊更響。
-- **L4 之前必須有 0.5–1 秒的完全靜止**。這是所有動作片的共同語法。
+- **每 3–4 擊插入一次「靜」**：呼吸、眼神、雨滴、燈火搖曳。靜是為了讓下一擊更響。**大爆之後**最適合放一個「靜」的極近特寫（嘴唇、只有道具光、幾乎無聲）。
+- **L4 之前不寫完全靜止**（舊規則「0.5–1 秒完全靜止」在 H3 會被放大成 1–3.7 s 空等）。要「靜→爆」的對比：用**眼部極近特寫＋瞳孔倒映來襲物**、**大爆前先暗一下**、**聲音驟窄**，或在組裝時複製命中前 2–10 幀。
 - 一段只能有一個 L4。兩個大絕等於沒有大絕。
+
+**整段節奏曲線一句寫死**（v7 原提示詞；H3 未實測，但這句不花幾個字）：把運鏡／速度版本的曲線寫在 `[Shot 1]` 或交付說明裡，例如「開場慢、第一次交鋒快、近距離碰撞短暫停頓、中段追逐快、瞬斬前凝神、瞬斬極快、收劍慢、最後終極爆發突然放大規模」。英文：`The pacing runs slow at the open, fast at the first clash, a brief hold at the close-quarters lock, fast through the chase, a held breath before the flash cut, the flash cut itself instant, slow on the sheathing, then the final burst suddenly blows the scale wide open.`
 
 ---
 
 ## 6. 爆炸類的專用結構（三段式）
 
-純爆炸（法術、手雷、能量爆）不適用六拍，改用三段式：
+純爆炸（法術、手雷、能量爆）不適用打擊結構，改用三段式：
 
 ```
-① 爆發點（1–2 幀）     衝擊幀：全畫面閃白 + 爆心過曝
-② 力量輸出（6–12 幀）   力場四通道：環形波 + 空氣折射 + 物質掀飛 + 光影聯動
-③ 體感（0.3 秒衰減）    震屏：峰值 → 急速衰減 → 回穩
-④ 餘韻（8–20 幀）       餘燼、煙塵、暗部緩慢恢復
+① 爆發點        衝擊幀（P0–P3 選一）
+② 力量輸出      力場：環形波 + 空氣折射 + 物質掀飛 + 光影聯動（最多三通道）
+③ 體感          震屏：峰值 → 急速衰減 → 回穩（或相機鎖死）
+④ 餘韻（8–20 幀）餘燼、煙塵、暗部緩慢恢復
 ```
 
-**三者必須對齊在同一幀**（閃白、震屏峰值、衝擊波起始）。差 2 幀，質感就散了。
+閃白與衝擊波寫在同一句或相鄰句；震屏與閃白不必同幀（參考片並不同幀），但不要閃白配持續震屏。
 
-詳細的幀數、震屏衰減模型與 hitstop 參數見 `impact-frame-and-shake.md`。
+震屏寫法與時序表見 `impact-frame/shake-and-timing.md`。
 
-**嵌套規則**：六拍的「洩」拍裡，可以放一個完整的三段式爆炸。但不要讓爆炸吃掉「退」與「收」——受擊者的反應與沉降才是重量感的收尾。
+**嵌套規則**：打擊結構的「洩」拍裡，可以放一個完整的三段式爆炸。但不要讓爆炸吃掉「退」與「收」——受擊者的反應與沉降才是重量感的收尾。
 
 ---
-
-## 8. 衝擊幀只給一幀（實測修正）
-
-一幀 = 1/24 秒。**兩幀已經夠長**，再配上「拖影」整段就會被讀成慢動作。
-
-```text
-For two frames the frame flashes white.              ← 容易變慢動作
-For one frame the background flashes white; then it snaps back instantly.
-```
-
-**關鍵是「回來」要寫出來。** `then it snaps back` 讓模型知道這是閃爍，不是停留。
-
-## 9. 每次接觸都要有物理後果
-
-只有光沒有物理 = 貼圖。每一擊至少一件：
-
-| 擊法 | 環境反應 |
-|---|---|
-| 肘／拳 | 腳下石板裂開星芒、塵土上衝 |
-| 膝 | 石板被壓裂抬起、對方滑退 |
-| 踢 | 每次轉身踩裂地面 |
-| 摔 | 石板碎裂、石塊與塵土往外炸 |
-
-平面／抽象背景用**背景翻色**表達衝擊，但只翻一幀：
-
-```text
-the flat background slam-changes colour — coral to green to cream, one frame only
-```
-
-## 10. 受力方鏡頭（爽感來源）
-
-觀眾要看的是**被打的那一方**，不是出招的那一方。每段至少一刀：
-
-| 鏡頭 | 拍什麼 |
-|---|---|
-| 受力臉部特寫 | 頭被打偏、頭髮甩過臉、眼睛閉上、飾品盪起 |
-| 受力部位特寫 | 手套鎖住對方手臂、指節泛白、束帶繃緊 |
-| 受力全身 | 被打飛、滑退、膝蓋彎曲、腳離地 |
-
-只拍出招方 → 像打沙包；拍受力方 → 有打擊感。
-
-## 11. 不同比例的兩段式變拍（Ref2VA 不可靠）
-
-**要在不同比例下保留角色，不要改生成模式，要改首幀比例：**
-
-```
-角色圖 9:16，要拍 16:9：
-
-① image 任務（people）→ 16:9 雙人首幀
-   people: [{image: 珊瑚圖, x: 0.32, height: 0.55, feet: 0.92},
-            {image: 海沫圖, x: 0.68, height: 0.55, feet: 0.92}]
-② generate（media.first = 那張首幀）→ I2VA 16:9
-```
-
-| 做法 | 結果 |
-|---|---|
-| I2VA 直接用 9:16 圖 | 比例被綁死 |
-| 16:9 + T2VA | 角色完全走樣 |
-| 16:9 + Ref2VA(media.references) | **模型把圖當內容重現，整段變靜止圖**（實測運動量 0.49） |
-| **image(people) 做首幀 + I2VA** | **角色與比例都對** |
 
 ## 7. 優雅角色的姿勢先驗（實測結論）
 
@@ -241,3 +201,54 @@ the flat background slam-changes colour — coral to green to cream, one frame o
 ### 判斷訊號
 
 如果生成結果裡她的姿態「漂亮但沒有威脅感」，不要加更多形容詞（`fierce`, `battle-ready` 這類詞無效），直接改結構：**讓她動起來，或讓對手壓過來。**
+
+## 8. 每次接觸都要有物理後果
+
+只有光沒有物理 = 貼圖。每一擊至少一件：
+
+| 擊法 | 環境反應 |
+|---|---|
+| 肘／拳 | 腳下石板裂開星芒、塵土上衝 |
+| 膝 | 石板被壓裂抬起、對方滑退 |
+| 踢 | 每次轉身踩裂地面 |
+| 摔 | 石板碎裂、石塊與塵土往外炸 |
+
+平面／抽象背景用**背景翻色、角色保留原色**表達衝擊（`impact-frame/forms.md` F5）。參考片（打鬥蒸餾）翻色持續 **3–12 幀**；舊規則「只翻一幀」在 H3 會被時序平滑抹掉：
+
+```text
+the flat background slam-changes colour from coral to hot pink with radial speed lines, while both fighters keep their own colours, then snaps back to coral
+```
+
+**打擊點與被保護者的距離要寫**：打離主角遠的部位、寫明中間空地（`two big steps to his right, with clear open ground between it and him`），否則命中會波及主角。
+
+## 9. 受力方鏡頭（爽感來源）
+
+觀眾要看的是**被打的那一方**，不是出招的那一方。每段至少一刀：
+
+| 鏡頭 | 拍什麼 |
+|---|---|
+| 受力臉部特寫 | 頭被打偏、頭髮甩過臉、眼睛閉上、飾品盪起 |
+| 受力部位特寫 | 手套鎖住對方手臂、指節泛白、束帶繃緊 |
+| 受力全身 | 被打飛、滑退、膝蓋彎曲、腳離地 |
+
+只拍出招方 → 像打沙包；拍受力方 → 有打擊感。
+
+## 10. 不同比例的兩段式變拍（Ref2VA 不可靠）
+
+**要在不同比例下保留角色，不要改生成模式，要改首幀比例：**
+
+```
+角色圖 9:16，要拍 16:9：
+
+① image 任務（people）→ 16:9 雙人首幀
+   people: [{image: 珊瑚圖, x: 0.32, height: 0.55, feet: 0.92},
+            {image: 海沫圖, x: 0.68, height: 0.55, feet: 0.92}]
+② generate（media.first = 那張首幀）→ I2VA 16:9
+```
+
+| 做法 | 結果 |
+|---|---|
+| I2VA 直接用 9:16 圖 | 比例被綁死 |
+| 16:9 + T2VA | 角色完全走樣 |
+| 16:9 + Ref2VA(media.references) | **模型把圖當內容重現，整段變靜止圖**（實測運動量 0.49） |
+| **image(people) 做首幀 + I2VA** | **角色與比例都對** |

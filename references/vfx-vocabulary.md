@@ -85,12 +85,12 @@
 
 ## 6. 時間特效（Time）
 
-H3 沒有 speed ramp 參數，只能用自然語言描述：
+H3 沒有 speed ramp 參數。**精準的變速、凍結、抽幀一律在組裝做**（`impact_frame.py ramp`／`composite`）；提示詞只給語意：
 
-| 效果 | 英文寫法 |
-|---|---|
-| 近乎凍結 | `the action decelerates to a near-freeze for a fraction of a second` |
-| 突然恢復常速 | `then snaps back to full speed` |
+| 效果 | 英文寫法 | 注意 |
+|---|---|---|
+| ~~近乎凍結~~ | ~~`decelerates to a near-freeze`~~ | **已停用**：H3 放大成 0.5–1 s 停頓；參考片命中後也幾乎不減速。停頓在組裝做 |
+| 突然恢復常速／加速 | `then snaps back to full speed`、`then the camera accelerates with the shockwave` | 命中後加速比減速更像參考片 |
 | 慢動作 | `the moment stretches into slow motion` |
 | 子彈時間 | `time slows as the camera arcs around the suspended shards` |
 | 殘影疊加 | `three afterimages of the blade overlap in the same frame` |
@@ -99,7 +99,19 @@ H3 沒有 speed ramp 參數，只能用自然語言描述：
 
 ---
 
-## 7. 色彩腳本（一段只能用一組）
+## 7. 色彩腳本
+
+**配色規則三選一**（取代舊的「一段只能用一組」；2026-10-26 依參考片重分析）：
+
+| 規則 | 什麼時候 | 例 |
+|---|---|---|
+| **互補雙色** | 兩人對打、各有能量色 | 青綠 vs 琥珀橙，A 只用冰藍、B 只用暖金 |
+| **單色環境＋唯一異物色** | 夜戲、雪地、要刀光最亮 | 冰藍環境＋紫色異物（§7.1、`blade-light-cinema.md` §3） |
+| **爆炸換調** | 長段、多次大爆炸 | 每次 L3 以上爆炸換一次全片色調：灰藍 → 橙 → 藍白 → 黑星空（Seedance 原提示詞 `each big blast rekeys the palette`；H3 未實測） |
+
+不論哪種：**一技能（或一角色）鎖一顏色**，不要每擊換色。
+
+以下是互補雙色的常用組合：
 
 | 名稱 | 主色 | 對比色 | 氣質 |
 |---|---|---|---|
@@ -154,7 +166,7 @@ AI 生成時能量顏色會飄移。解法是把顏色綁到角色身上**看得
 | **離手光線** | 揮完不散，橫貫整幅、兩端出框 | `the light does not disperse; it stays as a hair-thin white thread crossing the entire frame and running off both edges` |
 | **地面餘光帶** | 斬擊餘光沿地面拖出狹長光帶 | `the afterglow of the cut drags a long way along the snow, lighting the ground into a narrow luminous band` |
 
-**第三種「離手光線」是 21:9 限定的構圖效應**——長度超過畫幅寬度，16:9 做不出來。
+**第三種「離手光線」在 21:9 最好看**（長度超過畫幅寬度）；16:9 也做得到——動作蒸餾參考片在 16:9 多次出現橫貫整幅的紅色細光線（5.8 s、21.7 s、28.5 s）。
 
 ### 7.4 爆發的主軸：X 形十字，不是放射球
 
@@ -175,3 +187,57 @@ X 形在 21:9 裡能同時佔滿寬度與高度；放射球只會變成一團。
 | `lots of particles everywhere` | 沒有方向與密度，變成雜訊 | `sparks spray in a narrow cone away from the impact` |
 | `epic explosion` | 模型給通用火球，缺乏設計 | `a ring of white shockwave dust, then a low orange fireball` |
 | `glowing aura` | 主體會被光暈吃掉 | `a thin teal rim of flame along the blade's edge` |
+
+## 9. 特效寫法補充（2026-10-26 新增）
+
+> 來源：老大的教學片 v5（特效寫法）、v6（衝擊幀教學片尾提示詞）。**以下除註明外 H3 未實測。**
+
+### 9.1 特效五要素（v5）
+
+特效沒感覺不是模型的錯，是提示詞沒有畫面感。每個技能交代：
+1. **按秒拆動線**：每個技能幾秒起、幾秒到、幾秒散。
+2. **人物動作**：動作怎麼展開，不要模板式打鬥。
+3. **空間特效＝形態＋空間範圍**（最關鍵）：多大、到哪裡、佔畫面多少。
+4. **鏡頭語言**：用什麼運鏡增加張力。
+5. **畫面風格**：全局定調，控制 AI 不亂發揮。
+
+每組可以用四欄：【複合運鏡】【極速動作】【錨定特效與環境反饋】【節奏與聲音】，全片頭寫一次【全招式統一特效】【攝影與聲場】（`impact-design.md` §2.1 三級碰撞體系就是「統一特效」的寫法）。
+
+### 9.2 遞增曲線＝時間戳＋數量
+
+「越來越多」對模型沒有約束力，寫成時間戳＋數量：
+
+```text
+At 2.0 seconds one or two bolts strike; by 2.8 seconds four or five; by 3.6 seconds six or seven; from 4.4 seconds eight to ten bolts burst every 0.3 seconds, each wave denser than the last, and even the darkest moment between waves holds at least as many bolts as the wave before.
+```
+
+### 9.3 真實閃電（照真閃電寫，不是一條光柱）
+
+- 白熱芯＋色暈（`a white-hot core with a magenta glow`）。
+- 到處尖銳折角、一路分叉、粗細長短方向都不同、不對稱、沒有直線。
+- **同一路徑連閃 2–3 下（回擊）**，然後變細變暗散掉；下一陣從新路徑炸。
+- 大中小三級：1–2 道主幹、2–3 道中等、幾十條髮絲細。
+
+```text
+Each bolt has a white-hot core wrapped in a magenta glow, bends at sharp jagged angles and forks again and again, every branch a different thickness and length; the same path flashes two or three times in quick return strokes, then thins, dims and dies, and the next burst tears down a new path: one or two main trunks, two or three medium branches and dozens of hair-thin filaments.
+```
+
+### 9.4 吸收型能量落點（反制模型預設的火花）
+
+能量灌進角色時：落點不爆、不濺火星、沒有放射星芒，光順著皮膚和衣服往全身漫開（寫法見 `ultimate-moves.md` §5.4）。
+
+### 9.5 魔法煙＝墨滴進水化開
+
+黑色、像墨滴進水裡慢慢化開，只有被電照到的地方透出能量色，裡面有細電與上百顆火星：
+
+```text
+the magic smoke spreads like ink dropped into water, black except where the lightning lights it from inside in magenta, threaded with fine electricity and hundreds of tiny sparks
+```
+
+### 9.6 光源規則
+
+畫面裡所有的光都由角色、道具、能量發出：**離光源越近越亮越飽和，越遠越暗越灰**；全畫面唯一飽和的顏色是能量色（`the only saturated colour in the frame is magenta`）。與 `impact-frame/forms.md` §5「宣告唯一性」同一招。
+
+### 9.7 次要特效（主特效旁邊的小東西）
+
+開炮除了主炮，還寫四周亂竄的電、往外擴的衝擊波環、熱浪扭曲、碎石滿地飛（v6 第 3 步）。對應 `force-field.md` 四通道。

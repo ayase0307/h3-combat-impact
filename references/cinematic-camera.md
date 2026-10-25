@@ -172,3 +172,37 @@ once and settles at slow speed.
 | 看完記不住任何鏡頭 | 沒有「鏡頭行為」 | 加貼地／穿前景／焦點轉移 |
 | 打鬥空間亂 | 機位高度沒跳 | 見 §6 節奏表 |
 | 兩人像在跳華爾茲 | 一直在環繞 | 禁 orbit，改用十機位 |
+
+## 9. 大招與收尾的鏡頭（2026-10-26 新增）
+
+> 來源：1026 圖文提示詞（骨傘女 vs 劍女）、教學片 v6。**H3 未實測。**
+
+### 9.1 Z 軸驟停觸發重擊
+
+鏡頭沿 Z 軸跟著下墜的攻擊一起迅猛沉降，在命中那一刻**驟停**，用「停」把力量交給畫面：
+
+```text
+At 00:02.400, the camera plunges along the Z axis with her falling strike and stops dead at the moment the umbrella tip meets the rising sword point: the flagstones crack in a starburst, the puddles are blasted up into a towering wall of mist, and the camera sinks hard then rebounds.
+```
+
+### 9.2 瞳孔倒映來襲物
+
+大招砸下前，0.1 s 推鏡切眼部極近特寫，瞳孔裡倒映來襲物；表情肌肉要寫（下眼瞼收緊、屏息），否則是死人臉。見 `ultimate-moves.md` §4。
+
+### 9.3 吞沒鏡頭的收尾
+
+貼地超廣角＋機位極速後拉，煙塵或光牆撲面吞沒鏡頭 → 黑屏或全白 → 靜：
+
+```text
+At 00:07.200, a ground-level ultra-wide shot as the camera pulls back with large amplitude at fast speed; the wall of dust rolls toward the lens and swallows the frame into darkness.
+```
+
+H3 的最後 1–2 秒會自動減速，這種「吞沒」正好可以吃掉那段減速；若要接下一段，用全白結尾，下一段第一格從滿屏白光中猛拉開（`fl2va-chain.md` §8）。
+
+### 9.4 命中硬切特寫
+
+命中瞬間硬切特寫看受力細節（甲冑凹陷、氣場碎裂）再切回倒飛。原文寫「0.5 s 強制升格」——升格在組裝做（`impact_frame.py ramp --seg a-b:0.5`），提示詞只寫硬切與細節。
+
+### 9.5 荷蘭角繞轉
+
+荷蘭角約 15°，貼地繞 90° 越轉越慢、傾斜慢慢回正（教學 v6）。注意全片繞圈 ≤1 次的規則（`drone-camera.md`）。
