@@ -47,7 +47,7 @@ on his mask the whole time. ...
 - **鏡頭**：`the camera shakes strongly` 或 `the camera punches in with small amplitude at extreme speed`。
 - **可寫**：`for two frames the frame blows out to white as radial speed lines tear outward from the point of contact`
 - **關鍵**：一定要寫「幾幀」。H3 固定 24 fps，`two frames` ≈ 83 ms，模型對這個尺度有反應；寫 `briefly` 通常會給 0.5 秒的長閃，看起來像特效而不是打擊。
-- **三種形態**（白閃＝爆發、黑閃＝終結、單色剪影＝儀式感）見 `impact-frame-and-shake.md`。
+- **三種形態**（白閃＝爆發、黑閃＝終結、單色剪影＝儀式感）見 `impact-frame/forms.md`。
 
 ### 拍 3｜停 Hit Stop
 - **畫面**：時間近乎凍結；只有塵埃、火花、碎屑還在慣性飄移；主角與受擊者姿勢鎖死。
@@ -147,7 +147,7 @@ L1 ─ L1 ─ L2 ─ L1 ─ L3 ──（靜 0.8s 對峙）── L4
 
 **三者必須對齊在同一幀**（閃白、震屏峰值、衝擊波起始）。差 2 幀，質感就散了。
 
-詳細的幀數、震屏衰減模型與 hitstop 參數見 `impact-frame-and-shake.md`。
+詳細的幀數、震屏衰減模型與 hitstop 參數見 `impact-frame/forms.md`。
 
 **嵌套規則**：六拍的「洩」拍裡，可以放一個完整的三段式爆炸。但不要讓爆炸吃掉「退」與「收」——受擊者的反應與沉降才是重量感的收尾。
 

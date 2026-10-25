@@ -103,7 +103,7 @@ amplitude at fast speed.
 
 | 別寫 | 為什麼 | 改寫 |
 |---|---|---|
-| `a held impact frame` | 停住 | 衝擊幀另外生成後製（見 `impact-frame-post.md`） |
+| `a held impact frame` | 停住 | 衝擊幀另外生成後製（見 `impact-frame/post.md`） |
 | `the action decelerates to a near-freeze` | 慢動作 | 刪掉 |
 | `draws back, weight sinks, gathering power` | 蓄力是慢的 | 刪掉，直接進攻 |
 | `both fighters reset and lunge again` | 重置＝停頓 | 刪掉 |
@@ -155,5 +155,5 @@ already carrying the follow-through while the light blooms between them.
 - [ ] 機位高度每鏡都不同（見 `drone-camera.md`）
 - [ ] 五種尺度都有出現
 - [ ] 片頭片尾各留 0.5 秒，結尾不是站定
-- [ ] 衝擊幀改走後製路徑（見 `impact-frame-post.md`）
+- [ ] 衝擊幀改走後製路徑（見 `impact-frame/post.md`）
 - [ ] 用 `measure_motion.py` 量測：末 2s ÷ 中段 ≥ 60%、最長低潮 ≤ 0.8s
