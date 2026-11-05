@@ -1,0 +1,21 @@
+subject_definitions:
+<Subject 1> is the adult woman supplied as a mounted reference image: adult proportions, mature adult face, long straight black hair with bangs, black cropped blazer, white shirt, black pleated skirt, black lace ankle socks, chunky glossy black lace-up shoes.
+
+summary:
+[reference generation] One fixed side-on wide shot of <Picture 1>: <Subject 1> walks slowly and powerfully across the road, stamps one foot, magenta fissures crack through the ground, a ring shockwave spreads and rubble lifts and hangs; she punches forward, the action freezes on three hand-drawn full-screen impact frames, then the picture returns and the rubble falls.
+
+retention_analysis:
+<Picture 1> is partially_preserved: the dusk ruined street, collapsed concrete buildings, rebar, rubble and the empty asphalt road are kept as the spatial layout and materials. <Subject 1> is fully_preserved: her face, hair, blazer, shirt, skirt, socks and shoes stay identical, seen in side profile from the fixed camera.
+
+detailed_description:
+Ultra-detailed 3DCG render, near-photoreal 2.5D, like a top-tier 3D game cutscene; flawless porcelain skin with soft subsurface glow; hair with weight and silky sheen; fabric with thickness and natural folds; cinema camera look with film grain. Clearly 3DCG, not a live-action photo, not flat 2D anime.
+
+[Shot 1] 0.00 to 8.00 s: one fixed side-on wide shot of <Picture 1>. Camera: locked off at 35mm from ten metres, square to the street at eye height, her full body in profile across the frame. Motion: first she walks slowly from frame left to frame right with heavy, deliberate strides, weight rolling through each step; then at about 2.4 s she plants her right foot and stamps down hard; the impact sends magenta fissures racing outward across the asphalt, a ring shockwave expands from her foot, and rubble lifts off the ground and hangs in the air; at about 4.2 s she drives her right fist straight forward and the punch lands, the action freezes for about 0.6 s, and the frame shakes sharply with the hit before settling. Performance: her face set hard in profile, eyes fixed forward, jaw locked as she commits to the stamp and the punch, breath pushed out at the stamp. Light: the magenta glow from the fissures lights the side of her face, the hem of her skirt and the dust around her boots; the dusk sky stays cool blue-grey above. Sound: heavy footfalls on grit, a deep stamp thud at about 2.4 s, a crack running through the ground and a low ring of shockwave, rubble rumbling as it lifts, then one heavy impact on the punch and a short hush during the freeze.
+
+During the freeze, three hand-drawn full-screen impact frames hard-cut one after another, each about 0.2 s, from 4.6 s to 5.2 s: the first is black ink on white, the second red on black, the third white on magenta. These three frames are the only hand-drawn elements in the film; they are flat graphic panels with bold brush strokes and no 3D depth. At about 5.2 s the normal 3DCG picture returns: the rubble falls back to the ground in a heavy, scattered drop, dust rolls across the road, the magenta fissures keep glowing faintly, and she recovers into a steady stance by 8.0 s.
+
+overall_soundscape:
+Grit under heavy footfalls at the start, a deep stamp thud at about 2.4 s, a crack and a low shockwave ring through the ground, rubble rumble as it lifts and hangs, one heavy impact on the punch, a short hush during the freeze, then the rumble of falling rubble and dust settling across the road.
+
+non_diegetic_music:
+N/A

@@ -26,7 +26,7 @@ MOVE_CATS = {
     "blade": r"\b(cut|cuts|cutting|slash|slashes|thrust|thrusts|rip|rips|"
              r"cleave|swings?|stabs?|strikes?|drives through|"
              r"descending cut|rising cut|overhead cut)\b",
-    "kick": r"\b(kick|kicks|knee|knees|shin|stomp|stamps?)\b",
+    "kick": r"\b(kick|kicks|knee|knees|shin|stomp(s|ed|ing)?|stamps?)\b",
     "punch": r"\b(punch|punches|hook|hooks|elbow|elbows|backfist|jab|"
              r"palm|palms|fist|forearm|headbutt)\b",
     "throw": r"\b(throw|throws|hip-throw|hurl|hurls|slam|slams|dump|dumps|"
@@ -53,6 +53,16 @@ FAKE_FACE = re.compile(
 TS = re.compile(r"At\s+(\d{2}):(\d{2}\.\d{2,3})")
 SHOT = re.compile(r"\[Shot (\d+)\]")
 LABEL = re.compile(r"<(Subject|Picture|Video|Audio) (\d+)>")
+# 五小節（打鬥版）：每鏡必須照這個順序出現
+FIVE = ["Camera", "Motion", "Performance", "Light", "Sound"]
+CAM_MOVE = re.compile(
+    r"\b(push(es|ing)? in|pull(s|ing)? (out|back)|pan(s|ning)?|tilt(s|ing)?|"
+    r"zoom(s|ing)?|truck(s|ing)?|doll(y|ies|ying)|pedestal(s|ing)?|"
+    r"track(s|ing)?|orbit(s|ing)?|arc(s|ing)?|crane(s|d)?)\b", re.I)
+WEIGHT = re.compile(
+    r"\b(weight|balance|base|heel|heels|hips?|soles?|plant(s|ed|ing)?|"
+    r"pivot(s|ed|ing)?|lever|levered|centre of mass|center of mass|"
+    r"off[- ]balance\w*|counterweight|stance)\b", re.I)
 
 
 def extract(text):
@@ -82,7 +92,45 @@ def section(body, name, all_names):
     return body[start:end]
 
 
-def check(path, duration):
+def check_five_part(body, fields):
+    """五小節檢查：標籤齊全、順序正確、五小節內沒有第二個運鏡動詞。"""
+    out = []
+    seg = section(body, "integrated_multimodal_description", fields)
+    if not seg:
+        seg = section(body, "detailed_description", fields)
+    blocks = re.split(r"(?=\[Shot \d+\])", seg)
+    for blk in blocks:
+        m = SHOT.search(blk)
+        if not m:
+            continue
+        n = m.group(1)
+        found = []
+        for lbl in FIVE:
+            hit = re.search(rf"\b{lbl}\s*:", blk)
+            if hit:
+                found.append((hit.start(), lbl))
+        names = [lbl for _, lbl in found]
+        if names != FIVE:
+            missing = [x for x in FIVE if x not in names]
+            out.append(("FAIL", f"[Shot {n}] 五小節不完整或順序錯："
+                                f"現有 {names or '無'}"
+                                + (f"，缺 {missing}" if missing else "，需照 "
+                                   "Camera→Motion→Performance→Light→Sound")))
+            continue
+        # 五小節區段的開頭＝第一個 Camera: 的位置
+        body_start = found[0][0]
+        tail = blk[body_start:]
+        if re.search(r"\bthe camera\b", tail, re.I):
+            out.append(("FAIL", f"[Shot {n}] 五小節內出現 the camera"
+                                "（運鏡詞只能出現在頭句）"))
+        elif CAM_MOVE.search(tail.replace("push off", "").replace("pushes off", "")):
+            hit = CAM_MOVE.search(tail)
+            out.append(("WARN", f"[Shot {n}] 五小節內疑似出現第二個運鏡動詞"
+                                f"「{hit.group(0)}」——檢查是否為動作詞"))
+    return out
+
+
+def check(path, duration, five_part=False):
     raw = open(path, encoding="utf-8").read()
     body = extract(raw)
     out = []
@@ -231,12 +279,29 @@ def check(path, duration):
 
     # 字數預算
     words = len(body.split())
-    limit = 820 if is_ref else 520
+    chars = len(body)
+    limit = (900 if five_part else 820) if is_ref else (900 if five_part else 520)
     if words > limit:
         out.append(("WARN", f"字數 {words} 超過預算 {limit}，末段約束易失效")); warn += 1
 
+    # 五小節（打鬥版）
+    if five_part:
+        for lv, msg in check_five_part(body, fields):
+            out.append((lv, msg))
+            if lv == "FAIL":
+                fail += 1
+            else:
+                warn += 1
+        if not WEIGHT.search(body):
+            out.append(("WARN", "五小節版沒有任何重心／支撐描述"
+                                "（weight/heels/hips/base…）—— 打擊感會偏軟"))
+            warn += 1
+
+    if chars > 7500:
+        out.append(("WARN", f"字元數 {chars} 超過送件端上限 7500")); warn += 1
+
     print(f"\n{os.path.basename(path)}  mode={mode}  shots={nshot}  words={words}  "
-          f"duration={duration or '?'}")
+          f"chars={chars}  duration={duration or '?'}")
     if not out:
         print("  [PASS] 格式完全符合，可直接使用")
     for lv, msg in out:
@@ -250,6 +315,8 @@ def main():
     ap.add_argument("--dir")
     ap.add_argument("--duration", type=float, default=None,
                     help="實際生成時長（秒），用於檢查時間碼與末鏡長度")
+    ap.add_argument("--five-part", action="store_true",
+                    help="檢查每鏡五小節（Camera/Motion/Performance/Light/Sound）")
     a = ap.parse_args()
 
     files = [a.file] if a.file else []
@@ -260,7 +327,7 @@ def main():
         ap.print_help()
         return 1
 
-    total = sum(check(f, a.duration) for f in files)
+    total = sum(check(f, a.duration, a.five_part) for f in files)
     print(f"\n合計 FAIL {total} 項")
     return 1 if total else 0
 
