@@ -79,7 +79,7 @@ black, then the colour snaps back.
   同一顆模型、同一段提示詞，風格天然一致。
 - **後製合成**：主片與衝擊幀分開生成再抽幀疊回（`impact-frame-post.md`），精度最高但工時也最高。
 
-H3 本身做不出**指定**的 2 幀（約 70–83 ms）漫畫格；它能做出「一個 0.5–1 秒的黑白風格插入鏡頭」。
+H3 做不出**指定**的 2 幀（約 70–83 ms）漫畫格；那種寫法會變成「一個 0.5–1 秒的黑白風格插入鏡頭」。這句只指漫畫格。減去式短衝擊可以留在同一支裡（`SKILL.md`）。
 所以寫提示詞時就該把它當成**一個鏡頭**來規劃，而不是當成一個兩幀的插入格——**
 差別只在於：這個「鏡頭」可以是多卡的，讓你在剪輯時有東西可挑。**
 
@@ -141,7 +141,9 @@ a radial burst of black ink spikes larger than the figures erupts from the point
 the frame flips to white then black for one frame each, and the ink disperses
 ```
 
-### 1.2 幀數：唯一的硬規則
+### 1.2 幀數：爆白的短時長，不是所有衝擊拍的唯一句
+
+同段圖形衝擊以 `SKILL.md` 的減去式＋退出為準（約 0.2 秒；吃猪侠233 的弓手 7 秒打中過，REMIX 基線約 7 幀、硬切、沒有殘留）。`for two frames` 套在整幀風格跳轉上會過衝到約 1 秒。下面的表只說明**爆白**這類強光事件。
 
 | 幀數 | 效果 |
 |---|---|

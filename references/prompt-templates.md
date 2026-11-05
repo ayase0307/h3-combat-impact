@@ -11,7 +11,7 @@ integrated_multimodal_description: [Shot 1] 3D CG, cinematic, wuxia. <景別> of
 
 [Shot 2] At 00:0X.XXX, the camera cuts to <景別> of <主體B：外觀鎖定>. <蓄力動作>; <運鏡>. <材質/布料細節>.
 
-[Shot 3] At 00:0X.XXX, <命中拍> — for two frames the frame blows out to white as radial speed lines tear outward from the point of contact; the camera punches in with small amplitude at fast speed and shakes strongly. <衝擊波方向>. <受擊者反應 + 延遲跟隨>.
+[Shot 3] At 00:0X.XXX, <命中拍> — for about 0.2 seconds the shell texture, colour, material and surface detail are erased and only a thick black silhouette remains; the hit lands once, then colour, texture, material and surface detail return and stay. <衝擊波方向>. <受擊者反應 + 延遲跟隨>.
 
 [Shot 4] At 00:0X.XXX, the action decelerates to a near-freeze for a fraction of a second; only the sparks keep drifting as <殘留粒子>. The camera holds a static shot.
 

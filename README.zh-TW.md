@@ -102,7 +102,7 @@ AI 打鬥片的毛病都差不多：動作軟、特效像貼圖、兩個人像�
 - **特效有形狀與空間範圍**：未知招式的三步翻譯法（物理名詞 → 路徑 → 命中結果）。
 - **三種節奏模式**：六拍、連續對轟、ULTRA_SPEED（8 秒 10–14 鏡，每次切鏡換機位）。
 - **參考圖保真**：Ref2VA 的 9 類身份清單，讓角色保持「就是那一個」。
-- **衝擊幀三條路線**：多卡閃切（時間給夠，剪輯再加速）／變身六層 0.3 秒序列／後製逐幀合成。
+- **衝擊幀**：同一支裡的圖形拍用減去式厚黑剪影＋約 0.2 秒退出（色彩與細節回來並留住）。多卡閃切、變身六層 0.3 秒、後製逐幀合成仍可用。提示詞做得到內嵌衝擊幀。
 - **角色技能可移植**：角色卡十欄 ＋ 技能四節點 ＋ 八個母題原型，任何角色都能套。
 - **產出可直接貼上**：官方 H3 格式的單一 code block，附驗證器。
 - **用數據驗收**：腳本對成品 MP4 量測運動、光事件、分鏡、接縫。
@@ -117,7 +117,7 @@ AI 打鬥片的毛病都差不多：動作軟、特效像貼圖、兩個人像�
 | 拍 | 佔比 | 畫面要有 | 提示詞關鍵句 |
 |---|---:|---|---|
 | 1 蓄 | 35% | 反向預備、重心下沉、布料繃緊 | `weight sinks into the rear leg` |
-| 2 觸 | 5% | **衝擊幀**：1–2 幀爆白／爆黑 | `for two frames the entire frame blows out to pure white` |
+| 2 觸 | 5% | **同段圖形衝擊**：約 0.2 秒擦掉紋理、顏色、材質、細節，只留厚黑剪影，然後色彩與細節回來並留住 | `for about 0.2 seconds the shell texture, colour, material and surface detail are erased and only a thick black silhouette remains; the hit lands once, then colour, texture, material and surface detail return and stay` |
 | 3 停 | 15% | 時間近乎凍結，塵與火花懸浮 | `decelerates to a near-freeze for two frames` |
 | 4 洩 | 25% | 衝擊波、碎片、塵環、光影聯動 | `a ring of shockwave dust bursts outward` |
 | 5 退 | 15% | 受擊者被打飛、衣髮延遲甩動、**震屏衰減** | `the shake decays within a third of a second` |
