@@ -153,16 +153,17 @@ L1 ─ L1 ─ L2 ─ L1 ─ L3 ──（靜 0.8s 對峙）── L4
 
 ---
 
-## 8. 衝擊幀只給一幀（實測修正）
+## 8. 衝擊幀的時長與退出
 
-一幀 = 1/24 秒。**兩幀已經夠長**，再配上「拖影」整段就會被讀成慢動作。
+同段圖形拍以 `SKILL.md` 為準：減去式厚黑剪影，約 0.2 秒，打一下，然後色彩與細節回來並留住（吃猪侠233 的弓手 7 秒；REMIX 基線約 7 幀）。`for two frames` 套在整幀風格跳轉上會過衝（實測約 1 秒）。
+
+再配上「拖影」，過長的停留會被讀成慢動作。同段圖形拍寫這句：
 
 ```text
-For two frames the frame flashes white.              ← 容易變慢動作
-For one frame the background flashes white; then it snaps back instantly.
+for about 0.2 seconds the shell texture, colour, material and surface detail are erased and only a thick black silhouette remains; the hit lands once, then colour, texture, material and surface detail return and stay
 ```
 
-**關鍵是「回來」要寫出來。** `then it snaps back` 讓模型知道這是閃爍，不是停留。
+**關鍵是退出要寫出來。** 色彩、紋理、材質與細節回來並留住，模型才知道這是一拍，不是換風格。
 
 ## 9. 每次接觸都要有物理後果
 

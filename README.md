@@ -102,7 +102,7 @@ This skill turns "make it hit harder" into structure you can write, copy and **m
 - **VFX with shape and scale.** A three-step translation for invented moves: physical noun → path → what the target actually becomes.
 - **Rhythm modes.** Six-beat, continuous brawl, and ULTRA_SPEED (10–14 shots in 8 s, new camera position every cut).
 - **Reference fidelity.** A 9-class identity checklist for Ref2VA so the character stays *that* character.
-- **Impact frames, three routes.** Multi-card flash-cut (give the cards enough time, then speed them up in the edit), a 0.3 s six-layer transformation, or frame-exact post compositing.
+- **Impact frames.** An in-clip graphic beat is a subtractive black silhouette with a ~0.2 s exit (colour and detail return and stay). Multi-card flash-cut, a 0.3 s six-layer transformation, and frame-exact post compositing stay available. Inline impact via the prompt is a working path.
 - **Portable signature skills.** A ten-field character card, a four-node skill motif and eight motif archetypes — any character can wear them.
 - **Output you can paste.** One code block in the official H3 format, checked by a validator.
 - **Measured, not felt.** Scripts score motion, light events, staging and seams on the finished MP4.
@@ -117,7 +117,7 @@ This skill turns "make it hit harder" into structure you can write, copy and **m
 | Beat | Share | What the frame needs | Prompt key phrase |
 |---|---:|---|---|
 | 1 Anticipation | 35% | counter-motion, weight sinks, cloth tightens | `weight sinks into the rear leg` |
-| 2 Contact | 5% | **impact frame**: 1–2 frames of white-out / black-out | `for two frames the entire frame blows out to pure white` |
+| 2 Contact | 5% | **in-clip impact**: erase texture, colour, material and detail for ~0.2 s; thick black silhouette; then colour and detail return and stay | `for about 0.2 seconds the shell texture, colour, material and surface detail are erased and only a thick black silhouette remains; the hit lands once, then colour, texture, material and surface detail return and stay` |
 | 3 Hit stop | 15% | time almost freezes, dust and sparks hang | `decelerates to a near-freeze for two frames` |
 | 4 Release | 25% | shockwave, debris, dust ring, light shift | `a ring of shockwave dust bursts outward` |
 | 5 Reaction | 15% | defender hurled back, delayed cloth and hair, **decaying shake** | `the shake decays within a third of a second` |

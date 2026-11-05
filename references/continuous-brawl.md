@@ -16,19 +16,19 @@
 ## 1. 衝擊四拍
 
 ```
-① 2 幀衝擊幀 → ② 長拖影 → ③ 彈性回彈 → ④ 立即再入
+① 約 0.2 秒減去式衝擊 → ② 長拖影 → ③ 彈性回彈 → ④ 立即再入
 ```
 
 沒有蓄力、沒有凍結、沒有收勢。**因為它從不停止。**
 
 | 拍 | 寫法 |
 |---|---|
-| ① 衝擊幀 | `for two frames the background flashes hot pink and radial speed lines burst from the contact` |
+| ① 衝擊幀 | `for about 0.2 seconds the shell texture, colour, material and surface detail are erased and only a thick black silhouette remains; the hit lands once, then colour, texture, material and surface detail return and stay` |
 | ② 拖影 | `both bodies whip away in long smears` |
 | ③ 回彈 | `land in a skid, and are already lunging again` |
 | ④ 再入 | `she rides that snap into a one-two` |
 
-對比六拍：六拍的「停」是 4–6 幀凍結；四拍的「停」只有 2 幀衝擊幀，緊接著就是拖影。**沒有凍結，只有拖影。**
+對比六拍：六拍的「停」是 4–6 幀凍結；四拍的「停」是約 0.2 秒的減去式衝擊，緊接著就是拖影。**沒有凍結，只有拖影。**
 
 ---
 
@@ -109,7 +109,7 @@ keeping one body nearer the lens and the other clearly behind it with air betwee
 ---
 
 ## 7. 提示詞骨架（7.5 秒單鏡）```text
-integrated_multimodal_description: [Shot 1] <風格錨定>. <場景 + 錨點>. <兩人的位置與外觀>. <鏡頭第一個動作：從哪裡開始、往哪去>. <交換 1：命中 → 2 幀衝擊幀 → 拖影 → 回彈>. <交換 2：動作鏈接續>. <交換 3：動作鏈接續>. Every motion flows directly into the next strike, and both fighters stay sharp and anatomically correct throughout.
+integrated_multimodal_description: [Shot 1] <風格錨定>. <場景 + 錨點>. <兩人的位置與外觀>. <鏡頭第一個動作：從哪裡開始、往哪去>. <交換 1：命中 → 約 0.2 秒減去式衝擊 → 拖影 → 回彈>. <交換 2：動作鏈接續>. <交換 3：動作鏈接續>. Every motion flows directly into the next strike, and both fighters stay sharp and anatomically correct throughout.
 
 overall_soundscape: <環境底噪>. <三種物理音：拳套、鞋底、飾品>. <撞擊音>.
 
@@ -295,7 +295,7 @@ a single steel pillar at frame right
 ### 快切骨架
 
 ```text
-[Shot 1] <風格錨定>. <首幀延續的動作>. for two frames <衝擊幀>. <拖影>.
+[Shot 1] <風格錨定>. <首幀延續的動作>. for about 0.2 seconds the shell texture, colour, material and surface detail are erased and only a thick black silhouette remains; the hit lands once, then colour, texture, material and surface detail return and stay. <拖影>.
 [Shot 2] At 00:00.700, the camera cuts to an extreme close-up: <角色特徵物件>.
 [Shot 3] At 00:01.500, the camera cuts to <景別>. <下一個交換>.
 [Shot 4] At 00:02.300, the camera cuts to a half-second insert: <眼睛／飾品／鞋底>.
@@ -342,6 +342,6 @@ H3 在最後 1–2 秒會自動減速，五種寫法全部收斂到定格：
 |---|---|---|
 | 打成一團看不清 | 兩人同深度、動作太密 | 加深度錯位；把交換數從 4 降到 3 |
 | 每擊之間有停頓 | 用了六拍的凍結 | 刪掉 `near-freeze`，改成拖影 |
-| 像在跳舞 | 沒有衝擊幀、沒有回彈 | 每擊都要有 `for two frames` + `smears` + `already lunging again` |
+| 像在跳舞 | 沒有衝擊幀、沒有回彈 | 每擊都要有減去式退出（約 0.2 秒、厚黑剪影、色彩與細節回來並留住）+ `smears` + `already lunging again` |
 | 動作各自獨立 | 寫成清單 | 改用 `turns into` / `rides` / `drives out of` |
 | 空間感消失 | 沒有錨點 | 給 2–3 個可互動物件 |
