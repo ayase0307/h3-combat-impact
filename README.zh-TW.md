@@ -77,16 +77,16 @@
   </tr>
   <tr>
     <td align="center" colspan="2">
-      <a href="assets/showcase/impact-inline.mp4"><img src="assets/showcase/impact-inline.gif" alt="穿黑外套的女子在廢墟街踩地出拳，畫面硬切過黑墨、紅、洋紅的整屏手繪卡，再回到 3D" width="50%"></a><br>
-      <b><a href="assets/showcase/impact-inline.mp4">衝擊幀直接寫進提示詞</a></b><br>
-      <sub>H3 一次出片，沒有合成：每張卡都是模型畫的。剪輯只把卡的部分加速 2.5 倍，並裁掉片尾。3 個 seed 裡最好的一支，另一支變成三聯 · Pika H3 Flex、RTX 5070 Ti、1344×768 · <a href="examples/impact-frame-inline.txt">提示詞</a> · <a href="references/impact-frame-inline.md">做法</a></sub>
+      <a href="assets/showcase/impact-inline.mp4"><img src="assets/showcase/impact-inline.gif" alt="白髮紅毛衣的女子走在閃電與黑煙裡，畫面硬切過洋紅、黑墨、紅色的整屏手繪卡" width="50%"></a><br>
+      <b><a href="assets/showcase/impact-inline.mp4">28 秒衝擊幀復刻，卡直接寫進提示詞</a></b><br>
+      <sub>九段 H3，衝擊幀沒有合成，全是模型畫的。剪輯把卡加速到每張約 0.1 秒；走路段放慢到 0.75 倍，因為 H3 不聽步頻 · Pika H3 Flex、RTX 5070 Ti、1344×768 · <a href="examples/impact-frame-screenplay.txt">變身段提示詞</a> · <a href="references/impact-frame-inline.md">做法</a></sub>
     </td>
   </tr>
 </table>
 
 30 秒格鬥是「重現」不是複製：它參考一支公開的 Seedance 2.5 展示片的結構（分鏡表、每次爆炸換色調、貨艙佈局），改寫成 H3 的格式與限制。參考角色圖不在此 repo。
 
-衝擊幀這支是復刻一支公開的 Seedance 衝擊幀教學時拍的，角色與街景參考圖沒有收錄。
+28 秒這支衝擊幀片復刻自一支公開的 Seedance 衝擊幀教學，改寫給 H3 後逐段重新生成，不含原片畫面，參考圖沒有收錄。
 
 ## 為什麼需要這個 skill
 
@@ -222,6 +222,7 @@ python scripts/validate_prompt.py prompt.txt --duration 8 --five-part
 | I2VA 特效插入鏡 | [`SKILL.md`](SKILL.md) | 保住配色（鋼藍＋金）；首幀 PSNR ≈ 20 dB | – | 適合 1–4 秒插入鏡，運動偏低 |
 | 後製衝擊幀 | [`impact-frame-source.txt`](examples/impact-frame-source.txt) | 6 幀連續，已驗證 | – | 24fps 主片可行，逐幀精準 |
 | 衝擊幀寫進提示詞（Pika H3 Flex） | [`impact-frame-inline.txt`](examples/impact-frame-inline.txt) | 3 個 seed：1 支長而整屏、1 支三聯、1 支只有短短三張 | – | 讀得出來但不精確；寫 3 張 0.6 秒，實際約 5 種畫面 1.3 秒，晚 0.3 秒。提示詞照實跑版本保留，所以 `validate_prompt` 會報 `<Picture 1>` 未定義 |
+| 衝擊幀，劇本式（Pika H3 Flex） | [`impact-frame-screenplay.txt`](examples/impact-frame-screenplay.txt) | 2 個 seed：都整屏不分格 | – | 六張各 0.45 秒；時間會晚、可能穿插真畫面，剪輯時挑著用 |
 | 角色重現 A（血月少女 10 s） | [`bloodmoon-ultimate-ref2va.txt`](examples/bloodmoon-ultimate-ref2va.txt) | 末段÷中段 32%（終結鏡刻意鎖死） | – | 身份／服裝／技能形狀全保住；9 鏡、55.6% 有光事件 |
 | 角色重現 B（執傘女修 10 s） | [`jade-rift-summon-ref2va.txt`](examples/jade-rift-summon-ref2va.txt) | 末段÷中段 **161%**；峰值 23；低潮 1.42 s | – | 裂空與巨爪成形正確；暗色單色場景的光事件量測偏低 |
 
