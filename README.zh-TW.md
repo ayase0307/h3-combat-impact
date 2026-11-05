@@ -24,7 +24,7 @@
 
 ## 成品展示
 
-下面每一支都是 MiniMax H3 在本機 RTX 4060 Ti（8 GB）上，用 [`examples/`](examples/) 裡的提示詞生成：固定種子、24 fps、`high` 畫質、1280×704（21:9 那支是 1280×544）。點標題可看完整 MP4。
+除非說明另有標註，下面每一支都是 MiniMax H3 在本機 RTX 4060 Ti（8 GB）上，用 [`examples/`](examples/) 裡的提示詞生成：固定種子、24 fps、`high` 畫質、1280×704（21:9 那支是 1280×544）。點標題可看完整 MP4。
 
 <table>
   <tr>
@@ -77,14 +77,16 @@
   </tr>
   <tr>
     <td align="center" colspan="2">
-      <a href="assets/showcase/impact-composite.mp4"><img src="assets/showcase/impact-composite.gif" alt="超高速片段，後製合成三階段漫畫衝擊序列" width="50%"></a><br>
-      <b><a href="assets/showcase/impact-composite.mp4">後製加上衝擊幀</a></b><br>
-      <sub>主片完全沒有衝擊幀；另外生成一支 H3 漫畫放射片，取 3 × 2 幀逐幀精準合成 · <a href="references/impact-frame-post.md">做法</a></sub>
+      <a href="assets/showcase/impact-inline.mp4"><img src="assets/showcase/impact-inline.gif" alt="穿黑外套的女子在廢墟街踩地出拳，畫面硬切過黑墨、紅、洋紅的整屏手繪卡，再回到 3D" width="50%"></a><br>
+      <b><a href="assets/showcase/impact-inline.mp4">衝擊幀直接寫進提示詞</a></b><br>
+      <sub>H3 一次出片，沒有合成：每張卡都是模型畫的。剪輯只把卡的部分加速 2.5 倍，並裁掉片尾。3 個 seed 裡最好的一支，另一支變成三聯 · Pika H3 Flex、RTX 5070 Ti、1344×768 · <a href="examples/impact-frame-inline.txt">提示詞</a> · <a href="references/impact-frame-inline.md">做法</a></sub>
     </td>
   </tr>
 </table>
 
 30 秒格鬥是「重現」不是複製：它參考一支公開的 Seedance 2.5 展示片的結構（分鏡表、每次爆炸換色調、貨艙佈局），改寫成 H3 的格式與限制。參考角色圖不在此 repo。
+
+衝擊幀這支是復刻一支公開的 Seedance 衝擊幀教學時拍的，角色與街景參考圖沒有收錄。
 
 ## 為什麼需要這個 skill
 
@@ -100,7 +102,7 @@ AI 打鬥片的毛病都差不多：動作軟、特效像貼圖、兩個人像�
 - **特效有形狀與空間範圍**：未知招式的三步翻譯法（物理名詞 → 路徑 → 命中結果）。
 - **三種節奏模式**：六拍、連續對轟、ULTRA_SPEED（8 秒 10–14 鏡，每次切鏡換機位）。
 - **參考圖保真**：Ref2VA 的 9 類身份清單，讓角色保持「就是那一個」。
-- **衝擊幀三條路線**：多卡閃切（1.2 秒 8 張卡 → 剪輯留 2 幀）／變身六層 0.3 秒序列／後製逐幀合成。
+- **衝擊幀三條路線**：多卡閃切（時間給夠，剪輯再加速）／變身六層 0.3 秒序列／後製逐幀合成。
 - **角色技能可移植**：角色卡十欄 ＋ 技能四節點 ＋ 八個母題原型，任何角色都能套。
 - **產出可直接貼上**：官方 H3 格式的單一 code block，附驗證器。
 - **用數據驗收**：腳本對成品 MP4 量測運動、光事件、分鏡、接縫。
@@ -219,6 +221,7 @@ python scripts/validate_prompt.py prompt.txt --duration 8 --five-part
 | Ref2VA 第二段 15 秒 | [`anime-ref2va-part2.txt`](examples/anime-ref2va-part2.txt) | **34%** | 改寫後 88%；HQ 93% | 修正後強 |
 | I2VA 特效插入鏡 | [`SKILL.md`](SKILL.md) | 保住配色（鋼藍＋金）；首幀 PSNR ≈ 20 dB | – | 適合 1–4 秒插入鏡，運動偏低 |
 | 後製衝擊幀 | [`impact-frame-source.txt`](examples/impact-frame-source.txt) | 6 幀連續，已驗證 | – | 24fps 主片可行，逐幀精準 |
+| 衝擊幀寫進提示詞（Pika H3 Flex） | [`impact-frame-inline.txt`](examples/impact-frame-inline.txt) | 3 個 seed：1 支長而整屏、1 支三聯、1 支只有短短三張 | – | 讀得出來但不精確；寫 3 張 0.6 秒，實際約 5 種畫面 1.3 秒，晚 0.3 秒。提示詞照實跑版本保留，所以 `validate_prompt` 會報 `<Picture 1>` 未定義 |
 | 角色重現 A（血月少女 10 s） | [`bloodmoon-ultimate-ref2va.txt`](examples/bloodmoon-ultimate-ref2va.txt) | 末段÷中段 32%（終結鏡刻意鎖死） | – | 身份／服裝／技能形狀全保住；9 鏡、55.6% 有光事件 |
 | 角色重現 B（執傘女修 10 s） | [`jade-rift-summon-ref2va.txt`](examples/jade-rift-summon-ref2va.txt) | 末段÷中段 **161%**；峰值 23；低潮 1.42 s | – | 裂空與巨爪成形正確；暗色單色場景的光事件量測偏低 |
 

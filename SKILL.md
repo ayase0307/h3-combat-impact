@@ -224,6 +224,7 @@ ULTRA_SPEED 的四件套、每鏡光影事件、周圍連動清單見 `reference
 
 **路線 A 的三個數字**（《衝擊幀教學》逐字轉錄）：給 **0.3 秒**模型會把八張擠進一屏；給 **1.2 秒**
 才會一張一張整屏閃（每張 3–4 幀）；給 2 秒可以，成片再開 5 倍速。
+較新的實測（Pika H3 Flex，樣本小）：每張 0.3–0.45 秒、共 4–6 張，並明寫「每張鋪滿畫面、不分格」目前 4/4 整屏；切點常晚 0.2–0.8 秒，見 `references/impact-frame-inline.md` §1.3.1。
 畫法要寫「粗暴的手繪、墨點飛濺、粗筆刷、飛白、刮痕」，每張換一套配色。
 
 **路線 B 的關鍵詞**：`flash-cuts` ＋ `holds exactly the same pose` ＋ `without any morphing in between`。
