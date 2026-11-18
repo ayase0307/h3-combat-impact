@@ -10,6 +10,7 @@
 
 import argparse
 import glob
+import json
 import os
 import re
 import sys
@@ -54,6 +55,43 @@ TS = re.compile(r"At\s+(\d{2}):(\d{2}\.\d{2,3})")
 SHOT = re.compile(r"\[Shot (\d+)\]")
 LABEL = re.compile(r"<(Subject|Picture|Video|Audio) (\d+)>")
 
+# 模式設定：同一個結構在不同打法下，部分 WARN 是誤報（見 docs/research/
+# 2026-11-18-strengthen-combat-impact.md T5）。用 front-matter `#!profile: X`
+# 或 --profile 指定；預設 fight。
+PROFILES = {
+    "fight": {},
+    "ultra": {"skip_moves": {"throw", "sweep"}, "blade_cap": 75.0, "word_cap": 620},
+    "blade-light": {"skip_moves": {"throw", "sweep"}, "blade_cap": 85.0},
+    "impact": {"skip_face": True, "skip_moves": True},
+    "material": {"skip_face": True, "skip_moves": True},
+    "facial": {"skip_moves": True},
+    "fl2va": {"word_cap": 1300},
+}
+
+
+def strip_meta(text):
+    """移除 `#!` 開頭的 front-matter／註解行（不會送進模型）。"""
+    return "\n".join(ln for ln in text.splitlines() if not ln.lstrip().startswith("#!"))
+
+
+def read_profile(raw, path=None):
+    """檔案內 `#!profile:` 優先；其次同目錄 profiles.json 的檔名對照；預設 fight。"""
+    m = re.search(r"^#!\s*profile\s*:\s*([a-z-]+)", raw, re.M)
+    if m and m.group(1) in PROFILES:
+        return m.group(1)
+    if path:
+        man = os.path.join(os.path.dirname(os.path.abspath(path)), "profiles.json")
+        if os.path.exists(man):
+            try:
+                d = json.load(open(man, encoding="utf-8"))
+                name = os.path.basename(path)
+                if d.get(name) in PROFILES:
+                    return d[name]
+            except (OSError, ValueError):
+                pass
+    return "fight"
+
+
 
 def extract(text):
     blocks = re.findall(r"```(?:text)?\s*\n(.*?)\n```", text, re.S)
@@ -82,9 +120,11 @@ def section(body, name, all_names):
     return body[start:end]
 
 
-def check(path, duration):
+def check(path, duration, profile="auto"):
     raw = open(path, encoding="utf-8").read()
-    body = extract(raw)
+    body = extract(strip_meta(raw))
+    prof = read_profile(raw, path) if profile in (None, "auto") else profile
+    rules = PROFILES.get(prof, {})
     out = []
     fail = warn = 0
 
@@ -183,7 +223,7 @@ def check(path, duration):
     # 特寫的判斷窗：從 close-up 起算到「本鏡結束」（下一個 [Shot 或欄位）
     close_ups = re.findall(
         r"(?:extreme )?close[- ]up.*?(?=\[Shot\s|\n\n|\Z)", body, re.I | re.S)
-    if close_ups:
+    if close_ups and not rules.get("skip_face"):
         # 只有「畫面裡有人臉」的特寫才需要肌肉動作；兵器/手部特寫不算
         FACE = re.compile(r"\b(face|faces|eyes?|irises?|expression)\b", re.I)
         BLADE_FACE = re.compile(r"flat faces|blade faces|faces of the", re.I)
@@ -196,12 +236,12 @@ def check(path, duration):
                         "（只寫眼睛形狀/打光會得到死人臉；改寫眉毛、下眼瞼、"
                         "咀嚼肌、嘴、喉）"))
             warn += 1
-    if not MUSCLE.search(body):
+    if not MUSCLE.search(body) and not rules.get("skip_face"):
         out.append(("WARN", "全篇沒有任何表情肌肉動作"
                             "（brow/jaw/teeth/lip/throat/breath…），"
                             "角色會全程面無表情"))
         warn += 1
-    if len(FAKE_FACE.findall(body)) >= 2 and not MUSCLE.search(body):
+    if len(FAKE_FACE.findall(body)) >= 2 and not MUSCLE.search(body) and not rules.get("skip_face"):
         out.append(("WARN", "用眼睛形狀代替表情（如 irises narrow），"
                             "那不是肌肉動作"))
         warn += 1
@@ -210,10 +250,10 @@ def check(path, duration):
     blade = counts.get("blade", 0)
     others = sum(v for k, v in counts.items() if k != "blade")
     total = blade + others
-    if total >= 8:
+    if total >= 8 and not rules.get("skip_moves") is True:
         blade_pct = 100.0 * blade / total
         # 15 秒以上容許刀路 55%；8 秒容許 60%（短片段沒空間放全套）
-        cap = 55.0 if (duration and duration >= 12) else 60.0
+        cap = rules.get("blade_cap", 55.0 if (duration and duration >= 12) else 60.0)
         if blade_pct > cap:
             out.append(("WARN",
                         f"刀路佔比 {blade_pct:.0f}%（刀路 {blade} / 其他 {others}，"
@@ -221,21 +261,22 @@ def check(path, duration):
                         "加踢擊/拳肘/摔投/下盤/擒拿，"
                         "見 references/choreography.md 的配額表"))
             warn += 1
-        if counts.get("throw", 0) == 0 and blade >= 4:
+        skip_set = rules.get("skip_moves") if isinstance(rules.get("skip_moves"), set) else set()
+        if counts.get("throw", 0) == 0 and blade >= 4 and "throw" not in skip_set:
             out.append(("WARN", "完全沒有摔投/擒拿 —— 距離不會變化，"
                                 "容易變成兩人站著互砍"))
             warn += 1
-        if counts.get("sweep", 0) == 0:
+        if counts.get("sweep", 0) == 0 and "sweep" not in skip_set:
             out.append(("WARN", "完全沒有下盤/絆 —— 全程在同一個高度打"))
             warn += 1
 
     # 字數預算
     words = len(body.split())
-    limit = 820 if is_ref else 520
+    limit = rules.get("word_cap") or (820 if is_ref else 520)
     if words > limit:
         out.append(("WARN", f"字數 {words} 超過預算 {limit}，末段約束易失效")); warn += 1
 
-    print(f"\n{os.path.basename(path)}  mode={mode}  shots={nshot}  words={words}  "
+    print(f"\n{os.path.basename(path)}  mode={mode}  profile={prof}  shots={nshot}  words={words}  "
           f"duration={duration or '?'}")
     if not out:
         print("  [PASS] 格式完全符合，可直接使用")
@@ -250,6 +291,9 @@ def main():
     ap.add_argument("--dir")
     ap.add_argument("--duration", type=float, default=None,
                     help="實際生成時長（秒），用於檢查時間碼與末鏡長度")
+    ap.add_argument("--profile", default="auto",
+                    choices=["auto"] + list(PROFILES),
+                    help="打法模式；auto = 讀檔頭 #!profile，沒有就 fight")
     a = ap.parse_args()
 
     files = [a.file] if a.file else []
@@ -260,7 +304,7 @@ def main():
         ap.print_help()
         return 1
 
-    total = sum(check(f, a.duration) for f in files)
+    total = sum(check(f, a.duration, a.profile) for f in files)
     print(f"\n合計 FAIL {total} 項")
     return 1 if total else 0
 

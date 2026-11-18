@@ -8,6 +8,17 @@ agent_created: true
 
 把「打得好看」拆成可寫、可複製、可驗收的提示詞結構。適用於 MiniMax H3（Hailuo 海螺）的 T2VA / I2VA / FL2VA / L2VA / Ref2VA 全模式。
 
+## 先決定格式：官方骨架／劇本式／自含式長段
+
+| 這段最怕丟什麼 | 用哪種 | 入口 |
+|---|---|---|
+| 切點要準（2.3 秒就是 2.3 秒）、要跑 validator | **官方骨架**（預設） | 本檔「輸出契約」 |
+| 開場 0.5 秒就要接觸、禁止項多、要衝擊幀卡片 | **劇本式** | `references/screenplay-format.md` |
+| 多段拼接、音樂卡點、跨段身份一致 | **自含式長段** | `references/formats.md` §1 |
+
+**格式不是品質開關，是注意力分配。** 選錯格式，補救成本比換句話高一個量級；
+三種格式的證據、決策表、轉換規則見 `references/formats.md`。**不要把兩種時間軸混在同一段。**
+
 ## 先決定：直接做，還是給選項
 
 | 使用者的狀態 | 做法 |
@@ -134,9 +145,14 @@ non_diegetic_music: ...
 
 ```bash
 python scripts/validate_prompt.py prompt.txt --duration 8
+python scripts/validate_prompt.py prompt.txt --duration 8 --profile ultra   # 超高速/刃光/材質特寫請指定
 ```
 
-會檢查：欄位齊全與順序、對齊句、`[Shot 1]` 時間碼、時間碼遞增與否、末鏡長度 ≤30%、否定詞、Markdown 殘留、`<d>` 配對、標籤定義、字數預算。
+會檢查：欄位齊全與順序、對齊句、`[Shot 1]` 時間碼、時間碼遞增與否、末鏡長度 ≤30%、否定詞、Markdown 殘留、`<d>` 配對、標籤定義、字數預算、表情肌肉、招式多樣性。
+
+`--profile` 解決「同一條規則在不同打法下是誤報」：`ultra`（超高速）跳過摔投／下盤配額、
+`blade-light` 放寬刀路佔比、`impact`／`material`（無人／材質特寫）跳過表情檢查、`fl2va` 放寬字數。
+預設 `auto` 會讀 `examples/profiles.json`。
 
 **FAIL 必須修掉才能交付。**
 
@@ -187,7 +203,7 @@ ULTRA_SPEED 的四件套、每鏡光影事件、周圍連動清單見 `reference
 | 拍 | 名稱 | 佔比 | 畫面該有什麼 | 提示詞關鍵詞 |
 |---|---|---|---|---|
 | 1 | 蓄 Anticipation | 35% | 反向預備、重心下沉、布料/肌肉繃緊、鏡頭微停或反向緩推 | `draws back`, `weight sinks into the rear leg`, `the camera holds a static shot`, `the blade trembles under tension` |
-| 2 | 觸 Contact | 5% | **衝擊幀**：1–2 幀爆白/爆黑/單色剪影、徑向速度線、畫面微變形 | `for two frames the entire frame blows out to pure white` |
+| 2 | 觸 Contact | 5% | **衝擊幀**：1–2 幀爆白/爆黑/單色剪影、徑向速度線、畫面微變形 | `for two frames the entire frame blows out to pure white`（意圖句；實際會給 10–23 幀，精準長度靠後製，見 `references/impact-frame-and-shake.md`） |
 | 3 | 停 Hit Stop | 15% | 時間近乎凍結（hitstop 0.05–0.15s），塵埃與火花懸浮 | `the action decelerates to a near-freeze for two frames` |
 | 4 | 洩 Release | 25% | **力場四通道**：衝擊波、碎片、塵環、水花、氣浪、光影聯動 | `a ring of shockwave dust bursts outward`, `the whole scene's lighting shifts in step` |
 | 5 | 退 Reaction | 15% | 受擊者被打飛/滑退、衣物頭髮延遲甩動、**震屏衰減** | `is hurled backward`, `the shake decays within a third of a second` |
@@ -659,7 +675,9 @@ ffmpeg -v error -i clip.mp4 -vf "signalstats,metadata=print:key=lavfi.signalstat
 | `references/move-library.md` | 16 招具名動作（突進/下盤/拳掌/兵器/落地/防守）、四層結構、4 組三招串接配方、中英翻譯規則 |
 | `references/continuous-brawl.md` | 連續對轟模式：衝擊四拍、動作鏈句型、深度錯位、鏡頭參與、細節插切、實驗設計 |
 | `references/blade-light-cinema.md` | 21:9 高速斬擊電影語言：1.57 刀/秒、漫畫衝擊格、單色環境+異物色、剪影構圖、尺度手法 |
-| `references/ref-identity-lock.md` | 參考圖保真：9 類身份特徵列舉、畫風材質錨、環境參考只鎖建築 |
+| `references/formats.md` | 三種輸出格式決策表（官方／劇本式／自含式長段）、證據等級、切點精度分工、字數預算、轉換規則 |
+| `references/screenplay-format.md` | 劇本式八欄位契約、每欄硬規則、8 秒骨架、H3 本機脾氣表、交付前十問 |
+| `references/ref-identity-lock.md` | 參考圖保真：9 類身份特徵列舉、畫風材質錨、環境參考只鎖建築、**參考圖生產規範（3/4 戰鬥姿勢）** |
 | `references/drone-camera.md` | 無人機運鏡：8 個機位、五種尺度、穿前景、禁止繞圈圈 |
 | `references/facial-performance.md` | 表情與表演：肌肉動作為主、四階段表情、收放對比、生理反應、特寫必配表情 |
 | `references/choreography.md` | 招式編排：配額制（刀路上限）、真摔與僵持的差別、三招三高度、換手節奏 |
@@ -668,7 +686,7 @@ ffmpeg -v error -i clip.mp4 -vf "signalstats,metadata=print:key=lavfi.signalstat
 | `references/impact-frame-post.md` | 衝擊幀分開生成再後製：三素材工作流、hold 0.083s、接縫亮度檢查 |
 | `references/fl2va-chain.md` | 兩段接續：幀數換算、接縫三層（畫面／速率／身份）、接縫驗收 |
 | `references/force-field.md` | 力場四通道模型、三種場型、中英句庫、診斷表 |
-| `references/impact-frame-and-shake.md` | 衝擊幀四形態與幀數、漫畫格三段式、震屏 trauma 數學、hitstop 參數、三段式爆炸時序 |
+| `references/impact-frame-and-shake.md` | 衝擊幀四形態與幀數、兩條路徑決策表（後製 vs 提示詞卡片）、漫畫格三段式、震屏 trauma 數學、hitstop 參數 |
 | `references/camera-grammar.md` | H3 官方運鏡詞彙表、打鬥運鏡套路、主體/鏡頭分離寫法、最大衝擊可鎖死相機、幀率陷阱 |
 | `references/vfx-vocabulary.md` | 中英特效詞彙庫（能量、粒子、破碎、光、大氣）、色彩腳本、夜戲單色環境邏輯、刃光四形態 |
 | `references/prompt-templates.md` | 可直接填空的 T2VA / FL2VA / Ref2VA 模板 + 完整範例 |
@@ -690,7 +708,7 @@ ffmpeg -v error -i clip.mp4 -vf "signalstats,metadata=print:key=lavfi.signalstat
 
 ## 最常被寫錯的三件事
 
-1. **寫「一瞬間閃白」而不寫幀數。** 模型會給 0.3–0.5 秒的長閃，看起來像燈光故障。永遠寫 `for two frames`。
+1. **別想用文字控幀數。** 寫「一瞬間閃白」模型會給 0.3–0.5 秒的長閃；寫 `for two frames` 也不是 2 幀（實測 21–23 幀＝875–958 ms）。提示詞只能表達「意圖」：想要真正的 2 幀，短閃白留在提示詞當意圖、長度靠後製；漫畫卡片改寫 4–6 張 × 0.3–0.45 秒，出片後剪到約 0.1 秒。完整決策表見 `references/impact-frame-and-shake.md`。
 2. **震屏沒有衰減。** 恆定震動 = 相機壞了。必須寫 `decays rapidly and settles back to steady within a third of a second`。
 3. **只用術語不用描述。** `Field 力場擾動模擬`、`沖擊幀`、`震屏` 這類術語在中文模型上有效，但 H3 要的是結構化物理描述。術語留給自己記索引，送進模型的必須是具體句子。
 

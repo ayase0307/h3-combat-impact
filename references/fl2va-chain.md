@@ -235,3 +235,45 @@ ffmpeg -y -f concat -safe 0 -i concat.txt -c copy analysis/chain/full_30s.mp4
 # 5. 量測（含接縫）
 python scripts/measure_motion.py analysis/chain/segA.mp4 analysis/chain/segB.mp4 analysis/chain/full_30s.mp4 --fps24
 ```
+
+
+## 8. 跨段狀態帳（continuity ledger）
+
+多段拼接最容易壞的不是接縫，是**狀態**：上一段打斷的刀、濕透的衣服、倒在地上的燈籠，
+到了下一段會自己長回來。H3 沒有跨段記憶，每一段都要把「現在的狀態」重寫一次。
+
+### 8.1 五欄最小帳
+
+| 欄 | 寫什麼 | 例 |
+|---|---|---|
+| 場景 | 光源方向、天氣、地面狀態、已損壞物件**剩下的樣子** | `the low stone wall on the left is already broken open; rubble lies where it fell` |
+| 道具 | 在誰的哪隻手、完好度、位置 | `her sword is chipped near the guard, still in her right hand` |
+| 服裝 | 破損位置、濕度、血跡 | `his tunic is torn at the left shoulder, soaked dark` |
+| 人物 | 位置、朝向、疲勞／傷勢 | `she is still frame-left, facing right, breathing hard` |
+| 接續 | 上一段最後一個動作與方向 | `he is still backpedalling from the throw` |
+
+### 8.2 四條硬規則
+
+1. **打壞的東西只寫「剩下的樣子」。** 不要寫「牆被打破」，要寫「牆已經破開、碎石留在原地」——
+   前者模型會再演一次破壞，後者才是狀態。
+2. **新人物從畫外進來。** 不要讓第二個對手上前一段就站在畫面裡；寫 `enters from frame right`，
+   模型才不會把他複製成兩個。
+3. **不釘尾幀。** 用上一段末幀當首幀會把動作鎖死（模型會先回到那個姿勢再動）。要接就用
+   `fl2va` 首幀接法，且只取「動作方向」不取「姿勢定格」；接縫品質用 `scripts/seam_check.py` 量。
+4. **台詞只放在全段唯一的臉部特寫。** 其餘鏡頭寫「嘴唇閉著、沒有人說話」，不然會多出對嘴。
+
+### 8.3 寫進提示詞的位置
+
+- 官方骨架：`detailed_description` 的第一句，先寫狀態再寫動作。
+- 劇本式：`[站位表]` 之後加一行 `[狀態]`，或直接併進 `[本段]` 的第一句。
+- 自含式長段：每段開頭的 `REFERENCE AUTHORITY` 之後，獨立一段 `STATE`。
+
+### 8.4 例（第二段開頭）
+
+```text
+The courtyard is already wrecked from the previous exchange: the low stone wall on the
+left is broken open with rubble where it fell, the toppled stone lantern still lies on
+its side in the puddle, and both fighters are soaked. Her sword is chipped near the guard
+and still in her right hand; his tunic is torn at the left shoulder. She is frame-left
+facing right, breathing hard; he is still backpedalling from the throw, frame-right.
+```

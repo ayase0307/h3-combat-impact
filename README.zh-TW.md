@@ -164,6 +164,11 @@ git clone https://github.com/ayase0307/h3-combat-impact ~/.claude/skills/h3-comb
 ```bash
 # 貼進模型前先檢查格式（FAIL 必須修掉）
 python scripts/validate_prompt.py prompt.txt --duration 8
+python scripts/validate_prompt.py --dir ./examples            # 批次
+python scripts/validate_prompt.py prompt.txt --profile ultra  # 打法模式（fight/ultra/blade-light/impact/facial/fl2va）
+
+# 檢查器自己的回歸測試（好樣本 FAIL=0、壞樣本 FAIL>=1）
+python tests/test_validate.py
 
 # 量測生成影片的運動曲線（需要 ffmpeg 在 PATH）
 python scripts/measure_motion.py --dir ./outputs
@@ -197,9 +202,11 @@ python scripts/impact_frame.py composite --main main.mp4 --impact burst.mp4 \
 | [`references/ultra-speed.md`](references/ultra-speed.md) | ULTRA_SPEED：8 秒 10–14 鏡、每鏡一個光事件 |
 | [`references/drone-camera.md`](references/drone-camera.md) | 無人機運鏡：8 種機位、五種尺度、禁止只繞圈 |
 | [`references/blade-light-cinema.md`](references/blade-light-cinema.md) | 21:9 刃光電影語言、漫畫衝擊格、單色夜戰 |
-| [`references/ref-identity-lock.md`](references/ref-identity-lock.md) | 參考圖保真：9 類身份特徵、畫風材質錨 |
+| [`references/ref-identity-lock.md`](references/ref-identity-lock.md) | 參考圖保真：9 類身份特徵、畫風材質錨、參考圖生產規範 |
 | [`references/facial-performance.md`](references/facial-performance.md) | 用肌肉動作寫表情 |
-| [`references/impact-frame-and-shake.md`](references/impact-frame-and-shake.md) | 衝擊幀形態與幀數、震屏衰減、墨爆 |
+| [`references/formats.md`](references/formats.md) | 三種輸出格式決策表（官方／劇本式／自含式長段）、證據等級、切點分工 |
+| [`references/screenplay-format.md`](references/screenplay-format.md) | 劇本式八欄位契約、8 秒骨架、H3 本機脾氣表、交付前十問 |
+| [`references/impact-frame-and-shake.md`](references/impact-frame-and-shake.md) | 衝擊幀形態與幀數、兩條路徑決策表、震屏衰減 |
 | [`references/impact-frame-post.md`](references/impact-frame-post.md) | 衝擊幀分開生成再後製合成 |
 | [`references/fl2va-chain.md`](references/fl2va-chain.md) | 兩段接續、接縫、結尾規則 |
 | [`references/force-field.md`](references/force-field.md) | 力場四通道、三種場型、句庫 |
@@ -209,7 +216,9 @@ python scripts/impact_frame.py composite --main main.mp4 --impact burst.mp4 \
 | [`references/qa-checklist.md`](references/qa-checklist.md) | 生成前後檢查、失敗對應修法 |
 | [`references/guided-mode.md`](references/guided-mode.md) | 引導模式：入口與情境選項 |
 | [`references/case-wuxia-duel.md`](references/case-wuxia-duel.md) | 27.5 秒對決的拆解與重現 |
-| [`examples/`](examples/) | 展示與上方實測表用到的十份提示詞 |
+| [`examples/`](examples/) | 展示與上方實測表用到的十份提示詞；`profiles.json` 記錄各檔打法模式 |
+| [`tests/`](tests/) | `test_validate.py` 回歸測試＋`fixtures/bad/` 七份已知壞寫法 |
+| [`docs/research/`](docs/research/) | 2026-11-18 強化調查：brief、Opus 回覆、三 repo 對照、實測結果 |
 | [`scripts/`](scripts/) | `validate_prompt`、`measure_motion`、`measure_staging`、`measure_light_event`、`impact_frame`、`submit_ref2va`、`submit_chain`、`seam_check`、`submit_ab`、`poll_ab`、`compare_clips` |
 
 ## 誠實的限制

@@ -1,0 +1,4 @@
+integrated_multimodal_description:
+[Shot 1] 3D CG, cinematic. A swordsman steps into a rain-soaked courtyard and cuts at a post.
+overall_soundscape: Rain on stone, one steel ring.
+non_diegetic_music: N/A

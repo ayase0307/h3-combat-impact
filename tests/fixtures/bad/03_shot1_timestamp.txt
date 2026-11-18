@@ -1,0 +1,4 @@
+integrated_multimodal_description: [Shot 1] At 00:00.500, 3D CG, cinematic. A swordsman steps into a rain-soaked courtyard.
+[Shot 2] At 00:02.000, the camera cuts to his face, his jaw muscles bunching.
+overall_soundscape: Rain on stone.
+non_diegetic_music: N/A

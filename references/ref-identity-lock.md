@@ -196,3 +196,47 @@ Premium cinematic 3D donghua realism with sophisticated painted CG materials, co
 | 武器比例錯（太刀變短刀） | 沒寫相對長度 | 寫 `oversized`、`longer than she is tall` |
 | 兩人身高一樣 | 沒寫相對身高 | `detailed_description` 開場寫清楚 |
 | 場景構圖被鎖死 | 把環境參考當成首幀 | 明寫「provides the environmental reference as the environmental basis」 |
+
+
+## 8. 參考圖生產：拍之前先把圖畫對
+
+參考圖不是「找一張好看的圖」，是**把你要的構圖與光線先畫出來**。H3 對圖的信任遠高於文字：
+文字寫「兩人在雨夜庭院對峙」，它會自己編一個庭院；圖裡有庭院，它才會用那個庭院。
+
+### 8.1 角色圖（最重要的三件事）
+
+1. **三分之四側身、戰鬥預備姿勢**，不是正面站拍。正面圖會讓模型先給你 1–2 秒的「擺拍」。
+2. **面向要對。** 主角朝畫面右、對手朝畫面左；兩張圖的方向一致，剪在一起才不會換邊。
+3. **把顏色與光效畫進圖裡。** 你要青色靈火，就在圖上給青色靈火；文字補「只取身份與服裝」即可。
+
+### 8.2 場景圖
+
+- 要拍的機位就畫那個機位（低機位、廣角、越肩），不要用一張平面圖叫模型自己推。
+- 前景／中景／遠景各留一層（倒地的燈籠、濕石板、門樓），模型才有東西可以推拉。
+- 光源方向要單一且明確；兩個主光会让模型在影片裡亂換。
+- 場景圖裡**不要有人**；有人的場景圖會被當成首幀。
+
+### 8.3 張數與分工
+
+| 張數 | 分工 | 備註 |
+|---|---|---|
+| 2 張 | 主角 ＋ 場景 | 單人打戲最低配置 |
+| 3 張 | 主角 ＋ 對手 ＋ 場景 | 兩人對打標準配置（本 repo 預設） |
+| 4 張以上 | 加道具／第二場景 | 每多一張，注意力被攤薄；非必要不加 |
+
+### 8.4 驗收（生成前目視三項）
+
+- 臉：五官清楚、沒有多眼／融臉。
+- 手：手指數量與握法可辨（AI 最常糊掉的地方；糊掉就重生成，不要硬用）。
+- 武器：只有一把、長度比例對、握在正確的手。
+
+### 8.5 用本機生圖時的提示詞骨架
+
+```text
+Full-body character reference of one single figure, plain light-grey seamless background,
+no text, no panels. <年齡／族裔／體型／頭身>. <髮型／臉部特徵／疤>. <服裝逐層>. 
+<三分之四側身、面向畫面右、左腳在前、重心在後腿>. <武器與握法>. Soft studio light,
+shadow under the feet. Photorealistic 3D render, visible fabric weave and skin pores.
+```
+
+負面：`no text, no panels, no borders, no second person, no extra weapons`。

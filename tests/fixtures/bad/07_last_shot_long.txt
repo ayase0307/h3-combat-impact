@@ -1,0 +1,4 @@
+integrated_multimodal_description: [Shot 1] 3D CG, cinematic. A swordsman steps in.
+[Shot 2] At 00:05.500, the camera cuts to a wide shot and he stands still, his jaw muscles bunching.
+overall_soundscape: Rain on stone.
+non_diegetic_music: N/A

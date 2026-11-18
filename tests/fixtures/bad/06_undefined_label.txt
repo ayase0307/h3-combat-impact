@@ -1,0 +1,6 @@
+subject_definitions: <Subject 1> is the swordsman in <Picture 1>.
+summary: He cuts at a post.
+retention_analysis: <Subject 1> is fully_preserved.
+detailed_description: 3D CG, cinematic. [Shot 1] <Subject 1> steps in, <Subject 2> watches from the gate, his jaw muscles bunching.
+overall_soundscape: Rain on stone.
+non_diegetic_music: N/A

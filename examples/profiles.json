@@ -1,0 +1,9 @@
+{
+  "_comment": "打法模式對照；validate_prompt.py 會讀同目錄的這份表，決定哪些 WARN 不適用。新增 example 請一起加一行。",
+  "impact-frame-source.txt": "material",
+  "facial-performance.txt": "facial",
+  "ultra-speed-drone.txt": "ultra",
+  "blade-light-21x9.txt": "blade-light",
+  "anime-ref2va-part1.txt": "fl2va",
+  "anime-ref2va-part2.txt": "fl2va"
+}

@@ -199,7 +199,9 @@ python scripts/impact_frame.py composite --main main.mp4 --impact burst.mp4 \
 | [`references/blade-light-cinema.md`](references/blade-light-cinema.md) | 21:9 blade cinematography, manga impact panels, single-hue night |
 | [`references/ref-identity-lock.md`](references/ref-identity-lock.md) | Reference fidelity: 9 identity classes, art-style anchors |
 | [`references/facial-performance.md`](references/facial-performance.md) | Expression as muscle actions |
-| [`references/impact-frame-and-shake.md`](references/impact-frame-and-shake.md) | Impact-frame forms, frame counts, shake decay, ink burst |
+| [`references/formats.md`](references/formats.md) | Output-format decision table (official / screenplay / self-contained), evidence, cut-precision split |
+| [`references/screenplay-format.md`](references/screenplay-format.md) | Screenplay-style eight-field contract, 8 s skeleton, local H3 behaviour, pre-delivery ten checks |
+| [`references/impact-frame-and-shake.md`](references/impact-frame-and-shake.md) | Impact-frame forms and frame counts, two-path decision table, shake decay |
 | [`references/impact-frame-post.md`](references/impact-frame-post.md) | Impact frames generated separately and composited |
 | [`references/fl2va-chain.md`](references/fl2va-chain.md) | Two-segment chaining, seams, ending rules |
 | [`references/force-field.md`](references/force-field.md) | Four channels, three field types, phrase bank |
@@ -209,7 +211,8 @@ python scripts/impact_frame.py composite --main main.mp4 --impact burst.mp4 \
 | [`references/qa-checklist.md`](references/qa-checklist.md) | Pre- and post-generation checks, failure → fix |
 | [`references/guided-mode.md`](references/guided-mode.md) | Guided mode: entry paths and scenario options |
 | [`references/case-wuxia-duel.md`](references/case-wuxia-duel.md) | A 27.5 s duel broken down and rebuilt |
-| [`examples/`](examples/) | The ten prompts used in the showcase and the table above |
+| [`examples/`](examples/) | The ten prompts used in the showcase and the table above; `profiles.json` maps each file to its mode |
+| [`tests/`](tests/) | `test_validate.py` regression suite + seven known-bad fixtures |
 | [`scripts/`](scripts/) | `validate_prompt`, `measure_motion`, `measure_staging`, `measure_light_event`, `impact_frame`, `submit_ref2va`, `submit_chain`, `seam_check`, `submit_ab`, `poll_ab`, `compare_clips` |
 
 ## Honest limits
