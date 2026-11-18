@@ -198,6 +198,7 @@ python scripts/impact_frame.py composite --main main.mp4 --impact burst.mp4 \
 | [`references/move-library.md`](references/move-library.md) | 16 招具名動作、4 組串接、中英翻譯規則 |
 | [`references/choreography.md`](references/choreography.md) | 招式編排：配額制（刀路上限）、真摔與僵持的分辨、三招三高度 |
 | [`references/cinematic-camera.md`](references/cinematic-camera.md) | 電影級運鏡：三檔速度、幅度跳級、因果運鏡、十個電影級機位 |
+| [`references/ultimate-move.md`](references/ultimate-move.md) | 大招設計：賭注／代價／後果、五段結構、三種原型、8 秒模板 |
 | [`references/continuous-brawl.md`](references/continuous-brawl.md) | 連續對轟四拍模式 |
 | [`references/ultra-speed.md`](references/ultra-speed.md) | ULTRA_SPEED：8 秒 10–14 鏡、每鏡一個光事件 |
 | [`references/drone-camera.md`](references/drone-camera.md) | 無人機運鏡：8 種機位、五種尺度、禁止只繞圈 |
@@ -217,6 +218,7 @@ python scripts/impact_frame.py composite --main main.mp4 --impact burst.mp4 \
 | [`references/guided-mode.md`](references/guided-mode.md) | 引導模式：入口與情境選項 |
 | [`references/case-wuxia-duel.md`](references/case-wuxia-duel.md) | 27.5 秒對決的拆解與重現 |
 | [`examples/`](examples/) | 展示與上方實測表用到的十份提示詞；`profiles.json` 記錄各檔打法模式 |
+| [`examples/fight-30s/`](examples/fight-30s/) | 30 秒六段完整打鬥：分鏡表、六段提示詞、大招「墨雨・第七式」 |
 | [`tests/`](tests/) | `test_validate.py` 回歸測試＋`fixtures/bad/` 七份已知壞寫法 |
 | [`docs/research/`](docs/research/) | 2026-11-18 強化調查：brief、Opus 回覆、三 repo 對照、實測結果 |
 | [`scripts/`](scripts/) | `validate_prompt`、`measure_motion`、`measure_staging`、`measure_light_event`、`impact_frame`、`submit_ref2va`、`submit_chain`、`seam_check`、`submit_ab`、`poll_ab`、`compare_clips` |

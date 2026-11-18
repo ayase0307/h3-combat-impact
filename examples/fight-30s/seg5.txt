@@ -1,0 +1,15 @@
+subject_definitions: <Subject 1> is the adult swordswoman in <Picture 1>: her face, black high ponytail, thin scar through the left eyebrow, dark teal sleeveless high-collar combat robe, black sash, charcoal tapered trousers, black cloth boots, off-white forearm wraps, one plain straight single-edged sword. <Subject 2> is the adult masked brute in <Picture 2>: black iron half-mask, bare scarred jaw, shaved head, ochre sleeveless tunic, black leather belt, grey trousers, iron-toed boots, one heavy iron staff. <Picture 3> is the location: ruined temple courtyard at night, wet flagstones, broken low wall on the left, toppled stone lantern on the right, wooden gate at the back, hanging amber lanterns, cold blue rain. Ignore the reference sheets' grey backdrop, layout and standing poses; the courtyard stays empty of other people.
+
+summary: Eight seconds, three shots: she reappears behind him inside a ring of suspended rain, three cuts shatter his staff, the frame becomes an ink burst, and a shockwave blows him off his feet.
+
+retention_analysis: <Subject 1> is fully_preserved for face, hair, scar, teal robe and wraps. <Subject 2> is fully_preserved for mask, jaw, tunic and staff. <Picture 3> is fully_preserved for layout and lighting. STATE: the wall is broken open, rubble where it fell; her blade is chipped near the guard.
+
+detailed_description: 3D CG, cinematic, photorealistic wet-night lighting, cool blue rain against warm amber lantern light.
+
+[Shot 1] <Subject 1> reappears behind <Subject 2>, blade low, a bright ring of teal-white arcs around her body, the rain inside that ring hanging still in the air. The camera holds a locked wide shot, low.
+[Shot 2] At 00:02.800, she crosses the distance in one step and three cuts land in a single motion: his front knee, his ribs, his shoulder; each cut leaves a thin white line and a delayed spark, and his iron staff shatters into three pieces that spin away. The camera whip-pans with her and stops dead on the last cut.
+[Shot 3] At 00:05.650, the whole frame becomes a hand-drawn ink burst: solid black ink exploding outward on white, teal arcs cutting through it, her silhouette at the center; three frames later the frame snaps back to the courtyard, a ring of shockwave pushes the suspended rain outward, the puddles lift off the flagstones, and <Subject 2> is blown back off his feet. The camera is static and wide.
+
+overall_soundscape: A rising electrical shriek, three fast steel cuts, iron shattering, silence for one beat, then a deep sub-bass boom and a wall of water.
+
+non_diegetic_music: Silence, then one massive taiko hit and a decaying low drone.

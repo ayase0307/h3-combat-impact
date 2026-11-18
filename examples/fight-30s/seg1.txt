@@ -1,0 +1,16 @@
+subject_definitions: <Subject 1> is the adult swordswoman in <Picture 1>: her face, black high ponytail, thin scar through the left eyebrow, dark teal sleeveless high-collar combat robe, black sash, charcoal tapered trousers, black cloth boots, off-white forearm wraps, one plain straight single-edged sword. <Subject 2> is the adult masked brute in <Picture 2>: black iron half-mask, bare scarred jaw, shaved head, ochre sleeveless tunic, black leather belt, grey trousers, iron-toed boots, one heavy iron staff. <Picture 3> is the location: ruined temple courtyard at night, wet flagstones, broken low wall on the left, toppled stone lantern on the right, wooden gate at the back, hanging amber lanterns, cold blue rain. Ignore the reference sheets' grey backdrop, layout and standing poses; the courtyard stays empty of other people.
+
+summary: Eight seconds, three shots, one exchange per shot: she cuts low and he blocks with a spark, he smashes overhead and she sidesteps so the staff cracks the flagstones, he thrusts and she turns it aside with a spark.
+
+retention_analysis: <Subject 1> is fully_preserved for face, hair, scar, teal robe and wraps. <Subject 2> is fully_preserved for mask, jaw, tunic and staff. <Picture 3> is fully_preserved for layout and lighting. 
+
+detailed_description: 3D CG, cinematic, photorealistic wet-night lighting, cool blue rain against warm amber lantern light.
+
+The fight is already in progress; the two stay inside each other's reach.
+[Shot 1] <Subject 1> whips a low rising cut at <Subject 2>'s front knee; he drops the staff shaft across the line and catches it, a white-hot spark bloom at the contact, water spraying off the iron; the shock pushes her back half a step and her rear boot skids. The camera tracks laterally at slow speed, low and close.
+[Shot 2] At 00:02.800, he steps in and swings the staff down overhead; she sidesteps outside the arc and the staff head cracks the flagstones beside her, water bursting up into her legs. The camera shakes hard, handheld.
+[Shot 3] At 00:05.650, he drives a straight staff thrust at her chest; she turns it aside with the flat of her blade, sparks bursting between steel and iron, and her back foot slides through the puddle. Both fighters reset as the frame ends. The camera holds a static low shot.
+
+overall_soundscape: Heavy rain on flagstones and wooden eaves; two sharp steel-on-iron rings; a staff head cracking stone; water bursting; a boot skidding.
+
+non_diegetic_music: A single low taiko hit at the first contact, then a driving low percussion pattern.

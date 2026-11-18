@@ -1,0 +1,15 @@
+subject_definitions: <Subject 1> is the adult swordswoman in <Picture 1>: her face, black high ponytail, thin scar through the left eyebrow, dark teal sleeveless high-collar combat robe, black sash, charcoal tapered trousers, black cloth boots, off-white forearm wraps, one plain straight single-edged sword. <Subject 2> is the adult masked brute in <Picture 2>: black iron half-mask, bare scarred jaw, shaved head, ochre sleeveless tunic, black leather belt, grey trousers, iron-toed boots, one heavy iron staff. <Picture 3> is the location: ruined temple courtyard at night, wet flagstones, broken low wall on the left, toppled stone lantern on the right, wooden gate at the back, hanging amber lanterns, cold blue rain. Ignore the reference sheets' grey backdrop, layout and standing poses; the courtyard stays empty of other people.
+
+summary: Eight seconds, three shots: her face changes, teal arcs crawl along her blade, the rain slows and lifts, and she slips under his finishing blow leaving a smear of rain.
+
+retention_analysis: <Subject 1> is fully_preserved for face, hair, scar, teal robe and wraps. <Subject 2> is fully_preserved for mask, jaw, tunic and staff. <Picture 3> is fully_preserved for layout and lighting. STATE: the wall is cracked open where she was slammed, rubble in the puddle, the lantern above it out.
+
+detailed_description: 3D CG, cinematic, photorealistic wet-night lighting, cool blue rain against warm amber lantern light.
+
+[Shot 1] Extreme close-up of <Subject 1>'s face against the broken wall: her jaw muscles bunch and hold, her brows knot, her lower lids tighten, her breath steams, blood runs from her lip. The camera pushes in with small amplitude at slow speed.
+[Shot 2] At 00:02.800, the camera cuts to her forearm wraps and blade: teal-white electric arcs crawl out of the bandage and run along the steel, and the rain around her slows and begins to lift in threads.
+[Shot 3] At 00:05.650, <Subject 2> pulls the staff back and swings the finishing blow down; she slips under it, low and fast, leaving only a smear of rain where she stood, and the staff head breaks through the wall where her chest had been, rubble bursting outward. The camera holds a static low shot.
+
+overall_soundscape: Rain slowing to a hush, a rising electrical crackle, one heavy staff blow into masonry, rubble falling.
+
+non_diegetic_music: A single sustained high string note rising over a low drone.

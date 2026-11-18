@@ -1,0 +1,15 @@
+subject_definitions: <Subject 1> is the adult swordswoman in <Picture 1>: her face, black high ponytail, thin scar through the left eyebrow, dark teal sleeveless high-collar combat robe, black sash, charcoal tapered trousers, black cloth boots, off-white forearm wraps, one plain straight single-edged sword. <Subject 2> is the adult masked brute in <Picture 2>: black iron half-mask, bare scarred jaw, shaved head, ochre sleeveless tunic, black leather belt, grey trousers, iron-toed boots, one heavy iron staff. <Picture 3> is the location: ruined temple courtyard at night, wet flagstones, broken low wall on the left, toppled stone lantern on the right, wooden gate at the back, hanging amber lanterns, cold blue rain. Ignore the reference sheets' grey backdrop, layout and standing poses; the courtyard stays empty of other people.
+
+summary: Eight seconds, three shots: he catches her wrist and throws her into the wooden pillar, follows with a thrust, and pins her against the low stone wall until it cracks.
+
+retention_analysis: <Subject 1> is fully_preserved for face, hair, scar, teal robe and wraps. <Subject 2> is fully_preserved for mask, jaw, tunic and staff. <Picture 3> is fully_preserved for layout and lighting. STATE: water is churned across the flagstones; the low stone wall on the left is still whole.
+
+detailed_description: 3D CG, cinematic, photorealistic wet-night lighting, cool blue rain against warm amber lantern light.
+
+[Shot 1] <Subject 2> catches <Subject 1>'s wrist, turns his hip and throws her across the courtyard into the wooden pillar; the pillar cracks, the lantern above swings, and she hits the flagstones and rolls. The camera whip-pans with her and shakes hard on the impact.
+[Shot 2] At 00:02.800, he is already on her with a straight staff thrust; she rolls aside, the staff head striking the flagstones where her ribs had been, water bursting.
+[Shot 3] At 00:05.650, he drives her back with a shoulder charge and pins her against the low stone wall; the wall cracks open, rubble falls into the puddle, and the paper lantern above goes out. She is pinned, blood at her split lip, her sword arm shaking, her eyes still up. The camera holds a tight handheld shot.
+
+overall_soundscape: Wood cracking, a body hitting stone, a staff head striking the ground, masonry breaking, a lantern hissing out.
+
+non_diegetic_music: Percussion drops to a single sustained low tone.

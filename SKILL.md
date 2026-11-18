@@ -681,6 +681,7 @@ ffmpeg -v error -i clip.mp4 -vf "signalstats,metadata=print:key=lavfi.signalstat
 | `references/drone-camera.md` | 無人機運鏡：8 個機位、五種尺度、穿前景、禁止繞圈圈 |
 | `references/facial-performance.md` | 表情與表演：肌肉動作為主、四階段表情、收放對比、生理反應、特寫必配表情 |
 | `references/choreography.md` | 招式編排：配額制（刀路上限）、真摔與僵持的差別、三招三高度、換手節奏 |
+| `references/ultimate-move.md` | 大招設計：三個判準（賭注／代價／後果）、五段結構、三種原型、調色盤、8 秒模板、可重用句 |
 | `references/cinematic-camera.md` | 電影級運鏡：三檔速度、幅度跳級、因果運鏡、十個電影級機位 |
 | `references/ultra-speed.md` | ULTRA_SPEED 模式：8 秒 10–14 鏡、每鏡四件套、周圍連動清單、鏡頭密度統一表 |
 | `references/impact-frame-post.md` | 衝擊幀分開生成再後製：三素材工作流、hold 0.083s、接縫亮度檢查 |

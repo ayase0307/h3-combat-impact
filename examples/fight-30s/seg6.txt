@@ -1,0 +1,15 @@
+subject_definitions: <Subject 1> is the adult swordswoman in <Picture 1>: her face, black high ponytail, thin scar through the left eyebrow, dark teal sleeveless high-collar combat robe, black sash, charcoal tapered trousers, black cloth boots, off-white forearm wraps, one plain straight single-edged sword. <Subject 2> is the adult masked brute in <Picture 2>: black iron half-mask, bare scarred jaw, shaved head, ochre sleeveless tunic, black leather belt, grey trousers, iron-toed boots, one heavy iron staff. <Picture 3> is the location: ruined temple courtyard at night, wet flagstones, broken low wall on the left, toppled stone lantern on the right, wooden gate at the back, hanging amber lanterns, cold blue rain. Ignore the reference sheets' grey backdrop, layout and standing poses; the courtyard stays empty of other people.
+
+summary: Eight seconds, three shots: the brute is down on one knee with his broken staff, she stands over him with her cracked blade, then turns, sheathes and walks into the rain.
+
+retention_analysis: <Subject 1> is fully_preserved for face, hair, scar, teal robe and wraps. <Subject 2> is fully_preserved for mask, jaw, tunic and staff. <Picture 3> is fully_preserved for layout and lighting. STATE: the staff lies in three pieces on the flagstones; the courtyard is wrecked, water still settling.
+
+detailed_description: 3D CG, cinematic, photorealistic wet-night lighting, cool blue rain against warm amber lantern light.
+
+[Shot 1] <Subject 2> is down on one knee in the puddle, chest heaving, the broken halves of his staff beside him, his cracked mask hanging loose. The camera holds a static medium shot, low.
+[Shot 2] At 00:02.800, <Subject 1> stands over him, blade lowered, steam rising off her forearms, blood from her lip dried dark, a hairline crack running down the steel, her hand still shaking; the rain resumes around them.
+[Shot 3] At 00:05.650, she turns her back, sheathes the sword in one motion and walks toward the gate; he stays down, one hand on the flagstones. The camera pulls back slowly and wide, lanterns still burning, rain falling again.
+
+overall_soundscape: Rain returning to full volume, water dripping, a sword clicking home in its sheath, one ragged breath.
+
+non_diegetic_music: A sparse low string line, fading out.
