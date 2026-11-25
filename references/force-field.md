@@ -14,6 +14,13 @@ AI 生成爆炸的預設行為是「給你一顆發光火球」，但不會給�
 | 空氣沒有波瀾 | 空氣通道缺失 |
 | 光影完全脫節 | 光通道缺失 |
 
+**R3 measured（2026-11-19，使用者評「特效太免洗、鳥超級假」）**：t1 v1 只寫了
+「火鴉盤旋＋天空變色」＝只有粒子通道＋一點光，沒有空氣（熱浪／壓縮）、沒有物質
+（布料被壓／塵土掀飛）、光也沒有 `in step with` 聯動 → 鳥像貼圖。v2 修法：
+每個特效鏡至少開兩通道，火是物理光源（`the whole scene's lighting shifts in step
+with the energy, shadows swing away`），飛行體寫體積結構（molten-white core、
+ember trails、heat haze warping the air around it），不寫「一隻火鳥」這種剪影詞。
+
 ---
 
 ## 1. 四通道模型

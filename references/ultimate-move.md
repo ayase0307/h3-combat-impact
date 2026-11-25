@@ -3,7 +3,26 @@
 > 大招（必殺技／覺醒／領域展開）在提示詞裡最常壞成「角色站著發光，然後爆炸」。
 > 原因是只寫了特效，沒有寫**賭注**、**代價**、**後果**。這份文件把它拆成五段可寫的結構。
 
-## 1. 三個判準（缺一個就不是大招）
+## 1. 三個判準（缺一個就不是大招）＋一個合理性前提
+
+**前提（R3 使用者修正，2026-11-19）：大招要有合理目標。**「角色對自己所在地開大」
+是設計錯誤——她站在祭壇上炸祭壇，觀眾第一個問「幹嘛？」。修法：
+- **攔截／保護**：威脅從外來（墜落的暗星、敵襲、天災），她開大是為了保護所在地；
+  後果寫「所在地完好＋周圍焦環」，守護邏輯自帶賭注。
+- **遠程目標**：大招朝畫面深處／天空／遠山打， destruction 發生在遠處，她站在安全中心。
+- **覺醒氣場**：能量從她身上長出來但不破壞她腳下（走 D 情境，不走毀滅邏輯）。
+寫提示詞前先回答：**這招打誰？為什麼在這裡放？** 答不出來就改設計，不要改特效。
+
+**武器身份一致性（R3 使用者修正二，2026-11-19）：劍士的大招必须是劍招。**
+「劍士召喚火鳥 projectile 從天而降炸目標」＝法師技能，觀眾立刻出戲。
+劍士的毀滅級大招走這三型：
+- **一閃（斬）**：全身動力鏈一記斬擊→劍氣月牙從刀鋒撕出（能量是斬擊的延伸，
+  不是召喚物）→一線斬斷目標→延遲爆開。`a crescent of sword qi tears off the
+  blade edge`，形狀可以像鴉翼，但本體是劍壓波。
+- **開山闢地**：斬擊劈地／劈空，衝擊波沿地面或天空擴散，地形沿切線裂開。
+- **衝擊波**：蓄力於刀→一刀釋放環形劍壓，推平周圍。
+能量永遠**從武器與身體 mechanics 長出來**（rear foot drives, waist spirals,
+shoulder whips, wrist snaps），不從手心憑空召喚。R3 t1 v2（召喚鳥）→v3（一閃劍氣）對照。
 
 | 判準 | 問題 | 寫法 |
 |---|---|---|
@@ -118,7 +137,36 @@ A ring of shockwave pushes the suspended rain outward, the puddles lift off the 
 She lands, the blade tip touching the water, her hand shaking, a hairline crack running down the steel.
 ```
 
-## 9. 驗收（生成後）
+## 9. 因果事件：大招最難的不是特效，是「那件事真的發生了」（round2 measured）
+
+本機 Pika 768p 三題實測（2026-11-19，n=1）：蓄力、環境反應、墨爆、衝擊波**每題都出**；
+但「兵器被打斷／義肢碎裂／面具碎裂」**三題全部沒有清楚出現**——這是跨題穩定失敗模式。
+把因果事件塞進「三連擊」裡，模型只畫揮擊，不畫結果。
+
+**修法（T1 斷刀變體＋T4 成功，measured）：**
+
+1. **獨立一個鏡頭**只做那一件因果事件（一刀斬斷柄、一槍貫核心），不塞進連擊。
+2. **寫成結束後的可见狀態**，不是過程：
+   `半截刀點朝下插進冰面立著、他手裡只剩短斷柄、切口一條白光`。
+   過程寫法（「手腕一擰刀斷了」）畫不出來；狀態寫法畫得出來。
+3. **該鏡重述場景與雙方位置**。T1 變體沒重述→背景洩漏成參考圖灰底、劍士消失；
+   T4 重述（橋、凍河、月、她的位置）→灰底外洩消失。
+4. 副作用預期：斬後那一鏡可能約 2.5 秒定格站姿，斬擊本身只在甩動幀出現——
+   剪輯時挑甩動幀，定格剪掉。
+5. 巨獸戰的破核／甲裂同用此規則，見 `monster-scale.md` §4。
+6. **場景固定物 vs 手持道具（R3 measured）**：祭壇／石柱這類場景固定物的破壞，
+   純文字結束狀態會輸給完好場景參考圖（t1-c v1 祭壇仍完整）——必須換打壞版場景圖
+   （見 `segment-continuity.md` §1.2）。角色手持兵器斷裂純文字可成（round2 T4），
+   因為兵器不在場景圖裡。
+
+```text
+[Shot N] At 00:0X.XXX, the shot cuts to a dedicated impact shot: on the beast's upper
+back, the quarry pillars and dust haze behind them, <Subject 1>'s silver spear is already
+driven through the glowing magma core. The core cracks open, orange light bursting through
+the seams; basalt plates split and fall away in chunks. The camera holds a static shot.
+```
+
+## 10. 驗收（生成後）
 
 1. 不看特效，只看「誰贏了」——看不出來就是賭注沒寫。
 2. 遮住畫面只聽聲音——有沒有「先靜一拍再爆」。

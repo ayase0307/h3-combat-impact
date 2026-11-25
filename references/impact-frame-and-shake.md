@@ -334,20 +334,23 @@ non_diegetic_music: A single sustained low brass note that cuts to silence at th
 | 慢動作放在 hitstop 之前 | 節奏倒錯，力量被提前洩掉 | 慢動作永遠在 hitstop 之後 |
 
 
-## 8. 兩條路徑決策表（提示詞 vs 後製）
+## 8. 四條路徑決策表（Dial 脈衝 vs 後製 vs 提示詞卡片）
 
-衝擊幀有兩條路，不是二選一信仰，是按後端與剪輯能力選。
+衝擊幀有四條路，不是二選一信仰，按執行後端與精準度需求選。
 
 | 路徑 | 做法 | 幀數實測 | 什麼時候用 | 成本 |
 |---|---|---|---|---|
-| **A · 後製 2 幀** | 主片不含衝擊幀；`scripts/impact_frame.py` 單獨生一張，合成到指定時間點，hold 2 幀 | 精準 2 幀（83 ms @24fps） | 要準、要可重複、有剪輯 | 多一次生成＋合成 |
+| **D · `ComfyUI-Dials` 時間曲線脈衝（本機 ComfyUI 首選）** | 主片正常寫打鬥，在 `MAIDialRack` 掛 `dials/h3_impact_frame.safetensors` 於命中時刻做 0.25–0.5s 短脈衝（T2VA `+4.5`／Ref2VA `+5.5`～`+6.0`，`steps: 6, audio: protect`；De-rope 時接 `MAIDialHoldMap`） | 約 4–6 幀黑白反相墨爆，結束後原場景與角色自動回歸 | **本機 ComfyUI Pika H3 Flex**（免後期疊圖、與畫面物理自然融合） | 單條曲線約 1.7× 生成時間 |
+| **A · 後製 2 幀** | 主片不含衝擊幀；`scripts/impact_frame.py` 單獨生一張，合成到指定時間點，hold 2 幀 | 精準 2 幀（83 ms @24fps） | 要絕對 2 幀精度、無 Dials 後端、有剪輯 | 多一次生成＋合成 |
 | **B · 提示詞卡片** | 提示詞寫 4–6 張手繪卡片，每張 0.3–0.45 秒，一張一張整屏硬切；出片後剪到約 0.1 秒 | 卡片長度可控（3–6 張可讀） | hosted／不想後製／要漫畫感 | 佔掉 2–3 秒片長 |
 | **C · 短閃白** | 提示詞寫 `a white-hot spark bloom, the frame blows out to white`（不寫幀數） | 10–23 幀（0.4–0.95 s） | 只是要「一下亮」，不需要精準 | 後期要修剪 |
 
+> 路徑 D 完整 JSON Schema 與 `render_comfy.py --preset P3 --hit <t0:t1>` 用法見 `references/comfyui-dials-guide.md`。
+
 **選路徑的三個問題：**
-1. 這段有沒有剪輯？（沒有 → 走 B，卡片自帶節奏）
-2. 衝擊是「一瞬間」還是「一張圖」？（一瞬間 → A；一張圖 → B）
-3. 後端會不會改寫提示詞？（會 → 走 A，別跟改寫器賭）
+1. 後端是本機 ComfyUI 且裝有 `MAIDialRack`？（是 → **優先走路徑 D**）
+2. 這段有沒有剪輯？（沒有 → 走 B 或 D）
+3. 要絕對 2 幀像素級精控？（是 → 走 A）
 
 **不要做的事：** 在同一個鏡頭裡同時寫「卡片」與「for two frames」——模型會把卡片畫成 2 幀，
 變成看不懂的閃爍。

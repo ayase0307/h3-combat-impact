@@ -25,48 +25,59 @@
 
 ---
 
-## 1. 核心原理：表情是肌肉，不是形容詞
+## 1. 核心原理：表情是肌肉，不是形容詞（且必選對「顏值分檔」）
 
-H3 對**具體的肌肉動作**有反應，對情緒形容詞沒有。
+H3 對**具體的肌肉動作**有反應，對情緒形容詞沒有；**但不同畫風對肌肉幅度的容忍度天差地遠**：
+- 在 **3D 國漫／2.5D AI 漫劇／古風仙俠美型角色** 上，若套用歐美硬派寫實的極端肌肉詞（如 `teeth clench`、`lips peel back`、`mouth wrenches open`、`jaw muscles bunch`、`brows slam down into a hard knot`），H3 會把精緻五官過度拉伸成齜牙咧嘴的扭曲醜臉。
+- 因此本規範強制將表情分為 **A 檔（美型克制，預設）** 與 **B 檔（粗獷咆哮，限定魔獸／狂戰士／重甲反派）**。
 
-| ❌ 形容詞／眼睛形狀 | ✅ 肌肉動作 |
+### 1.1 A 檔：國漫／AI 漫劇美型克制檔（預設，顏值保真 — 實測 Anti-Grimace Lock）
+
+> **關鍵實測發現（2026-11-24 PRISM + SelfLift 實證）**：在高速打鬥語境下，H3 本身已經自帶 **60% 戰鬥怒意先驗**；若同時掛載高強度 Dial（特別是 `h3_dramatic_light >= 1.5` / `h3_storm >= 1.0`）又在特寫中寫 `brows knit` / `lower lids tighten` / `tight line`，會與戰鬥先驗疊加過頭（150%），把絕美臉拉扯成皺鼻齜牙的猙獰鬼臉。
+>
+> **正確解法（冷靜壓制原則）**：在 AI 漫劇／仙俠美型角色的特寫中，用**「冷靜、鬆眉、微闔唇、清冷凝視」**將戰鬥先驗壓回 **30% 恰到好處的清冷殺氣**，只留極細微的眉眼專注、微汗與髮絲拂臉；**禁止齜牙、禁大張嘴、禁皺鼻、禁把眉頭鎖成結**。
+
+| ❌ 過激毀臉詞（美型臉禁寫） | ✅ A 檔冷靜壓制高顏值寫法（實測最穩） |
 |---|---|
-| `a determined expression` | `her jaw muscles bunch and her teeth clench` |
-| `fierce eyes` | `her brows slam down into a hard knot above her nose` |
-| `she looks shocked` | `her eyes fly wide and her lips part on a sharp intake of breath` |
-| `her irises narrow` | `the lower lids tighten and the skin at the corners of her eyes crinkles` |
-| `an anguished cry` | `her mouth wrenches open and her throat cords stand out` |
+| `her brows slam down into a hard knot` | `calm cold aristocratic expression, smooth relaxed brows, sharp focused gaze locked on the blade` |
+| `her jaw muscles bunch and teeth clench` | `composed serene face, softly closed lips, steady unblinking eyes reflecting blade light` |
+| `lips peel back off clenched teeth` | `poised cold expression, lips softly closed, chin held level with quiet resolve` |
+| `mouth wrenches open on a gasp, spit flying` | `eyes widen a fraction with lips barely parted on a quiet breath, keeping refined features intact` |
+| `a vein stands out at her temple` | `fine sweat sheen at the temple as silky stray hair drifts across her smooth cheek` |
 
-**規則：每一句表情描述都必須有一個「可以動的部位」＋一個「動作」。**
+A 檔可用部位清單：
 
-可用的部位清單（照這個挑）：
-
-| 部位 | 可寫的動作 |
+| 部位 | 美型安全動作（壓制怒意先驗、100% 鎖顏值） |
 |---|---|
-| 眉 | `brows slam down` / `brows knit` / `brows shoot up` / `one brow twitches` |
-| 上眼瞼 | `upper lids drop` / `lids fly wide` / `a squint cuts her eyes to slits` |
-| 下眼瞼／眼周 | `lower lids tighten` / `skin crinkles at the corners` / `a wet shine along the lower lid` |
-| 鼻翼 | `nostrils flare` / `her nose wrinkles` |
-| 下顎／咀嚼肌 | `jaw muscles bunch` / `jaw drops` / `her jaw locks` |
-| 齒 | `teeth clench` / `her lips peel back off her teeth` / `lips press into a hard line` |
-| 唇／嘴 | `lips part` / `mouth wrenches open` / `she bites down on her lower lip` |
-| 頸／喉 | `throat cords stand out` / `her throat works on a swallow` |
-| 太陽穴 | `a vein stands out at her temple` |
-| 汗／淚／血 | `sweat tracks down her temple` / `a bead of sweat cuts through the dust on her cheek` |
-| 呼吸 | `her chest heaves` / `a sharp breath hisses through her teeth` |
+| 眉 | `smooth relaxed brows` / `brows resting calm and level` / `brows lift a fraction` |
+| 眼與眼瞼 | `sharp steady unblinking gaze` / `cool composed eyes reflecting blade light` / `eyes widen a fraction` |
+| 唇與下顎 | `softly closed lips` / `lips barely parted on a quiet breath` / `poised level chin` |
+| 呼吸與胸肩 | `chest rises slightly on a quiet breath` / `shoulders settle calmly as she exhales` |
+| 汗與髮絲 | `fine sweat sheen at the temple` / `silky loose hair strands drift across her cheek` |
+
+### 1.2 B 檔：粗獷寫實咆哮檔（僅限魔獸、狂戰士、粗獷寫實反派）
+
+| ❌ 形容詞／眼睛形狀 | ✅ B 檔強肌肉動作 |
+|---|---|
+| `a determined expression` | `his jaw muscles bunch and his teeth clench` |
+| `fierce eyes` | `his brows slam down into a hard knot above his nose` |
+| `he looks shocked` | `his eyes fly wide and his lips part on a sharp intake of breath` |
+| `an anguished cry` | `his mouth wrenches open and his throat cords stand out` |
+
+**規則：每一句表情描述都必須有一個「可以動的部位」＋一個「動作」，並嚴格對應該角色的顏值分檔（美型角色一律走 A 檔）。**
 
 ---
 
 ## 2. 打鬥要有四種表情狀態（不是一種）
 
-**最常見的錯誤是「全片一個表情」。** 一場打鬥至少要有四個階段的表情轉變：
+**最常見的錯誤是「全片一個表情」。** 一場打鬥至少要有四個階段的表情轉變（以下提供 A 檔美型預設寫法，粗獷角色才升格至 B 檔）：
 
-| 階段 | 情緒 | 寫法 |
-|---|---|---|
-| **1 交手前（0–0.3s）** | 緊繃、專注 | `her jaw locks and her brows pull together, a hard line across her mouth` |
-| **2 吃到重擊** | 痛、失重 | `her eyes fly wide open and her mouth wrenches open on a gasp, spit flying` |
-| **3 反擊** | 狠、決斷 | `her brows slam down and her lips peel back off her clenched teeth` |
-| **4 收尾** | 喘息、剩勇 | `her chest heaves, a bead of sweat cutting through the dust on her cheek` |
+| 階段 | 情緒 | A 檔美型克制寫法（預設） | B 檔粗獷寫法（野獸／狂戰士） |
+|---|---|---|---|
+| **1 交手前（0–0.3s）** | 專注、沉靜 | `her brows knit slightly, lips pressed in a composed line, steady cold gaze locked on the blade` | `his jaw locks and brows pull together` |
+| **2 吃到重擊** | 驚愕、受迫 | `her brows lift a fraction and her lips part slightly on a sharp breath as her head tilts with the jolt` | `eyes fly wide open and mouth wrenches open on a gasp` |
+| **3 反擊** | 凌厲、決斷 | `her brow furrows lightly, lower lids tightening with cool resolve as stray hair whips past her cheek` | `brows slam down and lips peel back off clenched teeth` |
+| **4 收尾** | 喘息、餘韻 | `her chest rises on a quick breath, fine sweat sheen at her temple, composed gaze holding steady` | `chest heaves, sweat cutting through dust on his cheek` |
 
 **四種要輪流出現。** 一鏡一種，不要在一個鏡頭裡塞兩種。
 
@@ -74,26 +85,24 @@ H3 對**具體的肌肉動作**有反應，對情緒形容詞沒有。
 
 ## 3. 特寫必須配表情，否則就是浪費
 
-**你給一個臉部特寫，卻沒寫表情，模型就給你一張漂亮的死人臉。**
+**你給一個臉部特寫，卻沒寫表情，模型就給你一張漂亮的死人臉；但寫得太過火又會毀掉顏值。**
 
 | 特寫類型 | 必配 |
 |---|---|
-| 極特寫（眼／臉） | **一個肌肉動作**（眉毛／下眼瞼／咬肌） |
-| 中近景（胸部以上） | 表情 ＋ **一個呼吸或吞嚥** |
-| 越肩 | 被看見的那張臉要有表情 |
+| 極特寫（眼／臉） | **1–2 個 A 檔小幅度肌肉動作**（輕微蹙眉＋下眼瞼微收／唇線緊抿） |
+| 中近景（胸部以上） | 表情 ＋ **一個呼吸起伏或髮絲拂面** |
+| 越肩 | 被看見的那張臉要有明確微表情 |
 
-寫法模板：
+A 檔高顏值特寫模板：
 
 ```text
-A close-up of Tieya's face. Her brows slam down into a hard knot above her nose,
-her lower lids tighten, and the skin at the corners of her eyes crinkles as the
-molten-orange edge of her nodachi lights her from below. Sweat tracks down her
-temple. The camera pushes in with small amplitude at fast speed; this shot holds
-for seven frames.
+A close-up of Feixue's face. Her brows knit slightly, her lower lids tighten in a
+sharp steady gaze locked on the oncoming steel, and her lips press into a composed
+line as fine sweat glistens at her temple and stray black hair whips past her cheek.
+The camera pushes in smoothly at medium speed; this shot holds for seven frames.
 ```
 
-**「眉毛下壓 ＋ 下眼瞼收緊 ＋ 眼周起紋」＝ 一個真的在用力的人。**
-光只有「光從下面打上來」＝ 死人臉。
+**「輕微蹙眉 ＋ 下眼瞼微收 ＋ 唇線微抿 ＋ 額角細汗」＝ 有生命力又維持 100% 俊美五官。**
 
 ---
 
