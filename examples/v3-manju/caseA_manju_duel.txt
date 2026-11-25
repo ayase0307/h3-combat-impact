@@ -1,0 +1,71 @@
+#!profile: fight
+#!face-style: aesthetic
+## 中文導演母稿（15 秒｜16:9｜2.5D AI 漫劇仙俠風格｜五段狀態接力＋高顏值克制微表情｜無對白）
+
+**項目總述**：雲海雪峰古劍台之上，2.5D AI 漫劇風緋衣女劍客緋雪（黑長高馬尾配紅髮帶金簪、額間赤蓮紋、緋黑金紋劍袍、持赤光細劍）與高大英氣銀髮白袍男劍客霜絕（銀白長髮玄鐵冠、白金玄甲披風、持冰藍闊劍）展開 15 秒無停頓高速劍決。全程鎖定高顏值清冷微表情，五段接力、十鏡硬切。
+
+**0—3 秒（即時開戰與首次完整攻防）**：
+- `[00:00.000]` 鏡 1（低位弧形推進）：開場半秒內交鋒。緋雪低重心斜掠突刺，霜絕橫闊劍硬架火星爆濺；她轉腕壓切腰際，霜絕沉肘格擋震退半步，積雪炸飛。
+- `[00:01.600]` 鏡 2（貼身低位側跟）：霜絕反手上挑撕開雪霧；緋雪貼地滑步閃過，低掃腿踢向前踝迫其失衡，紅衣下擺拉直。
+
+**3—6 秒（改變軸線與首次明確命中）**：
+- `[00:03.100]` 鏡 3（動態中景下搖）：霜絕踩石燈台躍起雙手重劈；緋雪斜劍卸力仍被震滑數尺，靴底擦雪迸火。
+- `[00:04.500]` 鏡 4（廣角仰拍跟隨）：霜絕落地肩撞接冰藍平斬，將緋雪轟飛撞斷石柱炸出碎石濃塵；她翻滾拍地彈回低姿。
+
+**6—10 秒（技術交換與第一次逆轉）**：
+- `[00:06.100]` 鏡 5（平滑推進臉部特寫）：濃塵中緋雪維持清冷俊美五官，眉尖微蹙、下眼瞼輕收冷冽鎖定劍鋒、唇線緊抿、額角細汗、黑髮拂頰，蹬石反撲。
+- `[00:07.200]` 鏡 6（高速環繞中景）：霜絕直刺追擊，緋雪滑刃偏轉、前踏扣腕、提膝頂肋接短肘震開護架。
+- `[00:08.600]` 鏡 7（低位仰拍跟拍）：霜絕俊眉微揚、唇角微啟低吸一氣，被緋雪過肩摔甩上斷階，攻守逆轉。
+
+**10—13 秒（追殺封鎖與環境折返）**：
+- `[00:10.000]` 鏡 8（高空俯衝跟拍）：緋雪連出上中下三線快斬織出赤紅劍網封鎖台階；霜絕連退格擋甲片迸火。
+- `[00:11.500]` 鏡 9（貼地側跟）：霜絕蹬踏墜石折返，低位盲區橫掃逼得緋雪躍空。
+
+**13—15 秒（三拍終結與明確結果）**：
+- `[00:13.000]` 鏡 10（張力中景切入後緩拉）：霜絕落勢再劈，緋雪落地走三拍——點尖破架、繞右側盲區、重劈護手並側踢膝彎；冰藍闊劍脫手插雪，霜絕單膝跪滑胸口起伏微喘、眉峰微鎖，緋雪滑步劍指對方、唇線沉靜，衣袍碎雪火星飛揚至末幀。
+
+```text
+subject_definitions:
+<Subject 1> is Feixue from <Picture 1>: refined East Asian face, upswept dark eyes, crimson lotus brow mark, black high ponytail with gold hairpin and crimson ribbons, lean build, crimson-black gold-trimmed robe, vambraces, boots, crimson-edged jian.
+
+<Subject 2> is Shuangjue from <Picture 2>: taller broad handsome warrior, sharp jaw, ice-blue eyes, silver hair with steel crown, ivory robe, silver pauldrons, ivory cape, boots, ice-blue broad-jian.
+
+<Subject 3> is the snowy mountain sword-platform from <Picture 3>: cracked granite floor, snow, stone lantern, broken carved pillars, torn crimson cloth strips, cloud sea, cold backlight.
+
+summary:
+[reference generation] A 15-second 16:9 high-speed 2.5D AI manju guoman sword duel between <Subject 1> and <Subject 2> on <Subject 3>, with crisp clashes, pillar shatter, composed attractive expressions, grapple reversal, rebound, and a three-beat disarm.
+
+retention_analysis:
+<Subject 1> ([Shot 1]-[Shot 10]): fully_preserved - Face, lotus mark, ponytail, crimson ribbons, robe, crimson jian.
+
+<Subject 2> ([Shot 1]-[Shot 10]): fully_preserved - Handsome face, silver hair, steel crown, ivory cape, silver armor, ice-blue broad-jian.
+
+<Subject 3> ([Shot 1]-[Shot 10]): fully_preserved - Snowy platform, stone lantern, broken pillars, cloud sea.
+
+detailed_description:
+High-end 2.5D AI manju guoman rendering with crisp painterly shading, luminous hair, and clean cloth physics. <Subject 2> stays taller and broader than <Subject 1>.
+
+[Shot 1] High-end 2.5D AI manju guoman rendering with crisp lighting and sharp blade arcs. First contact occurs within half a second. A low medium tracking shot swoops into <Subject 3> as <Subject 1> lunges low thrusting crimson steel at his throat; <Subject 2> blocks horizontally in sparks, and she rides the recoil into a waist cut he parries with a dropped elbow as snow blasts outward. Camera arcs inward fast.
+
+[Shot 2] At 00:01.600, the camera cuts to a low over-the-shoulder shot as <Subject 2> whips an upward blue arc through snow mist. <Subject 1> slides beneath the steel and snaps a low sweep kick at his ankle, wind flattening her skirt. Camera tracks sideways fast.
+
+[Shot 3] At 00:03.100, the camera cuts to a medium shot as <Subject 2> vaults off the lantern into a two-handed overhead cleave, cape billowing. <Subject 1> angles her jian to deflect and skids back spraying sparks. Camera tilts down fast.
+
+[Shot 4] At 00:04.500, the camera cuts to a wide low tracking shot as <Subject 2> lands into a shoulder slam and flat cut clipping her vambrace, hurling <Subject 1> through a stone pillar. The column shatters into rubble as she slaps one palm down mid-roll to spring back sprinting; camera jolts on impact and settles cleanly.
+
+[Shot 5] At 00:06.100, the camera cuts to a smooth close-up through dust on <Subject 1>'s refined face: brows knit slightly, lower lids tighten in a steady gaze, lips press into a composed line, fine sweat at her temple as stray hair whips past her cheek while she launches forward. Camera pushes in smoothly and holds for seven frames.
+
+[Shot 6] At 00:07.200, the camera cuts to an orbiting medium shot as <Subject 2> lunges straight. <Subject 1> sidesteps inside, glides her blade wide, seizes his wrist, drives a knee into his ribs, and snaps an elbow into his chest guard. Camera orbits fast.
+
+[Shot 7] At 00:08.600, the camera cuts to a low upward shot as <Subject 2>'s brows lift a fraction and lips part slightly on a sharp breath, keeping his handsome composed features as <Subject 1> hip-throws him onto shattered steps. Camera tracks low fast.
+
+[Shot 8] At 00:10.000, the camera cuts to a diving aerial shot as <Subject 1> presses forward with high thrust, mid rip, and low cut weaving crimson arcs while banners and snow whip aloft. <Subject 2> backpedals parrying in sparks. Camera dives fast.
+
+[Shot 9] At 00:11.500, the camera cuts to a ground-skimming shot as <Subject 2> kicks off a falling stone to rebound sideways and whips a low sweep, forcing <Subject 1> to vault overhead. Camera skims fast past debris.
+
+[Shot 10] At 00:13.000, the camera cuts to a medium shot as <Subject 2> lands into a final chop. <Subject 1> executes a three-beat finish: tapping his tip, darting right, and slamming his crossguard while kicking behind his knee. His broad-jian spins into snow as he drops onto one knee skidding back, chest rising on a quick breath with brows lightly furrowed; <Subject 1> slides forward pointing steel, lips composed as ribbons, cape, snow, and embers race through the final frame. Camera jolts and pulls back smoothly.
+
+overall_soundscape: Boots crunching snow, wind whooshes, crisp steel clashes, pillar shatter, palm slap, knee and elbow hits, and a spinning sword ringing into snow.
+
+non_diegetic_music: Rapid guzheng arpeggios over driving taiko drums and low strings, dropping silent at the pillar shatter and disarm before surging back.
+```

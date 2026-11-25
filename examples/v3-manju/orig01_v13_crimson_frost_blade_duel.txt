@@ -1,0 +1,58 @@
+#!profile: blade-light
+#!face-style: aesthetic
+## 中文導演母稿（15 秒｜16:9｜v13 左眼 5.0 參考片實證架構・赤焰太刀 vs 寒霜闊劍對決｜紅藍雙色清晰刀弧軌跡＋580 詞精煉五鏡零閃切＋一斬破防定乾坤｜無對白）
+
+**項目總述**：暴雨如注的高空鐘樓深灰青石決鬥露台上，左方黑髮女劍客燼鳶（持圓形銅鐔黑鋼長太刀，揮斬帶出凌厲赤紅刀弧）與右方白袍劍修鶴鳴（持青銅十字護手銀鋼闊長劍，揮斬帶出凜冽冰藍劍弧）展開 15 秒高燃國漫番劇雙人刀劍死鬥。回歸 B 站左眼 5.0 參考片實證公式（`motion 0.5 + ink 0.5 + storm 0.5 + cyberpunk 0.4 + impact 0.35` 搭配二採 `hires-dials off`），拔除造成 25 次鬼畜閃切的極端負向 `blur_hook` 與繁瑣微操，以赤紅對冰藍的清晰刀光弧線錨定每一記揮砍、閃避、格擋與最終破防勝負，讓觀眾一眼看懂整場精彩對決！
+
+**0—3.2 秒（第一幕：疾衝首撞・赤紅刀弧與冰藍劍弧正面十字硬撼破雨）**：
+- `[00:00.000]` 鏡 1（側面平視中廣角推進）：暴雨石台之上，左方燼鳶拖出熾烈赤紅新月太刀弧光，右方鶴鳴揮起凜冽冰藍闊劍弧光，兩人貼地疾衝至中央正面硬撼——黑鋼太刀與銀鋼闊劍死死咬合，炸開刺眼雙色十字火光與環形破雨水牆！
+
+**3.2—6.2 秒（第二幕：橫搖跟拍・赤紅平削貼髮低閃 → 冰藍重劈反擊震退）**：
+- `[00:03.200]` 鏡 2（流暢側面橫搖中景）：燼鳶旋身橫掃出一道寬闊赤紅刀弧直削頭頸；鶴鳴屈膝沉腰低頭讓赤紅刀光貼髮掠過，順勢起身雙手揮銀鋼闊劍劈出一記沉猛冰藍斜斬，重重轟在燼鳶橫架的太刀上爆出漫天火星，將燼鳶正面震退數步踏水穩住！
+
+**6.2—9.0 秒（第三幕：雨夜冷顏特寫・黑眸映赤芒扣柄蓄勢）**：
+- `[00:06.200]` 鏡 3（平滑推進近景特寫）：鏡頭切至燼鳶清冷絕美的面容與豎立臉側的雕花銅鐔黑鋼太刀——雙眉平靜舒展、薄唇微闔、銳利黑眸映出流轉的赤紅刃芒與滑落雨滴；她雙手緊扣刀柄，周身雨水被凌厲劍意震散成霧。
+
+**9.0—11.8 秒（第四幕：近身疾風交鋒・赤藍雙刃連撞壓入雙色十字死鎖爆燃）**：
+- `[00:09.000]` 鏡 4（緊湊側面雙人中近景）：兩人同時踏碎水窪欺身貼近高速拼刀——赤紅太刀弧光與冰藍闊劍弧光在胸前接連對撞兩記鏗鏘火花，第三記雙劍在兩人臉龐正中央死死 X 形十字絞鎖，赤紅與冰藍兩股劍氣轟然對頂炸出耀眼金白電火！
+
+**11.8—15.0 秒（第五幕：終極破防一斬定乾坤・赤紅滿月巨刃轟碎藍盾震退對手勝出）**：
+- `[00:11.800]` 鏡 5（張力側面中廣角定勝負）：左方燼鳶沉腰踏前一步，雙手揮動黑鋼太刀斬出一道橫貫畫面的狂暴赤紅烈焰新月斬，正面轟碎右方鶴鳴的冰藍格擋劍幕！刺眼金紅火花向外炸開，巨力將鶴鳴連人帶劍正面震退數米單膝點地拄著銀鋼闊劍微喘，左方燼鳶穩立前景一振完整修長的黑鋼太刀甩落雨水傲然勝出！
+
+**聲音與禁止項**：暴雨雷鳴、赤紅與冰藍刀劍破空呼嘯與沉重金屬交擊聲、刀光貼髮切雨聲、密集連撞金鐵交鳴、終極破防爆裂巨響與收刀清越劍鳴；全程維持女左男右清晰空間軸線、完整修長金屬護手刀劍與流暢長鏡頭跟拍。
+
+```text
+subject_definitions:
+<Subject 1> is Jinyuan from <Picture 1>: agile East Asian swordswoman, calm cold refined face, sleek black bob hair with twin braids, dark ink-teal and gold martial attire, wielding one full-length forged dark-steel katana with a circular brass handguard trailing crisp crimson blade-light arcs.
+
+<Subject 2> is Heming from <Picture 2>: tall handsome East Asian swordsman, composed aristocratic face, half-tied black hair with bronze hairpin, ivory-white and black-gold coat, wielding one full-length forged silver-steel broadsword with a bronze crossguard trailing crisp ice-blue sword-light arcs.
+
+<Subject 3> is the rain-swept stone duel terrace from <Picture 3>: wide wet dark-grey flagstone arena reflecting red and blue blade light, stone balustrade along the rear edge, distant misty clocktower silhouette under storm clouds.
+
+summary:
+[reference generation] A 15-second 16:9 high-impact 2.5D AI manju sword duel between <Subject 1> on the left and <Subject 2> on the right on <Subject 3>, featuring an opening crimson-versus-ice-blue X-slash shockwave, a ducked horizontal crimson sweep into a heavy ice-blue counter-cleave, a calm rain-lit close-up of <Subject 1>, rapid close-range crimson-and-blue blade clashes into a fiery face-level lock, and a climactic crimson crescent slash shattering <Subject 2>'s guard and driving him down to one knee as <Subject 1> stands victorious.
+
+retention_analysis:
+<Subject 1> ([Shot 1]-[Shot 5]): fully_preserved - Cold refined face, black bob with braids, ink-teal gold attire, full-length dark-steel katana with circular brass handguard.
+
+<Subject 2> ([Shot 1]-[Shot 5]): fully_preserved - Composed handsome face, half-tied black hair, ivory coat, full-length silver-steel broadsword with bronze crossguard.
+
+<Subject 3> ([Shot 1]-[Shot 5]): fully_preserved - Wet dark-grey stone terrace, rear stone balustrade, distant clocktower silhouette.
+
+detailed_description:
+High-end 2.5D semi-realistic AI manju guoman swordplay cinema blending crisp forged metallic blades with sweeping crimson and ice-blue slash arcs, explosive steel sparks, and fluid tracking camera work.
+
+[Shot 1] High-end 2.5D AI manju swordplay on <Subject 3>. First clash strikes within half a second: sprinting across wet flagstones from opposite sides, <Subject 1> on the left swings a blazing crimson crescent katana arc colliding head-on against <Subject 2> on the right swinging an ice-blue broadsword arc, locking solid steel blades at center in a brilliant X-burst of sparks and a circular wall of rain spray. Camera pushes smoothly into a clean medium two-shot.
+
+[Shot 2] At 00:03.200, the camera cuts to a fluid side-tracking medium shot with <Subject 1> on the left and <Subject 2> on the right: <Subject 1> pivots whipping a wide horizontal crimson katana arc at head height; <Subject 2> ducks low beneath the glowing crimson trail and rises driving a heavy two-handed ice-blue broadsword cleave into <Subject 1>'s angled katana guard, bursting golden sparks and driving <Subject 1> two firm steps back in a spray of water. Camera tracks sideways smoothly.
+
+[Shot 3] At 00:06.200, the camera cuts to a smooth close-up of <Subject 1> holding her brass-guarded dark-steel katana upright beside her face: calm cold expression, smooth brows narrowing a fraction, lower eyelids tightening with quiet resolve, softly closed lips, focused dark eyes reflecting a thin crimson edge glow as raindrops roll down the steel blade and both hands tighten on the hilt. Camera glides in gently and holds steady.
+
+[Shot 4] At 00:09.000, the camera cuts to a tight medium two-shot as <Subject 1> on the left and <Subject 2> on the right surge together trading two fast ringing crimson-versus-ice-blue steel parries at chest height before locking both forged blades crosswise right between their faces, furrowed brows lit by roaring red-and-blue sword energy and flying golden sparks. Camera orbits subtly around the intense blade lock.
+
+[Shot 5] At 00:11.800, the camera cuts to a sweeping side medium-wide shot as <Subject 1> steps forward on the left unleashing a massive blazing crimson crescent katana slash horizontally through <Subject 2>'s ice-blue broadsword guard, erupting an outward wave of golden-red sparks and rain mist that blasts <Subject 2> backward onto one knee propping himself on his silver broadsword on the right while <Subject 1> stands tall on the left snapping her full-length dark-steel katana steady with calm breath through the final frame. Camera pulls back slightly and holds on the clear victory.
+
+overall_soundscape: Pouring midnight rain and thunder, heavy steel clash and outward water burst, sharp crimson blade whoosh ducked into a ringing ice-blue counter-clang, rapid twin parry rings into a crackling energy lock, and one colossal guard-shattering slash explosion followed by rain dripping in victory.
+
+non_diegetic_music: Driving Chinese war drums, taut strings, and sharp pipa accents surging through the blade clashes, peaking on the crimson guard-breaking slash at twelve seconds and resolving into a deep resonant chord.
+```

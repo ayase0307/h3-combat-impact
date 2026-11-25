@@ -1,0 +1,56 @@
+#!profile: ultra
+#!face-style: aesthetic
+## 中文導演母稿（15 秒｜16:9｜復刻 ref_05：暗黑棘冠女王 vs 翡翠孔雀神女｜2.5D AI 漫劇｜無對白）
+
+**項目總述**：暮色風吹的無垠翠綠原野之上，銀髮黑棘冠暗甲女王夜蝕與翡翠孔雀羽冠神女璃凰展開 15 秒神級法術對決。暗紫黑洞吸星巨柱對撞翡翠金光萬丈旋渦、貼身紫金弧斬交鋒，並以雙神女頂級絕美冷顏微表情特寫收官。
+
+**0—3 秒（暗紫黑洞凝結與能量甩擊）**：
+- `[00:00.000]` 鏡 1（近景過肩切中景）：原野暮風翻湧，夜蝕高立斷石之上掌心凝出吞噬光線的暗紫黑洞，冷顏微抬單手將黑洞化作狂暴紫電光柱甩向遠方璃凰。
+
+**3—6 秒（翡翠孔雀金光旋渦迎擊）**：
+- `[00:03.200]` 鏡 2（宏大廣角對撞）：原野中央璃凰張開雙臂，萬丈翡翠綠與鎏金交織的巨型螺旋光門拔地而起，硬接吞沒來襲的暗紫巨柱，氣浪將整片草海壓伏成環。
+
+**6—9 秒（雙神女貼身紫金弧光交鋒）**：
+- `[00:06.200]` 鏡 3（高速環繞中景）：夜蝕化紫影突進，拉出漫天暗紫新月弧光連斬逼近璃凰；璃凰輕盈旋身以翡翠光輪格擋偏轉，紫金星芒在草海上空交織爆裂。
+
+**9—12 秒（女王戴冠冷顏特寫）**：
+- `[00:09.200]` 鏡 4（平滑推進近景特寫）：暮光斜照，夜蝕雙手優雅扶正黑金荊棘王冠，銀白碎髮拂過冷豔俊美臉龐，眉眼清冷沉靜、唇線微闔，身後暗紫雷焰驟然升騰。
+
+**12—15 秒（孔雀神女開屏金眸終綻）**：
+- `[00:12.000]` 鏡 5（對稱華美推進特寫）：璃凰身後萬千翡翠孔雀光羽如神輪綻放，鏡頭推進至其絕美面容——平靜無波的雙眉、柔闔紅唇、雙眼驟亮清透翠金神光，金色光羽飄滿末幀。
+
+```text
+subject_definitions:
+<Subject 1> is Yeshi from <Picture 1>: strikingly beautiful silver-haired dark queen, refined cold aristocratic face, obsidian thorn crown, sculpted black-silver spiky gothic armor gown with translucent dark-violet sheer skirt.
+
+<Subject 2> is Lihuang from <Picture 2>: ethereally beautiful emerald peacock goddess, refined serene face, ornate gold-and-emerald peacock feather headdress, emerald-gold silk divine gown with flowing ribbons.
+
+<Subject 3> is the boundless sunset grassland from <Picture 3>: vast windswept emerald green rolling meadow, weathered pale stone ledge in foreground, golden-blue twilight sky.
+
+summary:
+[reference generation] A 15-second 16:9 high-aesthetic 2.5D AI manju magical duel between <Subject 1> and <Subject 2> across <Subject 3>, pitting dark-violet black-hole beams against a giant emerald-gold vortex, close-range violet-gold arc clashes, and dual serene close-ups of crown and peacock halo awakening.
+
+retention_analysis:
+<Subject 1> ([Shot 1]-[Shot 4]): fully_preserved - Cold refined face, silver hair, obsidian thorn crown, black armor gown, sheer violet skirt.
+
+<Subject 2> ([Shot 2],[Shot 3],[Shot 5]): fully_preserved - Serene refined face, gold-emerald peacock headdress, divine emerald-gold gown.
+
+<Subject 3> ([Shot 1]-[Shot 5]): fully_preserved - Vast windswept emerald grassland, pale stone ledge, twilight horizon.
+
+detailed_description:
+High-end 2.5D semi-realistic AI manju guoman divine fantasy rendering with luminous magical particles, silky hair physics, and impeccable facial beauty preservation.
+
+[Shot 1] High-end 2.5D AI manju divine fantasy rendering. Magic flares within half a second: atop the pale stone ledge of <Subject 3>, <Subject 1> conjures a swirling dark-violet black hole orb in her palm, then sweeps her arm outward firing a roaring ribbon of violet-black void energy straight toward <Subject 2> standing far out on the green meadow. Camera tracks sideways fast.
+
+[Shot 2] At 00:03.200, the camera cuts to a monumental wide landscape shot as <Subject 2> raises both arms, erupting a colossal sky-high spiraling vortex of emerald-teal and golden light that intercepts the dark-violet blast, flattening the vast green grass outward in massive concentric shockwaves. Camera pulls back smoothly.
+
+[Shot 3] At 00:06.200, the camera cuts to a fast orbiting medium shot as <Subject 1> lunges across the meadow whipping wide sweeping violet energy crescents; <Subject 2> pivots gracefully deflecting each strike with a glowing emerald-gold halo shield as violet and gold sparks shower the grass. Camera orbits fast.
+
+[Shot 4] At 00:09.200, the camera cuts to a smooth close-up of <Subject 1> raising both armored hands to steady her obsidian thorn crown against golden twilight: refined cold aristocratic beauty, smooth relaxed brows, softly closed lips, steady dark gaze as silver hair drifts across her cheek and violet lightning flares behind her. Camera pushes in smoothly and holds steady for seven frames.
+
+[Shot 5] At 00:12.000, the camera cuts to a symmetrical radiant close-up of <Subject 2> as a grand fan of luminous emerald peacock feathers and golden particles unfolds behind her: impeccably serene face, smooth relaxed brows, softly closed lips, eyes illuminating with pure emerald-gold light as chest rises calmly on a breath and golden embers float through the final frame. Camera pushes in smoothly.
+
+overall_soundscape: Deep gravitational void hum, roaring magical vortex wind, sweeping grassland rustle, crisp energy-arc clashes, crystalline chime resonance, and shimmering divine flare.
+
+non_diegetic_music: Grand dark-fantasy strings and resonant orchestral drums intertwining with ethereal chime arpeggios, swelling cleanly into a radiant choral finale.
+```

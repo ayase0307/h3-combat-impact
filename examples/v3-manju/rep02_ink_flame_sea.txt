@@ -1,0 +1,56 @@
+#!profile: ultra
+#!face-style: aesthetic
+## 中文導演母稿（15 秒｜16:9｜復刻 ref_02：滄海孤舟水墨×烈焰破浪對決｜2.5D AI 漫劇｜無對白）
+
+**項目總述**：狂濤海面與萬丈飛瀑之前，白袍踏火少年劍客熾川與玄青重甲長刀客玄瀾展開水墨與烈焰交織的 15 秒破浪決戰。融合黑墨巨浪、飛瀑凌空交鋒、烈焰冷顏特寫、黑白水墨青雷衝擊定幀與赤焰巨刃破天雲海。
+
+**0—3 秒（墨浪吞舟與火雷炸裂）**：
+- `[00:00.000]` 鏡 1（正面急推廣角）：漫天黑墨化作巨浪捲向海面孤舟，舟上熾川長劍出鞘引爆烈焰雷光，赤金火浪自舟心炸開撕碎黑墨水幕。
+
+**3—6 秒（萬丈飛瀑凌空雙刃交鋒）**：
+- `[00:03.200]` 鏡 2（高速橫移廣角）：白浪滔天如巨型水幕垂直傾瀉，熾川渾身燃火與玄瀾拖出青色雷刀於半空高速對沖，刀劍硬撼炸出金色火星與水霧。
+
+**6—9 秒（踏浪架刀烈焰冷顏特寫）**：
+- `[00:06.200]` 鏡 3（動態中景切平滑特寫）：熾川落地低弓馬步踏水成環、身後烈焰衝霄，鏡頭切至臉部近景——俊美少年眉眼沉靜、唇線微闔、瞳孔映出熾金火光，長髮在熱浪中飛揚。
+
+**9—12 秒（黑白水墨青雷衝擊定幀與反撲）**：
+- `[00:09.000]` 鏡 4（極致黑白水墨衝擊特寫）：玄瀾冷笑俯衝，畫面瞬間爆發高反差黑白水墨線條衝擊定幀，一抹青綠電弧沿其左眼炸開，他揮出巨型青色斷浪刀氣。
+
+**12—15 秒（赤焰橫斬破雲海）**：
+- `[00:11.600]` 鏡 5（超高速橫切廣角）：熾川反手橫劈，一道橫貫整個畫面的赤紅烈焰巨刃撕裂海天，將玄瀾的墨浪徹底蒸發，碎雲與火星翻騰破空至末幀。
+
+```text
+subject_definitions:
+<Subject 1> is Chichuan from <Picture 1>: handsome young East Asian swordsman, calm composed face, dark brown messy high ponytail, cream-white loose martial robe with scorched bronze trim, twin gourd at waist, slender forged steel jian.
+
+<Subject 2> is Xuanlan from <Picture 2>: tall sharp-featured East Asian warrior, cold composed face, wind-swept dark hair, dark teal-black feathered armor cloak, long curved heavy saber.
+
+<Subject 3> is the stormy ink-sea waterfall from <Picture 3>: dark surging ocean waves, towering misty waterfall cliffs, solitary wooden boat in choppy water, overcast silver-blue sky.
+
+summary:
+[reference generation] A 15-second 16:9 2.5D AI manju ink-and-flame maritime duel between <Subject 1> and <Subject 2> on <Subject 3>, featuring ink waves, midair waterfall blade clash, flame-lit calm close-up, stark black-and-white ink impact frame with cyan lightning, and a sky-splitting crimson fire slash.
+
+retention_analysis:
+<Subject 1> ([Shot 1]-[Shot 5]): fully_preserved - Composed handsome face, dark high ponytail, cream martial robe, waist gourd, forged jian.
+
+<Subject 2> ([Shot 1]-[Shot 5]): fully_preserved - Cold sharp face, wind-swept dark hair, dark teal armor cloak, long curved saber.
+
+<Subject 3> ([Shot 1]-[Shot 5]): fully_preserved - Surging dark sea, towering waterfall mist, overcast storm sky.
+
+detailed_description:
+High-end 2.5D semi-realistic AI manju guoman ink-wash meets cinematic fire rendering with razor-sharp blade arcs and fluid water spray.
+
+[Shot 1] High-end 2.5D AI manju rendering blending Chinese ink-wash waves with vivid golden fire. First burst strikes within half a second. A front wide shot rushes toward the wooden boat on <Subject 3> as monstrous black ink waves tower overhead; <Subject 1> unsheathes his sword unleashing an explosive golden-orange firestorm and lightning burst that tears the ink curtain apart. Camera pushes in fast.
+
+[Shot 2] At 00:03.200, the camera cuts to a sweeping wide side shot against a towering vertical wall of white waterfall mist as <Subject 1> wreathed in blazing gold flame and <Subject 2> trailing cyan-ink steel vault and dash through midair, blocking and parrying sparks and spray before spinning and sidestepping past each other over surging foam. Camera tracks sideways fast.
+
+[Shot 3] At 00:06.200, the camera cuts to a low front shot as <Subject 1> lands in a wide low stance atop rippling dark water, tall golden flames roaring behind him, gliding into a smooth close-up of his refined face: calm composed expression, smooth relaxed brows, softly closed lips, steady eyes glowing warm amber in the firelight as dark hair whips upward. Camera pushes in smoothly and holds for seven frames.
+
+[Shot 4] At 00:09.000, the camera cuts to a stark high-contrast black-and-white calligraphic ink impact frame close-up on <Subject 2>'s calm sharp face with smooth relaxed brows and softly closed lips as crackling cyan-teal lightning erupts across one eye; color snaps back as he whips a massive curved cyan-ink crescent cleave across the sea. Camera jolts sharply.
+
+[Shot 5] At 00:11.600, the camera cuts to an ultra-wide horizontal tracking shot as <Subject 1> drives a colossal blazing crimson-orange fire beam slash horizontally across the entire horizon, vaporizing the ink tide and splitting the storm clouds into swirling embers, white sea spray, and scattered ink droplets through the final frame. Camera pulls back smoothly.
+
+overall_soundscape: Roaring ocean surf, waterfall thunder, explosive fire whoosh, ringing steel clash, crackling cyan lightning, and wind tearing across open water.
+
+non_diegetic_music: Dramatic Chinese pipa and war drums surging with low cello, dropping silent for a split second at the black-and-white ink impact frame before erupting in full percussion.
+```

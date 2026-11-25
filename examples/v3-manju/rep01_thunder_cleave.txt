@@ -1,0 +1,55 @@
+#!profile: ultra
+#!face-style: aesthetic
+## 中文導演母稿（15 秒｜16:9｜復刻 ref_01：紫電雷神清場＋天劍斬雙魔像｜2.5D AI 漫劇｜無對白）
+
+**項目總述**：熔岩焦土雷雲戰場上，銀髮黑金雷甲劍客雷燼（冷峻美男、持黑金鎖鏈長刀）獨面熔岩魔兵海與兩尊百米熔岩角魔巨像。全程 2.5D AI 漫劇高精度渲染與冷靜壓制高顏值特寫，呈現天雷清場、騰空斬巨獸、橫刀紫電映眸、召喚百米紫電天劍一劍劈雙像的史詩無雙。
+
+**0—3 秒（天雷降世與清場開戰）**：
+- `[00:00.000]` 鏡 1（高空俯衝跟拍）：雷雲炸裂，六道紫白巨雷轟落焦土魔兵海，雷燼化作紫電殘影橫掃長刀，衝擊波掀翻數十名熔岩魔兵，火星岩屑漫天飛濺。
+
+**3—6 秒（躍空突襲熔岩巨像）**：
+- `[00:03.200]` 鏡 2（極低位仰拍拉升）：百米熔岩角魔巨像咆哮揮拳砸地炸出火球，雷燼踏岩塊直躍半空，於巨像頭角上方反手揮刀斬出紫白電弧。
+
+**6—9 秒（橫刀紫電冷顏特寫）**：
+- `[00:06.200]` 鏡 3（平滑推進近景特寫）：雷燼將纏繞狂暴紫電的長刀橫置眼前，冷峻俊美五官毫無扭曲——平靜微展的眉峰、微闔的唇線、冷冽定格的眼眸倒映紫白電光，銀髮隨電流飄舞。
+
+**9—12 秒（紫電天劍貫天斬雙像）**：
+- `[00:09.000]` 鏡 4（超廣角低仰拍）：黑紫雷雲撕裂，一柄百米長的紫白雷光巨劍自穹頂垂直墜落，下方雙尊熔岩巨像與魔兵海瞬間被劍威籠罩。
+- `[00:10.600]` 鏡 5（震動廣角正面）：紫電天劍轟然斬落雙巨像中央，環形紫色雷暴衝擊波炸碎整片焦土，雙巨像崩裂成漫天飛散的熔岩光碎。
+
+**12—15 秒（餘波散盡扛刀佇立）**：
+- `[00:12.600]` 鏡 6（緩拉廣角定景）：焦土裂出滾燙熔岩深坑，餘燼紫電在煙霧間游走；雷燼將長刀扛回肩頭、衣袂與銀髮迎風烈烈翻飛，胸口微微起伏，冷眼俯瞰戰場至末幀。
+
+```text
+subject_definitions:
+<Subject 1> is Leijin from <Picture 1>: strikingly handsome young East Asian swordsman, calm cold aristocratic face, long flowing silver-white hair tied high with dark steel clasp, lean muscular build, obsidian-black and dark-gold lightning armor robe with leather straps and gauntlets, ornate long katana-jian blade with chain pommel.
+
+<Subject 2> is the volcanic lightning battlefield from <Picture 2>: scorched obsidian terrain, glowing lava fissures, dark purple storm clouds, glowing embers, dramatic rocky outcrops.
+
+summary:
+[reference generation] A 15-second 16:9 epic 2.5D AI manju action sequence of <Subject 1> unleashing purple lightning slashes across <Subject 2>, leaping over a colossal magma demon, holding a blade-lit composed close-up, and summoning a giant sky-splitting lightning greatsword to cleave twin magma colossi.
+
+retention_analysis:
+<Subject 1> ([Shot 1]-[Shot 6]): fully_preserved - Handsome composed face, long silver ponytail, obsidian-gold lightning armor, chain-pommel long blade.
+
+<Subject 2> ([Shot 1]-[Shot 6]): fully_preserved - Scorched volcanic field, glowing magma cracks, purple thundercloud sky, rocky crags.
+
+detailed_description:
+High-end 2.5D semi-realistic AI manju guoman anime-cinematic rendering with razor-sharp lightning arcs, crisp painterly shading, and vivid ember physics.
+
+[Shot 1] High-end 2.5D AI manju rendering with crisp violet lightning and magma sparks. First impact hits within half a second. A diving aerial shot sweeps across <Subject 2> as towering violet thunderbolts slam into swarming charred magma minions while <Subject 1> dashes through in a crescent purple blade slash, hurling armored foes and fiery debris outward. Camera dives fast.
+
+[Shot 2] At 00:03.200, the camera cuts to a dramatic low upward angle as a colossal horned magma titan smashes the ground in a rising fireball. <Subject 1> vaults high off a boulder, soaring above the titan's burning horns and whipping a crackling violet arc downward with his blade. Camera tilts up fast.
+
+[Shot 3] At 00:06.200, the camera cuts to a smooth close-up of <Subject 1> holding his blazing violet lightning blade horizontally across his eyes: calm cold aristocratic expression, smooth relaxed brows, softly closed lips, cool unblinking gaze reflecting electric purple light while silver hair floats in static wind. Camera pushes in smoothly and holds steady for seven frames.
+
+[Shot 4] At 00:09.000, the camera cuts to an epic ultra-wide low shot as violet storm clouds part overhead and a colossal hundred-meter luminous purple energy greatsword descends vertically toward twin towering magma colossi and the dark horde below. Camera pulls back fast.
+
+[Shot 5] At 00:10.600, the camera cuts to a wide impact shot as the colossal lightning sword slams straight between the twin titans, unleashing an expanding purple shockwave ring that shatters both magma colossi into flying glowing boulders and fiery dust. Camera jolts sharply on impact and settles cleanly.
+
+[Shot 6] At 00:12.600, the camera cuts to a sweeping wide shot pulling back across cracked glowing lava fissures and swirling smoke; <Subject 1> rests his blade across his shoulder at the crater rim, chest rising slightly on a calm breath, silver hair and tattered dark sash whipping in hot wind with drifting sparks through the final frame. Camera pulls back smoothly.
+
+overall_soundscape: Thunderous lightning strikes, roaring magma blasts, high-voltage electric blade hum, shattering rock colossi, shockwave boom, and howling volcanic wind.
+
+non_diegetic_music: Epic driving taiko percussion and electric guzheng riffs swelling into soaring dark brass, cutting silent for a beat at the sky-sword impact before roaring back.
+```

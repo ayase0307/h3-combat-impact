@@ -1,0 +1,47 @@
+#!profile: facial
+#!face-style: aesthetic
+## 中文導演母稿（15 秒｜16:9｜原創獨特大招 2：《霜月鏡界・九重琉璃冰蓮綻放》極致唯美領域大招｜2.5D AI 漫劇｜無對白）
+
+**項目總述**：無邊黑水鏡面天湖之上，一輪巨型銀白滿月低懸星雲天際。銀白長裙冰晶冠女帝望舒施展專屬空間領域大招：輕點黑水綻開九重幾何冰陣 → 冷靜絕美結印特寫（星眸映滿月、銀髮無重力浮起）→ 九道百米棱鏡冰柱破湖折射極光裂空 → 天穹盛開百米琉璃冰蓮降下星刃光雨。
+
+**0—4 秒（足尖點湖與九重幾何冰陣蔓延）**：
+- `[00:00.000]` 鏡 1（低位貼水急拉廣角）：鏡面黑水倒映巨型滿月，望舒足尖輕點水面，瞬間爆開清脆冰晶漣漪，九重璀璨對稱的銀藍幾何冰陣以超高速沿湖面轟鳴蔓延至整個地平線。
+
+**4—8 秒（女帝結印冷顏星眸特寫）**：
+- `[00:04.000]` 鏡 2（平滑推進對稱近景特寫）：望舒雙手於胸前優雅結印，鏡頭緩緩推進鎖定其頂級絕美面容——平靜無波的雙眉、淡雅柔闔唇線、清透冰藍星眸倒映銀月與極光，萬千銀髮失重緩緩飄浮。
+
+**8—11 秒（九重棱鏡冰柱破水與空間折射）**：
+- `[00:07.800]` 鏡 3（極速仰拍環繞廣角）：伴隨清越晶裂巨響，九道百米高的半透明多面棱鏡冰柱環繞望舒破湖沖霄，折射出幻彩極光、碎星與細密空間裂痕，冰霧滾滾升騰。
+
+**11—15 秒（穹頂琉璃冰蓮盛放與銀河光雨）**：
+- `[00:11.000]` 鏡 4（宏大俯衝轉緩拉定景）：天幕滿月之前凝成一朵橫貫天際的巨型半透明琉璃冰蓮驟然層層綻放，綻放瞬間震出星環極光，化作萬千璀璨冰晶光刃如銀河瀑布傾瀉整片冰湖；望舒白裙獵獵凌空而立、胸口平靜微伏，冰花與星芒飄滿末幀。
+
+```text
+subject_definitions:
+<Subject 1> is Wangshu from <Picture 1>: ethereally beautiful silver-haired lunar ice empress, impeccably refined serene face, delicate crystal-silver diadem crown, long weightless silver-white hair, flowing layered pearl-white and pale-ice-blue translucent silk celestial gown.
+
+<Subject 2> is the mirror black-water lunar lake from <Picture 2>: boundless glassy jet-black mirror lake reflecting a colossal luminous full moon and star-filled indigo nebula night sky, faint silver mist along the distant horizon.
+
+summary:
+[reference generation] A 15-second 16:9 breathtaking 2.5D AI manju domain ultimate showcase of <Subject 1> on <Subject 2>, freezing a nine-ring geometric frost mandala across the mirror lake, holding an ethereal moonlit close-up as she forms a hand seal, raising nine towering prismatic ice monoliths with aurora space-fractures, and blooming a colossal celestial glass ice-lotus raining starlight blades.
+
+retention_analysis:
+<Subject 1> ([Shot 1]-[Shot 4]): fully_preserved - Ethereal serene face, crystal diadem, long silver-white hair, pearl-white and ice-blue silk celestial gown.
+
+<Subject 2> ([Shot 1]-[Shot 4]): fully_preserved - Glassy black mirror lake, giant glowing full moon, starry nebula sky.
+
+detailed_description:
+High-end 2.5D semi-realistic AI manju guoman celestial fantasy rendering with crystalline glass refraction, aurora prism light, silky zero-gravity hair physics, and flawless facial beauty.
+
+[Shot 1] High-end 2.5D AI manju celestial rendering across <Subject 2>. Magic begins immediately: <Subject 1> lowers one foot to touch the glassy black mirror lake, sending a sharp crystalline shockwave outward as nine intricate glowing silver-blue geometric frost array rings rapidly freeze and expand across the entire moonlit lake toward the horizon. Camera skims low and pulls back fast.
+
+[Shot 2] At 00:04.000, the camera cuts to a symmetrical smooth close-up of <Subject 1> forming a graceful hand seal before her chest as pale blue starlight rises around her fingers: impeccably refined serene face, smooth relaxed brows, softly closed lips, luminous ice-blue eyes reflecting the full moon while weightless silver hair floats gently around her shoulders. Camera pushes in smoothly and holds steady for seven frames.
+
+[Shot 3] At 00:07.800, the camera cuts to a sweeping low upward orbiting wide shot as nine colossal hundred-meter translucent faceted prism ice pillars erupt vertically from the frozen lake around <Subject 1>, refracting vivid cyan-violet auroras and shimmering glass space-fractures across the starry sky. Camera orbits and tilts upward fast.
+
+[Shot 4] At 00:11.000, the camera cuts to a monumental wide celestial shot as a giant translucent crystal ice-lotus materializes directly before the colossal full moon and blossoms rapidly petal by petal, unleashing a glowing aurora shockwave ring that scatters thousands of luminous crystalline star-blades cascading like a silver waterfall onto the mirror ice lake; <Subject 1> floats poised beneath the blooming lotus, chest rising gently on a calm breath as sparkling snowflakes, silk ribbons, and prismatic stardust drift through the final frame. Camera pulls back smoothly.
+
+overall_soundscape: Delicate crystalline water drop chime, rapid cracking ice freeze spreading across glass lake, resonant harmonic frost chord, erupting glacier monoliths, shimmering glass bloom, and cascading starlight chimes.
+
+non_diegetic_music: Ethereal glass harp and soaring celestial strings intertwining with clear guzheng harmonics, swelling into a radiant awe-inspiring orchestral crescendo as the colossal ice-lotus blossoms.
+```

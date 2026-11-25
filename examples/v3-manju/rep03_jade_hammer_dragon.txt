@@ -1,0 +1,56 @@
+#!profile: ultra
+#!face-style: aesthetic
+## 中文導演母稿（15 秒｜16:9｜復刻 ref_03：碧水翡翠戰錘少年戰青紅羽龍｜2.5D AI 漫劇｜無對白）
+
+**項目總述**：陽光清透的仙峽碧湖與飛瀑之上，黑髮紅帶少年青嵐雙手持翡翠靈光巨錘，與盤踞碧潭的翠綠赤鰭東方古龍展開 15 秒奇幻高速大戰。開場即祭黑白速度線衝擊定幀，接連踏浪閃避、躍瀑近身、清秀冷靜特寫揮錘爆金焰衝擊波。
+
+**0—3 秒（黑白速度線衝擊定幀開場）**：
+- `[00:00.000]` 鏡 1（極致黑白衝擊定幀轉彩）：開場半秒內青嵐凌空揮翡翠戰錘猛砸巨龍脖頸，畫面爆出黑白放射速度線與翠綠能量炸點，隨即彩光回湧炸開滔天湖浪。
+
+**3—6 秒（碧潭貼水閃避與踏龍背）**：
+- `[00:02.800]` 鏡 2（貼水高速側跟）：翠綠赤鰭巨龍捲動百丈湖水撲咬，青嵐踩水滑步閃過龍顎，反身躍上巨龍寬闊青鱗背脊高速奔襲。
+
+**6—9 秒（飛躍白瀑騰空對峙）**：
+- `[00:06.000]` 鏡 3（宏大廣角俯仰）：巨龍昂首破水盤旋直衝青翠崖壁白瀑，青嵐借龍身彈力衝出翻湧水霧騰至最高空，舉起發光翡翠巨錘蓄勢。
+
+**9—12 秒（清秀冷顏特寫與金焰重錘爆破）**：
+- `[00:09.000]` 鏡 4（平滑近景特寫轉側面爆發）：近景鎖定青嵐清秀俊朗的少年面容——眉眼沉靜專注、唇線微闔、水珠掠過臉頰，雙手緊握發光翠玉巨錘；鏡頭切側面，他凌空重錘砸落爆出熾烈金白衝擊波吞沒龍首。
+
+**12—15 秒（巨龍翻湧墜潭餘浪）**：
+- `[00:12.200]` 鏡 5（宏大仙峽定景緩拉）：巨龍被震翻轟入碧藍峽谷湖面，激起百米白霧水柱迴盪青翠岩壁之間，青嵐落於湖畔巨石輕喘微收錘，飛沫陽光閃耀至末幀。
+
+```text
+subject_definitions:
+<Subject 1> is Qinglan from <Picture 1>: handsome energetic young East Asian teen warrior, clean refined face, spiky short dark hair, navy-blue sleeveless martial tunic with red waist sash and leather arm wraps, wielding a heavy glowing jade-green crystal warhammer.
+
+<Subject 2> is the Azure-Fin Ancient Dragon from <Picture 2>: colossal serpentine Eastern dragon with emerald iridescent scales, flowing coral-pink feathered mane and fins, sharp antlers, fierce golden eyes.
+
+<Subject 3> is the emerald fairy-gorge lake from <Picture 3>: crystal turquoise river lake, lush mossy karst cliffs, cascading white waterfalls, bright blue sunlit sky with white clouds.
+
+summary:
+[reference generation] A 15-second 16:9 vibrant 2.5D AI manju fantasy battle between <Subject 1> and <Subject 2> across <Subject 3>, opening with a black-and-white speedline impact frame, skimming water, leaping waterfalls, a calm close-up hammer charge, and a golden-flame shockwave smash.
+
+retention_analysis:
+<Subject 1> ([Shot 1]-[Shot 5]): fully_preserved - Clean handsome teen face, dark spiky hair, navy tunic, red sash, glowing jade warhammer.
+
+<Subject 2> ([Shot 1]-[Shot 5]): fully_preserved - Emerald scaled serpentine dragon body, coral-pink fins, antlers, golden eyes.
+
+<Subject 3> ([Shot 1]-[Shot 5]): fully_preserved - Turquoise gorge lake, lush karst cliffs, white waterfall, bright sunlit sky.
+
+detailed_description:
+High-end vibrant 2.5D semi-realistic AI manju guoman fantasy animation style with luminous sunlight, crisp cel-painterly shading, and sparkling water physics.
+
+[Shot 1] Vibrant 2.5D AI manju fantasy rendering. First hit erupts within half a second: <Subject 1> leaps midair slamming his glowing jade hammer onto <Subject 2>'s neck, triggering a crisp two-frame stark black-and-white manga speedline silhouette impact frame with bright emerald impact flash before snapping into full sunlit color as turquoise water explodes outward. Camera jolts sharply.
+
+[Shot 2] At 00:02.800, the camera cuts to a fast water-skimming tracking shot across <Subject 3> as <Subject 2> surges through the turquoise lake snapping its jaws; <Subject 1> skims across the spray, sidesteps the lunging head, and springs up onto the dragon's emerald scaled back sprinting forward. Camera tracks sideways fast.
+
+[Shot 3] At 00:06.000, the camera cuts to a sweeping wide shot as <Subject 2> coils skyward past a towering white waterfall; <Subject 1> launches high off the dragon's rising crest through roaring mist, soaring weightless in bright sunlight with his jade hammer raised overhead. Camera tilts up fast.
+
+[Shot 4] At 00:09.000, the camera cuts to a smooth close-up of <Subject 1>'s refined young face as he grips the glowing jade warhammer with both hands: calm focused expression, smooth relaxed brows, softly closed lips, clear water droplets drifting past his cheek; then cuts sideways as he drives the hammer straight down into an incandescent golden-white shockwave blast engulfing the dragon. Camera holds steady on his face then whips with the strike.
+
+[Shot 5] At 00:12.200, the camera cuts to a grand sunlit valley wide shot as <Subject 2> crashes backward into the turquoise gorge lake, sending towering white mist plumes rolling across mossy karst cliffs while <Subject 1> lands on a shoreline boulder, chest rising on a quick breath as sunlit mist and floating leaves drift through the final frame. Camera pulls back smoothly.
+
+overall_soundscape: Massive hammer boom, roaring waterfall, dragon bellow, rushing lake splashes, crystalline jade energy hum, and canyon wind echoes.
+
+non_diegetic_music: Bright heroic orchestral strings with lively Chinese bamboo flute and driving percussion, pausing briefly on the opening impact frame and hammer detonation before soaring.
+```

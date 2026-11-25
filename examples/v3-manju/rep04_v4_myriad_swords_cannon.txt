@@ -1,0 +1,49 @@
+#!profile: facial
+#!face-style: aesthetic
+## 中文導演母稿（15 秒｜16:9｜v4 單向波前修正版 ref_04：平崖釘樁開百劍→直拳螺旋金環→貼谷破空未撞山→高空定機左下射向右上命中炸山｜2.5D AI 漫劇｜無對白）
+
+**項目總述**：烏雲壓頂的平坦灰黑巨岩崖巔上，銀白長髮、白金流雲錦袍仙尊太玄施展「萬劍歸宗・螺旋破界砲」。針對 v3 片尾拉鏡造成衝擊波倒吸回手的問題，v4 嚴格執行「單向波前推進律」：鏡 3 只拍光束彈頭在完好翠綠峽谷上方超音速前衝（絕不提前炸山）；鏡 4 採高空固定機位，一開鏡太玄已在左下角，金色氣環列車自他掌心向右上遠方高速遠離推進，抵達右上遠山才轟然向外炸開漫天碎石火雲！
+
+**0—4.2 秒（平坦崖頂正面釘樁・十二金劍倍增百劍雙翼）**：
+- `[00:00.000]` 鏡 1（正面低位廣角微仰定機）：太玄面向鏡頭單膝穩跪於平坦灰黑石板崖頂正中央，左靴底與右膝牢牢釘死同一塊巨石紋絲不動，左手穩按左膝，銀白長髮與白金寬袖隨山谷狂風向兩側獵獵翻飛；開局半秒內身後虛空凝出十二柄璀璨金色長劍排成對稱扇環，隨即急劇倍增為上百柄耀眼金劍化作遮天雙翼弧陣向上展開，氣浪將石板碎礫震飛懸浮。
+
+**4.2—9.2 秒（清冷仙尊正面直拳透視・身後萬劍流星暴雨越肩傾瀉）**：
+- `[00:04.200]` 鏡 2（正面偏右中近景透視特寫）：太玄起身立於峽谷崖前，絕美清冷面容位於畫面中右側——額間細金印微亮、平靜舒展雙眉、微闔薄唇、冷冽眼神直視前方；他右拳朝正前方鏡頭猛然筆直轟出並穩穩架定拳鋒，拳頭外圍高速捲起層層金色螺旋氣流環與細碎金芒，與此同時他身後上百柄金色飛劍化作密集金色流星光雨，越過他雙肩朝鏡頭前方持續狂瀉齊射！
+
+**9.2—12.0 秒（拳勁離手破空・光束彈頭貼完好翠綠峽谷超音速前衝逼近遠峰）**：
+- `[00:09.200]` 鏡 3（極速貼谷追隨彈頭視角）：右拳金光離手轟出！鏡頭緊追粗壯璀璨的金色螺旋光束前端彈頭，在幽深完好的翠綠松林峽谷半空超音速向前直線狂飆，彈頭前方推開白色圓錐音爆雲、下方整片松林樹冠被氣浪向兩側壓伏，光束尖端正朝遠方尚未受損的聳立岩峰極速逼近！
+
+**12.0—15.0 秒（高空固定俯瞰・光環自左下掌心向右上遠離推進並轟爆遠峰向外擴散）**：
+- `[00:12.000]` 鏡 4（高空固定斜角大俯瞰定機）：固定高空俯瞰機位，白袍獵獵的太玄自開鏡第一幀即懸立於畫面左下角前景、右臂朝右上方筆直前推；一道粗壯金色光柱自他左下掌心源源不斷射向右上遠方山峰，一圈接一圈璀璨金色衝擊環自他手前誕生並沿光柱軸線朝右上遠方高速滑行遠離，隨即正面貫穿右上遠處岩峰，向外炸開翻滾升騰的巨型碎石火雲並朝右上天際持續膨脹擴散至末幀！
+
+**聲音與禁止項**：百劍齊鳴、山巔狂風、螺旋蓄鳴、萬劍流星破空聲、峽谷超音速音爆呼嘯，以及 12.8 秒精準傳來的遠山轟爆巨響；嚴禁鏡 3 提前炸山，嚴禁鏡 4 倒退拉鏡或光環往左下回縮。
+
+```text
+subject_definitions:
+<Subject 1> is Taixuan from <Picture 1>: ethereally handsome young East Asian immortal swordsman, clean smooth pale aristocratic face with a tiny subtle gold forehead mark, calm cold expression, long flowing silver-white hair, layered ivory-white and champagne-gold embroidered xianxia silk robes, white-gold boots.
+
+<Subject 2> is the flat stormy pine-mountain cliff platform from <Picture 2>: wide level dark flagstone cliff-top platform, wind-bent mountain pines on flanking crags, deep green pine gorge below, dramatic dark storm clouds and distant jagged peaks.
+
+summary:
+[reference generation] A 15-second 16:9 faithful 2.5D AI manju ultimate showcase of <Subject 1> on <Subject 2>: <Subject 1> kneels immovably facing the camera on the flat cliff slab summoning a twelve-sword halo that multiplies into vast twin wings, thrusts his right fist straight toward the lens as hundreds of golden sword-streaks fire past his shoulders, launches a blazing golden beam spearhead racing forward through the intact pine gorge, and from the lower-left foreground of a locked aerial view drives outward-traveling golden shockwave rings into a distant upper-right mountain peak that explodes outward into the sky.
+
+retention_analysis:
+<Subject 1> ([Shot 1],[Shot 2],[Shot 4]): fully_preserved - Clean handsome composed face, tiny gold forehead mark, flowing silver-white hair, ivory-gold xianxia silk robes.
+
+<Subject 2> ([Shot 1]-[Shot 4]): fully_preserved - Flat dark flagstone cliff platform, flanking mountain pines, deep green valley, stormy clouds and distant peaks.
+
+detailed_description:
+High-end 2.5D semi-realistic AI manju guoman epic cinema rendering with crisp golden sword-stream physics, grounded stone-platform weight, and unidirectional outward beam propagation.
+
+[Shot 1] High-end 2.5D AI manju epic rendering on <Subject 2>. Action begins within the opening half-second: <Subject 1> kneels stationary facing directly toward the camera at the center of the flat level dark flagstone platform of <Subject 2>, his left boot sole and right knee planted immovably on a single stone slab with his left hand resting steady on his knee while gale wind whips his silver hair and white-gold robes outward; twelve sharp luminous golden swords materialize in a symmetric fan ring behind his back and rapidly multiply into hundreds of radiant golden swords fanning upward into vast twin wings beneath the dark storm clouds as loose pebbles lift around his planted knee. Locked low-angle wide camera tilts upward very gently.
+
+[Shot 2] At 00:04.200, the camera cuts to a bold foreshortened medium close-up with <Subject 1> standing firm on the right side of the frame against misty canyon crags, driving his clenched right fist straight toward the center-left lens and holding the extended punch rock-steady; spinning golden vortex rings and dense golden sparks coil rapidly around his knuckles while hundreds of blazing golden sword-light streaks launch continuously from behind his back, shooting past both shoulders straight toward the foreground like a torrential meteor rain; his clean pale face remains impeccably composed—smooth relaxed brows, softly closed lips, steady cold gaze. Camera holds steady with a subtle slow push.
+
+[Shot 3] At 00:09.200, the camera cuts to a blistering high-speed chase perspective racing forward through open canyon air directly behind the blazing white-gold spearhead of the golden energy beam as it streaks straight ahead above the intact green pine canopy of <Subject 2> toward an unharmed distant craggy peak on the horizon; white sonic vapor cones peel backward off the advancing beam tip while shockwave wind flattens pine treetops below on both sides. Camera hurtles straight forward chasing the advancing beam head.
+
+[Shot 4] At 00:12.000, the camera cuts to a locked stationary high-altitude aerial wide shot with <Subject 1> already hovering steady in the lower-left foreground in billowing ivory-gold robes, thrusting his right arm diagonally forward toward the upper-right: a massive golden energy beam surges continuously outward from his palm at the lower-left straight across the valley, propelling luminous golden shockwave rings rapidly away from his hand up the shaft toward the upper-right mountain peak; upon impact at the upper-right peak, a colossal dome of shattered rock, golden fire, and shockwave dust erupts outward away into the upper-right sky through the final frame. Locked aerial camera holds steady and shudders subtly as the distant peak explodes.
+
+overall_soundscape: Crystalline chorus of ringing swords, mountain gale whipping silk robes, rising sub-bass vortex hum, torrential whoosh of launching light-swords, supersonic canyon wind roar, and a delayed thunderous distant mountain explosion.
+
+non_diegetic_music: Majestic epic guzheng and deep orchestral strings building tension through the sword wing expansion and fist charge, pausing for a split beat at launch before erupting into thunderous brass and taiko drums as the beam strikes the distant peak.
+```

@@ -1,0 +1,66 @@
+#!profile: ultra
+## 中文導演母稿（15 秒｜16:9｜非對稱巨物戰：刃器 vs 四足巨獸｜五段狀態接力＋無停頓｜無對白）
+
+**項目總述**：赤月熔岩黑曜石斷崖之上，緋衣女劍客（刃器載體）對決四倍高的黑曜石甲魔虎巨獸「炎煞」（四足巨獸載體：巨爪、甩尾、踐踏、熔岩甲）。女劍客不硬拼力量，改以切線閃避、踏巨碑借力、攀附獸背、鎖攻熔岩縫；終結採偏軸掃出並踏入收縮法陣的動態奇觀構圖。
+
+**0—3 秒（即時開戰與巨爪壓迫）**：
+- `[00:00.000]` 鏡 1（超低位廣角仰拍）：開場半秒內炎煞巨爪重拍震裂斷崖炸起灰岩；女劍客貼地側滑鑽過爪風，反手以赤劍劃過巨獸前腕熔岩縫迸出火星。
+- `[00:01.700]` 鏡 2（側面高速橫搖）：炎煞張顎怒吼、裝甲長尾貼地橫掃，女劍客翻身踏過青銅巨碑避開，巨碑遭尾擊掃碎。
+
+**3—6 秒（變軸攀爬與首次受創）**：
+- `[00:03.200]` 鏡 3（跟隨俯衝中景）：女劍客落至炎煞黑甲脊背沿脊椎疾奔，赤劍拖火直刺頸側熔岩縫。
+- `[00:04.700]` 鏡 4（廣角仰拍震屏）：炎煞弓背爆開氣浪將她震飛，她在半空踢斷斷崖石鏈卸力落地滑退。
+
+**6—10 秒（壓迫逆轉與引誘入局）**：
+- `[00:06.300]` 鏡 5（急推臉部特寫）：紅灰交映中女劍客壓眉咬牙、胸口起伏、冷汗劃頰，蹬岩反衝。
+- `[00:07.600]` 鏡 6（高速低位追蹤）：炎煞四足狂衝震地，女劍客迎勢滑鏟鑽入腹下盲區反挑左後膝裂縫，迫其失衡重犁崖面。
+
+**10—13 秒（側翼封鎖與偏軸法陣）**：
+- `[00:10.100]` 鏡 7（高空斜俯衝環繞）：炎煞咆哮撲咬，女劍客踏飛石折返繞至左側盲區，赤劍斜掃撕開偏左旋轉赤金法陣，巨影投向右崖。
+
+**13—15 秒（三拍踏陣破甲終結）**：
+- `[00:12.600]` 鏡 8（張力中景切入後疾拉）：炎煞抬爪撲陣，女劍客連踏兩步衝入收縮法陣——側閃巨爪、旋身騰起、雙手持赤劍貫入胸甲核心熔岩縫；白熱氣浪炸飛黑曜護甲，巨獸轟然側傾砸崖，女劍客前滑抽劍落地，紅綢餘燼飛揚至末幀。
+
+**聲音與禁止項**：巨獸踐踏、碎岩斷碑、鋼尾破風、低沉獸吼、赤刃刮甲尖嘯、法陣低鳴與破甲爆響；重鼓與古箏於破甲瞬間抽空轟鳴。無對白、無字幕、無標誌、無對稱站樁。
+
+```text
+subject_definitions:
+<Subject 1> is Feixue from <Picture 1>: dark eyes, crimson brow mark, black high ponytail with crimson ribbon, lean agile human scale, crimson-black robe, armored boots, slender crimson jian.
+
+<Subject 2> is Yansha from <Picture 2>: colossal four-legged tiger-behemoth four times taller than <Subject 1>, obsidian rock armor plates with crimson magma fissures, twin black horns, amber eyes, iron claws, armored tail.
+
+<Subject 3> is the volcanic obsidian cliff from <Picture 3>: fractured basalt boulders, toppled bronze monuments, stone chains, dark chasm, pale-crimson moon, cool upper-right moonlight, warm chasm rim light.
+
+summary:
+[reference generation] A 15-second 16:9 3D donghua asymmetric monster battle between <Subject 1> and <Subject 2> on <Subject 3>, featuring scale contrast, spine climbing, underbelly dodge, off-axis runic array, and armor-shattering finish.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]-[Shot 8]): fully_preserved - Face, ponytail, crimson ribbon, crimson-black robe, agile human scale, crimson jian.
+
+<Subject 2> (appears in [Shot 1]-[Shot 8]): fully_preserved - Colossal four-legged tiger anatomy, obsidian armor, magma fissures, twin horns, claws, armored tail.
+
+<Subject 3> (appears in [Shot 1]-[Shot 8]): fully_preserved - Volcanic obsidian ridge, bronze monuments, stone chains, crimson moon, dual lighting.
+
+detailed_description:
+High-end 3D xianxia CG realism with clean PBR obsidian and silk materials. <Subject 2> towers four times taller than <Subject 1>.
+
+[Shot 1] High-end 3D xianxia CG realism with clean PBR materials. First contact occurs within the opening half-second. A low wide shot frames <Subject 3> as <Subject 2> slams an iron-clawed forepaw shattering basalt into ash; tiny beneath it, <Subject 1> slides low, crimson robe flattened, raking her jian across its glowing wrist fissure in sparks. Camera tracks fast.
+
+[Shot 2] At 00:01.700, the camera cuts to a lateral shot as <Subject 2> roars and whips its armored tail low; <Subject 1> flips off a bronze monument seconds before the tail smashes it into shards. Camera whips sideways fast.
+
+[Shot 3] At 00:03.200, the camera cuts to a diving medium shot as <Subject 1> lands atop <Subject 2>'s obsidian spine, sprinting forward while dragging crimson steel along magma cracks in white sparks toward its neck. Camera rushes alongside her.
+
+[Shot 4] At 00:04.700, the camera cuts to a wide upward shot as <Subject 2> heaves its shoulders blasting compressed ash, hurling <Subject 1> airborne; she kicks a hanging stone chain to redirect and lands skidding across basalt. Camera shakes strongly and settles steady in a third of a second.
+
+[Shot 5] At 00:06.300, the camera cuts to a rushing close-up on <Subject 1>'s face: brows lock down, jaw clenches, chest heaves, sweat tracks her cheek as she springs off rock. Camera pushes in fast.
+
+[Shot 6] At 00:07.600, the camera cuts to a low ground-skimming shot as <Subject 2> charges headlong shaking the cliff. <Subject 1> slides beneath its belly and rips an upward slash into its rear knee fissure, buckling its leg so it plows trenches across obsidian in black dust. Camera tracks low fast.
+
+[Shot 7] At 00:10.100, the camera cuts to a high orbiting shot as <Subject 2> snaps roaring. <Subject 1> rebounds off falling rock to its left blind side, sweeping her crimson blade to tear open a tilted crimson-gold runic circle off-axis left, casting its shadow right. Camera orbits fast.
+
+[Shot 8] At 00:12.600, the camera cuts to a medium shot as <Subject 2> lunges its claw at the array. <Subject 1> steps twice into the collapsing vortex, slipping past the claw, spinning airborne, and driving her jian two-handed into <Subject 2>'s glowing chest core. A white shockwave blasts obsidian armor into shards as the beast crashes sideways smashing the cliff edge while <Subject 1> slides forward extracting her blade amid racing embers and whipping crimson ribbons through the final frame. Camera jolts on impact, decays steady in a quarter second, and pulls back fast.
+
+overall_soundscape: Earth-shaking beast footfalls, shattering basalt and bronze, whistling tail whip, guttural roar, steel scraping obsidian, low runic hum, and an armor-shattering blast amid chasm wind.
+
+non_diegetic_music: Heavy taiko drums and rapid guzheng tremolos under dark brass, dropping silent at the chest core strike before erupting back.
+```

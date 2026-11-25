@@ -1,0 +1,47 @@
+#!profile: ultra
+#!face-style: aesthetic
+## 中文導演母稿（15 秒｜16:9｜原創獨特大招 1：《天筆墨龍・一筆斬盡千軍》清場大招｜2.5D AI 漫劇｜無對白）
+
+**項目總述**：暮雲壓城的古代巨石斷關前，白金黑墨漢服書劍女仙墨璃（持丈長青玉巨型神筆）獨對千名黑甲魔兵壓境。施展專屬清場大招：騰空蘸雷劃出百米金墨八卦筆鋒 → 墨跡瞬化三條百米黑金水墨巨龍俯衝 → 爆發黑白水墨衝擊定幀橫掃蒸發千軍 → 墨雨紛飛落關收筆。
+
+**0—3 秒（黑甲千軍壓境與神女騰空）**：
+- `[00:00.000]` 鏡 1（宏大高空俯衝跟拍）：無盡黑甲紅眼魔兵如黑潮奔湧撲向斷關，關頭白墨長袍女仙墨璃足點城垛凌空躍起三丈，丈長青玉狼毫神筆筆尖綻出滾滾黑金雷墨。
+
+**3—7 秒（冷顏特寫與虛空揮毫成陣）**：
+- `[00:03.200]` 鏡 2（平滑近景特寫轉大幅環繞）：鏡頭貼近墨璃清冷絕美的仙顏——平靜舒展的眉峰、微闔淡唇、冷眸映出金箔墨光，黑長髮與白墨水袖隨罡風舒展；鏡頭驟拉環繞，她凌空揮動巨筆在烏雲虛空劃出一道直徑百米的狂草黑金八卦墨圈，金箔符紋閃耀。
+
+**7—11 秒（三條百米黑金墨龍俯衝清場）**：
+- `[00:07.000]` 鏡 3（超廣角跟隨俯衝）：百米墨圈轟然化形，三條鱗爪畢現、金電纏身的巨型黑金水墨神龍破空長吟，沿城關大道垂直俯衝撞入黑甲魔兵海洋。
+
+**11—15 秒（黑白水墨衝擊定幀橫掃與落關收筆）**：
+- `[00:10.800]` 鏡 4（極致黑白衝擊定幀轉廣角餘韻）：三龍撞陣瞬間爆出兩幀極致高反差黑白水墨飛白衝擊定幀，隨即彩光炸開金墨狂浪將千軍整排掀飛蒸發成星塵；墨雨與金箔紛落古關，墨璃飄然落回斷牆收筆垂眸、胸口平靜微伏，白墨長袖翻舞至末幀。
+
+```text
+subject_definitions:
+<Subject 1> is Moli from <Picture 1>: ethereally beautiful young East Asian calligraphy immortal heroine, calm cold refined face, long flowing jet-black hair with jade hairpin, layered ivory-white and ink-black silk hanfu robe with gold brushstroke trim, wielding a tall ornate pale-jade giant calligraphy brush staff.
+
+<Subject 2> is the ancient mountain fortress pass from <Picture 2>: weathered towering dark-stone bastion wall, wide flagstone approach road winding down a misty valley, dramatic stormy twilight sky.
+
+summary:
+[reference generation] A 15-second 16:9 spectacular 2.5D AI manju army-clearing ultimate sequence of <Subject 1> atop <Subject 2>, vaulting above a charging dark armored horde, painting a hundred-meter golden-ink calligraphy seal in midair during a serene close-up, unleashing three colossal black-gold ink dragons to obliterate the army with a stark ink impact frame.
+
+retention_analysis:
+<Subject 1> ([Shot 1]-[Shot 4]): fully_preserved - Serene refined face, flowing jet-black hair with jade pin, ivory-ink-gold hanfu robe, giant jade calligraphy brush staff.
+
+<Subject 2> ([Shot 1]-[Shot 4]): fully_preserved - Ancient stone fortress bastion, wide valley road, stormy twilight clouds.
+
+detailed_description:
+High-end 2.5D semi-realistic AI manju guoman calligraphy-ink fantasy rendering with luminous gold leaf particles, fluid living ink dragons, and monumental epic scale.
+
+[Shot 1] High-end 2.5D AI manju ink-fantasy rendering over <Subject 2>. Action erupts within half a second: a vast tide of dark-armored shadow soldiers surges up the mountain pass road while <Subject 1> springs high off the stone parapet into midair, her giant jade calligraphy brush trailing thick streams of swirling black ink and crackling golden sparks. Camera dives and sweeps upward fast.
+
+[Shot 2] At 00:03.200, the camera cuts to a smooth close-up of <Subject 1>'s refined face floating effortlessly in wind: calm cold aristocratic expression, smooth relaxed brows, softly closed lips, cool focused eyes reflecting golden ink light as silky black hair and wide sleeves billow; the camera pulls back fast orbiting as she sweeps her giant brush in a grand fluid arc, painting a luminous hundred-meter floating circle of swirling black ink and glowing gold calligraphy runes across the stormy sky. Camera holds steady then orbits wide.
+
+[Shot 3] At 00:07.000, the camera cuts to a monumental diving aerial tracking shot as the giant floating ink ring erupts into three colossal black-and-gold living ink dragons with glowing golden eyes and flowing ink manes, coiling downward at blinding speed straight into the charging dark armored army below. Camera dives fast alongside the dragons.
+
+[Shot 4] At 00:10.800, the camera cuts to a wide impact angle as the three ink dragons slam through the enemy ranks, triggering a crisp two-frame stark black-and-white calligraphic brush-splatter impact frame before snapping back to color in a towering wave of black ink and golden light that sweeps and dissolves hundreds of dark soldiers into drifting gold dust; <Subject 1> lands gracefully back atop the stone bastion lowering her brush, chest rising calmly on a quiet breath as fine black ink rain, gold flakes, and wide silk sleeves drift through the final frame. Camera jolts on impact and pulls back smoothly.
+
+overall_soundscape: Thundering armored army march, heavy wet brush sweep through air, roaring living ink dragons, thunderous shockwave boom, dissolving armor chime, and soft ink rain pattering on stone.
+
+non_diegetic_music: Grand heroic Chinese guzheng and sweeping orchestral strings driven by war taiko drums, cutting dead silent for a split second at the black-and-white ink impact frame before soaring to a majestic finish.
+```

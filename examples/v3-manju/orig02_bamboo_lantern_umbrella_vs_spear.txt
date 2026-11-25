@@ -1,0 +1,56 @@
+#!profile: fight
+#!face-style: aesthetic
+## 中文導演母稿（15 秒｜16:9｜原創獨特武戲 2：《雨夜千燈竹林・機關油紙傘＋紅絲線 vs 冰裂長槍》｜2.5D AI 漫劇｜無對白）
+
+**項目總述**：暴雨黑夜懸掛千盞紅燈籠的深幽竹海裡，黑紅錦繡俠女緋雨（持鋼骨赤紅油紙傘＋指間無形赤靈絲）與玄黑銀甲槍客寒戟（持丈二寒霜長槍）展開 15 秒極致意境高速雨夜決戰。呈現旋傘捲雨成盾、長槍螺旋掃斷三竹、紅絲繫竹彈射、冰槍突刺炸燈籠、傘骨綻紅絲網困槍繳械的獨門巧技。
+
+**0—3 秒（旋傘捲雨破槍與斷竹火花）**：
+- `[00:00.000]` 鏡 1（貼地水面倒影低拍）：暴雨如注，寒戟單手螺旋抖出丈二寒霜長槍破開雨幕直刺；緋雨撐開赤紅油紙傘高速旋轉，傘面捲起環形水盾硬偏槍鋒，反手合傘如短刃點刺其肩甲，積水四濺。
+
+**3—6 秒（橫掃斷竹與凌空踏竹追殺）**：
+- `[00:03.200]` 鏡 2（高速橫搖跟拍）：寒戟沉腰大開大合橫掃寒霜長槍，一氣斬斷三根濕潤青竹、冰霜爆碎；他順勢踏上傾倒的斷竹凌空前衝，長槍帶起藍白冰渦連環點刺，劈爆兩盞紅燈籠火星紛飛。
+
+**6—9 秒（紅絲繫竹彈射與雨夜冷顏特寫）**：
+- `[00:06.200]` 鏡 3（平滑近景特寫切高空俯衝）：紅燈柔光照亮緋雨清冷絕美的側顏——平靜舒展的眉峰、柔闔紅唇、冷眸映出雨滴與紅光，黑髮濕縷貼頰；她指尖輕挑，數縷赤紅靈絲纏上高處青竹猛然收緊，將她如紅燕般彈射至寒戟頭頂盲區。
+
+**9—12 秒（近身擒槍提膝摔投）**：
+- `[00:09.100]` 鏡 4（高速環繞低仰拍）：緋雨俯衝以赤傘骨勾住寒戟槍桿順勢貼近，提膝頂腹接低掃腿絆翻重心；寒戟俊眉微揚、雙唇微啟低吸一氣保持冷峻俊美，單手撐水翻身滑退激起高浪。
+
+**12—15 秒（傘面綻紅絲網困槍終結）**：
+- `[00:12.000]` 鏡 5（張力中景切緩拉）：寒戟回馬寒霜長槍穿心再刺；緋雨迎鋒將赤紅油紙傘驟然全展爆出細密赤紅靈絲網死死纏死槍尖與槍桿，旋腕一擰將長槍奪飛深插青竹，足尖點退半步重新撐傘立於積水紅光之中，寒戟單膝點水胸口起伏微喘，暴雨、殘竹與紅燈火星持續飛舞至末幀。
+
+```text
+subject_definitions:
+<Subject 1> is Feiyu from <Picture 1>: strikingly beautiful East Asian martial heroine, calm cold refined face, long silky black hair half-pinned with crimson tassel, black-and-crimson embroidered silk wuxia robe with fitted sleeves and boots, wielding a crimson steel-ribbed oil-paper umbrella and glowing fine red silk threads.
+
+<Subject 2> is Hanji from <Picture 2>: tall handsome East Asian spear warrior, calm sharp aristocratic face, high-bound dark hair, obsidian-black and silver-trimmed armored martial robe, wielding a long translucent frost-steel spear.
+
+<Subject 3> is the rain-soaked red-lantern bamboo forest at night from <Picture 3>: towering wet emerald bamboo stalks, dozens of glowing crimson paper lanterns hanging among branches, shallow rain-rippled dark stone path reflecting red lantern light, heavy midnight rain.
+
+summary:
+[reference generation] A 15-second 16:9 atmospheric 2.5D AI manju nocturnal duel between <Subject 1> with a steel-ribbed red umbrella and red silk threads and <Subject 2> with a frost spear in <Subject 3>, featuring spinning water-shield deflection, bamboo-slicing spear leaps, thread-sling aerial ambush, grapple sweep, and silk-web spear disarm.
+
+retention_analysis:
+<Subject 1> ([Shot 1]-[Shot 5]): fully_preserved - Cold refined face, silky black hair with crimson tassel, black-crimson silk robe, crimson steel umbrella, red silk threads.
+
+<Subject 2> ([Shot 1]-[Shot 5]): fully_preserved - Handsome composed face, high-bound dark hair, obsidian-silver armored robe, frost-steel spear.
+
+<Subject 3> ([Shot 1]-[Shot 5]): fully_preserved - Rain-soaked emerald bamboo forest, glowing hanging red lanterns, dark reflective puddles, midnight rain.
+
+detailed_description:
+High-end 2.5D semi-realistic AI manju guoman rain-night wuxia rendering with glossy wet reflections, vivid crimson-versus-frost contrast, and crisp water-droplet physics.
+
+[Shot 1] High-end 2.5D AI manju rain-night rendering in <Subject 3>. First clash strikes within half a second: <Subject 2> spirals his long frost spear forward parting heavy rain sheets; <Subject 1> snaps open her crimson oil-paper umbrella spinning it fast into a circular vortex water shield that deflects the spear wide, then snaps the umbrella shut to jab his silver shoulder guard as puddles erupt. Camera skims low over reflective water.
+
+[Shot 2] At 00:03.200, the camera cuts to a fast horizontal tracking shot as <Subject 2> sweeps his frost spear wide, cleanly shearing three wet green bamboo stalks in frost sparks; he vaults onto a falling bamboo trunk surging forward with rapid frost-vortex thrusts that burst two crimson lanterns into drifting embers. Camera tracks sideways fast.
+
+[Shot 3] At 00:06.200, the camera cuts to a smooth close-up of <Subject 1>'s refined face lit by warm red lantern glow: calm cold expression, smooth relaxed brows, softly closed lips, focused dark eyes catching falling rain streaks as damp hair rests on her cheek; her fingers flick glowing fine red silk threads anchoring to upper bamboo stalks, slingshotting her swiftly up into <Subject 2>'s overhead blind spot. Camera holds steady then swoops upward fast.
+
+[Shot 4] At 00:09.100, the camera cuts to a fast orbiting low shot as <Subject 1> dives down hooking his spear shaft with her steel umbrella ribs, seizing his wrist to drive a knee into his flank and execute a crisp hip-throw with a low ankle sweep; <Subject 2>'s brows lift a fraction and lips barely part on a quiet breath, keeping his handsome composed features intact as he slaps one palm into the puddle flipping back in a tall spray. Camera orbits fast.
+
+[Shot 5] At 00:12.000, the camera cuts to a tense medium shot as <Subject 2> lunges in a final frost-spear thrust. <Subject 1> pops her red umbrella wide unleashing a crisp web of glowing red silk threads that binds the spearhead, pivots her wrist to wrench the frost spear free pinning it deep into a bamboo trunk, and glides half a step back opening her umbrella poised over red puddles; <Subject 2> drops to one knee skidding in water with chest rising slightly on a breath, rain sheets, sliced bamboo leaves, and lantern sparks swirling through the final frame. Camera jolts on disarm and pulls back smoothly.
+
+overall_soundscape: Heavy midnight rain pouring on bamboo leaves, spinning umbrella water whoosh, crystalline frost spear hum, snapping bamboo stalks, popping lantern sparks, puddle splashes, and taut silk thread twang.
+
+non_diegetic_music: Haunting solo erhu and brisk wooden clappers over deep rain-night taiko drums, dropping silent for a beat at the silk-web spear disarm before swelling smoothly.
+```
