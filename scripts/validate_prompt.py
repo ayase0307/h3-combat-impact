@@ -43,6 +43,34 @@ MOVE_CATS = {
 BLADE_LIMIT_15 = 12
 BLADE_LIMIT_8 = 7
 
+# 動作物理防呆正則：姿態—位移衝突與溜冰滑行詞攔截
+GROUNDED_STATIC = re.compile(
+    r"\b(kneels?|kneeling|knelt|crouches?|crouching|squats?|squatting|"
+    r"sits?|sitting|seated|meditates?|meditating|on\s+(?:one|both|his|her)\s+knees?)\b",
+    re.I,
+)
+FAST_TRANSLATE = re.compile(
+    r"\b(sprints?|sprinting|dashes?|dashing|hurtles?|hurtling|streaks?\s+across|"
+    r"charges?\s+across|rushes?\s+across|rockets?\s+forward|tracks?\s+sideways\s+fast|"
+    r"whip[- ]pans?)\b",
+    re.I,
+)
+POSTURE_RELEASE = re.compile(
+    r"\b(rises?|rising|stands?\s+up|leaps?\s+up|springs?\s+up|explodes?\s+upward|"
+    r"pushes?\s+off|drives?\s+off|launches?\s+up)\b",
+    re.I,
+)
+SKID_SLIDE = re.compile(
+    r"\b(skids?|skidding|skidded|slides?|sliding|slid|glides?\s+across|"
+    r"gliding\s+across|skates?|skating)\b",
+    re.I,
+)
+BLADE_SLIDE_EXC = re.compile(
+    r"\b(blades?\s+slides?|sword\s+slides?|steel\s+slides?|edge\s+slides?|"
+    r"slides?\s+along\s+the\s+(?:blade|shaft|guard|edge)|slides?\s+off\s+(?:his|her|the)\s+(?:blade|fan|shield|guard))\b",
+    re.I,
+)
+
 MUSCLE = re.compile(
     r"\b(brows?|eyelids?|lids?|jaw|jaws|teeth|clench\w*|lips?|mouth|throat|"
     r"nostrils?|temple|cheeks?|chin|breath\w*|gasp\w*|swallow\w*|"
@@ -51,6 +79,11 @@ MUSCLE = re.compile(
 FAKE_FACE = re.compile(
     r"\b(irises?|pupils?|eyes?)\s+(narrow\w*|widen\w*|glow\w*|lit|lit up|"
     r"reflecting|reflected)\b", re.I)
+# 美型角色（國漫／AI 漫劇／仙俠）過激毀臉詞：容易讓 H3 拉扯出齜牙咧嘴的醜臉
+HARSH_FACE = re.compile(
+    r"\b(teeth\s+clench\w*|clenched\s+teeth|lips?\s+peel\w*\s+back|"
+    r"mouth\s+wrench\w*\s+open|jaw\s+muscles?\s+bunch\w*|jaw\s+bunch\w*|"
+    r"brows?\s+slam\w*\s+down|spit\s+flying|vein\s+stands?\s+out)\b", re.I)
 TS = re.compile(r"At\s+(\d{2}):(\d{2}\.\d{2,3})")
 SHOT = re.compile(r"\[Shot (\d+)\]")
 LABEL = re.compile(r"<(Subject|Picture|Video|Audio) (\d+)>")
@@ -96,8 +129,23 @@ def read_profile(raw, path=None):
 def extract(text):
     blocks = re.findall(r"```(?:text)?\s*\n(.*?)\n```", text, re.S)
     if blocks:
+        # 雙語檔案可能含中文與英文多區塊，優先擷取包含官方 H3 欄位的區塊
+        for b in blocks:
+            if re.search(r"^\s*(?:subject_definitions|integrated_multimodal_description)\s*:", b, re.M):
+                return b.strip()
         return max(blocks, key=len).strip()
     return text.strip()
+
+
+def extract_zh_part(raw):
+    """擷取雙語檔中位於英文 H3 區塊之前的中文導演母稿（若有）。"""
+    m = re.search(r"```(?:text)?\s*\n\s*(?:subject_definitions|integrated_multimodal_description)\s*:", raw, re.M)
+    if not m:
+        m = re.search(r"^\s*(?:subject_definitions|integrated_multimodal_description)\s*:", raw, re.M)
+    if not m or m.start() < 30:
+        return ""
+    head = raw[:m.start()].strip()
+    return head if re.search(r"[\u4e00-\u9fff]{10,}", head) else ""
 
 
 def field_positions(body):
@@ -120,7 +168,19 @@ def section(body, name, all_names):
     return body[start:end]
 
 
-def check(path, duration, profile="auto"):
+def read_face_style(raw, body, requested):
+    """決定表情顏值檔：顯式參數 > 檔頭 #!face-style > 自動偵測國漫/漫劇/仙俠美型關鍵字。"""
+    if requested in ("aesthetic", "rugged"):
+        return requested
+    m = re.search(r"^#!\s*face[-_]style\s*:\s*(aesthetic|rugged)", raw, re.M | re.I)
+    if m:
+        return m.group(1).lower()
+    if re.search(r"\b(donghua|manju|guoman|xianxia|2\.5d)\b", body, re.I) or re.search(r"國漫|漫劇|仙俠|美型", raw):
+        return "aesthetic"
+    return "rugged"
+
+
+def check(path, duration, profile="auto", check_sync=False, face_style="auto", strict_physics=False):
     raw = open(path, encoding="utf-8").read()
     body = extract(strip_meta(raw))
     prof = read_profile(raw, path) if profile in (None, "auto") else profile
@@ -175,11 +235,101 @@ def check(path, duration, profile="auto"):
     if duration and stamps and stamps[-1] >= duration:
         out.append(("FAIL", f"時間碼 {stamps[-1]:.2f}s 超出時長 {duration}s")); fail += 1
 
-    # Shot 1 不得有時間碼
-    seg1 = section(body, "integrated_multimodal_description", fields)
+    # Shot 1 不得有時間碼，並逐鏡解析時長與動作物理合理性
+    desc_field = "detailed_description" if is_ref else "integrated_multimodal_description"
+    seg1 = section(body, desc_field, fields)
     s1 = re.search(r"\[Shot 1\](.*?)(?=\[Shot 2\]|$)", seg1, re.S)
     if s1 and TS.search(s1.group(1)):
         out.append(("FAIL", "[Shot 1] 出現時間碼")); fail += 1
+
+    # 逐鏡動作物理防呆：1) 接地靜態姿態 × 高速平移衝突；2) 單鏡短時長動作超載
+    shot_blocks = list(re.finditer(r"\[Shot (\d+)\](.*?)(?=\[Shot \d+\]|\Z)", seg1, re.S))
+    shot_starts = [0.0] + stamps
+    use_strict_physics = strict_physics or bool(re.search(r"^#!\s*physics\s*:\s*strict\b", raw, re.M | re.I))
+
+    for idx, sb in enumerate(shot_blocks):
+        s_num = int(sb.group(1))
+        s_txt = sb.group(2)
+        s_start = shot_starts[idx] if idx < len(shot_starts) else 0.0
+        s_end = shot_starts[idx + 1] if (idx + 1) < len(shot_starts) else (duration or (s_start + 2.5))
+        s_dur = max(0.2, s_end - s_start)
+
+        g_match = GROUNDED_STATIC.search(s_txt)
+        f_match = FAST_TRANSLATE.search(s_txt)
+        if g_match and f_match and not POSTURE_RELEASE.search(s_txt):
+            out.append((
+                "FAIL",
+                f"[Shot {s_num}] 姿態—位移物理衝突：接地鎖死姿態 '{g_match.group(0)}' 與高速平移 '{f_match.group(0)}' 同鏡且無蹬離起身詞，必導致角色貼地滑行！"
+            ))
+            fail += 1
+
+        if use_strict_physics and prof not in ("ultra", "blade-light"):
+            core_verbs = sum(
+                len(re.findall(MOVE_CATS[k], s_txt, re.I))
+                for k in ("blade", "kick", "punch", "throw", "sweep", "grab")
+            )
+            if s_dur < 1.8 and core_verbs >= 5:
+                out.append((
+                    "WARN",
+                    f"[Shot {s_num}] 時長僅 {s_dur:.2f}s 卻塞入 {core_verbs} 個核心攻防動詞（幀數不足演完跨步與轉胯，易變瞬移或原地空揮，建議拉長至 2.2-2.8s 或精簡動作）"
+                ))
+                warn += 1
+
+    # v3.0 嚴格物理閘門（--strict-physics 或檔頭 #!physics: strict 啟用）：溜冰滑行與打地板陷阱
+    if use_strict_physics:
+        cleaned_slide_txt = BLADE_SLIDE_EXC.sub("", seg1)
+        skid_hits = [m.group(0).lower() for m in SKID_SLIDE.finditer(cleaned_slide_txt)]
+        if len(skid_hits) >= 2:
+            out.append((
+                "FAIL",
+                f"偵測到 {len(skid_hits)} 處地面滑行詞（{', '.join(skid_hits)}）—— 濫用 slide/skid 會誘發角色腳不沾地溜冰步！請改用離散步態動詞（plants boot / drives off / steps / pivots）"
+            ))
+            fail += 1
+        elif len(skid_hits) == 1:
+            out.append((
+                "WARN",
+                f"含 1 處滑行詞（{skid_hits[0]}），請確認僅用於重擊硬直短促退步，而非主動進攻滑行"
+            ))
+            warn += 1
+
+        if prof == "fight":
+            floor_refs = re.findall(
+                r"\b(boots?|platform|floor|ground|deck|metal\s+plates?|bronze\s+seam|sinks?\s+(?:his|her)\s+stance)\b",
+                seg1,
+                re.I,
+            )
+            down_strikes = re.findall(
+                r"\b(plunging\s+downward|low\s+upward\s+cut|slams?\s+[^.;]{0,40}\bonto\s+the\s+(?:brass|bronze|platform|floor|deck))\b",
+                seg1,
+                re.I,
+            )
+            if down_strikes:
+                out.append((
+                    "WARN",
+                    f"偵測到向下撲擊/砸地高危句（{', '.join(set(x.lower() for x in down_strikes))}）—— H3 極易畫成彎腰捶地板爆火花！建議改鎖胸肩高度（at chest/shoulder height）與垂直牆面受擊"
+                ))
+                warn += 1
+            if len(floor_refs) >= 6:
+                out.append((
+                    "WARN",
+                    f"近戰描述出現 {len(floor_refs)} 次靴底/平台地板詞 —— 易迫使鏡頭拉成俯視地板遠景導致短兵構不到人而砍地板！建議改用 tight waist-up / thigh-up two-shot within arm's reach"
+                ))
+                warn += 1
+
+    # 大招光束「倒退拉鏡反向錯覺（Reverse-Beam Pullback）」檢核
+    for idx, sb in enumerate(shot_blocks):
+        s_num = int(sb.group(1))
+        s_txt = sb.group(2)
+        if (
+            re.search(r"\b(beam|cannon|ray|torrent)\b", s_txt, re.I)
+            and re.search(r"\bpulls?\s+(?:far\s+)?back\b", s_txt, re.I)
+            and re.search(r"\b(pulverized|shattered|cratered|ruined)\b", s_txt, re.I)
+        ):
+            out.append((
+                "WARN",
+                f"[Shot {s_num}] 光束鏡同時含 'pulls back' 與已毀滅狀態詞 —— 鏡頭從爆炸靶心倒退拉回發射者手部，視覺上會像衝擊波打完倒吸回手裡！建議改用 locked aerial shot 並描述波環 away from hand toward target 引爆"
+            ))
+            warn += 1
 
     # 末鏡長度
     if duration and stamps:
@@ -245,6 +395,14 @@ def check(path, duration, profile="auto"):
         out.append(("WARN", "用眼睛形狀代替表情（如 irises narrow），"
                             "那不是肌肉動作"))
         warn += 1
+    eff_face = read_face_style(raw, body, face_style)
+    if eff_face == "aesthetic" and not rules.get("skip_face"):
+        harsh = sorted(set(m.group(0).lower() for m in HARSH_FACE.finditer(body)))
+        if harsh:
+            out.append(("WARN", f"偵測到美型臉過激詞（{', '.join(harsh)}），"
+                                "國漫／AI 漫劇角色易被 H3 拉扭曲；建議改 A 檔微表情詞"
+                                "（或改傳 --face-style rugged）"))
+            warn += 1
 # 招式多樣性：看「刀路佔比」，不是絕對次數（長提示詞刀路次數自然高）
     counts = {k: len(re.findall(v, body, re.I)) for k, v in MOVE_CATS.items()}
     blade = counts.get("blade", 0)
@@ -270,6 +428,22 @@ def check(path, duration, profile="auto"):
             out.append(("WARN", "完全沒有下盤/絆 —— 全程在同一個高度打"))
             warn += 1
 
+    # 雙語時間線同步檢查（--check-sync）
+    if check_sync:
+        zh = extract_zh_part(strip_meta(raw))
+        if not zh:
+            out.append(("WARN", "啟用 --check-sync 但未偵測到中文導演母稿"))
+            warn += 1
+        else:
+            zh_ts = [int(m.group(1)) * 60 + float(m.group(2))
+                     for m in re.finditer(r"(?:At\s+|切鏡\s*[:：]?\s*|[\[(【])(\d{2}):(\d{2}\.\d{1,3})", zh)]
+            # [Shot 1] 在英文官方規格中不寫 00:00.000，中文母稿若標了 00:00.000 則略過首項再比對後續切點
+            if zh_ts and zh_ts[0] == 0.0 and (not stamps or stamps[0] > 0.0):
+                zh_ts = zh_ts[1:]
+            if zh_ts and [round(x, 2) for x in zh_ts] != [round(x, 2) for x in stamps]:
+                out.append(("FAIL", f"中英文切鏡時間碼不同步：中文 {zh_ts} vs 英文 {stamps}"))
+                fail += 1
+
     # 字數預算
     words = len(body.split())
     limit = rules.get("word_cap") or (820 if is_ref else 520)
@@ -294,6 +468,12 @@ def main():
     ap.add_argument("--profile", default="auto",
                     choices=["auto"] + list(PROFILES),
                     help="打法模式；auto = 讀檔頭 #!profile，沒有就 fight")
+    ap.add_argument("--check-sync", action="store_true",
+                    help="雙語檔案額外檢查中文母稿與英文 H3 的切鏡時間碼同步")
+    ap.add_argument("--face-style", default="auto", choices=["auto", "aesthetic", "rugged"],
+                    help="表情顏值檔：auto=國漫/漫劇/仙俠自動走 aesthetic 美型檢核；aesthetic=強制檢核過激毀臉詞；rugged=粗獷寫實/野獸")
+    ap.add_argument("--strict-physics", action="store_true",
+                    help="啟用 v3.0 嚴格物理防滑與防打地板檢核（亦可在檔頭寫 #!physics: strict）")
     a = ap.parse_args()
 
     files = [a.file] if a.file else []
@@ -304,7 +484,7 @@ def main():
         ap.print_help()
         return 1
 
-    total = sum(check(f, a.duration, a.profile) for f in files)
+    total = sum(check(f, a.duration, a.profile, a.check_sync, a.face_style, a.strict_physics) for f in files)
     print(f"\n合計 FAIL {total} 項")
     return 1 if total else 0
 

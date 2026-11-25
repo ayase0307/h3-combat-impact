@@ -86,5 +86,38 @@ class TestProfiles(unittest.TestCase):
         self.assertIn("摔投", p.stdout + p.stderr)
 
 
+class TestV2BilingualSync(unittest.TestCase):
+    def test_v2_caseA_bilingual_sync_pass(self):
+        p_path = os.path.join(EXAMPLES, "v2-demo", "caseA_duel.txt")
+        cmd = [sys.executable, VALIDATOR, p_path, "--duration", "15", "--check-sync"]
+        p = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
+        self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+        # 舊 v2 caseA 含美型臉過激詞，應在 auto(aesthetic) 觸發 WARN
+        self.assertIn("美型臉過激詞", p.stdout + p.stderr)
+
+    def test_v2_caseB_bilingual_sync_pass(self):
+        p_path = os.path.join(EXAMPLES, "v2-demo", "caseB_beast.txt")
+        cmd = [sys.executable, VALIDATOR, p_path, "--duration", "15", "--check-sync"]
+        p = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
+        self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+
+    def test_v3_manju_aesthetic_zero_warn(self):
+        for fname, dur in (("caseA_manju_duel.txt", "15"), ("caseA_manju_8s.txt", "8")):
+            p_path = os.path.join(EXAMPLES, "v3-manju", fname)
+            cmd = [sys.executable, VALIDATOR, p_path, "--duration", dur, "--check-sync"]
+            p = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
+            out = p.stdout + p.stderr
+            self.assertEqual(p.returncode, 0, out)
+            self.assertNotIn("[WARN]", out, out)
+
+
+    def test_v3_flagship_strict_physics_pass(self):
+        for fname in ("orig01_v13_crimson_frost_blade_duel.txt", "rep04_v4_myriad_swords_cannon.txt"):
+            p_path = os.path.join(EXAMPLES, "v3-manju", fname)
+            cmd = [sys.executable, VALIDATOR, p_path, "--duration", "15", "--check-sync", "--strict-physics"]
+            p = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
+            self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

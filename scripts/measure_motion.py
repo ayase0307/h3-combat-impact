@@ -132,6 +132,61 @@ def static_symmetric(path):
     return hits
 
 
+def _measure_crop(path, crop_expr):
+    cmd = [
+        "ffmpeg", "-v", "error", "-i", path,
+        "-vf", f"crop={crop_expr},tblend=all_mode=difference,signalstats,"
+               "metadata=print:key=lavfi.signalstats.YAVG:file=-",
+        "-f", "null", "-",
+    ]
+    out = subprocess.run(cmd, capture_output=True, text=True, errors="ignore").stdout
+    ts, ys = [], []
+    t = None
+    for line in out.splitlines():
+        line = line.strip()
+        if line.startswith("frame:"):
+            for q in line.split():
+                if q.startswith("pts_time:"):
+                    try:
+                        t = float(q.split(":")[1])
+                    except ValueError:
+                        t = None
+        elif line.startswith("lavfi.signalstats.YAVG=") and t is not None:
+            try:
+                ys.append(float(line.split("=")[1]))
+                ts.append(t)
+            except ValueError:
+                pass
+    return ts, ys
+
+
+def detect_ground_slide(path):
+    """偵測「背景邊緣高速流動、但中央主體軀幹僵死鎖定」的貼地滑行區段（如 rep04_v2 滑雪病灶）。
+
+    比較左右外緣背景帶（左 18% + 右 18%）平均幀差與中央核心區（中 36% 寬 × 中下 50% 高）幀差：
+    當外緣背景劇烈流動（border > 14）且外緣/核心比值持續偏高（border / core > 1.35）連續 ≥ 1.0 秒，
+    代表鏡頭/地面高速滑過但畫面中心角色姿勢僵死未跨步（Ground-Sliding / Ice-Skating Artifact）。
+    """
+    ts_l, y_l = _measure_crop(path, "iw*0.18:ih*0.70:0:ih*0.15")
+    ts_r, y_r = _measure_crop(path, "iw*0.18:ih*0.70:iw*0.82:ih*0.15")
+    ts_c, y_c = _measure_crop(path, "iw*0.36:ih*0.52:iw*0.32:ih*0.36")
+    if not y_l or not y_r or not y_c:
+        return []
+    n = min(len(y_l), len(y_r), len(y_c))
+    dur = int(ts_c[n - 1]) + 1
+    slide_secs = []
+    for sec in range(dur):
+        b_vals = [0.5 * (y_l[i] + y_r[i]) for i in range(n) if sec <= ts_c[i] < sec + 1]
+        c_vals = [y_c[i] for i in range(n) if sec <= ts_c[i] < sec + 1]
+        if not b_vals or not c_vals:
+            continue
+        b_mean = st.mean(b_vals)
+        c_mean = max(0.5, st.mean(c_vals))
+        if b_mean >= 18.5 and (b_mean / c_mean) >= 1.35:
+            slide_secs.append(f"{sec}-{sec+1}s({b_mean/c_mean:.2f}x)")
+    return slide_secs
+
+
 def detect_fps(path):
     """偵測實際帧率（含 2:3 pulldown 的偽 60fps）。
 
@@ -239,6 +294,8 @@ def main():
     ap.add_argument("--dir", help="掃描目錄下所有 mp4")
     ap.add_argument("--symmetry", action="store_true",
                     help="額外檢查「靜止對稱段」（遊戲技能展示式的姿勢）")
+    ap.add_argument("--footplant", action="store_true",
+                    help="額外檢查「背景狂流但中央主體僵死」的貼地滑行區段（Ground-Sliding）")
     ap.add_argument("--fps24", action="store_true",
                     help="顯示折回 24fps 等效值（跨幀率比較用）")
     a = ap.parse_args()
@@ -262,6 +319,10 @@ def main():
                 hits = static_symmetric(f)
                 if hits:
                     flags.append("靜止對稱 " + ",".join(f"{s}-{s+1}s" for s in hits))
+            if a.footplant:
+                slides = detect_ground_slide(f)
+                if slides:
+                    flags.append("貼地滑行疑慮 " + ",".join(slides))
             print(f"{r['name'][:24]:<26}{r['dur']:>6.2f}{r['fps']:>8.2f}{r['nframes']:>6}"
                   f"{r['overall24']:>8.2f}{r['opening24']:>8.2f}{r['ending24']:>8.2f}"
                   f"{r['ratio'] * 100:>6.0f}%{r['peaks24']:>7}  "
