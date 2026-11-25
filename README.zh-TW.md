@@ -209,10 +209,22 @@ python scripts/measure_sharpness.py out/duel_p9.mp4
     </td>
   </tr>
   <tr>
+    <td align="center">
+      <a href="assets/showcase/character-bloodmoon.mp4"><img src="assets/showcase/character-bloodmoon.gif" alt="血紅花瓣荒原：白衣少女彈指、空氣碎裂成黑色多面體、白光巨柱橫斬"></a><br>
+      <b><a href="assets/showcase/character-bloodmoon.mp4">角色技能重現 A · 血月少女</a></b><br>
+      <sub>三張自製參考圖 10 秒 Ref2VA · <a href="examples/bloodmoon-ultimate-ref2va.txt">提示詞</a></sub>
+    </td>
+    <td align="center">
+      <a href="assets/showcase/character-jade.mp4"><img src="assets/showcase/character-jade.gif" alt="雨落黑岩：翡翠靈絲自腳踝甦醒、青眸點亮、裂空召喚三道符紋巨爪"></a><br>
+      <b><a href="assets/showcase/character-jade.mp4">角色技能重現 B · 執傘女修</a></b><br>
+      <sub>三張自製參考圖 10 秒 Ref2VA · <a href="examples/jade-rift-summon-ref2va.txt">提示詞</a></sub>
+    </td>
+  </tr>
+  <tr>
     <td align="center" colspan="2">
-      <a href="assets/showcase/impact-composite.mp4"><img src="assets/showcase/impact-composite.gif" alt="超高速片段，後製合成三階段漫畫衝擊序列" width="50%"></a><br>
-      <b><a href="assets/showcase/impact-composite.mp4">後製加上衝擊幀</a></b><br>
-      <sub>逐幀精準合成 3 × 2 漫畫衝擊序列 · <a href="references/impact-frame-post.md">做法</a></sub>
+      <a href="assets/showcase/impact-inline.mp4"><img src="assets/showcase/impact-inline.gif" alt="紅衣白髮女子穿行雷電黑煙，畫面直接硬切多張整屏手繪衝擊卡" width="50%"></a><br>
+      <b><a href="assets/showcase/impact-inline.mp4">28 秒衝擊幀復刻（寫進提示詞內嵌出卡）</a></b><br>
+      <sub>9 鏡 H3 原生手繪衝擊卡，免後製合成 · <a href="examples/impact-frame-screenplay.txt">提示詞</a> · <a href="references/impact-frame-inline.md">做法</a></sub>
     </td>
   </tr>
 </table>
@@ -254,7 +266,8 @@ python scripts/measure_sharpness.py out/duel_p9.mp4
 | [`references/continuous-brawl.md`](references/continuous-brawl.md) / [`ultra-speed.md`](references/ultra-speed.md) | 連續對轟四拍模式、8 秒 10–14 鏡 ULTRA_SPEED 快切 |
 | [`references/camera-grammar.md`](references/camera-grammar.md) / [`cinematic-camera.md`](references/cinematic-camera.md) / [`drone-camera.md`](references/drone-camera.md) | 官方運鏡語法、三檔速度與幅度跳級、無人機 8 機位 |
 | [`references/blade-light-cinema.md`](references/blade-light-cinema.md) / [`ultimate-move.md`](references/ultimate-move.md) / [`vfx-vocabulary.md`](references/vfx-vocabulary.md) | 21:9 刃光電影語言、有靶有傷的大招原型、中英特效與色彩腳本 |
-| [`references/impact-frame-and-shake.md`](references/impact-frame-and-shake.md) / [`impact-frame-post.md`](references/impact-frame-post.md) | 衝擊幀四路徑（Dial 脈衝／後製合成／卡片／爆白）、震屏衰減 |
+| [`references/impact-frame-and-shake.md`](references/impact-frame-and-shake.md) / [`impact-frame-post.md`](references/impact-frame-post.md) / [`impact-frame-inline.md`](references/impact-frame-inline.md) | 衝擊幀四路徑（Dial 脈衝／內嵌多卡閃切／後製合成／爆白）、震屏衰減 |
+| [`references/shot-five-part-combat.md`](references/shot-five-part-combat.md) / [`speed-acceleration.md`](references/speed-acceleration.md) / [`vfx-choreography.md`](references/vfx-choreography.md) / [`character-signature-skill.md`](references/character-signature-skill.md) | 每鏡五小節（含重心參數）、提速八級與動作密度、特效空間五點骨架、角色專屬技能重現 |
 | [`references/segment-continuity.md`](references/segment-continuity.md) / [`fl2va-chain.md`](references/fl2va-chain.md) / [`monster-scale.md`](references/monster-scale.md) | 多段三表工程、接縫檢查、以小打大巨獸尺度參照 |
 | [`references/formats.md`](references/formats.md) / [`output-format.md`](references/output-format.md) / [`screenplay-format.md`](references/screenplay-format.md) / [`prompt-templates.md`](references/prompt-templates.md) / [`guided-mode.md`](references/guided-mode.md) / [`qa-checklist.md`](references/qa-checklist.md) / [`remix-pika-route.md`](references/remix-pika-route.md) | 三格式決策表、官方三／六欄位契約、劇本式格式、填空模板、引導樹、QA 與 REMIX 路線 |
 

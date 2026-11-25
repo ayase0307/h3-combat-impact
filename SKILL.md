@@ -172,7 +172,8 @@ python scripts/measure_sharpness.py out/fight_v3.mp4
 | `references/choreography.md` / `move-library.md` | 招式配額制（刀路上限）、真摔判準、三高度串接、16 招具名庫 |
 | `references/facial-performance.md` | 肌肉微表情部位清單、四階段表情、收放對比、生理反應 |
 | `references/force-field.md` | 力場四通道模型、三種場型、中英句庫 |
-| `references/impact-frame-and-shake.md` / `impact-frame-post.md` | 衝擊幀四路徑（Dial 脈衝／後製／卡片／閃白）、震屏衰減數學、hitstop |
+| `references/impact-frame-and-shake.md` / `impact-frame-post.md` / `impact-frame-inline.md` | 衝擊幀四路徑（Dial 脈衝／內嵌多卡閃切／後製合成／爆白）、震屏衰減數學、hitstop |
+| `references/shot-five-part-combat.md` / `speed-acceleration.md` / `vfx-choreography.md` / `character-signature-skill.md` | 每鏡五小節（含重心參數）、提速八級與動作密度、特效空間範圍五點骨架、角色×專屬技能重現系統 |
 | `references/camera-grammar.md` / `cinematic-camera.md` / `drone-camera.md` | 官方運鏡自然語句、三檔速度與幅度跳級、無人機 8 機位 |
 | `references/blade-light-cinema.md` / `ultimate-move.md` / `vfx-vocabulary.md` | 21:9 刃光電影語言、大招不對稱奇觀構圖、中英特效與色彩腳本 |
 | `references/segment-continuity.md` / `monster-scale.md` / `fl2va-chain.md` | 多段三表工程、場景破壞換圖、以小打大巨獸尺度、兩段接縫檢查 |

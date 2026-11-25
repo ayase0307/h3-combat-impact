@@ -209,10 +209,22 @@ Every clip below was generated on MiniMax H3 from [`examples/`](examples/) (fixe
     </td>
   </tr>
   <tr>
+    <td align="center">
+      <a href="assets/showcase/character-bloodmoon.mp4"><img src="assets/showcase/character-bloodmoon.gif" alt="Blood-red petal field: the white-coated girl snaps her fingers, the air splinters into black polyhedra, a white pillar cuts a winged figure in half"></a><br>
+      <b><a href="assets/showcase/character-bloodmoon.mp4">Character recreation A · Blood-moon maiden</a></b><br>
+      <sub>10 s Ref2VA from three self-made references · <a href="examples/bloodmoon-ultimate-ref2va.txt">prompt</a></sub>
+    </td>
+    <td align="center">
+      <a href="assets/showcase/character-jade.mp4"><img src="assets/showcase/character-jade.gif" alt="Rain on black rock: a jade thread wakes at the ankle, cyan eyes ignite, the air tears open and three rune-covered hands claw it wide"></a><br>
+      <b><a href="assets/showcase/character-jade.mp4">Character recreation B · Umbrella cultivator</a></b><br>
+      <sub>10 s Ref2VA from three self-made references · <a href="examples/jade-rift-summon-ref2va.txt">prompt</a></sub>
+    </td>
+  </tr>
+  <tr>
     <td align="center" colspan="2">
-      <a href="assets/showcase/impact-composite.mp4"><img src="assets/showcase/impact-composite.gif" alt="An ultra-speed clip with a three-stage manga impact sequence composited in post" width="50%"></a><br>
-      <b><a href="assets/showcase/impact-composite.mp4">Impact frames added in post</a></b><br>
-      <sub>Frame-exact 3 × 2 manga burst compositing · <a href="references/impact-frame-post.md">how</a></sub>
+      <a href="assets/showcase/impact-inline.mp4"><img src="assets/showcase/impact-inline.gif" alt="A white-haired woman in a red sweater walks through lightning and black smoke; hard-cuts through full-screen hand-drawn impact cards" width="50%"></a><br>
+      <b><a href="assets/showcase/impact-inline.mp4">28 s impact-frame remake, cards written in the prompt</a></b><br>
+      <sub>Nine H3 shots with inline hand-drawn impact cards · <a href="examples/impact-frame-screenplay.txt">prompt</a> · <a href="references/impact-frame-inline.md">how</a></sub>
     </td>
   </tr>
 </table>
@@ -254,7 +266,8 @@ Every clip below was generated on MiniMax H3 from [`examples/`](examples/) (fixe
 | [`references/continuous-brawl.md`](references/continuous-brawl.md) / [`ultra-speed.md`](references/ultra-speed.md) | Four-beat non-stop brawls & 10–14 shot ULTRA_SPEED cutting |
 | [`references/camera-grammar.md`](references/camera-grammar.md) / [`cinematic-camera.md`](references/cinematic-camera.md) / [`drone-camera.md`](references/drone-camera.md) | Official camera syntax, speed/amplitude jumps, 8 drone positions |
 | [`references/blade-light-cinema.md`](references/blade-light-cinema.md) / [`ultimate-move.md`](references/ultimate-move.md) / [`vfx-vocabulary.md`](references/vfx-vocabulary.md) | 21:9 blade cinema, asymmetric target-destroying ultimates, bilingual VFX lexicon |
-| [`references/impact-frame-and-shake.md`](references/impact-frame-and-shake.md) / [`impact-frame-post.md`](references/impact-frame-post.md) | 4 impact-frame paths (Dial pulse, post composite, card, flash), decaying camera shake |
+| [`references/impact-frame-and-shake.md`](references/impact-frame-and-shake.md) / [`impact-frame-post.md`](references/impact-frame-post.md) / [`impact-frame-inline.md`](references/impact-frame-inline.md) | 4 impact-frame paths (Dial pulse, inline multi-card flash-cut, post composite, white-out), decaying camera shake |
+| [`references/shot-five-part-combat.md`](references/shot-five-part-combat.md) / [`speed-acceleration.md`](references/speed-acceleration.md) / [`vfx-choreography.md`](references/vfx-choreography.md) / [`character-signature-skill.md`](references/character-signature-skill.md) | Five-part combat shots with weight transfer, 8-tier speed density, spatial VFX choreography & character signature skill recreation |
 | [`references/segment-continuity.md`](references/segment-continuity.md) / [`fl2va-chain.md`](references/fl2va-chain.md) / [`monster-scale.md`](references/monster-scale.md) | Multi-segment 3-table engineering, seams, giant-monster scaling |
 | [`references/formats.md`](references/formats.md) / [`output-format.md`](references/output-format.md) / [`screenplay-format.md`](references/screenplay-format.md) / [`prompt-templates.md`](references/prompt-templates.md) / [`guided-mode.md`](references/guided-mode.md) / [`qa-checklist.md`](references/qa-checklist.md) / [`remix-pika-route.md`](references/remix-pika-route.md) | Format decision matrix, official 3/6-field schemas, screenplay format, templates, QA & REMIX route |
 

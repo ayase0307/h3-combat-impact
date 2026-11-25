@@ -27,7 +27,7 @@ MOVE_CATS = {
     "blade": r"\b(cut|cuts|cutting|slash|slashes|thrust|thrusts|rip|rips|"
              r"cleave|swings?|stabs?|strikes?|drives through|"
              r"descending cut|rising cut|overhead cut)\b",
-    "kick": r"\b(kick|kicks|knee|knees|shin|stomp|stamps?)\b",
+    "kick": r"\b(kick|kicks|knee|knees|shin|stomp(s|ed|ing)?|stamps?)\b",
     "punch": r"\b(punch|punches|hook|hooks|elbow|elbows|backfist|jab|"
              r"palm|palms|fist|forearm|headbutt)\b",
     "throw": r"\b(throw|throws|hip-throw|hurl|hurls|slam|slams|dump|dumps|"
@@ -87,6 +87,16 @@ HARSH_FACE = re.compile(
 TS = re.compile(r"At\s+(\d{2}):(\d{2}\.\d{2,3})")
 SHOT = re.compile(r"\[Shot (\d+)\]")
 LABEL = re.compile(r"<(Subject|Picture|Video|Audio) (\d+)>")
+# 五小節（打鬥版）：每鏡必須照這個順序出現
+FIVE = ["Camera", "Motion", "Performance", "Light", "Sound"]
+CAM_MOVE = re.compile(
+    r"\b(push(es|ing)? in|pull(s|ing)? (out|back)|pan(s|ning)?|tilt(s|ing)?|"
+    r"zoom(s|ing)?|truck(s|ing)?|doll(y|ies|ying)|pedestal(s|ing)?|"
+    r"track(s|ing)?|orbit(s|ing)?|arc(s|ing)?|crane(s|d)?)\b", re.I)
+WEIGHT = re.compile(
+    r"\b(weight|balance|base|heel|heels|hips?|soles?|plant(s|ed|ing)?|"
+    r"pivot(s|ed|ing)?|lever|levered|centre of mass|center of mass|"
+    r"off[- ]balance\w*|counterweight|stance)\b", re.I)
 
 # 模式設定：同一個結構在不同打法下，部分 WARN 是誤報（見 docs/research/
 # 2026-11-18-strengthen-combat-impact.md T5）。用 front-matter `#!profile: X`
@@ -180,7 +190,44 @@ def read_face_style(raw, body, requested):
     return "rugged"
 
 
-def check(path, duration, profile="auto", check_sync=False, face_style="auto", strict_physics=False):
+def check_five_part(body, fields):
+    """五小節檢查：標籤齊全、順序正確、五小節內沒有第二個運鏡動詞。"""
+    out = []
+    seg = section(body, "integrated_multimodal_description", fields)
+    if not seg:
+        seg = section(body, "detailed_description", fields)
+    blocks = re.split(r"(?=\[Shot \d+\])", seg)
+    for blk in blocks:
+        m = SHOT.search(blk)
+        if not m:
+            continue
+        n = m.group(1)
+        found = []
+        for lbl in FIVE:
+            hit = re.search(rf"\b{lbl}\s*:", blk)
+            if hit:
+                found.append((hit.start(), lbl))
+        names = [lbl for _, lbl in found]
+        if names != FIVE:
+            missing = [x for x in FIVE if x not in names]
+            out.append(("FAIL", f"[Shot {n}] 五小節不完整或順序錯："
+                                f"現有 {names or '無'}"
+                                + (f"，缺 {missing}" if missing else "，需照 "
+                                   "Camera→Motion→Performance→Light→Sound")))
+            continue
+        body_start = found[0][0]
+        tail = blk[body_start:]
+        if re.search(r"\bthe camera\b", tail, re.I):
+            out.append(("FAIL", f"[Shot {n}] 五小節內出現 the camera"
+                                "（運鏡詞只能出現在頭句）"))
+        elif CAM_MOVE.search(tail.replace("push off", "").replace("pushes off", "")):
+            hit = CAM_MOVE.search(tail)
+            out.append(("WARN", f"[Shot {n}] 五小節內疑似出現第二個運鏡動詞"
+                                f"「{hit.group(0)}」——檢查是否為動作詞"))
+    return out
+
+
+def check(path, duration, profile="auto", check_sync=False, face_style="auto", strict_physics=False, five_part=False):
     raw = open(path, encoding="utf-8").read()
     body = extract(strip_meta(raw))
     prof = read_profile(raw, path) if profile in (None, "auto") else profile
@@ -444,14 +491,31 @@ def check(path, duration, profile="auto", check_sync=False, face_style="auto", s
                 out.append(("FAIL", f"中英文切鏡時間碼不同步：中文 {zh_ts} vs 英文 {stamps}"))
                 fail += 1
 
-    # 字數預算
+    # 字數預算與送件字元上限
     words = len(body.split())
-    limit = rules.get("word_cap") or (820 if is_ref else 520)
+    chars = len(body)
+    default_limit = (900 if five_part else 820) if is_ref else (900 if five_part else 520)
+    limit = rules.get("word_cap") or default_limit
     if words > limit:
         out.append(("WARN", f"字數 {words} 超過預算 {limit}，末段約束易失效")); warn += 1
 
+    if five_part:
+        for lv, msg in check_five_part(body, fields):
+            out.append((lv, msg))
+            if lv == "FAIL":
+                fail += 1
+            else:
+                warn += 1
+        if not WEIGHT.search(body):
+            out.append(("WARN", "五小節版沒有任何重心／支撐描述"
+                                "（weight/heels/hips/base…）—— 打擊感會偏軟"))
+            warn += 1
+
+    if chars > 7500:
+        out.append(("WARN", f"字元數 {chars} 超過送件端上限 7500")); warn += 1
+
     print(f"\n{os.path.basename(path)}  mode={mode}  profile={prof}  shots={nshot}  words={words}  "
-          f"duration={duration or '?'}")
+          f"chars={chars}  duration={duration or '?'}")
     if not out:
         print("  [PASS] 格式完全符合，可直接使用")
     for lv, msg in out:
@@ -474,6 +538,8 @@ def main():
                     help="表情顏值檔：auto=國漫/漫劇/仙俠自動走 aesthetic 美型檢核；aesthetic=強制檢核過激毀臉詞；rugged=粗獷寫實/野獸")
     ap.add_argument("--strict-physics", action="store_true",
                     help="啟用 v3.0 嚴格物理防滑與防打地板檢核（亦可在檔頭寫 #!physics: strict）")
+    ap.add_argument("--five-part", action="store_true",
+                    help="啟用每鏡五小節（Camera/Motion/Performance/Light/Sound）與重心檢核")
     a = ap.parse_args()
 
     files = [a.file] if a.file else []
@@ -484,7 +550,7 @@ def main():
         ap.print_help()
         return 1
 
-    total = sum(check(f, a.duration, a.profile, a.check_sync, a.face_style, a.strict_physics) for f in files)
+    total = sum(check(f, a.duration, a.profile, a.check_sync, a.face_style, a.strict_physics, a.five_part) for f in files)
     print(f"\n合計 FAIL {total} 項")
     return 1 if total else 0
 
