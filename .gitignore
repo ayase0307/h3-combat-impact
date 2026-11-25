@@ -1,2 +1,13 @@
 __pycache__/
 *.pyc
+.pytest_cache/
+
+# Local experiment renders, benchmark logs, and large generated media
+analysis/
+docs/research/runs/
+assets/2026-11-19-test/
+assets/r3/
+assets/v2-demo/
+assets/v3-manju/
+out/
+*.log
