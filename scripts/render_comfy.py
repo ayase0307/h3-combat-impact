@@ -21,6 +21,15 @@
     # 3. 傳統 Pika 6 步 LCM（快速抽卡／相容舊管線）
     python scripts/render_comfy.py --engine pika --prompt ... --ref ... --seconds 15 --seed 5001 --stage final --preset P3 --job test --out out/test.mp4
 
+    # 3b. Sulphur-3 組件（實驗性，見 docs/research/2026-11-26-sulphur3-anti-artifact-study.md）
+    #     --corrector 需像素寬高皆為 32 的倍數（768p 可，draft480 不可）。16GB 卡上 fp32 修正器掛二採會溢出顯存，
+    #     兩段都掛時請加 --corrector-precision bf16。
+    python scripts/render_comfy.py --engine selflift ...（同範例 1）... \
+        --corrector s3_corrector.safetensors --corrector-stage low
+    #     Motion/STG（只作用於一採骨架期；--still-prompt 為「全部動作凍結」的靜止版劇本）
+    python scripts/render_comfy.py --engine selflift ...（同範例 1）... \
+        --motion-stg --still-prompt examples/v3-manju/caseA_manju_8s_still.txt --stg-until 0.5
+
     # 4. 三採 ReCaVSR 2x 超分（768p -> 2K）
     python scripts/render_comfy.py --stage upscale --input-video analysis/v3-manju/v3_prism_selflift.mp4 \
         --job v3_prism_2k --out analysis/v3-manju/v3_prism_2k.mp4
@@ -52,6 +61,18 @@ DEFAULT_CLIP = "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors"
 DEFAULT_VIDEO_VAE = "minimax_h3_video_vae_int8_convrot.safetensors"
 DEFAULT_AUDIO_VAE = "minimax_h3_audio_vae_fp32.safetensors"
 DEFAULT_RECAVSR_MODEL = "transformer_int8_convrot.safetensors"
+
+# ComfyUI-H3-Corrector-Advanced（Sulphur-3 experimental）Controls 節點預設值（profiles.DEFAULT_SETTINGS）
+CORRECTOR_ADV_DEFAULTS = {
+    "strength": 1.0, "budget_fraction": 0.5, "velocity_floor": 0.001, "start_step": 0, "end_step": -1,
+    "enable_layer_controls": False, "block_strength": 1.0, "self_attention_strength": 1.0,
+    "cross_attention_strength": 1.0, "mlp_strength": 1.0, "layer_overrides": "{}", "enable_cache": False,
+    "enable_directional": False, "backward_limit": 0.25, "forward_limit": 0.25, "turn_limit": 0.20,
+    "enable_local_budget": False, "local_budget": 0.25, "local_window": 5, "enable_frequency_budget": False,
+    "low_budget": 0.15, "high_budget": 0.35, "frequency_cutoff": 0.25, "enable_sparse_correction": False,
+    "correction_interval": 2, "always_correct_last": True, "enable_timing": False, "enable_compile": False,
+    "compile_mode": "default", "attention_backend": "auto", "enable_diagnostics": False, "cache_limit_mb": 256,
+}
 
 
 def h3_frames(seconds: float) -> int:
@@ -513,8 +534,18 @@ def build_selflift_graph(
     chunks: int,
     upscaler_model: str,
     hires_dials: str,
+    corrector: str | None = None,
+    corrector_strength: float = 1.0,
+    corrector_budget: float = 0.5,
+    corrector_stage: str = "both",
+    corrector_precision: str = "fp32",
+    motion_stg: dict | None = None,
 ) -> dict:
-    """建構 PRISM / YZ金魚 SelfLiftH3Sampler 一採二採完整圖，並整合 MAIDialRack 雙模型口。"""
+    """建構 PRISM / YZ金魚 SelfLiftH3Sampler 一採二採完整圖，並整合 MAIDialRack 雙模型口。
+
+    corrector 非空時，於模型尾端（AttentionBackend/BSA/SigmaShift/ChunkFF 之後）掛 Sulphur-3
+    ApplyH3Corrector（post-CFG 速度殘差修正）；corrector_stage 決定掛在一採、二採或兩者。
+    """
     length = h3_frames(seconds)
     graph: dict = {
         "1": {"class_type": "UNETLoader", "inputs": {"unet_name": unet_name, "weight_dtype": "default"}},
@@ -608,6 +639,62 @@ def build_selflift_graph(
         else:
             model_hires = _attach_h3_model_tail(graph, "hi", clean_base, shift_video, shift_audio, chunks)
 
+    # Sulphur-3 H3 Corrector（選用）：SelfLift 每段各自呼叫 comfy.samplers.sample，
+    # post-CFG 鉤子與分段 sample_sigmas 都會正確傳入，故只需在對應段的 MODEL 上掛 Apply。
+    sampler_model_low = model_low
+    if corrector and corrector_stage not in ("low", "hires", "both"):
+        raise ValueError(f"corrector_stage 必須是 low/hires/both，收到 {corrector_stage!r}")
+    needs_split = (corrector and corrector_stage != "both") or motion_stg is not None
+    if model_hires is None and needs_split:
+        # 原本二採沿用一採模型；為了只在單段掛修正器／引導，另建一條與一採完全相同的二採尾端
+        model_hires = _attach_h3_model_tail(graph, "hi", low_base, shift_video, shift_audio, chunks)
+    if corrector and corrector_precision == "bf16":
+        # Advanced 節點：Linear/Conv3d 以 BF16 存放（約 4GB），LayerNorm 保持 FP32；其餘控制全用預設（不開 compile/sparse/實驗模式）
+        graph["cr_load"] = {
+            "class_type": "H3CorrectorAdvancedLoad",
+            "inputs": {"corrector": corrector, "enable_bf16_compute_weights": True, "use_saved_precision": True},
+        }
+        ctl = dict(CORRECTOR_ADV_DEFAULTS, strength=corrector_strength, budget_fraction=corrector_budget)
+        graph["cr_ctl"] = {"class_type": "H3CorrectorAdvancedControls", "inputs": {"corrector": ["cr_load", 0], **ctl}}
+
+        def _apply_corrector(node_id: str, src: str) -> str:
+            graph[node_id] = {
+                "class_type": "H3CorrectorAdvancedApply",
+                "inputs": {"model": [src, 0], "corrector": ["cr_load", 0], "controls": ["cr_ctl", 0]},
+            }
+            return node_id
+    elif corrector:
+        graph["cr_load"] = {"class_type": "LoadH3Corrector", "inputs": {"corrector": corrector}}
+
+        def _apply_corrector(node_id: str, src: str) -> str:
+            graph[node_id] = {
+                "class_type": "ApplyH3Corrector",
+                "inputs": {
+                    "model": [src, 0], "corrector": ["cr_load", 0], "strength": corrector_strength,
+                    "budget_fraction": corrector_budget, "velocity_floor": 0.001,
+                    "start_step": 0, "end_step": -1,
+                },
+            }
+            return node_id
+    if corrector:
+
+        if corrector_stage in ("low", "both"):
+            sampler_model_low = _apply_corrector("cr_low", model_low)
+        if corrector_stage in ("hires", "both") and model_hires is not None:
+            model_hires = _apply_corrector("cr_hi", model_hires)
+
+    # Sulphur-3 Motion/STG 引導（選用，僅掛一採骨架期）：靜止版提示放 negative 槽，cfg=1 時只有本 wrapper 會評估它
+    if motion_stg is not None:
+        graph["stg_low"] = {
+            "class_type": "H3SelfLiftMotionSTG",
+            "inputs": {
+                "model": [sampler_model_low, 0],
+                "motion_scale": motion_stg["motion"], "stg_scale": motion_stg["stg"],
+                "stg_layers": motion_stg["layers"], "until": motion_stg["until"],
+            },
+        }
+        sampler_model_low = "stg_low"
+
     # Ref2VA conditioning + 參考圖
     ref_inputs: dict = {
         "clip": ["3", 0],
@@ -624,6 +711,12 @@ def build_selflift_graph(
         ref_inputs[f"ref_images.ref_image_{i}"] = [str(30 + i), 0]
     graph["7"] = {"class_type": "MiniMaxH3ReferenceToVideo", "inputs": ref_inputs}
     graph["8"] = {"class_type": "ConditioningZeroOut", "inputs": {"conditioning": ["7", 0]}}
+    negative = ["8", 0]
+    if motion_stg is not None and motion_stg.get("still_prompt"):
+        still_inputs = dict(ref_inputs)
+        still_inputs["prompt"] = motion_stg["still_prompt"]
+        graph["7s"] = {"class_type": "MiniMaxH3ReferenceToVideo", "inputs": still_inputs}
+        negative = ["7s", 0]
 
     # Euler + BasicScheduler + SelfLiftH3Sampler（武戲嚴禁 highres_tiling）
     graph["10"] = {"class_type": "KSamplerSelect", "inputs": {"sampler_name": "euler"}}
@@ -632,9 +725,9 @@ def build_selflift_graph(
         "inputs": {"model": [model_low, 0], "scheduler": scheduler, "steps": steps, "denoise": 1.0},
     }
     sampler_inputs: dict = {
-        "model": [model_low, 0],
+        "model": [sampler_model_low, 0],
         "positive": ["7", 0],
-        "negative": ["8", 0],
+        "negative": negative,
         "vae": ["4", 0],
         "latent_image": ["7", 1],
         "sampler": ["10", 0],
@@ -909,6 +1002,25 @@ def main():
     ap.add_argument("--input-video", default=None, help="--stage upscale 專用輸入 mp4 路徑")
     ap.add_argument("--lora", action="append", default=[], help="額外 LoRA（一採與二採共用），名稱:強度")
     ap.add_argument("--lowres-lora", action="append", default=[], help="[selflift] 僅掛載於低解析一採的動作骨架 LoRA，二採保持純淨 PRISM 高銳度，名稱:強度")
+    # Sulphur-3 H3 Corrector（選用；預設關閉，不影響既有行為）
+    ap.add_argument("--corrector", default=None,
+                    help="[selflift] models/h3_correctors 內的修正器檔名（例 s3_corrector.safetensors）；不給=關閉")
+    ap.add_argument("--corrector-strength", type=float, default=1.0, help="[selflift] 修正器殘差倍率（1=訓練原值）")
+    ap.add_argument("--corrector-budget", type=float, default=0.5,
+                    help="[selflift] 殘差 RMS 上限＝budget×速度 RMS（S3 訓練值 0.5）")
+    ap.add_argument("--corrector-stage", default="both", choices=["low", "hires", "both"],
+                    help="[selflift] 修正器掛載段：low=一採骨架期、hires=二採精修期、both=兩段")
+    ap.add_argument("--corrector-precision", default="fp32", choices=["fp32", "bf16"],
+                    help="[selflift] fp32=官方基本節點（8GB，數值為訓練原狀）；bf16=Advanced 節點 BF16 計算權重（約 4GB，"
+                         "16GB 卡二採用；官方註明 BF16 會改變輸出）")
+    # Sulphur-3 Motion/STG 引導（選用；需部署 comfy_nodes/ComfyUI-H3-SelfLift-MotionSTG）
+    ap.add_argument("--motion-stg", action="store_true", help="[selflift] 一採骨架期啟用 Motion/STG 引導")
+    ap.add_argument("--stg-motion", type=float, default=1.0, help="[selflift] 推離靜止版提示強度（>0 需 --still-prompt）")
+    ap.add_argument("--stg-scale", type=float, default=1.0, help="[selflift] 跳區塊結構引導強度")
+    ap.add_argument("--stg-layers", default="20,21,22", help="[selflift] STG 跳過的 H3 區塊索引")
+    ap.add_argument("--stg-until", type=float, default=0.5,
+                    help="[selflift] 一採前多少比例區間啟用（14步/t=6 時 0.5≈前3步≈全程前21%%）")
+    ap.add_argument("--still-prompt", default=None, help="[selflift] 靜止版提示詞檔（同角色同場景、所有動作凍結）")
     ap.add_argument("--job", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--dry", action="store_true", help="只建圖與印出設定，不送出 ComfyUI")
@@ -1055,6 +1167,20 @@ def main():
     if args.height:
         h = args.height
 
+    if args.engine == "selflift" and args.corrector and (w % 32 or h % 32):
+        # 修正器以 2x2 patch 切 H3 潛空間（像素 /16），潛空間寬高須為偶數，即像素寬高須為 32 的倍數
+        sys.exit(f"--corrector 需要寬高皆為 32 的倍數（目前 {w}x{h}）；請改用 final/hd/fhd 或以 --width/--height 對齊")
+
+    motion_stg = None
+    if args.engine == "selflift" and args.motion_stg:
+        still_text = None
+        if args.stg_motion > 0:
+            if not args.still_prompt:
+                sys.exit("--motion-stg 且 --stg-motion>0 時必須提供 --still-prompt（或設 --stg-motion 0 只用 STG）")
+            still_text = extract_h3_prompt(pathlib.Path(args.still_prompt).read_text(encoding="utf-8"))
+        motion_stg = {"motion": args.stg_motion, "stg": args.stg_scale, "layers": args.stg_layers,
+                      "until": args.stg_until, "still_prompt": still_text}
+
     if args.engine == "selflift":
         graph = build_selflift_graph(
             text, args.seconds, args.seed, w, h, names, rack, args.job,
@@ -1063,13 +1189,21 @@ def main():
             scheduler=args.scheduler, steps=args.steps, transition_step=args.transition,
             lowres_scale=args.lowres_scale, cfg=args.cfg, shift_video=args.shift_video,
             shift_audio=args.shift_audio, chunks=args.chunks, upscaler_model=args.upscaler,
-            hires_dials=args.hires_dials,
+            hires_dials=args.hires_dials, corrector=args.corrector,
+            corrector_strength=args.corrector_strength, corrector_budget=args.corrector_budget,
+            corrector_stage=args.corrector_stage, corrector_precision=args.corrector_precision,
+            motion_stg=motion_stg,
         )
         if args.dry:
+            cr_info = (f", corrector={args.corrector}(s={args.corrector_strength},b={args.corrector_budget},"
+                       f"stage={args.corrector_stage},{args.corrector_precision})" if args.corrector else "")
+            if motion_stg:
+                cr_info += (f", motion_stg(motion={args.stg_motion},stg={args.stg_scale},layers={args.stg_layers},"
+                            f"until={args.stg_until},still={'yes' if motion_stg['still_prompt'] else 'no'})")
             print(
                 f"dry ok [selflift]: {len(graph)} nodes, {w}x{h}, {graph['7']['inputs']['length']} frames, "
                 f"unet={args.unet}, dmad={args.dmad}, sched={args.scheduler}/{args.steps}(t={args.transition},s={args.lowres_scale}), "
-                f"chunks={args.chunks}, hires_dials={args.hires_dials}, dials={len(rack)}"
+                f"chunks={args.chunks}, hires_dials={args.hires_dials}, dials={len(rack)}{cr_info}"
             )
             if rack:
                 print("rack:", json.dumps(rack, ensure_ascii=False))

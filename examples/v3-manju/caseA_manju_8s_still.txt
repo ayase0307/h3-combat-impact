@@ -1,0 +1,40 @@
+#!profile: still
+## caseA_manju_8s 的「靜止版提示」（Sulphur-3 Motion/STG 引導專用，接 SelfLift negative 槽）
+## 規則：角色、場景、畫風、每鏡構圖與 caseA_manju_8s.txt 完全一致；所有主體、鏡頭、環境動作全部凍結，刪除一切動作與擊打音效語彙。
+## 它不是通用負向提示；引導會把影片推「離」這個靜止版本，以強化真實大動作。
+
+```text
+subject_definitions:
+<Subject 1> is Feixue from <Picture 1>: refined beautiful East Asian face, upswept dark eyes, small crimson lotus brow mark, silky black high ponytail with gold hairpin and twin crimson ribbons, lean build, crimson-black gold-trimmed xianxia robe, dark vambraces, black boots, slender crimson-edged jian.
+
+<Subject 2> is Shuangjue from <Picture 2>: taller broad-shouldered handsome East Asian warrior, clean sharp jaw, ice-blue eyes, silver-white hair with dark steel crown, ivory-silver robe, engraved silver pauldrons, long ivory cape, armored boots, heavy ice-blue broad-jian.
+
+<Subject 3> is the snowy mountain sword-platform from <Picture 3>: cracked granite flagstones, settled snow, stone lantern, broken geometric-carved pillars, torn plain crimson cloth strips, silver cloud sea, cold winter backlight.
+
+summary:
+[reference generation] An 8-second 16:9 2.5D semi-realistic AI manju guoman still tableau of <Subject 1> and <Subject 2> standing motionless facing each other on <Subject 3>, swords held still, nothing moving.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]-[Shot 5]): fully_preserved - Delicate attractive face, lotus brow mark, high ponytail, crimson ribbons, crimson-black robe, lean build, crimson jian.
+
+<Subject 2> (appears in [Shot 1]-[Shot 5]): fully_preserved - Handsome composed face, silver hair, steel crown, ivory cape, silver armor, taller build, ice-blue broad-jian.
+
+<Subject 3> (appears in [Shot 1]-[Shot 5]): fully_preserved - Snowy granite platform, stone lantern, broken pillars, cloud sea, cold winter backlight.
+
+detailed_description:
+High-end 2.5D semi-realistic AI manju guoman anime-cinematic rendering with crisp painterly shading and luminous hair strands. <Subject 2> stays taller and broader than <Subject 1>. Every subject, the camera and the environment stay completely still for the whole clip.
+
+[Shot 1] A low medium shot on <Subject 3>: <Subject 1> stands motionless in a low stance holding her crimson jian still, facing <Subject 2>, who stands motionless with his ice-blue broad-jian held level. The camera is fixed. Hair, ribbons, robes and snow hang still.
+
+[Shot 2] At 00:02.000, the camera cuts to a fixed wide low shot: <Subject 2> stands still beside an intact stone pillar, <Subject 1> stands still a few steps away. No one moves; the pillar is whole, the air is clear and calm.
+
+[Shot 3] At 00:04.000, the camera cuts to a fixed close-up on <Subject 1>'s refined face: calm neutral expression, eyes open and steady, lips softly closed, black hair resting still against her cheek. The camera does not move.
+
+[Shot 4] At 00:05.000, the camera cuts to a fixed low upward shot: <Subject 1> and <Subject 2> stand still side by side near the stone steps, his composed handsome face calm, both swords lowered and motionless.
+
+[Shot 5] At 00:06.400, the camera cuts to a fixed medium shot: <Subject 2> stands still holding his ice-blue broad-jian, <Subject 1> stands still with her crimson jian lowered. Robes, cape, hair and snow are completely still until the final frame.
+
+overall_soundscape: Quiet still mountain air with a faint, steady low ambience; no footsteps, no steel, no impacts.
+
+non_diegetic_music: A single sustained soft low string tone, unchanging.
+```

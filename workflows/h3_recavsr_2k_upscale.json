@@ -1,0 +1,46 @@
+{
+  "1": {
+    "class_type": "LoadVideo",
+    "inputs": {
+      "file": "input_768p.mp4"
+    }
+  },
+  "2": {
+    "class_type": "ReCaVSRLoader",
+    "inputs": {
+      "transformer": "transformer_int8_convrot.safetensors"
+    }
+  },
+  "3": {
+    "class_type": "ReCaVSRUpscale",
+    "inputs": {
+      "model": [
+        "2",
+        0
+      ],
+      "video": [
+        "1",
+        0
+      ],
+      "scale": 2.0,
+      "color_fix": "wavelet",
+      "seed": 42,
+      "decoder": "flashdecoder",
+      "kernels": "fast",
+      "kv_offload": false,
+      "encoder": "h264 nvenc"
+    }
+  },
+  "4": {
+    "class_type": "SaveVideo",
+    "inputs": {
+      "video": [
+        "3",
+        0
+      ],
+      "filename_prefix": "h3_combat/duel_p9_2k",
+      "format": "mp4",
+      "codec": "auto"
+    }
+  }
+}

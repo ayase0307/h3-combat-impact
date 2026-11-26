@@ -110,6 +110,21 @@ class TestGoodSamples(unittest.TestCase):
                 self.assertLessEqual(len(warns), max_warn,
                                      f"{name} WARN {len(warns)} 個，超過預算 {max_warn}\n{out}")
 
+    def test_v4_showcase_zero_fail(self):
+        v4_dir = os.path.join(EXAMPLES, "v4-showcase")
+        specs = {
+            "blade-light-21x9-v4.txt": 8.0,
+            "ultra-speed-drone-v4.txt": 8.0,
+            "ink-wash-v4.txt": 5.2,
+            "facial-performance-v4.txt": 6.6,
+            "bloodmoon-ultimate-ref2va-v4.txt": 10.1,
+            "jade-rift-summon-ref2va-v4.txt": 10.1,
+        }
+        for name, dur in specs.items():
+            with self.subTest(name=name):
+                code, out = run(os.path.join(v4_dir, name), dur)
+                self.assertEqual(code, 0, f"v4-showcase/{name} 應該 FAIL 0 項\n{out}")
+
 
 class TestBadSamples(unittest.TestCase):
     def test_each_bad_file_fails(self):

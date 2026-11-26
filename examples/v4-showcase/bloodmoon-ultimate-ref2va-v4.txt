@@ -1,0 +1,34 @@
+#! profile: material
+subject_definitions:
+<Subject 1> is the white-coated woman in <Picture 1>. Preserve her exact design: waist-length platinum-white twin tails, thin red-and-white halo ring, black spiked ear ornaments with red tassels, glowing pale crimson eyes, a dried blood streak beneath her right eye, white military coat with black cross clasps over a crimson corset bodice, gold-bronze feathered pauldrons, black high collar with a red gem, black gloves, and white thigh-high boots with crimson trim. <Picture 1> provides character identity only.
+
+<Subject 2> is the double-headed halberd in <Picture 2>: a two-metre dark blued-steel shaft with a black leather centre grip, broad silver crescent axe-blades, tapered spear spikes at both ends, and a faceted red gem set in each socket.
+
+<Subject 3> is the environment palette and motif in <Picture 3>: a low blood-red moon above a field of crimson petals, suspended black polyhedral glass shards, rising white-crimson light pillars, and volumetric dust. <Picture 3> provides environment motif only.
+
+summary:
+[reference generation] A ten-second signature-skill sequence where <Subject 1> stands poised in a crimson petal field, snaps her gloved fingers to fracture the air into black polyhedral shards, catches <Subject 2> in a grounded sweep and downward slam, and unleashes an off-axis towering pillar of white-crimson light that cleaves a massive winged shadow in two beneath the blood moon while she stands anchored beside her planted halberd.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1], [Shot 2], [Shot 3], [Shot 4], [Shot 5], [Shot 6]): fully_preserved - platinum twin tails, halo ring, right-cheek blood streak, white military coat, crimson bodice, gold pauldrons, black gloves, white thigh-high boots.
+<Subject 2> (appears in [Shot 4], [Shot 5], [Shot 6]): fully_preserved - two-metre blued-steel shaft, double silver axe-heads, spear spikes, red socket gems.
+<Subject 3> (appears in [Shot 1], [Shot 3], [Shot 5], [Shot 6]): fully_preserved - blood moon, crimson petal field, black polyhedral shards, volumetric light pillars.
+
+detailed_description:
+3D CG cinematic anime game cutscene, high-contrast blood-crimson and bone-white with razor-sharp specular highlights. <Subject 1> holds sixty-five to eighty percent of frame height in medium shots.
+
+[Shot 1] 3D CG cinematic anime game cutscene. Eye-level chest-height medium close-up (85mm) of <Subject 1> standing completely still and regal in the crimson petal field of <Subject 3> as the camera pushes in slowly toward her face. Her boots stay planted in place and her shoulders remain poised and steady while a night breeze lifts her platinum twin tails and white military coat hem to the right. Her calm cold expression holds half-lidded glowing crimson eyes and softly closed lips, rimmed in cold blood-moon light as her gloved right forearm begins to rise.
+
+[Shot 2] At 00:01.600, cut to an extreme close-up (100mm) at chin height of <Subject 1>'s black-gloved right hand as thumb and middle finger cross and snap, the camera pushing in slowly. A sharp white-crimson spark bursts at her fingertips, casting crisp specular light across the leather knuckles while subtle recoil settles into her wrist.
+
+[Shot 3] At 00:02.600, cut to a low-angle wide shot at hip height as the air around <Subject 1> fractures outward into dozens of suspended black polyhedral shards from <Subject 3> while the camera pushes forward at fast speed. Loose crimson petals lift upward into the distortion ring as hard white highlights glint along every matte-black shard edge, her upright silhouette standing motionless and anchored in the lower-left third.
+
+[Shot 4] At 00:04.600, cut to a low-angle full shot at knee height as <Subject 1> keeps her lead boot planted on the spot, pivots her hips cleanly in place, and catches <Subject 2> materializing in both hands, sweeping the two-metre double-headed halberd in a flat silver-white crescent around her torso as the camera orbits a third of the way around her at medium speed. Her calm cold expression stays composed with smooth relaxed brows and softly closed lips as crimson petals whip off the blade wake.
+
+[Shot 5] At 00:06.400, cut to a locked ground-level wide shot as <Subject 1> drops her weight into a planted stance and drives the lower spike of <Subject 2> straight down into the stone beneath the petals; three radial fissures split open and a blinding column of white-crimson energy erupts skyward, flattening her coat hem and twin tails backward in the shockwave wind.
+
+[Shot 6] At 00:08.000, cut to an asymmetric wide shot with the blood moon high in the upper-left sky while the towering white-crimson light pillar surges from lower-right to upper-right, cleaving a colossal winged shadow cleanly in half as burning dark fragments split apart and dissolve across the sky; in the lower-left foreground <Subject 1> stands planted and still with her right hand resting on the upright shaft of <Subject 2>, her white coat and twin tails whipping fiercely in the aftershock gale.
+
+overall_soundscape: Night wind rustling wet petals, leather glove creaking, a crisp finger snap followed by a sub-bass vacuum drop, crystalline air fracturing, ringing steel, a seismic stone impact, and a roaring energy column decaying into gale wind.
+
+non_diegetic_music: Deep solo cello drone beneath icy string harmonics, building to a single massive taiko strike as the light pillar erupts.

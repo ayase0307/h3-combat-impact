@@ -1,0 +1,34 @@
+#! profile: material
+subject_definitions:
+<Subject 1> is the woman in <Picture 1>. Preserve her exact design: black hair in a high bun with a jade hairpin and gold ornaments, loose side strands, glowing cyan-jade eyes, red lips, red gem drop earrings, jade-painted nails, high-collared black silk and translucent gauze robe with glowing jade-green trim along cuffs and hems, black gold-clasped sash, and dark boots with jade stitching. <Picture 1> provides character identity only.
+
+<Subject 2> is the ceremonial umbrella in <Picture 2>: a two-metre parasol with radiating gold filigree ribs, translucent jade glass panels, crystal water-drop pendants on every rib tip, a glowing jade crown orb, and a dark lacquered shaft.
+
+<Subject 3> is the environment motif in <Picture 3>: a jagged vertical spatial rift with white-hot fractured edges, three colossal translucent jade hands etched with glowing green rune script, rolling jade mist over rain-slick black slate rock, and shattered stone slabs. <Picture 3> provides environment motif only.
+
+summary:
+[reference generation] A ten-second xianxia signature-skill sequence in which <Subject 1> awakens a glowing jade thread around her ankle on wet black rock, ignites her cyan-jade eyes, tears open an off-centre vertical spatial rift, unfurls <Subject 2> as three rune-carved jade hands pry the rift wide, and commands a colossal jade palm to slam down across the stone courtyard.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1], [Shot 2], [Shot 3], [Shot 5], [Shot 6]): fully_preserved - high bun with jade hairpin, red drop earrings, cyan-jade eyes, black gauze robe with glowing jade trim, dark jade-stitched boots.
+<Subject 2> (appears in [Shot 3], [Shot 5]): fully_preserved - gold filigree ribs, translucent jade panels, crystal pendants, glowing jade crown orb.
+<Subject 3> (appears in [Shot 3], [Shot 4], [Shot 5], [Shot 6]): fully_preserved - white-hot vertical rift, three rune-etched translucent jade hands, jade mist, wet black slate.
+
+detailed_description:
+3D CG cinematic Chinese xianxia fantasy, desaturated rain-slick black slate contrasted with luminous jade-green emission and crisp white-hot fracture edges.
+
+[Shot 1] 3D CG cinematic Chinese xianxia fantasy. Extreme close-up of <Subject 1>'s dark jade-stitched boot planted firmly on rain-slick black rock as a luminous jade thread coils taut around her ankle and lifts a thin ring of rainwater droplets into the air while the camera tilts up slowly.
+
+[Shot 2] At 00:01.400, cut to an extreme close-up of <Subject 1>'s face as her eyelids part and saturated cyan-jade light blooms outward from her pupils, her calm cold expression serene with smooth relaxed brows and softly closed red lips while wet hair strands lift gently in the rising updraft as the camera pushes in slowly.
+
+[Shot 3] At 00:02.800, cut to a locked medium wide shot with <Subject 1> anchored in the left third holding <Subject 2> low while her raised left palm turns upward; in the right half of the frame, the air splits vertically into the white-hot jagged fracture of <Subject 3>, pulling slanted rain sideways into billowing jade smoke.
+
+[Shot 4] At 00:04.400, cut to a low-angle close shot pushing in fast toward the rift as three colossal translucent jade hands from <Subject 3> thrust through the vapour, their rune-etched fingertips gripping the glowing fracture edges and prying the tear wider amid grinding stone sparks.
+
+[Shot 5] At 00:06.400, cut to an asymmetric low-angle wide shot pulling back slowly with <Subject 1> planted in the lower-left foreground snapping <Subject 2> open overhead; the gold filigree ribs lock and crystal pendants chime, casting jade caustics across her black gauze sleeves while the towering rift towers across the right two-thirds of the sky.
+
+[Shot 6] At 00:08.200, cut to a wide courtyard shot as one colossal rune-lit jade palm accelerates diagonally downward from the upper-right rift and slams flat into the wet black slate slabs, blasting a radial shockwave of shattered stone and rain mist across the ground while <Subject 1> stands steady in the far left background with her robe hem whipping in the gale; the camera shakes strongly on impact then steadies within a third of a second.
+
+overall_soundscape: Steady rain pattering on slate, a resonant jade harmonic hum, sub-bass spatial shearing, heavy stone grinding, crisp umbrella ribs locking with crystal chimes, and a thunderous palm slam followed by pattering rubble.
+
+non_diegetic_music: Deep sustained cello drone under delicate guqin harmonics, punctuated by woodblock beats and a single seismic war-drum strike on the final slam.

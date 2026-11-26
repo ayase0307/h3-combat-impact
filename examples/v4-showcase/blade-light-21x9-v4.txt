@@ -1,0 +1,17 @@
+integrated_multimodal_description: [Shot 1] 3D CG, cinematic, 21:9 widescreen snowfield at night. The upper half of the frame is a dark pine tree line and the lower half is bright moonlit blue snow, with two swordfighters clashing along the sharp boundary as crisp dark silhouettes. The frost swordsman's irises glow ice-blue while the rival swordswoman's irises burn amber beneath a violet diamond gem on her forehead. First contact occurs within the opening half-second: the frost swordsman drives off his rear boot and carves an ice-blue crescent ribbon of light toward her chest. The camera tracks sideways with large amplitude at fast speed.
+
+[Shot 2] At 00:00.800, the camera cuts to a low ground-level angle as a razor-thin white slash line stretches across the entire frame width from the parry, kicking up a sheet of snow powder that outlines both silhouettes. The camera pushes in with small amplitude at fast speed.
+
+[Shot 3] At 00:01.500, the camera cuts to a tight close-up of the amber-eyed swordswoman's face as she angles her hilt to deflect the blow, her calm cold expression steady with smooth relaxed brows and softly closed lips while a violet spark arcs from her forehead gem across her eyelashes. The camera holds a steady close frame.
+
+[Shot 4] At 00:02.300, the camera cuts to a wide shot as their blades collide head-on and radial branches of ice-blue lightning fracture outward across the snowpack, lifting a shockwave ring of frost mist. The camera pulls back with large amplitude at fast speed.
+
+[Shot 5] At 00:03.400, the camera cuts to a high angle as the frost swordsman leaps from a snowbank and brings a crossing X-arc of ice-blue light crashing downward, while the swordswoman drops into a tight shoulder roll beneath the cut and leaves a trailing ribbon of violet light. The camera tilts down with large amplitude at fast speed.
+
+[Shot 6] At 00:04.500, the camera cuts to a medium low shot as she drops low, sweeps a fast ankle kick flat across the snowpack to break his stance, then drives an elbow into his guard and rips her blade upward in a violet crescent, flinging ice crystals past the lens. The camera shakes strongly then steadies within a third of a second.
+
+[Shot 7] At 00:05.700, the camera cuts to a wide silhouette tracking shot as she seizes his wrist in a close grapple, pivots her hip to hurl him sideways across the snow boundary, and bounds forward with a glowing violet arc trailing her steel. The camera trucks left with large amplitude at fast speed.
+
+[Shot 8] At 00:06.800, the camera cuts to a close three-quarter shot as he recovers on one planted boot, drives a rising knee strike against her hip, and meets her downward cleave in a blazing cross-lock, ice-blue sparks and violet flares streaming off the blades as both keep pressing forward through the final frame. The camera pushes in with small amplitude at fast speed.
+overall_soundscape: Crisp ringing steel, deep snow crunching under planted boots, slicing wind pressure, crystalline ice shatters, and heavy low whooshes on every blade arc.
+non_diegetic_music: Sparse icy synth pads anchored by a driving sub-bass taiko pulse.

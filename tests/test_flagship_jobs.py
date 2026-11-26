@@ -68,9 +68,14 @@ class TestFlagshipJobs(unittest.TestCase):
     def test_all_suites_use_dual_rail_presets(self):
         for key, cfg in JOBS.items():
             with self.subTest(suite=key):
-                self.assertIn(cfg["preset"], ("P7", "P8", "P9"))
-                want = "off" if cfg["preset"] == "P9" else "phase-motion"
-                self.assertEqual(cfg.get("hires_dials"), want)
+                if key in ("ult01", "ult02"):
+                    # 純結印圓陣類經 GPU 實測維持 P5（80% 歸零防萬花筒）+ hires-dials off 保住符陣清晰度
+                    self.assertEqual(cfg["preset"], "P5")
+                    self.assertEqual(cfg.get("hires_dials"), "off")
+                else:
+                    self.assertIn(cfg["preset"], ("P7", "P8", "P9"))
+                    want = "off" if cfg["preset"] == "P9" else "phase-motion"
+                    self.assertEqual(cfg.get("hires_dials"), want)
                 self.assertIn("hits", cfg, "print 行會讀 cfg['hits']")
                 self.assertTrue(os.path.exists(os.path.join(PROMPTS, cfg["prompt"])))
 

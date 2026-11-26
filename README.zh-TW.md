@@ -5,7 +5,7 @@
 <h1 align="center">h3-combat-impact</h1>
 
 <p align="center">
-  <b>讓 MiniMax H3 / 海螺武戲「拳拳到肉、不糊不滑、不崩顏值」的完整 Agent Skill（v3.0）：上游導演合約、雙語 Ref2VA 同步、<code>PRISM + SelfLiftH3Sampler</code> 去模糊渲染、<code>ComfyUI-Dials</code> 正負雙軌調控與量化驗收。</b>
+  <b>讓 MiniMax H3 / 海螺武戲「拳拳到肉、不糊不滑、不崩顏值」的完整 Agent Skill（v4.0）：雙軌啟動與互動式導演審閱、上游導演合約、雙語 Ref2VA 同步、<code>PRISM + SelfLiftH3Sampler</code> 去模糊渲染、<code>ComfyUI-Dials</code> 正負雙軌調控與量化驗收。</b>
 </p>
 
 <p align="center">
@@ -14,10 +14,10 @@
 
 <p align="center">
   <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
-  <img alt="Skill v3.0" src="https://img.shields.io/badge/skill-v3.0-8A2BE2">
+  <img alt="Skill v4.0" src="https://img.shields.io/badge/skill-v4.0-8A2BE2">
   <img alt="MiniMax H3" src="https://img.shields.io/badge/MiniMax-H3%20%2F%20海螺-ff5a36">
   <img alt="ComfyUI SelfLift + Dials" src="https://img.shields.io/badge/ComfyUI-SelfLift%20%2B%20Dials%20P1--P9-0a7">
-  <img alt="回歸測試" src="https://img.shields.io/badge/validator%20tests-9%2F9%20通過-2ea44f">
+  <img alt="回歸測試" src="https://img.shields.io/badge/tests-28%2F28%20通過-2ea44f">
 </p>
 
 ---
@@ -40,6 +40,38 @@
     </td>
   </tr>
 </table>
+
+---
+
+## v4.0 雙軌啟動與互動式導演審閱流程
+
+v4.0 讓技能自己判斷「要不要停下來問你」。安裝後不需要記任何指令，平常聊天時它會自動在背景增強；當你點名它、問它怎麼用，或想法還很模糊時，它才切成互動式導演，並在花 GPU 之前讓你看過、改過動作設計。
+
+| | **軌道 A · 日常靜默自動增強** | **軌道 B · 點名呼叫互動式導演** |
+|---|---|---|
+| 何時觸發 | 你要求生成或修改打鬥、武俠仙俠、刀劍兵刃、怪獸機甲、爆氣、衝擊波、大招或高速追逐的提示詞／影片，**已講清楚角色、場景與動作**，而且沒點名技能 | ① 點名 `h3-combat-impact` 或「用武戲技能幫我設計…」② 問「這個技能怎麼用／能做什麼」③ 只丟參考圖或只有模糊想法（「幫我拍一段帥氣打鬥」） |
+| 你會看到 | 不彈選單、不解釋流程，直接拿到雙語提示詞與建議渲染指令 | 三階段對話，在第 2 階段停下來等你確認 |
+| 背後做的事 | 時長路由、事實帳本、9 大載體、姿態—位移防滑律、A 檔冷靜微表情、防動態破圖句法、雙語 1:1 切點同步、`validate_prompt.py` | 同軌道 A，但每一步的結果都先給你看 |
+| 會不會自動開 GPU | 不會，只附命令 | 審閱閘門通過前絕不出長篇英文 Prompt、絕不算圖 |
+
+**軌道 B 的三個階段**
+
+```text
+階段 1 · 4 題選項        戰鬥種類與載體／時長與節奏密度／核心看點、特效與勝負／手頭素材與交付方式
+(附推薦預設，可秒選)     → 例：「1-A 2-B 3 照推薦 4-B」或「全用推薦」
+
+階段 2 · 審閱確認閘門    交出《影片內容與時間軸主要動作概要》：每段秒數、招式、鬥氣特效、勝負
+(強制，絕不跳過)         → 「請問同意照這份分鏡概要推進，還是對哪幾秒的招式、鬥氣特效或勝負結果有調整建議？」
+
+階段 3 · 定稿編譯出片    確認後才編譯中文母稿＋英文 H3 六欄位，跑 validate_prompt.py --check-sync 至 0 FAIL，
+                         再交付或呼叫 render_comfy.py
+```
+
+- 點名技能但需求已講清楚：仍走軌道 B，階段 1 預填成一行讓你確認，**階段 2 閘門照樣要過**。
+- 你說「你決定」「全用推薦」：階段 1 全採推薦值，但仍停在階段 2 等你確認。
+- 只有你明確說「不用給我看概要，直接出」，才會改走軌道 A。
+
+完整話術、選項表與概要模板見 [`references/interactive-director-flow.md`](references/interactive-director-flow.md)。
 
 ---
 
@@ -76,7 +108,7 @@ git clone https://github.com/ayase0307/h3-combat-impact ~/.claude/skills/h3-comb
 # 檢查官方 H3 結構、雙語時間碼同步、美型臉過激詞與招式多樣性（0 FAIL 才送渲染）
 python scripts/validate_prompt.py examples/v3-manju/orig01_v13_crimson_frost_blade_duel.txt --duration 15 --check-sync
 
-# 執行驗證器回歸測試（8 / 8 通過）
+# 執行全部回歸測試（28 / 28 通過）
 python -m unittest discover -s tests -v
 ```
 
@@ -132,6 +164,77 @@ python scripts/measure_sharpness.py out/duel_p9.mp4
 
 ---
 
+## 抗動態破圖實測摘要（Sulphur-3／Corrector／Motion-STG）
+
+2026-11-26 把社群模型 Sulphur-3 的組件嫁接到本管線，以 8 秒 768p 劍鬥劇本做了 13 支影片的受控 A/B（seed 5002 跑 8 組，seed 5003 複驗 5 組；RTX 5070 Ti 16 GB）：
+
+| 組件 | 耗時 | 動態量 | 結論 |
+|---|---:|---:|---|
+| 基線：`PRISM_int8` + DMAD 0.8 + SelfLift 14 步 | 251 s | 32.88 | **維持為預設冠軍** |
+| `s3_corrector` 兩段同掛（bf16） | **+92%** | −13～−14% | 不開：近似配對比較畫面約軟 30%，兩個 seed 都重現 |
+| `s3_corrector` 只掛一採 | +20% | −3～−4% | 預設不開：差異在雜訊範圍內 |
+| Sulphur-3 Ref2VA 混合底模 | +8% | **−36～−37%** | 戰鬥鏡不用：看起來乾淨是因為改成遠景擺拍，繳械段仍有刀刃重複 |
+| `--motion-stg`（隨倉 `comfy_nodes/` 節點） | +28% | +4% | 唯一保住動態與劇本繳械的組，但只跑 1 個 seed，列為下一輪複驗候選 |
+
+- 沒有任何一組明顯消除融化或多刃。這是「看不到改善」，不是「證明無效」。
+- 「約軟 30%」來自近似配對比較，含一採精度不同與人物姿態差異兩個混雜變因。
+- Sulphur-3 主模型 `s3.safetensors` 是 T2VA，不支援多參考圖鎖臉，所以沒有測。
+
+完整數據、逐幀判讀與侷限見 [`docs/research/2026-11-26-sulphur3-anti-artifact-study.md`](docs/research/2026-11-26-sulphur3-anti-artifact-study.md)。
+
+---
+
+## 系統規格、工作流設定與必裝插件速覽
+
+**開發與實測基準**：NVIDIA GeForce RTX 5070 Ti（16 GB GDDR7，Driver 610.88）· Intel Core i5-14600KF · 96 GB DDR5 · Windows 11 專業版 · ComfyUI 0.45.3（Python 3.12+／PyTorch CUDA）。8／12／24 GB 顯卡的調參建議見手冊的顯存分級表。
+
+### 核心權重（放在 `<ComfyUI>/models/` 底下）
+
+| 類別 | 檔名 | 子目錄 | 來源 |
+|---|---|---|---|
+| 底模 | `Minimax-h3_Singularity_x_10Eros-Max_PRISM_int8.safetensors` | `diffusion_models/` | 社群 [OliviaRossi/…PRISM](https://huggingface.co/OliviaRossi/Minimax-h3_Singularity-x-10Eros-Max_PRISM) |
+| 文字編碼器 | `qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors` | `text_encoders/` | 官方重新打包 [Comfy-Org/MiniMax-H3](https://huggingface.co/Comfy-Org/MiniMax-H3) |
+| 影片／音訊 VAE | `minimax_h3_video_vae_int8_convrot` / `minimax_h3_audio_vae_fp32` | `vae/` | 同上 |
+| 蒸餾 LoRA | DMAD（`--dmad 0.8`；預設檔名是本機合併檔） | `loras/` | 研究者發布 [ZhengmingYu/DMAD](https://huggingface.co/ZhengmingYu/DMAD) 的 `_comfyui` 檔 |
+| Dials 轉盤 | 19 顆主轉盤＋`experimental/`（P9 會用到） | `loras/dials/` | [MATLOWAI/H3-Dials](https://huggingface.co/MATLOWAI/H3-Dials) |
+| 潛空間超分 | `h3_upscaler_lms_v0.1`（本機檔，可用 `--upscaler` 換成公開版） | `latent_upscale_models/` | [LBH-123-AI/Minimax_h3_latent_Upscaler](https://huggingface.co/LBH-123-AI/Minimax_h3_latent_Upscaler) |
+| 像素超分 | `transformer_int8_convrot.safetensors` | `recavsr/` | 社群 [PedroMarinhoDev/ReCaVSR-ComfyUI](https://huggingface.co/PedroMarinhoDev/ReCaVSR-ComfyUI) |
+
+### 必裝 ComfyUI 插件
+
+| 插件 | 提供的節點 |
+|---|---|
+| [facok/comfyui-SelfLift](https://github.com/facok/comfyui-SelfLift) | `SelfLiftH3Sampler` |
+| [matlowai/ComfyUI-MAINodes](https://github.com/matlowai/ComfyUI-MAINodes) | `MAIDialRack`、`MAIDialHoldMap` |
+| [kijai/ComfyUI-KJNodes](https://github.com/kijai/ComfyUI-KJNodes) | `MiniMaxChunkFeedForward` |
+| [Kosinkadink/ComfyUI-VideoHelperSuite](https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite) | `VHS_VideoCombine` |
+| [PedroMarinhoDev/ComfyUI-ReCaVSR](https://github.com/PedroMarinhoDev/ComfyUI-ReCaVSR) | `ReCaVSRLoader`、`ReCaVSRUpscale`（三採 2K） |
+
+`BlockSparseAttention`（sol-attn）、`MiniMaxH3SigmaShift`、`MiniMaxH3ReferenceToVideo` 都是 ComfyUI 內建節點；`kijai/ComfyUI-SolAttn_triton` 已被作者棄用，不需要安裝。[matlowai/ComfyUI-Dials](https://github.com/matlowai/ComfyUI-Dials) 是轉盤的原始穩定版，與 MAINodes 共用同一批轉盤檔，想自製轉盤時再裝即可。
+
+### 延伸閱讀
+
+- [`docs/setup-and-environment.md`](docs/setup-and-environment.md)：完整硬體規格、顯存分級表、每個權重的路徑與來源、Mermaid 節點資料流圖、關鍵節點參數表、選配插件與一鍵 `git clone` 腳本。
+- [`workflows/`](workflows/)：三份由 `render_comfy.py` 匯出的 API 工作流（P9 Ref2VA、P8 雙軌、ReCaVSR 2K），可直接 `POST /prompt` 或拿來對照節點連接。
+- [`docs/verified-ecosystem-links.json`](docs/verified-ecosystem-links.json)：12 個插件與 9 個模型倉庫的連結、授權與核驗快照。
+
+---
+
+## 四大武打與技能參考庫（125 組招式與分鏡資產）
+
+寫打鬥前先決定「這一鏡的動作從哪個庫取」。四庫分工不重複，先查 `move-library.md` 打底，再往其他三庫取專門招式：
+
+| 參考庫 | 收錄 | 何時用 |
+|---|---|---|
+| [`move-library.md`](references/move-library.md) | **16 招**通用基礎動作（另附 4 組串接配方與回合編排三鐵律） | 任何打戲的起點：突進、下盤、拳掌、刀路、落地、卸力 |
+| [`martial-arts-compendium.md`](references/martial-arts-compendium.md) | **37 組**有流派出處的招式與奇門兵器 | 八極、詠春、八卦、太極、形意、泰拳、柔道／MMA 真摔、居合、長槍棍、鎖鏈鐮刀、雙鐵扇、九節鞭等 |
+| [`manju-signature-tropes.md`](references/manju-signature-tropes.md) | **42 組**華語武俠／修真仙俠／AI 漫劇王牌套路（含 4 套 15 秒五段導演套餐） | 前 3 秒境界威壓、萬劍／法相大招、鬥氣對波逆轉 |
+| [`unique-skills-and-sakuga.md`](references/unique-skills-and-sakuga.md) | **30 組**：16 組機制型異能＋14 組日系 Sakuga 鏡頭鏈 | 空間折疊、影縫鎖踝、時停抽色；魚眼拳、速度線追拍、反相閃幀 |
+
+16 ＋ 37 ＋ 42 ＋ 30 ＝ **125 組**（4 組串接配方不另計）。四庫共通規則：英文 H3 句庫只寫身體機制、接觸點與物理結果，嚴禁直譯招式名、流派名或畫師名；全句零否定詞；摔技要有離地弧線與砸地結果。
+
+---
+
 ## 核心武戲設計結構
 
 ### 六拍打擊
@@ -167,33 +270,33 @@ python scripts/measure_sharpness.py out/duel_p9.mp4
 
 ---
 
-## 成品展示（v1 基準片段）
+## 成品展示（v4.0 強化重跑與經典片段）
 
-以下片段皆以 [`examples/`](examples/) 提示詞生成（固定種子、24 fps、1280×704；21:9 片段為 1280×544）。點擊標題可開啟完整 MP4。
+以下 7 支核心片段已於 v4.0 由 `PRISM_int8 + SelfLift 14 步 + ComfyUI-Dials` 正負雙軌重跑升級為 **1344×768 HD**（21:9 片段為 **1536×640**；新舊量化對照見 [`2026-11-26-public-showcase-reruns.md`](docs/research/2026-11-26-public-showcase-reruns.md)）。點擊標題可開啟完整有聲 MP4。
 
 <table>
   <tr>
     <td align="center" width="50%">
       <a href="assets/showcase/blade-light.mp4"><img src="assets/showcase/blade-light.gif" alt="21:9 夜間雪地：冰藍新月弧、X 形光、放射閃電、紫色刀光"></a><br>
-      <b><a href="assets/showcase/blade-light.mp4">21:9 刃光電影</a></b><br>
-      <sub>藍雪上的逆光剪影，唯一的紫色異物色 · <a href="examples/blade-light-21x9.txt">提示詞</a></sub>
+      <b><a href="assets/showcase/blade-light.mp4">21:9 刃光電影（v4.0 P9）</a></b><br>
+      <sub>1536×640 藍雪逆光剪影、掃雪絆擊與雙色光弧 · <a href="examples/v4-showcase/blade-light-21x9-v4.txt">v4 提示詞</a> · <a href="examples/blade-light-21x9.txt">v1 原稿</a></sub>
     </td>
     <td align="center" width="50%">
       <a href="assets/showcase/ultra-speed.mp4"><img src="assets/showcase/ultra-speed.gif" alt="8 秒 12 鏡的庭院對決，機位在俯拍、貼地、升降之間切換"></a><br>
-      <b><a href="assets/showcase/ultra-speed.mp4">超高速・無人機式運鏡</a></b><br>
-      <sub>8 秒 12 鏡，每次切鏡都換機位 · <a href="examples/ultra-speed-drone.txt">提示詞</a></sub>
+      <b><a href="assets/showcase/ultra-speed.mp4">超高速・無人機式運鏡（v4.0 P7）</a></b><br>
+      <sub>1344×768 8 秒 12 鏡高速雙軌＋特寫錨定鎖臉 · <a href="examples/v4-showcase/ultra-speed-drone-v4.txt">v4 提示詞</a> · <a href="examples/ultra-speed-drone.txt">v1 原稿</a></sub>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <a href="assets/showcase/ink-wash.mp4"><img src="assets/showcase/ink-wash.gif" alt="老虎與持槍劍客，米黃紙色背景上的放射黑墨爆"></a><br>
-      <b><a href="assets/showcase/ink-wash.mp4">水墨墨爆</a></b><br>
-      <sub>用墨刺加 1 幀亮暗翻轉取代凍結 · <a href="examples/ink-wash.txt">提示詞</a></sub>
+      <a href="assets/showcase/ink-wash.mp4"><img src="assets/showcase/ink-wash.gif" alt="老虎與持槍白衣槍客，米黃紙色背景上的放射黑墨爆"></a><br>
+      <b><a href="assets/showcase/ink-wash.mp4">水墨墨爆（v4.0 水墨轉盤）</a></b><br>
+      <sub>1344×768 白蠟槍桿彎曲彈振＋刺肩頓幀墨爆 · <a href="examples/v4-showcase/ink-wash-v4.txt">v4 提示詞</a> · <a href="examples/ink-wash.txt">v1 原稿</a></sub>
     </td>
     <td align="center">
       <a href="assets/showcase/six-beat.mp4"><img src="assets/showcase/six-beat.gif" alt="屋頂對決，刀鋒相觸瞬間出現 2 幀爆白"></a><br>
-      <b><a href="assets/showcase/six-beat.mp4">六拍單次重擊</a></b><br>
-      <sub>蓄力、爆白、衝擊波、被打飛 · <a href="examples/six-beat-single-hit.txt">提示詞</a></sub>
+      <b><a href="assets/showcase/six-beat.mp4">六拍單次重擊（v4.0 P7 頓幀）</a></b><br>
+      <sub>1344×768 沉身進逼、2 幀爆白頓幀、瓦碎擊飛 · <a href="examples/six-beat-single-hit.txt">提示詞</a></sub>
     </td>
   </tr>
   <tr>
@@ -203,21 +306,21 @@ python scripts/measure_sharpness.py out/duel_p9.mp4
       <sub>2 × 15 秒 Ref2VA，角色保真 · <a href="examples/anime-ref2va-part1.txt">上半</a> · <a href="examples/anime-ref2va-part2.txt">下半</a></sub>
     </td>
     <td align="center">
-      <a href="assets/showcase/face.mp4"><img src="assets/showcase/face.gif" alt="女劍客特寫：咬牙、眉頭擰緊、瞪大眼睛、低吼"></a><br>
-      <b><a href="assets/showcase/face.mp4">臉部表演</a></b><br>
-      <sub>寫肌肉動作，不寫形容詞 · <a href="examples/facial-performance.txt">提示詞</a></sub>
+      <a href="assets/showcase/face.mp4"><img src="assets/showcase/face.gif" alt="女劍客特寫：咬牙、眉頭擰緊、瞪大眼睛、迴旋破面具"></a><br>
+      <b><a href="assets/showcase/face.mp4">臉部表演（v4.0 SelfLift）</a></b><br>
+      <sub>1344×768 四階段肌肉微表情與轉胯破面具 · <a href="examples/v4-showcase/facial-performance-v4.txt">v4 提示詞</a> · <a href="examples/facial-performance.txt">v1 原稿</a></sub>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <a href="assets/showcase/character-bloodmoon.mp4"><img src="assets/showcase/character-bloodmoon.gif" alt="血紅花瓣荒原：白衣少女彈指、空氣碎裂成黑色多面體、白光巨柱橫斬"></a><br>
-      <b><a href="assets/showcase/character-bloodmoon.mp4">角色技能重現 A · 血月少女</a></b><br>
-      <sub>三張自製參考圖 10 秒 Ref2VA · <a href="examples/bloodmoon-ultimate-ref2va.txt">提示詞</a></sub>
+      <a href="assets/showcase/character-bloodmoon.mp4"><img src="assets/showcase/character-bloodmoon.gif" alt="血紅花瓣荒原：白衣雙馬尾少女靜立彈指、空氣碎裂成黑色多面體、偏軸白光巨柱撕裂翼影"></a><br>
+      <b><a href="assets/showcase/character-bloodmoon.mp4">角色技能重現 A · 血月少女（v4.0 P8）</a></b><br>
+      <sub>1344×768 Ref2VA：靜立緩推、十字星芒彈指與偏軸巨柱處刑 · <a href="examples/v4-showcase/bloodmoon-ultimate-ref2va-v4.txt">v4 提示詞</a> · <a href="examples/bloodmoon-ultimate-ref2va.txt">v1 原稿</a></sub>
     </td>
     <td align="center">
-      <a href="assets/showcase/character-jade.mp4"><img src="assets/showcase/character-jade.gif" alt="雨落黑岩：翡翠靈絲自腳踝甦醒、青眸點亮、裂空召喚三道符紋巨爪"></a><br>
-      <b><a href="assets/showcase/character-jade.mp4">角色技能重現 B · 執傘女修</a></b><br>
-      <sub>三張自製參考圖 10 秒 Ref2VA · <a href="examples/jade-rift-summon-ref2va.txt">提示詞</a></sub>
+      <a href="assets/showcase/character-jade.mp4"><img src="assets/showcase/character-jade.gif" alt="雨落黑岩：翡翠靈絲自腳踝甦醒、青眸點亮、撐傘裂空召喚三道符紋巨爪斜轟碎岩"></a><br>
+      <b><a href="assets/showcase/character-jade.mp4">角色技能重現 B · 執傘女修（v4.0 P8）</a></b><br>
+      <sub>1344×768 Ref2VA：左下開傘對右側裂空符紋三巨爪 · <a href="examples/v4-showcase/jade-rift-summon-ref2va-v4.txt">v4 提示詞</a> · <a href="examples/jade-rift-summon-ref2va.txt">v1 原稿</a></sub>
     </td>
   </tr>
   <tr>
@@ -251,7 +354,8 @@ python scripts/measure_sharpness.py out/duel_p9.mp4
 ### 核心技能與 v3.0 模組
 | 檔案 | 內容 |
 |---|---|
-| [`SKILL.md`](SKILL.md) | 四階段 Agent 總入口（v3.0）：入口路由、導演合約、雙語同步、SelfLift ＋ Dials |
+| [`SKILL.md`](SKILL.md) | Agent 總入口（v4.0）：第零階段雙軌啟動路由，加上四階段入口路由、導演合約、雙語同步、SelfLift ＋ Dials |
+| [`references/interactive-director-flow.md`](references/interactive-director-flow.md) | v4.0 雙軌運作流程：軌道 A 靜默增強檢核、軌道 B 三階段話術、《影片內容與時間軸主要動作概要》模板 |
 | [`references/fight-directing-contract.md`](references/fight-directing-contract.md) | 5 級事實優先級、零推斷帳本、9 載體路由、180° 軸線與雙色光軌、防滑步態合約 |
 | [`references/comfyui-dials-guide.md`](references/comfyui-dials-guide.md) | 5376 維運動洩漏係數、19 轉盤速查、P1–P9 配方、正負雙軌、SelfLift 解耦與 De-rope |
 | [`references/reverse-and-remix.md`](references/reverse-and-remix.md) | 原創／參考片逆向雙入口、1 復刻＋2 衍生並列抽卡、三段採樣流水線 |
@@ -262,7 +366,8 @@ python scripts/measure_sharpness.py out/duel_p9.mp4
 | 檔案 | 內容 |
 |---|---|
 | [`references/impact-design.md`](references/impact-design.md) / [`force-field.md`](references/force-field.md) | 六拍細節、力度分級、力場四通道與句庫 |
-| [`references/choreography.md`](references/choreography.md) / [`move-library.md`](references/move-library.md) | 招式配額制（刀路上限）、真摔判準、三高度、16 招具名庫 |
+| [`references/choreography.md`](references/choreography.md) / [`move-library.md`](references/move-library.md) | 招式配額制（刀路上限）、真摔判準、三高度、16 招具名庫與四大參考庫總導航 |
+| [`references/martial-arts-compendium.md`](references/martial-arts-compendium.md) / [`manju-signature-tropes.md`](references/manju-signature-tropes.md) / [`unique-skills-and-sakuga.md`](references/unique-skills-and-sakuga.md) | 37 組流派招式與奇門兵器、42 組武俠仙俠漫劇王牌套路、16 組機制異能＋14 組 Sakuga 鏡頭鏈 |
 | [`references/continuous-brawl.md`](references/continuous-brawl.md) / [`ultra-speed.md`](references/ultra-speed.md) | 連續對轟四拍模式、8 秒 10–14 鏡 ULTRA_SPEED 快切 |
 | [`references/camera-grammar.md`](references/camera-grammar.md) / [`cinematic-camera.md`](references/cinematic-camera.md) / [`drone-camera.md`](references/drone-camera.md) | 官方運鏡語法、三檔速度與幅度跳級、無人機 8 機位 |
 | [`references/blade-light-cinema.md`](references/blade-light-cinema.md) / [`ultimate-move.md`](references/ultimate-move.md) / [`vfx-vocabulary.md`](references/vfx-vocabulary.md) | 21:9 刃光電影語言、有靶有傷的大招原型、中英特效與色彩腳本 |
@@ -274,8 +379,11 @@ python scripts/measure_sharpness.py out/duel_p9.mp4
 ### 範例、測試與腳本
 | 檔案 | 內容 |
 |---|---|
-| [`examples/`](examples/) | v1 基準範例、[`fight-30s/`](examples/fight-30s/)、[`v2-demo/`](examples/v2-demo/) 與 [`v3-manju/`](examples/v3-manju/) 雙語旗艦劇本（含 `orig01_v13`、`rep04_v4`） |
-| [`tests/`](tests/) | `test_validate.py`（9 項回歸測試：好樣本、壞樣本、打法模式、雙語切點同步、美型臉防過激與 v3.0 嚴格物理旗艦劇本） |
+| [`examples/`](examples/) | v1 基準範例、[`v4-showcase/`](examples/v4-showcase/) 公開展示牆強化劇本、[`fight-30s/`](examples/fight-30s/)、[`v2-demo/`](examples/v2-demo/) 與 [`v3-manju/`](examples/v3-manju/) 雙語旗艦劇本（含 `orig01_v13`、`rep04_v4`） |
+| [`tests/`](tests/) | 共 28 項：`test_validate.py`（22 項：好樣本、v4 展示牆樣本、壞樣本、打法模式、雙語切點同步、美型臉防過激、v3.0 嚴格物理旗艦、防動態破圖身體機制、短鏡轉體疊加與劇本式格式）＋`test_flagship_jobs.py`（6 項：旗艦 JOBS 雙軌秒數對齊劇本切點） |
+| [`workflows/`](workflows/) | 三份 API 格式工作流：[`h3_prism_selflift_p9_ref2va.json`](workflows/h3_prism_selflift_p9_ref2va.json)、[`h3_prism_selflift_p8_dualrail.json`](workflows/h3_prism_selflift_p8_dualrail.json)、[`h3_recavsr_2k_upscale.json`](workflows/h3_recavsr_2k_upscale.json) |
+| [`comfy_nodes/`](comfy_nodes/) | 隨倉自訂節點 `ComfyUI-H3-SelfLift-MotionSTG`（`--motion-stg` 進階實驗選配） |
+| [`docs/`](docs/) | [`setup-and-environment.md`](docs/setup-and-environment.md) 安裝手冊、[`verified-ecosystem-links.json`](docs/verified-ecosystem-links.json) 連結核驗清單、[`research/`](docs/research/) 實測報告 |
 | [`scripts/`](scripts/) | `validate_prompt.py`、`render_comfy.py`、`render_v3_flagship.py`、`measure_motion.py`、`measure_sharpness.py`、`measure_staging.py`、`measure_light_event.py`、`impact_frame.py`、`seam_check.py`、`compare_clips.py`、`gen_krea2_assets.py` |
 
 ---

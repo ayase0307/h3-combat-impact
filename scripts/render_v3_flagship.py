@@ -111,29 +111,25 @@ JOBS = {
     "ult01": {
         "prompt": "ult01_brush_seal_army.txt",
         "refs": ["ult01/moli.png", "ult01/bg_fortress_pass.png"],
-        # v4.0：切點 0/3.2/7.0/10.8。P8 取代 P5：P5 的 arcane_sigils 走固定正規化關鍵幀（45–65% 滿、80% 歸零），與本劇本切點無關；
-        # 代價是失去 sigils 滑塊，墨圈只靠 prompt（驗收看墨圈仍清楚可讀，糊掉就用 render_comfy --rack 補短 h3_arcane_sigils 脈衝 A/B）。
-        # 特寫 5.0s 轉環繞揮毫；頓幀後末段續行 +0.65，不鎖尾
-        "preset": "P8",
-        "bursts": ["0.0:2.9:0.65", "6.7:10.5:0.80", "11.1:15.0:0.65"],
+        # v4.0 實測校準（見 2026-11-26-v4-rerun-results.md §4.4）：純結印符陣類拔除 P5 改 P8 phase-motion 會使清晰度由 477 暴跌至 125 且丟失同心符文圓陣；
+        # 故圓陣召喚類維持 P5（80% 自動歸零防萬花筒）+ hires-dials off 保住 477 超高銳度，並補特寫負軌鎖臉與破關頓幀
+        "preset": "P5",
         "anchors": ["2.9:5.0:-0.55"],
         "hitstops": ["10.8:11.05:-1.8"],
         "hits": [],
         "beats": [5.0],
-        "hires_dials": "phase-motion",
+        "hires_dials": "off",
         "seed": 8101,
     },
     "ult02": {
         "prompt": "ult02_lunar_prism_domain.txt",
         "refs": ["ult02/wangshu.png", "ult02/bg_lunar_lake.png"],
-        # v4.0：切點 0/4.0/7.8/11.0。P8 取代 P5（理由與代價同 ult01：失去 sigils 滑塊，驗收看冰陣仍清楚可讀，必要時 --rack 補脈衝）；
-        # 點湖與結印定樁、冰柱破湖到冰蓮綻放直到末幀正軌 +0.55（不鎖尾）
-        "preset": "P8",
+        # v4.0 實測校準：同 ult01 屬純結印冰陣領域，維持 P5（80% 歸零）+ hires-dials off 保住冰晶符陣銳度，搭配點湖與結印負軌定樁鎖臉
+        "preset": "P5",
         "anchors": ["0.0:3.7:-0.30", "3.7:7.5:-0.65"],
-        "bursts": ["7.5:15.0:0.55"],
         "hits": [],
         "beats": [],
-        "hires_dials": "phase-motion",
+        "hires_dials": "off",
         "seed": 8201,
     },
 }
@@ -161,7 +157,9 @@ def make_sheet(mp4: pathlib.Path, jpg: pathlib.Path) -> None:
         "ffmpeg", "-y", "-v", "error", "-i", str(mp4),
         "-vf", "fps=0.45,scale=640:-2,tile=3x2", "-frames:v", "1", "-q:v", "2", str(jpg),
     ]
-    subprocess.run(cmd, check=False)
+    res = subprocess.run(cmd, check=False)
+    if res.returncode != 0:
+        print(f"[WARN] make_sheet failed (exit {res.returncode}) for {mp4.name}", flush=True)
 
 
 def main():

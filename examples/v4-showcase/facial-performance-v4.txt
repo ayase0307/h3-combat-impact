@@ -1,0 +1,10 @@
+#! profile: facial
+integrated_multimodal_description: [Shot 1] 3D CG, cinematic realistic drama, a rain-drenched night alley lit by flickering cyan and magenta neon reflections. A young swordswoman with wet short black hair and a thin scar beneath her right eye is locked blade-to-blade with a dark masked swordsman. First contact occurs within the opening half-second as their steel edges grind together. In an extreme close-up of her face, her jaw muscles bunch, her teeth clench behind parted lips, her brows draw down into a tight knot above the bridge of her nose, and her lower eyelids tense as rainwater streams off her chin. The camera pushes in with small amplitude at slow speed.
+
+[Shot 2] At 00:01.800, the camera cuts to a tight close-up as her eyes widen sharply and her lips part on a sudden intake of breath when the rival's blade tip grazes her left cheekbone, flicking a bright orange spark and opening a thin crimson line across wet skin. The camera shakes briefly then steadies.
+
+[Shot 3] At 00:03.200, the camera cuts to a medium tracking shot as she sets her rear boot into a puddle, drops her hip, and shoves her hilt forward with both arms to break the lock, driving the masked opponent stumbling backward three paces through splashing neon-lit water. The camera tracks forward with her at fast speed.
+
+[Shot 4] At 00:04.750, the camera cuts to a low-angle close-up as her mouth settles into a calm cold line and her focused eyes lock onto his throat, then she plants her lead foot, pivots her hips, and whips her blade through a crisp horizontal slash that cleaves the opponent's dark mask cleanly in two amid flying rain and bright sparks, her shoulders continuing through the rotation as the shot ends. The camera whips around with large amplitude at fast speed.
+overall_soundscape: Pouring alley rain, grinding steel edges, a sharp intake of breath, boots splashing through deep puddles, buzzing neon transformers, and a crisp metallic cleave.
+non_diegetic_music: Tense low pulsing analog synth over a steady heartbeat kick drum.

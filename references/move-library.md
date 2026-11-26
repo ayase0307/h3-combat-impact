@@ -8,7 +8,7 @@
 |---|---|---|---|
 | **通用基礎動作與回合編排**：突進、下盤、拳掌、刀路、落地、卸力，以及三招串接與「主導權換手／距離變化／身體部位換用」三鐵律 | 本檔 `move-library.md` | 基礎 16 招＋4 組串接配方＋回合編排三鐵律 | 任何打戲的起點；招式不夠具名時回到這裡補「位移／機制／物理結果／戰術」四層 |
 | **有流派出處的實戰招式與奇門兵器**：八極、詠春、八卦、太極、形意、泰拳、拳擊、柔道／MMA 真摔、居合、重劍、長槍棍，以及機巧鐵傘、鎖鏈鐮刀、雙鐵扇、九節鞭、雙拐、雙短匕 | [`martial-arts-compendium.md`](martial-arts-compendium.md) | 37 組，四大類 | 需要「這個角色是哪一派、用哪種武器」的明確打法；摔技必須通過真摔三條判準；奇門兵器需鎖定型號與剪影 |
-| **整場 15 秒漫劇式武戲的「招牌橋段」套路**：把一場戲拆成「旋傘捲雨成盾 → 紅絲繫竹彈射 → 傘骨綻網繳械」這類有名字、可重複使用的敘事橋段，而不只是單招 | [`manju-signature-tropes.md`](manju-signature-tropes.md)（與本檔同批 v4.0 並行產出；**若此檔尚未出現在你的分支，請先合併該並行分支**，過渡期以 `examples/v3-manju/*.txt` 的成品範例代替） | 以該檔實際內容為準；現有可參照的成品範例見 `examples/v3-manju/`（如 `orig02_bamboo_lantern_umbrella_vs_spear.txt`、`rep03_jade_hammer_dragon.txt`） | 要寫「整場有招牌感的 15 秒戲」、需要橋段級（不是單招級）的結構時 |
+| **華語武俠／修真仙俠／AI 漫劇王牌招式與大招套路**：前 3 秒境界威壓鉤子、武俠身法奇招、不對稱萬劍／法相大招、鬥氣環繞對波逆轉，以及整場 15 秒五段式導演套餐 | [`manju-signature-tropes.md`](manju-signature-tropes.md) | 42 組（五大篇，含 4 套 15 秒五段導演套餐） | 要抓漫劇黃金 3 秒爽點、仙俠大場面或直接套用 15 秒完整武戲橋段時 |
 | **機制型獨特異能與日系 Sakuga 鏡頭語法**：空間折疊、鏡面換位、影縫鎖踝、鋼絲切柱、重力球、時停抽色、殘影分身、流體重盾、砂鐵／紙片化刃、音波環切；幾何方塊碎石、魚眼拳、速度線追拍、背動長鏡頭、反相閃幀、火花插切等 | [`unique-skills-and-sakuga.md`](unique-skills-and-sakuga.md) | Part A 16 組能力＋Part B 14 組鏡頭鏈 | 角色有「獨特能力」或需要把一拍衝擊拍得像作畫王牌；與 `character-signature-skill.md` 的四節點母題疊用 |
 
 **使用順序建議**：`fight-directing-contract.md`（先導演）→ 本檔三鐵律（決定回合怎麼排）→ 上表其餘三庫（取招式／能力／鏡頭）→ `choreography.md`（配額與真摔判準驗收）。
@@ -57,7 +57,7 @@
 ### 03 疾步繞後偷襲｜幻影繞行、背身突襲
 
 - **機制**：快速橫移迂回 → 留下殘影 → 繞至盲側
-- **H3**：`slides sideways in three fast steps, leaving afterimages, circles behind him and closes in from his blind side`
+- **H3**：`darts sideways in three crisp steps, leaving afterimages, circles behind him and closes in from his blind side`
 - **關鍵詞**：`three fast steps`, `afterimages`, `blind side`
 - **戰術**：繞後、打盲區
 
@@ -107,8 +107,8 @@
 ### 迴身背拳｜轉身鞭擊
 
 - **機制**：背對對手 → 腰帶動 → 反手鞭出
-- **H3**：`spins away from him and whips a backfist around without looking, the arm arriving before her head turns`
-- **關鍵詞**：`whips a backfist around`, `without looking`, `before her head turns`
+- **H3**：`spins away from him and whips a blind-side backfist around, her arm arriving before her head turns`
+- **關鍵詞**：`whips a blind-side backfist`, `arm arriving`, `before her head turns`
 - **戰術**：被貼身時的脫困反擊
 
 ---
@@ -168,8 +168,8 @@
 ### 撤步卸力｜退步化勁
 
 - **機制**：後腳先退 → 上身保持 → 把力量引到側面
-- **H3**：`gives ground with the blow instead of against it, letting the strike slide past her shoulder`
-- **關鍵詞**：`gives ground with the blow`, `slide past her shoulder`
+- **H3**：`steps back along the force line to yield ground, guiding the strike cleanly past her shoulder`
+- **關鍵詞**：`steps back along the force line`, `yield ground`, `past her shoulder`
 - **戰術**：被壓制時保命
 
 ### 袖纏格擋（布帛武器專用）
@@ -204,7 +204,7 @@ three alternating palm strikes riding each other's wake → a straight punch wit
 
 ```text
 疾步繞後偷襲 → 迴身背拳 → 旋掃地腿絆擊
-slides sideways leaving afterimages → whips a backfist around → sweeps flat across the floor
+darts sideways in three crisp steps leaving afterimages → whips a blind-side backfist around → sweeps flat across the floor
 ```
 
 ### 破防型（打開→奪取→終結）

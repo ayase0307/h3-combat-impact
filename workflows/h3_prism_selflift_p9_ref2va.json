@@ -1,0 +1,325 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "Minimax-h3_Singularity_x_10Eros-Max_PRISM_int8.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "3": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "type": "minimax",
+      "device": "default"
+    }
+  },
+  "4": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_int8_convrot.safetensors"
+    }
+  },
+  "5": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    }
+  },
+  "2": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "lora_name": "minimax_h3_dmad_full_dareties_v4_step600_comfy_fro.safetensors",
+      "strength_model": 0.8
+    }
+  },
+  "dr": {
+    "class_type": "MAIDialRack",
+    "inputs": {
+      "model": [
+        "2",
+        0
+      ],
+      "rack": "[{\"dial\": \"dials/h3_motion.safetensors\", \"strength\": 0.5, \"on\": true}, {\"dial\": \"dials/h3_ink_wash.safetensors\", \"strength\": 0.5, \"on\": true}, {\"dial\": \"dials/h3_storm.safetensors\", \"strength\": 0.5, \"on\": true}, {\"dial\": \"dials/h3_dramatic_light.safetensors\", \"strength\": 0.9, \"on\": true}, {\"dial\": \"dials/experimental/h3_x_silentfilm_cyberpunk.safetensors\", \"strength\": 0.4, \"on\": true}, {\"dial\": \"dials/h3_impact_frame.safetensors\", \"strength\": 0.35, \"on\": true}]"
+    }
+  },
+  "low_attn": {
+    "class_type": "ModelAttentionBackend",
+    "inputs": {
+      "model": [
+        "dr",
+        0
+      ],
+      "attention": "comfy kitchen attention"
+    }
+  },
+  "low_bsa": {
+    "class_type": "BlockSparseAttention",
+    "inputs": {
+      "model": [
+        "low_attn",
+        0
+      ],
+      "selection": "sol-attn",
+      "selection.tau": 1.3,
+      "start_percent": 0.2,
+      "end_percent": 1.0,
+      "dense_blocks": "",
+      "min_tokens": 12288,
+      "extra_tokens": 256,
+      "sink_conditioning": "exact_kv_and_rows",
+      "verbose": false
+    }
+  },
+  "low_shift": {
+    "class_type": "MiniMaxH3SigmaShift",
+    "inputs": {
+      "model": [
+        "low_bsa",
+        0
+      ],
+      "shift_video": 12.0,
+      "shift_audio": 3.0
+    }
+  },
+  "low_chunk": {
+    "class_type": "MiniMaxChunkFeedForward",
+    "inputs": {
+      "model": [
+        "low_shift",
+        0
+      ],
+      "chunks": 4,
+      "seq_threshold": 4096
+    }
+  },
+  "hi_attn": {
+    "class_type": "ModelAttentionBackend",
+    "inputs": {
+      "model": [
+        "2",
+        0
+      ],
+      "attention": "comfy kitchen attention"
+    }
+  },
+  "hi_bsa": {
+    "class_type": "BlockSparseAttention",
+    "inputs": {
+      "model": [
+        "hi_attn",
+        0
+      ],
+      "selection": "sol-attn",
+      "selection.tau": 1.3,
+      "start_percent": 0.2,
+      "end_percent": 1.0,
+      "dense_blocks": "",
+      "min_tokens": 12288,
+      "extra_tokens": 256,
+      "sink_conditioning": "exact_kv_and_rows",
+      "verbose": false
+    }
+  },
+  "hi_shift": {
+    "class_type": "MiniMaxH3SigmaShift",
+    "inputs": {
+      "model": [
+        "hi_bsa",
+        0
+      ],
+      "shift_video": 12.0,
+      "shift_audio": 3.0
+    }
+  },
+  "hi_chunk": {
+    "class_type": "MiniMaxChunkFeedForward",
+    "inputs": {
+      "model": [
+        "hi_shift",
+        0
+      ],
+      "chunks": 4,
+      "seq_threshold": 4096
+    }
+  },
+  "30": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "hero.png"
+    }
+  },
+  "31": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "villain.png"
+    }
+  },
+  "32": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "scene.png"
+    }
+  },
+  "7": {
+    "class_type": "MiniMaxH3ReferenceToVideo",
+    "inputs": {
+      "clip": [
+        "3",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ],
+      "audio_vae": [
+        "5",
+        0
+      ],
+      "prompt": "subject_definitions:\n<Subject 1> is Jinyuan from <Picture 1>: agile East Asian swordswoman, calm cold refined face, sleek black bob hair with twin braids, dark ink-teal and gold martial attire, wielding one full-length forged dark-steel katana with a circular brass handguard trailing crisp crimson blade-light arcs.\n\n<Subject 2> is Heming from <Picture 2>: tall handsome East Asian swordsman, composed aristocratic face, half-tied black hair with bronze hairpin, ivory-white and black-gold coat, wielding one full-length forged silver-steel broadsword with a bronze crossguard trailing crisp ice-blue sword-light arcs.\n\n<Subject 3> is the rain-swept stone duel terrace from <Picture 3>: wide wet dark-grey flagstone arena reflecting red and blue blade light, stone balustrade along the rear edge, distant misty clocktower silhouette under storm clouds.\n\nsummary:\n[reference generation] A 15-second 16:9 high-impact 2.5D AI manju sword duel between <Subject 1> on the left and <Subject 2> on the right on <Subject 3>, featuring an opening crimson-versus-ice-blue X-slash shockwave, a ducked horizontal crimson sweep into a heavy ice-blue counter-cleave, a calm rain-lit close-up of <Subject 1>, rapid close-range crimson-and-blue blade clashes into a fiery face-level lock, and a climactic crimson crescent slash shattering <Subject 2>'s guard and driving him down to one knee as <Subject 1> stands victorious.\n\nretention_analysis:\n<Subject 1> ([Shot 1]-[Shot 5]): fully_preserved - Cold refined face, black bob with braids, ink-teal gold attire, full-length dark-steel katana with circular brass handguard.\n\n<Subject 2> ([Shot 1]-[Shot 5]): fully_preserved - Composed handsome face, half-tied black hair, ivory coat, full-length silver-steel broadsword with bronze crossguard.\n\n<Subject 3> ([Shot 1]-[Shot 5]): fully_preserved - Wet dark-grey stone terrace, rear stone balustrade, distant clocktower silhouette.\n\ndetailed_description:\nHigh-end 2.5D semi-realistic AI manju guoman swordplay cinema blending crisp forged metallic blades with sweeping crimson and ice-blue slash arcs, explosive steel sparks, and fluid tracking camera work.\n\n[Shot 1] High-end 2.5D AI manju swordplay on <Subject 3>. First clash strikes within half a second: sprinting across wet flagstones from opposite sides, <Subject 1> on the left swings a blazing crimson crescent katana arc colliding head-on against <Subject 2> on the right swinging an ice-blue broadsword arc, locking solid steel blades at center in a brilliant X-burst of sparks and a circular wall of rain spray. Camera pushes smoothly into a clean medium two-shot.\n\n[Shot 2] At 00:03.200, the camera cuts to a fluid side-tracking medium shot with <Subject 1> on the left and <Subject 2> on the right: <Subject 1> pivots whipping a wide horizontal crimson katana arc at head height; <Subject 2> ducks low beneath the glowing crimson trail and rises driving a heavy two-handed ice-blue broadsword cleave into <Subject 1>'s angled katana guard, bursting golden sparks and driving <Subject 1> two firm steps back in a spray of water. Camera tracks sideways smoothly.\n\n[Shot 3] At 00:06.200, the camera cuts to a smooth close-up of <Subject 1> holding her brass-guarded dark-steel katana upright beside her face: calm cold expression, smooth brows narrowing a fraction, lower eyelids tightening with quiet resolve, softly closed lips, focused dark eyes reflecting a thin crimson edge glow as raindrops roll down the steel blade and both hands tighten on the hilt. Camera glides in gently and holds steady.\n\n[Shot 4] At 00:09.000, the camera cuts to a tight medium two-shot as <Subject 1> on the left and <Subject 2> on the right surge together trading two fast ringing crimson-versus-ice-blue steel parries at chest height before locking both forged blades crosswise right between their faces, furrowed brows lit by roaring red-and-blue sword energy and flying golden sparks. Camera orbits subtly around the intense blade lock.\n\n[Shot 5] At 00:11.800, the camera cuts to a sweeping side medium-wide shot as <Subject 1> steps forward on the left unleashing a massive blazing crimson crescent katana slash horizontally through <Subject 2>'s ice-blue broadsword guard, erupting an outward wave of golden-red sparks and rain mist that blasts <Subject 2> backward onto one knee propping himself on his silver broadsword on the right while <Subject 1> stands tall on the left snapping her full-length dark-steel katana steady with calm breath through the final frame. Camera pulls back slightly and holds on the clear victory.\n\noverall_soundscape: Pouring midnight rain and thunder, heavy steel clash and outward water burst, sharp crimson blade whoosh ducked into a ringing ice-blue counter-clang, rapid twin parry rings into a crackling energy lock, and one colossal guard-shattering slash explosion followed by rain dripping in victory.\n\nnon_diegetic_music: Driving Chinese war drums, taut strings, and sharp pipa accents surging through the blade clashes, peaking on the crimson guard-breaking slash at twelve seconds and resolving into a deep resonant chord.",
+      "width": 1344,
+      "height": 768,
+      "length": 362,
+      "ref_image_size": "match",
+      "ref_images.ref_image_0": [
+        "30",
+        0
+      ],
+      "ref_images.ref_image_1": [
+        "31",
+        0
+      ],
+      "ref_images.ref_image_2": [
+        "32",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "ConditioningZeroOut",
+    "inputs": {
+      "conditioning": [
+        "7",
+        0
+      ]
+    }
+  },
+  "10": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "11": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "low_chunk",
+        0
+      ],
+      "scheduler": "simple",
+      "steps": 14,
+      "denoise": 1.0
+    }
+  },
+  "12": {
+    "class_type": "SelfLiftH3Sampler",
+    "inputs": {
+      "model": [
+        "low_chunk",
+        0
+      ],
+      "positive": [
+        "7",
+        0
+      ],
+      "negative": [
+        "8",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ],
+      "latent_image": [
+        "7",
+        1
+      ],
+      "sampler": [
+        "10",
+        0
+      ],
+      "sigmas": [
+        "11",
+        0
+      ],
+      "seed": 7101,
+      "cfg": 1.0,
+      "transition_step": 6,
+      "lowres_scale": 0.6,
+      "rho": 0.0,
+      "w_min": 0.5,
+      "w_max": 1.0,
+      "upscaler_model": "h3_upscaler_lms_v0.1.safetensors",
+      "highres_tiling": false,
+      "upscaler_unload": true,
+      "model_hires": [
+        "hi_chunk",
+        0
+      ]
+    }
+  },
+  "13": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "12",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "14": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "12",
+        0
+      ],
+      "vae": [
+        "5",
+        0
+      ]
+    }
+  },
+  "15": {
+    "class_type": "VHS_VideoCombine",
+    "inputs": {
+      "images": [
+        "13",
+        0
+      ],
+      "audio": [
+        "14",
+        0
+      ],
+      "frame_rate": 24,
+      "loop_count": 0,
+      "filename_prefix": "h3_combat/duel_p9",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 18,
+      "save_metadata": true,
+      "trim_to_audio": false,
+      "pingpong": false,
+      "save_output": true
+    }
+  }
+}

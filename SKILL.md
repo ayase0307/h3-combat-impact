@@ -79,7 +79,7 @@ agent_created: true
    - 首接觸 ≤ 0.5 秒（拒絕站著對視開場；英文 `[Shot 1]` 可補 `First contact occurs within the opening half-second.`）。
    - H3 末尾 1–2 秒會自動減速：末鏡不超過總長 30%、選中景且保持進行中位移；實片剪輯時視需要裁掉尾端 1.0–1.5 秒。
 4. **四項細節保真**：
-   - **招式多樣性與三高度**（`references/choreography.md`、`move-library.md`）：15s 刀路上限 8 次，補踢擊／拳肘／真摔（非僵持 lock）／下盤；三招涵蓋上中下三高度，每招寫目標。
+   - **招式多樣性、三高度與四大招式庫**（`references/choreography.md`、`move-library.md`、`martial-arts-compendium.md`、`manju-signature-tropes.md`、`unique-skills-and-sakuga.md`）：15s 刀路上限 8 次，從 125 組實戰／漫劇／異能／Sakuga 庫取具名機制，補踢擊／拳肘／真摔（非僵持 lock）／下盤；三招涵蓋上中下三高度，每招寫目標。
    - **肌肉微表情與顏值分檔**（`references/facial-performance.md`）：臉部特寫必選對分檔——**A 檔美型克制（國漫／AI 漫劇預設）**用「冷靜壓制詞」（`calm cold expression, smooth relaxed brows, softly closed lips`＋細汗／髮絲）壓住 H3 戰鬥先驗防齜牙醜臉；僅魔獸／粗獷反派用 **B 檔咆哮詞**。禁只寫 `eyes narrow` 或情緒形容詞。
    - **力場四通道**（`references/force-field.md`）：一次最多開三通道，優先序 `空氣折射 > 物質衣料碎石 > 全域光影 > 粒子`。
    - **奇觀不對稱構圖**（`references/ultimate-move.md`）：大招禁背景正中對稱奇觀，改為「偏軸掃出＋主體踏入奇觀位移」。
@@ -135,7 +135,7 @@ python scripts/validate_prompt.py prompt.txt --duration 8 --profile ultra
 | **P7（徒手／混合戰）** | 雙人徒手／中近距實戰 | `dramatic_light +1.35` + `storm +0.85` + `evil_dread +0.45`；配 `--burst`（交鋒）、`--anchor`（特寫）、`--hitstop`（頓幀） |
 | **P8（大招首選）** | 跪地／站樁開陣接超高速破空主砲 | `dramatic_light +1.40` + `storm +0.80` + `evil_dread +0.55`；開陣配 `--anchor 0:4:-0.65` 釘死防滑，破空配 `--burst 9:15:0.80` |
 | **P1 / P2 / P3 / P4** | 純拆招 / 全程追逐 / 簡易重擊 / 慢重巨獸 | 已於 v3.0 校準 `storm` 洩漏（`P2` 淨 $M_{\text{eff}}=+0.925$，禁配跪蹲靜態詞） |
-| **P5 / P6（限縮）** | 純結印圓陣 / 瞬時空間傳送 | 內建 75–80% 處強制歸零，禁止用於直線光砲或近戰 |
+| **P5 / P6（限縮）** | 純結印圓陣 / 瞬時空間傳送 | 內建 75–80% 處強制歸零，配 `--hires-dials off`＋特寫 `--anchor`（`ult01` 實測維持 `P5` 清晰度 `477.0` 遠勝改 `P8` 之 `124.9`）；禁止用於直線光砲或近戰 |
 
 ### 4.3 本機主力出片與量化防滑驗收流水線（`127.0.0.1:8188`）
 
@@ -174,6 +174,10 @@ python scripts/measure_sharpness.py out/fight_v3.mp4
 | 檔案 | 內容 |
 |---|---|
 | `references/interactive-director-flow.md` | v4.0 雙軌運作：軌道 A 靜默自動增強檢核表、軌道 B 三階段話術（四大維度選項→時間軸概要閘門→定稿出片）、《影片內容與時間軸主要動作概要》標準模板與完整對話範例 |
+| `references/manju-signature-tropes.md` | 華語武俠／修真仙俠／AI 漫劇王牌招式庫（42 組）：前 3 秒境界威壓鉤子、兵刃奇招、不對稱萬劍／法相大招、鬥氣對波逆轉與 4 套 15 秒導演套餐 |
+| `references/martial-arts-compendium.md` | 傳統與現代實戰武打及奇門兵器庫（37 組）：八極／詠春／八卦／太極、泰拳／MMA 真摔、居合／重劍／長槍與機巧傘／鎖鐮／雙扇／九節鞭 |
+| `references/unique-skills-and-sakuga.md` | 獨特機制異能與日系 Sakuga 分鏡庫（30 組）：空間折疊、影縫、鋼絲、時停抽色、流體重盾，以及方塊碎石、魚眼透視、背動追拍等作畫鏡頭鏈 |
+| `docs/setup-and-environment.md` | 硬體系統規格（RTX 5070 Ti 16GB 基準與顯存分級表）、底模／LoRA／超分權重路徑、可匯入 `workflows/*.json` 與必裝 ComfyUI 插件連結總表 |
 | `references/fight-directing-contract.md` | 上游導演合約：5 級事實優先級、零推斷帳本、9 大載體路由、6 種非對稱攻防、180° 軸線與雙色光軌、姿態—位移防滑律、雙語同步編譯 |
 | `references/comfyui-dials-guide.md` | `ComfyUI-Dials` v3.0 完整調用指南：5376 維運動洩漏係數 $M_{\text{eff}}$、19 轉盤速查、P1–P9 配方、正負雙軌（`--anchor/--burst/--hitstop`）、`SelfLift` 一採二採解耦與 De-rope |
 | `references/reverse-and-remix.md` | 雙入口工作流：模式 A 原創導演、模式 B 參考片逆向＋1 復刻 2 衍生並列抽卡、一採→二採→三採流水線 |
@@ -198,7 +202,7 @@ python scripts/measure_sharpness.py out/fight_v3.mp4
 ### 執行與驗證腳本
 | 腳本 | 用途 |
 |---|---|
-| `scripts/render_comfy.py` | 本機 ComfyUI 出片引擎：支援 `PRISM + SelfLiftH3Sampler`（14 步）與 Pika 6 步、`MAIDialRack`（P1–P9／`--anchor/--burst/--hitstop`）、`--hires-dials` 解耦、De-rope 與 `ReCaVSR 2x` 2K 超分 |
+| `scripts/render_comfy.py` | 本機 ComfyUI 出片引擎：預設冠軍 `PRISM_int8 + SelfLiftH3Sampler`（14 步）與 Pika 6 步、`MAIDialRack`（P1–P9／`--anchor/--burst/--hitstop`）、`--hires-dials` 解耦、選配 `--motion-stg` / `--corrector`（實測評估見 `docs/research/2026-11-26-sulphur3-anti-artifact-study.md`）、De-rope 與 `ReCaVSR 2x` 2K 超分 |
 | `scripts/validate_prompt.py` | 驗證官方格式、時間碼、否定詞、表情肌肉與美型臉防過激（`--face-style`）、招式多樣性、防滑閘門、雙語切點同步（`--check-sync`）；v4.0 加防動態破圖 WARN（空泛打鬥句缺身體機制、`<1.5s` 短鏡堆疊 ≥4 個翻轉旋轉詞）與劇本式（`[參考鎖]…[硬約束]`）檢核 |
 | `scripts/render_v3_flagship.py` | 9 套 v3 旗艦漫劇批次渲染（全部 P7/P8/P9 正負雙軌；`--dry` 只看 Dial 運動預算、`--force` 覆蓋重跑） |
 | `scripts/measure_motion.py` / `measure_sharpness.py` / `measure_staging.py` / `measure_light_event.py` | 24fps 歸一化運動曲線、靜止對稱（`--symmetry`）、貼地滑行檢測（`--footplant`）、拉普拉斯清晰度、鏡長與光影事件量測 |

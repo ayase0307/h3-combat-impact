@@ -1,0 +1,12 @@
+#! profile: ultra
+integrated_multimodal_description: [Shot 1] Chinese ink-wash martial-arts VFX, a warm sepia rice-paper palette with charcoal-grey washes, detailed tiger fur and linen cloth dynamics accented with flying black ink splashes, where the sole colour accent is a crimson silk waist sash. First contact occurs within the opening half-second: a massive striped tiger leaps down and swipes a heavy paw at a white-robed spearman, who plants his boots wide with calm brows and firmly closed lips to angle his ashwood spear shaft up against the blow, his crimson sash whipping out with a trailing black calligraphy stroke. The camera tracks sideways with large amplitude at fast speed.
+
+[Shot 2] At 00:01.000, the camera cuts to a medium low shot as the spearman drives off his rear leg and thrusts the steel spearhead straight into the tiger's shoulder guard; the ashwood shaft flexes under the load as a giant radial burst of jagged black ink spikes erupts from the contact point, flashing pure white for one frame and stark black for one frame before ink droplets scatter outward.
+
+[Shot 3] At 00:02.000, the camera cuts to a low wide angle beside a weathered stone pillar as the tiger rebounds and pounces past the flank, its shoulder smashing the pillar into tumbling geometric stone blocks and swirling grey ink mist across the rice-paper ground. The camera pushes in with large amplitude at fast speed.
+
+[Shot 4] At 00:03.100, the camera cuts to a tight front three-quarter view as the spearman spins the shaft overhead and slams the butt end down to meet the tiger's second charge, triggering a shockwave ring of black ink wash and flying gravel while the crimson sash slices cleanly across the dark spray. The camera shakes strongly then steadies within a third of a second.
+
+[Shot 5] At 00:04.100, the camera cuts to a medium wide shot as the ink cloud parts, the tiger pacing forward on heavy padded paws while the spearman steps back one crisp pace, plants his rear boot firmly, and levels the gleaming spear tip toward its chest as both remain in live motion through the final frame. The camera pulls back with small amplitude at slow speed.
+overall_soundscape: Deep tiger roars, heavy paws thudding on stone, whipping ashwood shaft, wet ink splashes, cracking masonry, and a resonant war drum hit on every clash.
+non_diegetic_music: Sharp guzheng plucks over a tense low taiko pulse that accelerates into each ink explosion.
