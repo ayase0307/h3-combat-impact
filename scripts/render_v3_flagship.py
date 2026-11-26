@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
-"""以實測冠軍管線（PRISM_int8 + DMAD 0.8 + SelfLift 14s simple + hires-dials off）批量渲染 9 套旗艦 15 秒 AI 漫劇成片。
+"""以實測冠軍管線（PRISM_int8 + DMAD 0.8 + SelfLift 14s simple）批量渲染 9 套旗艦 15 秒 AI 漫劇成片。
+
+v4.0：9 套全部走 P7/P8/P9 相位正負雙軌（--anchor / --burst / --hitstop / --closeup），
+P7/P8 二採 --hires-dials phase-motion，P9 依左眼 5.0 實證維持 --hires-dials off。
+每套 `beats` 列出劇本鏡內的相位轉折秒數（雙軌邊界若不在切點上，必須落在這裡）。
 
 用法：
     python scripts/render_v3_flagship.py                  # 跑全部未完成套件
     python scripts/render_v3_flagship.py rep01 rep02      # 只跑指定套件
+    python scripts/render_v3_flagship.py --force rep01    # 覆蓋已存在的 mp4 重跑
+    python scripts/render_v3_flagship.py --dry            # 只建圖與印出 Dial 運動預算，不送 ComfyUI
     python scripts/render_v3_flagship.py --upscale rep01  # 連同 ReCaVSR 2x 一起跑
 """
 
@@ -23,22 +29,41 @@ JOBS = {
     "rep01": {
         "prompt": "rep01_thunder_cleave.txt",
         "refs": ["rep01/leijin.png", "rep01/bg_volcano.png"],
-        "preset": "P3",
-        "hits": ["0.8:1.2", "10.6:11.0"],
+        # v4.0：切點 0/3.2/6.2/9.0/10.6/12.6。P8 base_eff +0.30；地面清場 +0.65、騰空與天劍破空 +0.80
+        "preset": "P8",
+        "bursts": ["0.0:2.9:0.65", "2.9:5.9:0.80", "8.7:10.5:0.80"],
+        "anchors": ["5.9:8.7:-0.65", "12.3:15.0:-0.30"],
+        "hitstops": ["10.6:10.85:-1.8"],
+        "hits": ["0.8:1.1"],
+        "beats": [],
+        "hires_dials": "phase-motion",
         "seed": 6101,
     },
     "rep02": {
         "prompt": "rep02_ink_flame_sea.txt",
         "refs": ["rep02/chichuan.png", "rep02/xuanlan.png", "rep02/bg_ink_sea.png"],
-        "preset": "P3",
-        "hits": ["9.0:9.4", "11.8:12.2"],
+        # v4.0：切點 0/3.2/6.2/9.0/11.6。P9 實證五滑塊 base_eff +0.69（含 motion 0.50），正軌上限 +0.29 才守住 +0.98
+        "preset": "P9",
+        "closeups": ["6.0:9.0"],
+        "anchors": ["5.9:8.7:-0.30"],
+        "bursts": ["0.0:5.9:0.25", "11.3:15.0:0.25"],
+        "hitstops": ["9.0:9.25:-1.8"],
+        "hits": ["11.8:12.1"],
+        "beats": [],
+        "hires_dials": "off",
         "seed": 6201,
     },
     "rep03": {
         "prompt": "rep03_jade_hammer_dragon.txt",
         "refs": ["rep03/qinglan.png", "rep03/dragon_azure.png", "rep03/bg_fairy_gorge.png"],
-        "preset": "P3",
-        "hits": ["0.3:0.7", "10.2:10.6"],
+        # v4.0：切點 0/2.8/6.0/9.0/12.2。P7 base_eff +0.32；踏浪奔襲 +0.65、騰空 +0.80；特寫段 10.2s 轉側面重錘
+        "preset": "P7",
+        "bursts": ["0.0:5.7:0.65", "5.7:8.7:0.80"],
+        "anchors": ["8.7:10.2:-0.55", "11.9:15.0:-0.30"],
+        "hitstops": ["0.35:0.6:-1.8", "10.4:10.65:-1.8"],
+        "hits": [],
+        "beats": [10.2],
+        "hires_dials": "phase-motion",
         "seed": 6301,
     },
     "rep04": {
@@ -73,22 +98,39 @@ JOBS = {
     "orig02": {
         "prompt": "orig02_bamboo_lantern_umbrella_vs_spear.txt",
         "refs": ["orig02/feiyu.png", "orig02/hanji.png", "orig02/bg_bamboo_lanterns.png"],
-        "preset": "P3",
-        "hits": ["3.6:4.0", "12.8:13.2"],
+        # v4.0：切點 0/3.2/6.2/9.1/12.0。P7；特寫 7.8s 轉紅絲彈射、12.8s 奪槍頓幀、13.3s 後單膝定樁
+        "preset": "P7",
+        "bursts": ["0.0:5.9:0.65", "8.8:12.8:0.65"],
+        "anchors": ["5.9:7.8:-0.55", "13.3:15.0:-0.45"],
+        "hitstops": ["12.8:13.05:-1.8"],
+        "hits": ["3.6:3.9", "10.6:10.9"],
+        "beats": [7.8, 12.8, 13.3],
+        "hires_dials": "phase-motion",
         "seed": 7201,
     },
     "ult01": {
         "prompt": "ult01_brush_seal_army.txt",
         "refs": ["ult01/moli.png", "ult01/bg_fortress_pass.png"],
-        "preset": "P5",
-        "hits": ["10.8:11.2"],
+        # v4.0：切點 0/3.2/7.0/10.8。P8 取代 P5（arcane_sigils 長開會讓墨圈爬臉成曼陀羅）；特寫 5.0s 轉環繞揮毫、12.6s 落關
+        "preset": "P8",
+        "bursts": ["0.0:2.9:0.65", "6.7:10.5:0.80"],
+        "anchors": ["2.9:5.0:-0.55", "12.6:15.0:-0.30"],
+        "hitstops": ["10.8:11.05:-1.8"],
+        "hits": [],
+        "beats": [5.0, 12.6],
+        "hires_dials": "phase-motion",
         "seed": 8101,
     },
     "ult02": {
         "prompt": "ult02_lunar_prism_domain.txt",
         "refs": ["ult02/wangshu.png", "ult02/bg_lunar_lake.png"],
-        "preset": "P5",
+        # v4.0：切點 0/4.0/7.8/11.0。P8 取代 P5；點湖與結印定樁、冰柱破湖到冰蓮綻放正軌 +0.55、12.4s 後凌空定樁
+        "preset": "P8",
+        "anchors": ["0.0:3.7:-0.30", "3.7:7.5:-0.65", "12.4:15.0:-0.30"],
+        "bursts": ["7.5:12.4:0.55"],
         "hits": [],
+        "beats": [12.4],
+        "hires_dials": "phase-motion",
         "seed": 8201,
     },
 }
@@ -125,6 +167,7 @@ def main():
     ap.add_argument("--upscale", action="store_true", help="每支成片跑完再接 ReCaVSR 2x 超分到 2K")
     ap.add_argument("--seconds", type=float, default=15.0)
     ap.add_argument("--force", action="store_true", help="強制覆蓋已存在的 mp4")
+    ap.add_argument("--dry", action="store_true", help="只建圖並印出 Dial 運動預算，不送 ComfyUI、不出片")
     args = ap.parse_args()
 
     targets = args.suites if args.suites else list(JOBS.keys())
@@ -134,7 +177,7 @@ def main():
     for idx, key in enumerate(targets, 1):
         cfg = JOBS[key]
         out_mp4 = OUT / f"{key}_15s_prism14.mp4"
-        if out_mp4.exists() and not args.force:
+        if out_mp4.exists() and not args.force and not args.dry:
             print(f"[{idx}/{len(targets)}] SKIP existing {out_mp4.name}", flush=True)
         else:
             cmd = [
@@ -174,10 +217,14 @@ def main():
                 cmd += ["--closeup", cu]
             for h in cfg.get("hits", []):
                 cmd += ["--hit", h]
+            if args.dry:
+                cmd.append("--dry")
             print(f"\n=== [{idx}/{len(targets)}] RENDER {key} ({cfg['preset']}, hits={cfg['hits']}) ===", flush=True)
             res = subprocess.run(cmd)
             if res.returncode != 0:
                 sys.exit(f"Render failed on {key} (exit {res.returncode})")
+        if args.dry:
+            continue
         make_sheet(out_mp4, OUT / f"{key}_sheet.jpg")
         rendered.append(str(out_mp4))
 

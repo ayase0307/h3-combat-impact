@@ -71,6 +71,39 @@ BLADE_SLIDE_EXC = re.compile(
     re.I,
 )
 
+# v4.0 防動態破圖：空泛無身體機制的抽象打鬥句（只比對片語，不比對單字 epic/fierce）
+ABSTRACT_FIGHT = re.compile(
+    r"\b(attacks?\s+(?:fiercely|furiously|wildly|intensely|relentlessly)|"
+    r"fights?\s+(?:fiercely|intensely|furiously|wildly|hard)|"
+    r"fighting\s+(?:fiercely|intensely|furiously|wildly)|"
+    r"battles?\s+(?:fiercely|intensely|furiously)|"
+    r"(?:epic|intense|fierce|furious|chaotic)\s+(?:battle|fight|fighting|combat|clash|showdown)|"
+    r"(?:exchange|trade)s?\s+(?:fierce\s+|furious\s+|rapid\s+)?blows|"
+    r"clash(?:es)?\s+(?:fiercely|intensely|furiously)|"
+    r"engages?\s+in\s+(?:a\s+|an\s+)?(?:fierce\s+|intense\s+|epic\s+)?(?:battle|combat|fight))\b",
+    re.I,
+)
+# 身體機制詞：有這些詞，抽象句才算有落點（重心／支點／發力部位）
+BODY_MECH = re.compile(
+    r"\b(weight|balance|heels?|hips?|soles?|plants?|planted|planting|pivots?|pivoting|"
+    r"stance|shoulders?|elbows?|wrists?|knees?|forearms?|fists?|palms?|torso|spine|"
+    r"ribs?|thighs?|shins?|ankles?|feet|foot|toes?|boots?|waist|chest|knuckles?)\b",
+    re.I,
+)
+# v4.0 防肢體融化：短鏡內堆疊全身翻轉／旋轉詞
+SPIN_FLIP = re.compile(
+    r"\b(spins?|spinning|flips?|flipping|backflips?|somersaults?|somersaulting|"
+    r"whirls?|whirling|cartwheels?|cartwheeling|pirouettes?|twists?\s+mid-?air|twisting\s+mid-?air)\b",
+    re.I,
+)
+SPIN_SHOT_MAX_DUR = 1.5
+SPIN_STACK_LIMIT = 4
+
+# 劇本式（references/screenplay-format.md）欄位：必填且順序固定
+SCREENPLAY_REQUIRED = ["參考鎖", "畫風", "本段", "聲音", "連續性", "硬約束"]
+SCREENPLAY_ROW = re.compile(r"^\s*(\d+(?:\.\d+)?)\s*[-–—~]\s*(\d+(?:\.\d+)?)\s*秒\s*[｜|]", re.M)
+SCREENPLAY_MAX_SEC = 8.0
+
 MUSCLE = re.compile(
     r"\b(brows?|eyelids?|lids?|jaw|jaws|teeth|clench\w*|lips?|mouth|throat|"
     r"nostrils?|temple|cheeks?|chin|breath\w*|gasp\w*|swallow\w*|"
@@ -227,8 +260,71 @@ def check_five_part(body, fields):
     return out
 
 
+def is_screenplay(text):
+    """劇本式（中文方括號欄位）而非官方 H3 欄位。"""
+    has_h3 = re.search(r"^\s*(?:subject_definitions|integrated_multimodal_description)\s*:", text, re.M)
+    return not has_h3 and bool(re.search(r"^\[本段\]", text, re.M)) and bool(re.search(r"^\[參考鎖\]", text, re.M))
+
+
+def check_screenplay(text, duration):
+    """劇本式檢核：欄位齊全且有序、[本段] 逐秒時間軸連續、聲音／連續性／硬約束必填項。
+
+    劇本式依設計把禁止項集中在 [硬約束]，因此不跑否定詞與 H3 欄位檢查。
+    """
+    out = []
+    heads = {m.group(1): m.start() for m in re.finditer(r"^\[([^\]\n]+)\]", text, re.M)}
+    missing = [h for h in SCREENPLAY_REQUIRED if h not in heads]
+    if missing:
+        out.append(("FAIL", f"劇本式缺少欄位：{', '.join('[' + h + ']' for h in missing)}"))
+    present = [h for h in SCREENPLAY_REQUIRED if h in heads]
+    if present != sorted(present, key=lambda h: heads[h]):
+        out.append(("FAIL", "劇本式欄位順序錯誤（應為 參考鎖→畫風→本段→聲音→連續性→硬約束）"))
+
+    def body_of(name):
+        if name not in heads:
+            return ""
+        start = heads[name]
+        later = [p for p in heads.values() if p > start]
+        return text[start:min(later) if later else len(text)]
+
+    rows = [(float(a), float(b)) for a, b in SCREENPLAY_ROW.findall(body_of("本段"))]
+    if not rows:
+        out.append(("FAIL", "[本段] 找不到逐秒時間軸（格式：0.0-2.5秒｜…）"))
+    else:
+        prev_end = 0.0
+        for a, b in rows:
+            if b <= a or abs(a - prev_end) > 0.05:
+                out.append(("FAIL", f"[本段] 時間軸不連續或倒退：{a}-{b}秒（上一段結束於 {prev_end}）"))
+                break
+            prev_end = b
+        end = rows[-1][1]
+        if duration and end > duration + 0.05:
+            out.append(("FAIL", f"[本段] 時間軸結束於 {end}s，超出時長 {duration}s"))
+        elif duration and end < duration - 0.05:
+            out.append(("WARN", f"[本段] 時間軸只寫到 {end}s，時長 {duration}s 的尾段沒有動作"))
+        if end > SCREENPLAY_MAX_SEC + 0.05:
+            out.append(("WARN", f"劇本式單段 {end}s 超過 {SCREENPLAY_MAX_SEC:.0f}s，請改用官方骨架或拆段"))
+    if not re.search(r"說話|嘴唇|對白", body_of("聲音")):
+        out.append(("WARN", "[聲音] 沒寫有沒有人說話／嘴唇是否閉著，模型會自己補對白"))
+    cont = body_of("連續性")
+    if cont and not ("首態" in cont and "尾態" in cont):
+        out.append(("WARN", "[連續性] 缺首態或尾態"))
+    hard = body_of("硬約束")
+    if hard and "字幕" not in hard:
+        out.append(("WARN", "[硬約束] 沒有寫無字幕"))
+    return out, len(rows)
+
+
 def check(path, duration, profile="auto", check_sync=False, face_style="auto", strict_physics=False, five_part=False):
     raw = open(path, encoding="utf-8").read()
+    if is_screenplay(strip_meta(raw)):
+        sp_out, nrows = check_screenplay(strip_meta(raw), duration)
+        print(f"\n{os.path.basename(path)}  mode=Screenplay  rows={nrows}  duration={duration or '?'}")
+        if not sp_out:
+            print("  [PASS] 劇本式格式完全符合，可直接使用")
+        for lv, msg in sp_out:
+            print(f"  [{lv}] {msg}")
+        return sum(1 for lv, _ in sp_out if lv == "FAIL")
     body = extract(strip_meta(raw))
     prof = read_profile(raw, path) if profile in (None, "auto") else profile
     rules = PROFILES.get(prof, {})
@@ -309,6 +405,24 @@ def check(path, duration, profile="auto", check_sync=False, face_style="auto", s
                 f"[Shot {s_num}] 姿態—位移物理衝突：接地鎖死姿態 '{g_match.group(0)}' 與高速平移 '{f_match.group(0)}' 同鏡且無蹬離起身詞，必導致角色貼地滑行！"
             ))
             fail += 1
+
+        # v4.0 防動態破圖 1：抽象打鬥句且整鏡沒有任何發力部位／重心詞
+        abstract = ABSTRACT_FIGHT.search(s_txt)
+        if abstract and not BODY_MECH.search(s_txt):
+            out.append((
+                "WARN",
+                f"[Shot {s_num}] 空泛打鬥句「{abstract.group(0)}」且本鏡沒有任何身體機制詞（重心／發力部位／支點）—— H3 會畫成糊成一團的亂揮破圖；請改寫成「誰用哪個部位、沿哪條線、打到哪裡」"
+            ))
+            warn += 1
+
+        # v4.0 防動態破圖 2：短鏡內堆疊全身翻轉／旋轉詞，H3 易肢體融化
+        spins = [m.group(0).lower() for m in SPIN_FLIP.finditer(s_txt)]
+        if s_dur < SPIN_SHOT_MAX_DUR and len(spins) >= SPIN_STACK_LIMIT:
+            out.append((
+                "WARN",
+                f"[Shot {s_num}] 時長僅 {s_dur:.2f}s 卻堆疊 {len(spins)} 個翻轉／旋轉詞（{', '.join(spins)}）—— H3 極易肢體融化、多出手腳；請每鏡只留 1 個全身旋轉，其餘改成單一部位發力或拆到下一鏡"
+            ))
+            warn += 1
 
         if use_strict_physics and prof not in ("ultra", "blade-light"):
             core_verbs = sum(

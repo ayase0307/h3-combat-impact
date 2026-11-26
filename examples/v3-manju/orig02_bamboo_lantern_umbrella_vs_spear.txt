@@ -14,7 +14,7 @@
 - `[00:06.200]` 鏡 3（平滑近景特寫切高空俯衝）：紅燈柔光照亮緋雨清冷絕美的側顏——平靜舒展的眉峰、柔闔紅唇、冷眸映出雨滴與紅光，黑髮濕縷貼頰；她指尖輕挑，數縷赤紅靈絲纏上高處青竹猛然收緊，將她如紅燕般彈射至寒戟頭頂盲區。
 
 **9—12 秒（近身擒槍提膝摔投）**：
-- `[00:09.100]` 鏡 4（高速環繞低仰拍）：緋雨俯衝以赤傘骨勾住寒戟槍桿順勢貼近，提膝頂腹接低掃腿絆翻重心；寒戟俊眉微揚、雙唇微啟低吸一氣保持冷峻俊美，單手撐水翻身滑退激起高浪。
+- `[00:09.100]` 鏡 4（高速環繞低仰拍）：緋雨俯衝以赤傘骨勾住寒戟槍桿順勢貼近，擒腕提膝頂其側腹，轉胯一記過腰摔接低掃踝絆翻重心；寒戟俊眉微揚、雙唇微啟低吸一氣保持冷峻俊美，單手撐水翻身後躍激起高浪。
 
 **12—15 秒（傘面綻紅絲網困槍終結）**：
 - `[00:12.000]` 鏡 5（張力中景切緩拉）：寒戟回馬寒霜長槍穿心再刺；緋雨迎鋒將赤紅油紙傘驟然全展爆出細密赤紅靈絲網死死纏死槍尖與槍桿，旋腕一擰將長槍奪飛深插青竹，足尖點退半步重新撐傘立於積水紅光之中，寒戟單膝點水胸口起伏微喘，暴雨、殘竹與紅燈火星持續飛舞至末幀。
@@ -48,7 +48,7 @@ High-end 2.5D semi-realistic AI manju guoman rain-night wuxia rendering with glo
 
 [Shot 4] At 00:09.100, the camera cuts to a fast orbiting low shot as <Subject 1> dives down hooking his spear shaft with her steel umbrella ribs, seizing his wrist to drive a knee into his flank and execute a crisp hip-throw with a low ankle sweep; <Subject 2>'s brows lift a fraction and lips barely part on a quiet breath, keeping his handsome composed features intact as he slaps one palm into the puddle flipping back in a tall spray. Camera orbits fast.
 
-[Shot 5] At 00:12.000, the camera cuts to a tense medium shot as <Subject 2> lunges in a final frost-spear thrust. <Subject 1> pops her red umbrella wide unleashing a crisp web of glowing red silk threads that binds the spearhead, pivots her wrist to wrench the frost spear free pinning it deep into a bamboo trunk, and glides half a step back opening her umbrella poised over red puddles; <Subject 2> drops to one knee skidding in water with chest rising slightly on a breath, rain sheets, sliced bamboo leaves, and lantern sparks swirling through the final frame. Camera jolts on disarm and pulls back smoothly.
+[Shot 5] At 00:12.000, the camera cuts to a tense medium shot as <Subject 2> lunges in a final frost-spear thrust. <Subject 1> pops her red umbrella wide unleashing a crisp web of glowing red silk threads that binds the spearhead, pivots her wrist to wrench the frost spear free pinning it deep into a bamboo trunk, and takes half a step back on planted heels, opening her umbrella poised over red puddles; <Subject 2> drops to one knee in a short splash of water, chest rising slightly on a breath, rain sheets, sliced bamboo leaves, and lantern sparks swirling through the final frame. Camera jolts on disarm and pulls back smoothly.
 
 overall_soundscape: Heavy midnight rain pouring on bamboo leaves, spinning umbrella water whoosh, crystalline frost spear hum, snapping bamboo stalks, popping lantern sparks, puddle splashes, and taut silk thread twang.
 

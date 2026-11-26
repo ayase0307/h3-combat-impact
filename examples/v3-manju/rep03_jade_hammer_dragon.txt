@@ -8,7 +8,7 @@
 - `[00:00.000]` 鏡 1（極致黑白衝擊定幀轉彩）：開場半秒內青嵐凌空揮翡翠戰錘猛砸巨龍脖頸，畫面爆出黑白放射速度線與翠綠能量炸點，隨即彩光回湧炸開滔天湖浪。
 
 **3—6 秒（碧潭貼水閃避與踏龍背）**：
-- `[00:02.800]` 鏡 2（貼水高速側跟）：翠綠赤鰭巨龍捲動百丈湖水撲咬，青嵐踩水滑步閃過龍顎，反身躍上巨龍寬闊青鱗背脊高速奔襲。
+- `[00:02.800]` 鏡 2（貼水高速側跟）：翠綠赤鰭巨龍捲動百丈湖水撲咬，青嵐踏浪點水連續側步閃過龍顎，一腳蹬開龍頜借力反身躍上巨龍寬闊青鱗背脊高速奔襲。
 
 **6—9 秒（飛躍白瀑騰空對峙）**：
 - `[00:06.000]` 鏡 3（宏大廣角俯仰）：巨龍昂首破水盤旋直衝青翠崖壁白瀑，青嵐借龍身彈力衝出翻湧水霧騰至最高空，舉起發光翡翠巨錘蓄勢。
@@ -42,7 +42,7 @@ High-end vibrant 2.5D semi-realistic AI manju guoman fantasy animation style wit
 
 [Shot 1] Vibrant 2.5D AI manju fantasy rendering. First hit erupts within half a second: <Subject 1> leaps midair slamming his glowing jade hammer onto <Subject 2>'s neck, triggering a crisp two-frame stark black-and-white manga speedline silhouette impact frame with bright emerald impact flash before snapping into full sunlit color as turquoise water explodes outward. Camera jolts sharply.
 
-[Shot 2] At 00:02.800, the camera cuts to a fast water-skimming tracking shot across <Subject 3> as <Subject 2> surges through the turquoise lake snapping its jaws; <Subject 1> skims across the spray, sidesteps the lunging head, and springs up onto the dragon's emerald scaled back sprinting forward. Camera tracks sideways fast.
+[Shot 2] At 00:02.800, the camera cuts to a fast water-skimming tracking shot across <Subject 3> as <Subject 2> surges through the turquoise lake snapping its jaws; <Subject 1> bounds across the spray in quick planted steps, sidesteps the lunging head, kicks off its jaw and springs up onto the dragon's emerald scaled back, sprinting forward. Camera tracks sideways fast.
 
 [Shot 3] At 00:06.000, the camera cuts to a sweeping wide shot as <Subject 2> coils skyward past a towering white waterfall; <Subject 1> launches high off the dragon's rising crest through roaring mist, soaring weightless in bright sunlight with his jade hammer raised overhead. Camera tilts up fast.
 
