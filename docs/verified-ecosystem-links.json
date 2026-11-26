@@ -1,0 +1,263 @@
+{
+  "_meta": {
+    "title": "ComfyUI × MiniMax-H3 生態連結核驗清單",
+    "verified_on": "2026-11-26",
+    "method": "GitHub 倉庫以 `gh api repos/<owner>/<repo>` 逐一確認存在與中繼資料；HuggingFace 倉庫以 `https://huggingface.co/api/models/<id>` 與關鍵字搜尋核對檔案列表與下載量。全部 12 個 GitHub 與 9 個主要 HuggingFace 倉庫（另含 3 個備選）的 API 皆回傳有效的倉庫資料，確認存在且可公開存取（私有或不存在的倉庫會回傳錯誤）。",
+    "note": "星數、下載量與最後更新日為核驗當日快照，會隨時間變動。社群發布的權重（非 MiniMaxAI 或 Pika-Labs 官方帳號）已於 `provenance` 欄位標註來源類型，請自行評估授權與安全性後再下載。",
+    "schema": {
+      "plugins[]": "ComfyUI 自訂節點倉庫",
+      "models[]": "Hugging Face 模型／權重倉庫",
+      "status": "active = 作者持續維護；stale = 超過兩個月未更新但無棄用聲明；deprecated = 作者聲明已棄用；community = 社群特定發布",
+      "used_in_this_skill": "verified = 已在本倉庫 scripts/ 以 grep 核對到對應節點類別或檔名；suggested = 本倉庫腳本未引用，僅為建議的選配工具"
+    }
+  },
+  "plugins": [
+    {
+      "id": "facok/comfyui-SelfLift",
+      "url": "https://github.com/facok/comfyui-SelfLift",
+      "purpose": "漸進式解析度採樣：前段去噪在低解析度跑，再提升到全解析度完成後段，免訓練即可加速；含 MiniMax H3 音視訊的實驗性適配（論文未驗證）與 TST 時間注意力修正的實驗移植。本技能的 `SelfLiftH3Sampler` 14 步管線（transition=6、lowres_scale=0.6）即來自此倉庫。",
+      "used_in_this_skill": "verified｜scripts/render_comfy.py 建構 `SelfLiftH3Sampler` 節點；references/comfyui-dials-guide.md 定律四",
+      "license": "未於 GitHub 中繼資料標註（none）",
+      "last_pushed": "2026-09-18",
+      "status": "stale",
+      "paper": "https://arxiv.org/abs/2609.02036"
+    },
+    {
+      "id": "matlowai/ComfyUI-Dials",
+      "url": "https://github.com/matlowai/ComfyUI-Dials",
+      "purpose": "針對 MiniMax H3 的免訓練「轉盤」引導：把提示詞對轉成 14 KB 的滑桿，可調 Freeze ↔ Zoomies 運動量等多種維度。本技能的 P1–P9 預設以 `MAIDialRack` 載入，並使用 `h3_colour_drain` / `h3_impact_frame` / `h3_motion` 等轉盤即屬此生態。",
+      "used_in_this_skill": "verified｜render_comfy.py 使用 `MAIDialRack`；SKILL.md 第四階段",
+      "license": "AGPL-3.0",
+      "last_pushed": "2026-11-18",
+      "status": "active"
+    },
+    {
+      "id": "matlowai/ComfyUI-MAINodes",
+      "url": "https://github.com/matlowai/ComfyUI-MAINodes",
+      "purpose": "MatlowAI 的 MiniMax-H3 節點組：Contact-Sheet 擴散（聯絡表式多格生成）與 Motion Lab（對高速運動做測試時去拉絲 de-rope）。兩個倉庫的 README 都把 `MAIDialRack` 等 Dial Rack 節點列在「MAINodes/Dials」選單，兩者生態互相銜接。",
+      "used_in_this_skill": "verified｜render_comfy.py 使用 `MAIDialRack` / `MAIDialHoldMap`（Dial Rack 節點於兩個倉庫的 README 皆有列出）；De-rope 圖另用 `H3DeropeSigmas`、`H3ClockRemap`、`H3TimeSmear`、`H3JerkOracle`、`H3V2VInit` 等節點（本次未逐一對應到具體倉庫）",
+      "license": "NOASSERTION（授權條款需至倉庫自行閱讀）",
+      "last_pushed": "2026-11-26",
+      "status": "active"
+    },
+    {
+      "id": "kijai/ComfyUI-SolAttn_triton",
+      "url": "https://github.com/kijai/ComfyUI-SolAttn_triton",
+      "purpose": "Sol-Attn（免訓練稀疏注意力）的 Triton 實驗實作，用於加速影像／影片生成，作者於 RTX 4090 / 5090 配 MiniMax H3 測試。⚠️ README 開頭標明 DEPRECATED：ComfyUI 與 comfy-kitchen 已內建稀疏注意力（含 sol-attn），此節點已冗餘。",
+      "used_in_this_skill": "verified（僅提醒）｜references/remix-pika-route.md 提醒「超分鏈禁止 SolAttnPatch」；作者已棄用",
+      "license": "Apache-2.0",
+      "last_pushed": "2026-09-07",
+      "status": "deprecated",
+      "paper": "https://arxiv.org/abs/2607.24027"
+    },
+    {
+      "id": "Zironic/H3-Optimizations",
+      "url": "https://github.com/Zironic/H3-Optimizations",
+      "purpose": "MiniMax H3 的生產用最佳化節點：H3 Memory Optimization 降低峰值 VRAM（設計上保留原計算），可選 H3 Sparse Attention 以品質換速度（刻意削減部分影片間注意力連結，不保證任何稀疏比例對所有提示詞無損）。需 ComfyUI 0.40.0 以上。",
+      "used_in_this_skill": "suggested｜腳本未引用",
+      "license": "未於 GitHub 中繼資料標註（none）",
+      "last_pushed": "2026-11-17",
+      "status": "active"
+    },
+    {
+      "id": "PedroMarinhoDev/ComfyUI-ReCaVSR",
+      "url": "https://github.com/PedroMarinhoDev/ComfyUI-ReCaVSR",
+      "purpose": "ReCaVSR 一步式串流影片超解析度的 ComfyUI 原生節點：基於 Wan2.2 做 4× 放大，逐區塊搭配 FlashDecoder，支援 bf16 與 int8 ConvRot，RTX 3090/4090 基準，8 GB 即可執行。本技能用於把 1344×768 放大到 2688×1536（2K）。",
+      "used_in_this_skill": "verified｜render_comfy.py 建構 `ReCaVSRLoader` / `ReCaVSRUpscale`，預設權重 `transformer_int8_convrot.safetensors`",
+      "license": "GPL-3.0",
+      "last_pushed": "2026-11-10",
+      "status": "active"
+    },
+    {
+      "id": "tazmannner/ComfyUI-H3-FastDerope",
+      "url": "https://github.com/tazmannner/ComfyUI-H3-FastDerope",
+      "purpose": "更便宜、更聰明的 de-rope：針對 H3 快速動作造成的拖影與融化，只重繪需要修的片段（Motion Gate 偵測），再乾淨地拼回原始渲染。作者實測踢腿片段額外成本僅 +12 s，對比 MAINodes 整段 de-rope 的 +202 s。",
+      "used_in_this_skill": "suggested｜腳本未引用（render_comfy.py 的 De-rope 為自建圖）",
+      "license": "MIT",
+      "last_pushed": "2026-11-15",
+      "status": "active"
+    },
+    {
+      "id": "Kosinkadink/ComfyUI-VideoHelperSuite",
+      "url": "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite",
+      "purpose": "ComfyUI 影片工作流通用輔助節點組：載入／合成影片、抽幀、編碼輸出（含音訊）等，是接縫檢查、尾幀抽取與成片封裝的基礎依賴。",
+      "used_in_this_skill": "verified｜render_comfy.py 以 `VHS_VideoCombine` 輸出成片",
+      "license": "GPL-3.0",
+      "last_pushed": "2026-11-24",
+      "status": "active"
+    },
+    {
+      "id": "KadoBOT/ComfyUI-H3-Continuity-Studio",
+      "url": "https://github.com/KadoBOT/ComfyUI-H3-Continuity-Studio",
+      "purpose": "MiniMax H3 的時間軸工作室：多鏡頭影片、跨場景與跨角度的視覺記憶（連戲），並支援本機或雲端的故事撰寫。對應本技能的多段拼接與狀態接力需求。",
+      "used_in_this_skill": "suggested｜腳本未引用；與 segment-continuity.md 的多段接力需求相關",
+      "license": "MIT",
+      "last_pushed": "2026-11-26",
+      "status": "active"
+    },
+    {
+      "id": "tazmannner/ComfyUI-H3-RelayHires",
+      "url": "https://github.com/tazmannner/ComfyUI-H3-RelayHires",
+      "purpose": "先以小解析度渲染 H3 成片，再接力完成到 1920×1088：耗時約為 100 萬像素放大渲染的一半、原生 1920 渲染的四分之一，並保留已預覽的鏡頭內容與音訊；針對 2D 動畫風格設計。",
+      "used_in_this_skill": "suggested｜腳本未引用；為高解析度出片的替代路線",
+      "license": "MIT",
+      "last_pushed": "2026-11-15",
+      "status": "active"
+    },
+    {
+      "id": "Carasibana/ComfyUI-H3-FaceRefine",
+      "url": "https://github.com/Carasibana/ComfyUI-H3-FaceRefine",
+      "purpose": "改善 H3 影片中小尺寸人臉的品質：逐幀人臉追蹤 → 裁切 → 以 H3 精修 → 縫回原片。適用於全景打鬥中人臉過小的鏡頭。",
+      "used_in_this_skill": "suggested｜腳本未引用；遠景小臉修復選配",
+      "license": "MIT",
+      "last_pushed": "2026-09-13",
+      "status": "stale"
+    },
+    {
+      "id": "city96/ComfyUI-GGUF",
+      "url": "https://github.com/city96/ComfyUI-GGUF",
+      "purpose": "為原生 ComfyUI 模型提供 GGUF 量化載入支援，讓大型權重在較小 VRAM 載入（可用於社群發布的 Qwen3-VL H3 編碼器 GGUF 版本）。",
+      "used_in_this_skill": "suggested｜腳本未引用；載入 GGUF 量化權重時需要",
+      "license": "Apache-2.0",
+      "last_pushed": "2026-01-12",
+      "status": "stale"
+    }
+  ],
+  "models": [
+    {
+      "id": "MiniMaxAI/MiniMax-H3",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-H3",
+      "purpose": "MiniMax 官方 H3 基礎模型：文／圖／影片／音訊到同步音視訊的多模態生成（T2V、I2V、V2V、Ref2VA 等）。",
+      "provenance": "官方（MiniMaxAI 組織）",
+      "license": "minimax-h3-community-license-agreement（license: other）",
+      "snapshot": {
+        "downloads": 6012871,
+        "likes": 7376
+      },
+      "status": "active"
+    },
+    {
+      "id": "SulphurAI/Sulphur-3",
+      "url": "https://huggingface.co/SulphurAI/Sulphur-3",
+      "purpose": "基於 MiniMax H3 的社群微調影片模型（作者說明為未審查版本）；下載 `s3.safetensors` 即可當一般 H3 模型使用，另附可選的 corrector 與 ComfyUI 節點壓縮包，並提供量化版本。",
+      "provenance": "社群發布（SulphurAI，base_model = MiniMaxAI/MiniMax-H3）",
+      "license": "minimax-h3-community-license（license: other）",
+      "snapshot": {
+        "downloads": 189735,
+        "likes": 1137
+      },
+      "status": "community"
+    },
+    {
+      "id": "Comfy-Org/MiniMax-H3",
+      "url": "https://huggingface.co/Comfy-Org/MiniMax-H3",
+      "purpose": "ComfyUI 官方組織重新打包的 H3 權重，本技能 render_comfy.py 的預設檔名即取自此倉庫：`diffusion_models/`（fl2va／ref2va 的 bf16、fp8_scaled、int8_convrot、w6a8，含 pruned 版，如預設 `minimax_h3_ref2va_pruned_int8_convrot`）、`text_encoders/`（`qwen3vl_32b_minimax_h3_{bf16,int8_convrot,nvfp4_awq}`，預設用 nvfp4_awq）、`vae/`（video／audio／sol VAE，預設 `minimax_h3_video_vae_int8_convrot`、`minimax_h3_audio_vae_fp32`）、`loras/`（turbo 與 `pika_h3_flex_ref2va_v1_bf16`）、`model_patches/`（controlnet union）與風格 embeddings。",
+      "provenance": "ComfyUI 官方組織（Comfy-Org）",
+      "snapshot": {
+        "downloads": 33258212
+      },
+      "status": "active",
+      "verified_by": "2026-11-26 以 HF API 列出完整檔案清單，並與 scripts/render_comfy.py 的 DEFAULT_* 常數逐項比對"
+    },
+    {
+      "id": "Qwen3-VL H3 文字編碼器",
+      "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/tree/main/text_encoders",
+      "purpose": "H3 的文字／視覺編碼器為 Qwen3-VL-32B。官方來源有兩處：① ComfyUI 官方組織重新打包的單檔 `text_encoders/qwen3vl_32b_minimax_h3_{bf16,int8_convrot,nvfp4_awq}.safetensors`（本技能預設用 nvfp4_awq）；② MiniMaxAI/MiniMax-H3 內各模式資料夾的 `text_encoder/`（如 `FL2VA/text_encoder/`，config 為 `Qwen3VLForConditionalGeneration`，14 個分片）。社群另有 GGUF／fp8／NVFP4 量化版本，列於 alternatives。",
+      "provenance": "官方（ComfyUI 官方組織與 MiniMaxAI 組織）；GGUF 等量化版本為社群特定發布",
+      "snapshot": {},
+      "alternatives": [
+        {
+          "url": "https://huggingface.co/MiniMaxAI/MiniMax-H3/tree/main/FL2VA/text_encoder"
+        },
+        {
+          "url": "https://huggingface.co/nif0/Qwen3-VL-32B-Instruct-MiniMax-H3-GGUF",
+          "note": "社群 GGUF，需 ComfyUI-GGUF"
+        },
+        {
+          "url": "https://huggingface.co/rzgar/qwen3-vl-32b-minimax-h3-fp8-comfyui",
+          "note": "社群 fp8"
+        },
+        {
+          "url": "https://huggingface.co/6block/MiniMax-H3-Qwen3-VL-NVFP4",
+          "note": "社群 NVFP4"
+        }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "PRISM 合併權重（Singularity × 10Eros-Max）",
+      "url": "https://huggingface.co/OliviaRossi/Minimax-h3_Singularity-x-10Eros-Max_PRISM",
+      "purpose": "本技能 v3.0 主力底模：`Minimax-h3_Singularity_x_10Eros-Max_PRISM_int8.safetensors` 的來源倉庫；另含 fp16、w6a8、`PRISM_DMAD_PDMD_int8` 與多種 PikaFlex 合併版本。",
+      "provenance": "社群特定發布（OliviaRossi；合併自 WarmBloodAban/Minimax-h3_Singularity 與 TenStrip/10Eros-Max）",
+      "snapshot": {
+        "downloads": 617418,
+        "likes": 400
+      },
+      "status": "community"
+    },
+    {
+      "id": "DMAD（Distribution Matching as Adversarial Distillation）",
+      "url": "https://huggingface.co/ZhengmingYu/DMAD",
+      "purpose": "DMAD：Distribution Matching as Adversarial Distillation for Fast Visual Generation（論文 arXiv 2610.02188）。倉庫 README 說明提供 4 步與 8 步 MiniMax-H3「學生」模型（full／lora critic，另有 `_comfyui` 版本），檔案位於 `minimax_h3/`。本技能 render_comfy.py 的 `--dmad` 是以 `LoraLoaderModelOnly` 掛載 DMAD LoRA 的強度（預設 0.8）；其預設檔名 `minimax_h3_dmad_full_dareties_v4_step600_comfy_fro.safetensors` 不在此倉庫，是本機自行合併／轉換的檔案，使用者可改用此倉庫的 `_comfyui` 檔案並自行調整 `--dmad-lora`。",
+      "provenance": "研究者發布（ZhengmingYu，含論文代碼授權檔）",
+      "also_see": {
+        "url": "https://huggingface.co/OliviaRossi/Minimax-H3-Hybrid-DMAD-PDMD",
+        "note": "社群把 DMAD 與 PDMD 合併成 int8／w6a8 單檔；使用此類合併檔時須把 --dmad 設為 0，避免重複疊掛"
+      },
+      "snapshot": {
+        "downloads": 86531,
+        "likes": 207
+      },
+      "status": "community",
+      "paper": "https://arxiv.org/abs/2610.02188",
+      "project_page": "https://yzmblog.github.io/projects/DMAD/",
+      "code": "https://github.com/Yzmblog/DMAD",
+      "license": "minimax-h3-community-license-agreement（license: other）"
+    },
+    {
+      "id": "Pika-Labs/Pika-H3-Flex",
+      "url": "https://huggingface.co/Pika-Labs/Pika-H3-Flex",
+      "purpose": "Pika Labs 基於 MiniMax-H3 的 image-to-video 變體（Pika H3 Flex），本技能 Pika 6 步 LCM 路線與 `Pika H3 Flex + Dials` 路線的基礎。",
+      "provenance": "官方（Pika-Labs 組織）",
+      "snapshot": {
+        "downloads": 197060,
+        "likes": 708
+      },
+      "status": "active"
+    },
+    {
+      "id": "Pika-Labs/Pika-H3-Flex-Turbo-LoRA",
+      "url": "https://huggingface.co/Pika-Labs/Pika-H3-Flex-Turbo-LoRA",
+      "purpose": "Pika H3 Flex 的 Turbo 少步 LoRA 集合：2/4/8 步、fl2va 與 ref2va 版本（含 lite_r32 輕量版），用於加速採樣。",
+      "provenance": "官方（Pika-Labs 組織）",
+      "snapshot": {
+        "downloads": 206665,
+        "likes": 208
+      },
+      "status": "active"
+    },
+    {
+      "id": "ReCaVSR 權重",
+      "url": "https://huggingface.co/kopper/ReCaVSR",
+      "purpose": "ReCaVSR 一步式串流影片超解析度權重（transformer／flashdecoder／prompt／vae），base_model = Wan-AI/Wan2.2-TI2V-5B，Apache-2.0；推論說明見作者 GitHub（kopperx/ReCaVSR）。",
+      "provenance": "原作者發布（kopper）",
+      "comfyui_variant": {
+        "url": "https://huggingface.co/PedroMarinhoDev/ReCaVSR-ComfyUI",
+        "note": "int8 ConvRot transformer，搭配 ComfyUI-ReCaVSR 節點；社群重新打包，render_comfy.py 預設載入的 `transformer_int8_convrot.safetensors` 即此倉庫檔案"
+      },
+      "snapshot": {
+        "likes": 19
+      },
+      "status": "community"
+    }
+  ],
+  "unverified_or_caveats": [
+    "Qwen3-VL H3 編碼器官方來源已找到（Comfy-Org/MiniMax-H3 的 text_encoders/ 與 MiniMaxAI/MiniMax-H3 各模式資料夾的 text_encoder/）；社群 GGUF／fp8／NVFP4 僅為量化備選。",
+    "DMAD、PRISM 的本機預設檔名（如 `minimax_h3_dmad_full_dareties_v4_step600_comfy_fro.safetensors`）不在 HF 倉庫中，屬本機合併檔；請參考 HF 倉庫的 `_comfyui` 檔案或自行合併。",
+    "kijai/ComfyUI-SolAttn_triton 已被作者標為 DEPRECATED；新版 ComfyUI 與 comfy-kitchen 已內建稀疏注意力。",
+    "facok/comfyui-SelfLift 與 Zironic/H3-Optimizations 的 GitHub 授權欄位為空，使用前請自行閱讀倉庫內說明。",
+    "PRISM 合併權重屬社群再合併作品，授權取決於其上游（MiniMax H3 社群授權、TenStrip／WarmBloodAban 上游等），商用前請逐一確認。",
+    "`used_in_this_skill` 標為 verified 者已以 grep 核對；標為 suggested 者本倉庫腳本未引用。",
+    "下載量、星數與更新日期為 2026-11-26 快照。"
+  ]
+}
