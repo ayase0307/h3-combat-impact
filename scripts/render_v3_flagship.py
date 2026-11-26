@@ -111,7 +111,7 @@ JOBS = {
     "ult01": {
         "prompt": "ult01_brush_seal_army.txt",
         "refs": ["ult01/moli.png", "ult01/bg_fortress_pass.png"],
-        # v4.0：切點 0/3.2/7.0/10.8。P8 取代 P5：P5 的 arcane_sigils 走固定正規化關鍵幀（45–65% 滿、80% 歸零），與本劇本切點無關且無 storm 可乘雙軌；
+        # v4.0：切點 0/3.2/7.0/10.8。P8 取代 P5：P5 的 arcane_sigils 走固定正規化關鍵幀（45–65% 滿、80% 歸零），與本劇本切點無關；
         # 代價是失去 sigils 滑塊，墨圈只靠 prompt（驗收看墨圈仍清楚可讀，糊掉就用 render_comfy --rack 補短 h3_arcane_sigils 脈衝 A/B）。
         # 特寫 5.0s 轉環繞揮毫；頓幀後末段續行 +0.65，不鎖尾
         "preset": "P8",

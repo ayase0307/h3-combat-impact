@@ -14,10 +14,11 @@
 | 人工導演審計 | 逐鏡對照中英稿：滑行詞（含 regex 沒抓到的 `glides`、`滑步`、`滑退`）、否定詞、表情過激詞、刀路單調、中英段落標題與切點一致性 |
 | Dial 預算 | `python scripts/render_v3_flagship.py --dry <套件>`，讀 `[dial-physics]` 行（`summarize_motion_budget` 實算） |
 | 回歸 | `python -m unittest discover -s tests -v`（27 項全過） |
+| 簡體字 | 自訂常見簡體字清單掃描，加上 OpenCC `s2tw` 逐字比對全部變更檔；剩下的命中都是單字脫離語境的異體映射（台階、漏斗、上游、污染、岩），不是簡體字 |
 
 **基線發現（修改前）**：
 - `tests/test_validate.py` 原本就有 2 項失敗：Windows 管線的 stdout 預設 cp950，測試卻用 UTF-8 解碼，中文訊息比對永遠失敗。已在測試子程序統一注入 `PYTHONIOENCODING=utf-8` 修正。
-- 先前的 v1 掃描沒有帶 `--duration`，所以末鏡占比與時間碼越界規則都沒有生效。本次全部改用實際秒數重跑。
+- 先前的 v1 掃描沒有帶 `--duration`，所以末鏡佔比與時間碼越界規則都沒有生效。本次全部改用實際秒數重跑。
 
 ---
 
@@ -67,7 +68,7 @@ v1 是單語（純英文或純中文劇本式）基準稿，`--check-sync` 對�
 | `rep02_ink_flame_sea` | 刀路 **73%**、沒有摔投 | 雙人對決卻只剩刀劍互砍；Shot 2 寫 `spinning and sidestepping`；Shot 3 寫 `gliding into a smooth close-up`，「滑行」語意容易被讀成人在滑；中文段落標題寫「12—15 秒」，實際切點是 11.6s | Shot 2 的刀劍互架（`blocking and parrying`／「刀劍硬撼」）**替換**成「熾川踏住玄瀾刀背蹬開，扯住披風把他甩向水幕」（踢擊＋擒拿＋摔投），並刪掉句尾的錯步分開，避免一鏡塞四件事；Shot 3 改成 `easing into`；Shot 5 補上 `pivots on his rear heel`（後腳跟擰轉發力）；中文標題改為「9—11.6 秒」與「11.6—15 秒」 | 0F／0W（ultra）；fight 檢視刀路 73%→**57%**（上限 55%，差 1 個招式，刻意不再堆詞） |
 | `rep03_jade_hammer_dragon` | 刀路 67%、沒有摔投 | 中文「踩水滑步閃過龍顎」、英文 `skims across the spray`，正是溜冰步高危寫法；對百米巨龍寫摔投不合物理，維持 `ultra` | 改成「踏浪點水連續側步，一腳蹬開龍頜借力」／`bounds across the spray in quick planted steps … kicks off its jaw`（離散步態加踢擊） | 0F／0W（ultra）|
 | `orig02_bamboo_lantern_umbrella_vs_spear` | 1W（`skidding`） | Shot 5 有 `glides half a step back` 與 `drops to one knee skidding in water` 兩處滑行（`glides` 沒有 `across`，regex 抓不到，是人工審計找到的）；中文 Shot 4 寫「翻身滑退」，而且漏寫英文已有的擒腕與過腰摔 | 英文改成 `takes half a step back on planted heels`、`drops to one knee in a short splash of water`；中文 Shot 4 補「擒腕提膝頂其側腹，轉胯一記過腰摔」，「滑退」改「後躍」 | **0F／0W** |
-| `ult01_brush_seal_army` | 0W | 文字健康；執行層問題是 P5 的 `arcane_sigils` 走固定正規化關鍵幀（45–65% 滿、80% 起歸零），和本劇本的切點無關，而且 P5 沒有 storm 可承載雙軌 | 文字不動，換 P8（§4）；代價見 §6 | 0F／0W |
+| `ult01_brush_seal_army` | 0W | 文字健康；執行層問題是 P5 的 `arcane_sigils` 走固定正規化關鍵幀（45–65% 滿、80% 起歸零），和本劇本的切點無關 | 文字不動，換 P8（§4）；代價見 §6 | 0F／0W |
 | `ult02_lunar_prism_domain` | 0W | 文字健康；同 ult01 的 P5 關鍵幀問題 | 文字不動，換 P8（§4）；代價見 §6 | 0F／0W |
 
 另外 3 套已經是雙軌配置（`orig01_v13` P9、`rep04_v4` P8、`rep05` P7），文字與 Dial 都不動。`orig01_v13` 與 `rep04_v4` 已確認不會觸發新的防破圖 WARN（有專門測試鎖住）。
@@ -81,7 +82,7 @@ v1 是單語（純英文或純中文劇本式）基準稿，`--check-sync` 對�
 - `--hitstop` 只畫 0.25s 窄脈衝，會自動附帶衝擊閃幀。
 - 地面交鋒的峰值等效運動不得超過 `+0.98`。`+0.80` 正軌只用在騰空或破空段。
 - P9 依左眼 5.0 實證維持 `--hires-dials off`，並用 `--closeup` 鎖臉，正軌上限 `+0.29`。P7／P8 一律用 `phase-motion`。
-- **末段不鎖尾**：終結鏡要保留進行中位移，所以末段一律用正軌續行，不再畫 `12.x:15.0` 的負軌定樁（舊配置會讓最後 2–3 秒凍成靜止畫）。唯一例外是 orig02：劇本明寫 13.3s 後寒戟單膝跪地，需要定樁。
+- **末段不鎖尾**：終結鏡要保留進行中位移，所以末段一律用正軌續行，不再畫 `12.x:15.0` 的負軌定樁（初版 v4 配置的尾段負軌有讓最後 2–3 秒凍成靜止畫的風險，尚未經 GPU 證實）。唯一例外是 orig02：劇本明寫 13.3s 後寒戟單膝跪地，需要定樁。
 - 以上規則全部寫進 `tests/test_flagship_jobs.py`，變成會被檢查的事實。
 
 > **限制聲明**：`beats` 是導演依劇本文字估的相位秒數，不是量測值；H3 實際落下計時動作通常會晚 0.2–0.8s。`test_flagship_jobs.py` 檢查的是「JOBS 與劇本切點／`beats` 自洽」，屬於自我參照的一致性測試，不能證明成片時序正確——那要靠 §7 的 GPU 重跑與 `measure_motion.py` 驗收。
@@ -174,9 +175,13 @@ python scripts/compare_clips.py --before analysis/v3-manju/flagship/legacy_v3/re
 
 驗收重點：
 - 特寫段（rep01 6.2–9.0、rep02 6.2–9.0、rep03 9.0–10.2、orig02 6.2–7.8、ult01 3.2–5.0、ult02 4.0–7.8）沒有齜牙或臉部變形
-- orig02 13.3s 後的單膝與 ult02 全片沒有貼地滑行（`--footplant`）
+- orig02 13.3s 後的單膝、ult02 全片，以及 rep01／rep03／ult01 末段（正軌蓋在接近靜止的收勢姿態上）都沒有貼地滑行（`--footplant`）
 - ult01 墨圈、ult02 冰陣仍清楚可讀（P8 已無 sigils 滑塊；讀不出來就照 §6 用 `--rack` 補 sigils 短脈衝 A/B）
 - rep01、rep03、ult01、ult02 末段 2–3 秒仍有進行中位移，沒有凍成靜止畫
+
+### 7.1b caseA_manju（本波不重跑）
+
+`caseA_manju_duel`／`caseA_manju_8s` 只改了步態用詞（滑行詞→離散步態），沒有 JOBS 條目；8 秒版是 PRISM／SelfLift 受控對照稿，混進新 Dial 配置會讓對照失效。若要確認改字效果，沿用原受控實測的同一條指令與 seed，只換 prompt 檔，再跑 `measure_motion.py --footplant` 比對末鏡。
 
 ### 7.2 v1 重跑兩檔
 
