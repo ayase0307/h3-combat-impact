@@ -35,13 +35,25 @@ v1 是單語（純英文或純中文劇本式）基準稿，`--check-sync` 對�
 | `facial-performance.txt` | 5s | 0F／0W | — | 不動 | 0F／0W |
 | `bloodmoon-ultimate-ref2va.txt` | 10s | 0F／2W | 單人招牌技能長稿：1281 詞超出 820 預算；沒有下盤動作 | 不動（取捨見 §6） | 0F／2W |
 | `jade-rift-summon-ref2va.txt` | 10s | 0F／1W | 1293 詞超出預算 | 不動（取捨見 §6） | 0F／1W |
-| `impact-frame-screenplay.txt` | 7s | **2F**／2W | 這是刻意採用的劇本式格式（`references/screenplay-format.md`），validator 卻拿 H3 官方欄位去檢查，判它「缺欄位、無 Shot」 | 檔案不動；validator 新增劇本式模式（§5.3），改檢查欄位順序、逐秒時間軸是否連續、聲音／連續性／硬約束是否寫齊 | **0F／0W** |
+| `impact-frame-screenplay.txt` | 7s | **2F**／1W | 這是刻意採用的劇本式格式（`references/screenplay-format.md`），validator 卻拿 H3 官方欄位去檢查，判它「缺欄位、無 Shot」 | 檔案不動；validator 新增劇本式模式（§5.3），改檢查欄位順序、逐秒時間軸是否連續、聲音／連續性／硬約束是否寫齊 | **0F／0W** |
 | `force-field-explosion.txt` | 5s | 0F／0W | — | 不動 | 0F／0W |
 | `anime-ref2va-part1.txt` | 15s | 0F／0W | — | 不動 | 0F／0W |
 | `anime-ref2va-part2.txt` | 15s | 0F／1W | 沒有下盤動作 | 不動（FL2VA 接續段，動作承接 part1） | 0F／1W |
 | `impact-frame-inline.txt`（追加） | 8s | **1F**／1W | `<Picture 1>` 被引用卻沒有定義；3 處否定詞（`not a live-action photo, not flat 2D anime`、`no 3D depth`） | `subject_definitions` 補上 `<Picture 1>` 廢墟街定義；否定句改寫成正面描述（`Clearly a polished 3DCG render with game-cutscene depth…`、`on a paper-flat surface`） | **0F／0W** |
 
 **v1 重跑挑選**：只有 `continuous-brawl.txt`（新增摔投）與 `impact-frame-inline.txt`（標籤與否定詞修正）的內容有變，值得重跑對照；其餘 v1 檔案沒有改，沿用既有成片即可。指令見 §7.2。
+
+### 2.1 其他追蹤集（逐一裁決）
+
+| 檔案 | 時長 | 檢核結果 | 裁決 | 理由 |
+|---|---|---|---|---|
+| `fight-30s/seg1–seg6` | 各 8s | 全部 0F；seg1／2／3／5 有「沒有摔投／下盤」或刀路 75% 的 WARN | **不動** | `beat-sheet.md` 把六段當一部片設計，摔投、下盤招式分配在不同段落，單段檢核必然出現配額 WARN；各段已有成片與 `docs/research/runs/` 實驗紀錄，改字會讓對照失效 |
+| `v2-demo/caseA_duel.txt` | 15s | 0F／1W（美型臉過激詞）；`--strict-physics` 有 4 處滑行詞 FAIL | **不動** | v2 歷史基準。`tests/test_validate.py` 明確斷言它必須觸發過激臉 WARN（反例樣本）；修正後的繼任版就是下面的 `caseA_manju` |
+| `v2-demo/caseB_beast.txt` | 15s | 0F／1W（字數 677＞620）；`--strict-physics` 有 4 處滑行詞 FAIL | **不動** | 同屬 v2 歷史封存稿，保留原貌供版本對照；之後若要重跑，應比照 `caseA_manju` 先改離散步態 |
+| `v3-manju/caseA_manju_duel.txt` | 15s | 修改前 0F／0W，但 `--strict-physics` 有 4 處 FAIL（`slides`×2、`skids`、`skidding`） | **已修** | 英文改成 `ducks beneath the steel`、`stamps back two short steps, heels spraying sparks`、`drops hard onto one knee`、`steps forward pointing steel`；中文「貼地滑步」→「低身側步」、「震滑數尺，靴底擦雪」→「震退數步，靴跟踏雪」、「單膝跪滑」→「單膝重跪」、「滑步劍指」→「踏前一步劍指」 → 一般 **0F／0W**；strict **0F**／1W（Shot 6 為 1.4s 塞 5 個攻防動詞的既有密度 WARN，修改前就有；要消除得改鏡長，會動到切點，留待重寫） |
+| `v3-manju/caseA_manju_8s.txt` | 8s | 修改前 0F／0W，`--strict-physics` 有 2 處 FAIL（`skidding`、`slides`） | **已修** | 同上一列的末鏡改法（中英同步） → 一般 **0F／0W**；strict **0F**／2W（Shot 4 的 1.4s、Shot 5 的 1.6s 動詞密度 WARN 都是既有問題；這份是 8 秒受控對照稿，改鏡長會破壞對照） |
+
+`glides her blade`（刀刃沿對方兵器卸力）與「滑刃」是兵器動作，不是腳步，保留。
 
 ---
 
@@ -52,11 +64,11 @@ v1 是單語（純英文或純中文劇本式）基準稿，`--check-sync` 對�
 | 套件 | 修改前（fight 檢視） | 人工審計發現 | 劇本修改（中英同步） | 修改後 |
 |---|---|---|---|---|
 | `rep01_thunder_cleave` | 刀路 62% | 單人清場魔兵海加天劍，`ultra` profile 合理；第 3 鏡特寫是 A 檔冷顏 | 文字不動，只升級 Dial（§4） | 0F／0W（ultra）|
-| `rep02_ink_flame_sea` | 刀路 **73%**、沒有摔投 | 雙人對決卻只剩刀劍互砍；Shot 2 寫 `spinning and sidestepping`；Shot 3 寫 `gliding into a smooth close-up`，「滑行」語意容易被讀成人在滑；中文段落標題寫「12—15 秒」，實際切點是 11.6s | Shot 2 改成「熾川踏住玄瀾刀背蹬開，扯住披風把他甩向水幕，兩人錯步分開」（踢擊＋擒拿＋摔投）；Shot 3 改成 `easing into`；Shot 5 補上 `pivots on his rear heel`（後腳跟擰轉發力）；中文標題改為「11.6—15 秒」 | **fight 檢視也 0F／0W** |
+| `rep02_ink_flame_sea` | 刀路 **73%**、沒有摔投 | 雙人對決卻只剩刀劍互砍；Shot 2 寫 `spinning and sidestepping`；Shot 3 寫 `gliding into a smooth close-up`，「滑行」語意容易被讀成人在滑；中文段落標題寫「12—15 秒」，實際切點是 11.6s | Shot 2 的刀劍互架（`blocking and parrying`／「刀劍硬撼」）**替換**成「熾川踏住玄瀾刀背蹬開，扯住披風把他甩向水幕」（踢擊＋擒拿＋摔投），並刪掉句尾的錯步分開，避免一鏡塞四件事；Shot 3 改成 `easing into`；Shot 5 補上 `pivots on his rear heel`（後腳跟擰轉發力）；中文標題改為「9—11.6 秒」與「11.6—15 秒」 | 0F／0W（ultra）；fight 檢視刀路 73%→**57%**（上限 55%，差 1 個招式，刻意不再堆詞） |
 | `rep03_jade_hammer_dragon` | 刀路 67%、沒有摔投 | 中文「踩水滑步閃過龍顎」、英文 `skims across the spray`，正是溜冰步高危寫法；對百米巨龍寫摔投不合物理，維持 `ultra` | 改成「踏浪點水連續側步，一腳蹬開龍頜借力」／`bounds across the spray in quick planted steps … kicks off its jaw`（離散步態加踢擊） | 0F／0W（ultra）|
 | `orig02_bamboo_lantern_umbrella_vs_spear` | 1W（`skidding`） | Shot 5 有 `glides half a step back` 與 `drops to one knee skidding in water` 兩處滑行（`glides` 沒有 `across`，regex 抓不到，是人工審計找到的）；中文 Shot 4 寫「翻身滑退」，而且漏寫英文已有的擒腕與過腰摔 | 英文改成 `takes half a step back on planted heels`、`drops to one knee in a short splash of water`；中文 Shot 4 補「擒腕提膝頂其側腹，轉胯一記過腰摔」，「滑退」改「後躍」 | **0F／0W** |
-| `ult01_brush_seal_army` | 0W | 文字健康；風險在執行層：P5 長開 `arcane_sigils` 會讓墨圈爬臉、變成曼陀羅 | 文字不動，換 P8（§4） | 0F／0W |
-| `ult02_lunar_prism_domain` | 0W | 文字健康；同樣是 P5 法陣盤的風險 | 文字不動，換 P8（§4） | 0F／0W |
+| `ult01_brush_seal_army` | 0W | 文字健康；執行層問題是 P5 的 `arcane_sigils` 走固定正規化關鍵幀（45–65% 滿、80% 起歸零），和本劇本的切點無關，而且 P5 沒有 storm 可承載雙軌 | 文字不動，換 P8（§4）；代價見 §6 | 0F／0W |
+| `ult02_lunar_prism_domain` | 0W | 文字健康；同 ult01 的 P5 關鍵幀問題 | 文字不動，換 P8（§4）；代價見 §6 | 0F／0W |
 
 另外 3 套已經是雙軌配置（`orig01_v13` P9、`rep04_v4` P8、`rep05` P7），文字與 Dial 都不動。`orig01_v13` 與 `rep04_v4` 已確認不會觸發新的防破圖 WARN（有專門測試鎖住）。
 
@@ -69,16 +81,19 @@ v1 是單語（純英文或純中文劇本式）基準稿，`--check-sync` 對�
 - `--hitstop` 只畫 0.25s 窄脈衝，會自動附帶衝擊閃幀。
 - 地面交鋒的峰值等效運動不得超過 `+0.98`。`+0.80` 正軌只用在騰空或破空段。
 - P9 依左眼 5.0 實證維持 `--hires-dials off`，並用 `--closeup` 鎖臉，正軌上限 `+0.29`。P7／P8 一律用 `phase-motion`。
+- **末段不鎖尾**：終結鏡要保留進行中位移，所以末段一律用正軌續行，不再畫 `12.x:15.0` 的負軌定樁（舊配置會讓最後 2–3 秒凍成靜止畫）。唯一例外是 orig02：劇本明寫 13.3s 後寒戟單膝跪地，需要定樁。
 - 以上規則全部寫進 `tests/test_flagship_jobs.py`，變成會被檢查的事實。
+
+> **限制聲明**：`beats` 是導演依劇本文字估的相位秒數，不是量測值；H3 實際落下計時動作通常會晚 0.2–0.8s。`test_flagship_jobs.py` 檢查的是「JOBS 與劇本切點／`beats` 自洽」，屬於自我參照的一致性測試，不能證明成片時序正確——那要靠 §7 的 GPU 重跑與 `measure_motion.py` 驗收。
 
 | 套件 | 切點 | 舊配置 | 新配置 | `--dry` 預算（base／峰值） |
 |---|---|---|---|---|
-| rep01 | 0／3.2／6.2／9.0／10.6／12.6 | P3＋hits，二採 off | **P8** phase-motion；burst `0.0:2.9:0.65`、`2.9:5.9:0.80`（騰空）、`8.7:10.5:0.80`（天劍破空）；anchor `5.9:8.7:-0.65`（特寫）、`12.3:15.0:-0.30`（扛刀佇立）；hitstop `10.6:10.85`；hit `0.8:1.1` | +0.30／+1.10（只在騰空與破空段） |
+| rep01 | 0／3.2／6.2／9.0／10.6／12.6 | P3＋hits，二採 off | **P8** phase-motion；burst `0.0:2.9:0.65`、`2.9:5.9:0.80`（騰空）、`8.7:10.5:0.80`（天劍破空）、`10.9:15.0:0.65`（頓幀後末段續行）；anchor `5.9:8.7:-0.65`（特寫）；hitstop `10.6:10.85`；hit `0.8:1.1` | +0.30／+1.10（只在騰空與破空段） |
 | rep02 | 0／3.2／6.2／9.0／11.6 | P3＋hits，二採 off | **P9** off；closeup `6.0:9.0`；anchor `5.9:8.7:-0.30`（低弓馬步）；burst `0.0:5.9:0.25`、`11.3:15.0:0.25`；hitstop `9.0:9.25`（黑白衝擊幀）；hit `11.8:12.1` | +0.19（特寫段）／+0.94 |
-| rep03 | 0／2.8／6.0／9.0／12.2 | P3＋hits，二採 off | **P7** phase-motion；burst `0.0:5.7:0.65`、`5.7:8.7:0.80`（騰空）；anchor `8.7:10.2:-0.55`（特寫，10.2s 轉側面重錘）、`11.9:15.0:-0.30`（落石輕喘）；hitstop `0.35:0.6`、`10.4:10.65`；beats `[10.2]` | +0.32／+1.12（只在騰空段） |
+| rep03 | 0／2.8／6.0／9.0／12.2 | P3＋hits，二採 off | **P7** phase-motion；burst `0.0:5.7:0.65`、`5.7:8.7:0.80`（騰空）、`10.5:15.0:0.65`（重錘後末段續行）；anchor `8.7:10.2:-0.55`（特寫，10.2s 轉側面重錘）；hitstop `0.35:0.6`、`10.2:10.45`（重錘落點）；beats `[10.2]` | +0.32／+1.12（只在騰空段） |
 | orig02 | 0／3.2／6.2／9.1／12.0 | P3＋hits，二採 off | **P7** phase-motion；burst `0.0:5.9:0.65`、`8.8:12.8:0.65`；anchor `5.9:7.8:-0.55`（特寫，7.8s 紅絲彈射）、`13.3:15.0:-0.45`（寒戟單膝定樁）；hitstop `12.8:13.05`（奪槍）；hit `3.6:3.9`、`10.6:10.9`；beats `[7.8, 12.8, 13.3]` | +0.32／+0.97 |
-| ult01 | 0／3.2／7.0／10.8 | P5＋hit，二採 off | **P8** phase-motion；burst `0.0:2.9:0.65`、`6.7:10.5:0.80`（墨龍俯衝）；anchor `2.9:5.0:-0.55`（特寫，5.0s 轉環繞揮毫）、`12.6:15.0:-0.30`（落關收筆）；hitstop `10.8:11.05`；beats `[5.0, 12.6]` | +0.30／+1.10（只在墨龍俯衝段） |
-| ult02 | 0／4.0／7.8／11.0 | P5，二採 off | **P8** phase-motion；anchor `0.0:3.7:-0.30`（點湖）、`3.7:7.5:-0.65`（結印特寫）、`12.4:15.0:-0.30`（凌空定樁）；burst `7.5:12.4:0.55`（冰柱破湖到冰蓮綻放）；beats `[12.4]` | +0.30／+0.85 |
+| ult01 | 0／3.2／7.0／10.8 | P5＋hit，二採 off | **P8** phase-motion；burst `0.0:2.9:0.65`、`6.7:10.5:0.80`（墨龍俯衝）、`11.1:15.0:0.65`（破關後末段續行）；anchor `2.9:5.0:-0.55`（特寫，5.0s 轉環繞揮毫）；hitstop `10.8:11.05`；beats `[5.0]` | +0.30／+1.10（只在墨龍俯衝段） |
+| ult02 | 0／4.0／7.8／11.0 | P5，二採 off | **P8** phase-motion；anchor `0.0:3.7:-0.30`（點湖）、`3.7:7.5:-0.65`（結印特寫）；burst `7.5:15.0:0.55`（冰柱破湖、冰蓮綻放直到末幀）；beats `[]` | +0.30／+0.85 |
 
 `[dial-physics]` 行裡的 `anchor_eff≈-1.5` 是負軌最大值，來自 0.25s 的 `--hitstop -1.8` 脈衝，不是常駐值。定樁段的實際值是 base 加 anchor，約 `-0.35 ~ 0.00`，落在 `[-0.40, +0.05]` 的定樁區間內。
 
@@ -118,6 +133,8 @@ v1 是單語（純英文或純中文劇本式）基準稿，`--check-sync` 對�
 | `anime-ref2va-part2.txt` | 沒有下盤動作 | FL2VA 接續段，下盤招式在 part1 |
 | `impact-frame-source.txt` | 1 處否定詞 | 素材類（`material` profile）原始卡片描述，沿用既有預算 |
 | `rep01`、`rep03`（fight 檢視） | 刀路偏高 | 單人清場、以小打大巨龍，維持 `ultra` profile |
+| `rep02`（fight 檢視） | 刀路 57%＞55% | 檔頭是 `ultra`（本身 0W）；Shot 2 已用替換而非疊加的方式加入踢擊、擒拿、摔投，再補詞就會超載 |
+| `ult01`、`ult02` 換 P8 | （執行層取捨） | 換到 P8 的代價是**失去 sigils 滑塊**，墨圈與冰陣只剩 prompt 文字撐著。驗收重點是「墨圈／冰陣仍清楚可讀」；若重跑後法陣糊掉，用 `render_comfy.py --rack` 補一段短的 `h3_arcane_sigils` 脈衝（只蓋法陣綻放那 1–2 秒）做 A/B |
 
 ---
 
@@ -158,7 +175,8 @@ python scripts/compare_clips.py --before analysis/v3-manju/flagship/legacy_v3/re
 驗收重點：
 - 特寫段（rep01 6.2–9.0、rep02 6.2–9.0、rep03 9.0–10.2、orig02 6.2–7.8、ult01 3.2–5.0、ult02 4.0–7.8）沒有齜牙或臉部變形
 - orig02 13.3s 後的單膝與 ult02 全片沒有貼地滑行（`--footplant`）
-- ult01、ult02 末段沒有曼陀羅法陣爬臉
+- ult01 墨圈、ult02 冰陣仍清楚可讀（P8 已無 sigils 滑塊；讀不出來就照 §6 用 `--rack` 補 sigils 短脈衝 A/B）
+- rep01、rep03、ult01、ult02 末段 2–3 秒仍有進行中位移，沒有凍成靜止畫
 
 ### 7.2 v1 重跑兩檔
 
@@ -171,10 +189,13 @@ python scripts/validate_prompt.py examples/continuous-brawl.txt --duration 8
 python scripts/render_comfy.py $COMMON --preset P7 --burst 0.0:8.0:0.65 --hitstop 5.3:5.55:-1.8 \
   --prompt examples/continuous-brawl.txt --seconds 8 --seed 5101 --job v4_brawl --out out/v4_continuous_brawl.mp4
 
-# impact-frame-inline（8s Ref2VA；2.4s 踏地閃幀、4.2s 出拳頓幀；--ref 順序請與原出片一致：街景＝<Picture 1>）
+# impact-frame-inline（8s Ref2VA；2.4s 踏地閃幀、4.2s 出拳頓幀）
+# 原片出自 REMIX Pika H3 Flex；--ref 依位置對應 Picture N，街景＝<Picture 1> 必須放第一個
+STREET=path/to/dusk_ruined_street.png   # 改成原出片用的街景圖
+HEROINE=path/to/heroine.png             # 改成原出片用的人物圖
 python scripts/validate_prompt.py examples/impact-frame-inline.txt --duration 8
 python scripts/render_comfy.py $COMMON --preset P7 --hit 2.4:2.7 --hitstop 4.2:4.45:-1.8 \
-  --prompt examples/impact-frame-inline.txt --ref <街景圖>.png --ref <人物圖>.png \
+  --prompt examples/impact-frame-inline.txt --ref "$STREET" --ref "$HEROINE" \
   --seconds 8 --seed 5201 --job v4_inline --out out/v4_impact_inline.mp4
 
 python scripts/measure_motion.py out/v4_continuous_brawl.mp4 out/v4_impact_inline.mp4 --fps24 --footplant
@@ -197,3 +218,4 @@ python scripts/measure_motion.py out/v4_continuous_brawl.mp4 out/v4_impact_inlin
 | `tests/test_flagship_jobs.py` | 新增：JOBS preset、區段範圍、切點對齊、特寫負軌、P9 正軌上限 |
 | `examples/continuous-brawl.txt`、`examples/impact-frame-inline.txt` | §2 |
 | `examples/v3-manju/rep02`、`rep03`、`orig02` | §3 |
+| `examples/v3-manju/caseA_manju_duel.txt`、`caseA_manju_8s.txt` | §2.1 |
