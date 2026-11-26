@@ -2,7 +2,7 @@
   "_meta": {
     "title": "ComfyUI × MiniMax-H3 生態連結核驗清單",
     "verified_on": "2026-11-26",
-    "method": "GitHub 倉庫以 `gh api repos/<owner>/<repo>` 逐一確認存在與中繼資料；HuggingFace 倉庫以 `https://huggingface.co/api/models/<id>` 與關鍵字搜尋核對檔案列表與下載量。所有 URL 皆實際回應 200 且可公開存取。",
+    "method": "GitHub 倉庫以 `gh api repos/<owner>/<repo>` 逐一確認存在與中繼資料；HuggingFace 倉庫以 `https://huggingface.co/api/models/<id>` 與關鍵字搜尋核對檔案列表與下載量。全部 12 個 GitHub 與 9 個主要 HuggingFace 倉庫（另含 3 個備選）的 API 皆回傳有效的倉庫資料，確認存在且可公開存取（私有或不存在的倉庫會回傳錯誤）。",
     "note": "星數、下載量與最後更新日為核驗當日快照，會隨時間變動。社群發布的權重（非 MiniMaxAI 或 Pika-Labs 官方帳號）已於 `provenance` 欄位標註來源類型，請自行評估授權與安全性後再下載。",
     "schema": {
       "plugins[]": "ComfyUI 自訂節點倉庫",
