@@ -14,7 +14,7 @@
 - `[00:05.000]` 鏡 4（低位環繞仰拍）：緋雪切線滑刃扣腕、提膝頂肋接過肩摔將霜絕甩上斷階；霜絕俊眉微揚、唇角微啟低吸一氣，攻守逆轉。
 
 **6—8 秒（三拍終結與明確結果）**：
-- `[00:06.400]` 鏡 5（張力中景切入後緩拉）：霜絕起身反劈，緋雪低掃腳踝破重心、赤刃重劈護手將冰藍闊劍震飛插雪；霜絕單膝跪滑胸口起伏微喘，緋雪滑步劍指對方、唇線沉靜，衣袍碎雪火星持續飛揚至末幀。
+- `[00:06.400]` 鏡 5（張力中景切入後緩拉）：霜絕起身反劈，緋雪低掃腳踝破重心、赤刃重劈護手將冰藍闊劍震飛插雪；霜絕單膝重跪胸口起伏微喘，緋雪踏前一步劍指對方、唇線沉靜，衣袍碎雪火星持續飛揚至末幀。
 
 ```text
 subject_definitions:
@@ -45,7 +45,7 @@ High-end 2.5D semi-realistic AI manju guoman anime-cinematic rendering with cris
 
 [Shot 4] At 00:05.000, the camera cuts to a low upward orbiting shot as <Subject 1> glides her blade along his steel to deflect wide, seizes his wrist, drives a knee into his ribs, and executes a crisp hip-throw hurling <Subject 2> onto shattered steps; <Subject 2>'s brows lift a fraction and his lips part slightly on a sharp breath, keeping his handsome composed features intact as momentum reverses. Camera orbits fast.
 
-[Shot 5] At 00:06.400, the camera cuts to a medium shot as <Subject 2> rises into a downward slash. <Subject 1> snaps a low sweep kick at his ankle to break his stance and slams his crossguard with crimson steel, sending his ice-blue broad-jian spinning into the snow. <Subject 2> drops onto one knee skidding back, chest rising on a quick breath with brows lightly furrowed; <Subject 1> slides forward pointing crimson steel, lips composed as ribbons, ivory cape, snow, and embers race through the final frame. Camera jolts on disarm and pulls back smoothly.
+[Shot 5] At 00:06.400, the camera cuts to a medium shot as <Subject 2> rises into a downward slash. <Subject 1> snaps a low sweep kick at his ankle to break his stance and slams his crossguard with crimson steel, sending his ice-blue broad-jian spinning into the snow. <Subject 2> drops hard onto one knee, chest rising on a quick breath with brows lightly furrowed; <Subject 1> steps forward pointing crimson steel, lips composed as ribbons, ivory cape, snow, and embers race through the final frame. Camera jolts on disarm and pulls back smoothly.
 
 overall_soundscape: Boots crunching snow and granite, sharp wind whooshes, crisp steel clashes, pillar shatter, palm slap, solid knee impact, and a spinning broad-jian ringing into snow amid peak wind.
 

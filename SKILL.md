@@ -1,14 +1,29 @@
 ---
 name: h3-combat-impact
-description: This skill should be used when writing, revising, directing, or rendering MiniMax H3 / Hailuo (海螺) video prompts for action, combat, wuxia/xianxia, monster/mecha, VFX-heavy or impact-driven shots — especially when the user asks for 打擊感 / 力度 / 拳拳到肉, 打鬥特效, 招式編排 / 動作設計 / 高速打鬥, 衝擊幀 / impact frame, 震屏, 力場 / 空氣扭曲 / 衝擊波, ComfyUI-Dials / 武戲滑塊 / MAIDialRack / De-rope, or wants to reverse-engineer and recreate a fight reference video in H3 format. It combines an upstream fight-directing contract (fact ledger, 9-carrier auto-routing, 15s 5-beat / <=10s 4-beat continuity, bilingual Chinese director draft + H3 Ref2VA English 6-field sync), ComfyUI-Dials steering & 3-stage sampling (draft / De-rope / ReCaVSR 2x), and quantitative QA scripts.
+description: Use when writing, revising, directing, or rendering MiniMax H3 / Hailuo (海螺) video prompts for action, combat, wuxia/xianxia, monster/mecha, VFX-heavy or impact-driven shots. v4.0 dual-track activation — Track A (silent auto-enhance, no menus) whenever a user asks to generate or edit a prompt or video involving 打鬥, 武俠仙俠, 刀劍兵刃, 怪獸機甲, 爆氣鬥氣, 力場衝擊波, 大招特效 or 高速追逐 and already gives clear characters / scene / action intent without naming the skill; Track B (interactive staged director with a mandatory timeline-outline review gate before any English prompt or GPU render) when the user names h3-combat-impact or asks to 用武戲技能設計, asks how the skill works or what it can do, or only gives reference images or a vague idea such as 幫我拍一段帥氣打鬥. Also when the user asks for 打擊感 / 力度 / 拳拳到肉, 打鬥特效, 招式編排 / 動作設計 / 高速打鬥, 衝擊幀 / impact frame, 震屏, 力場 / 空氣扭曲 / 衝擊波, ComfyUI-Dials / 武戲滑塊 / MAIDialRack / De-rope, or wants to reverse-engineer and recreate a fight reference video in H3 format.
 agent_created: true
 ---
 
-# H3 打鬥導演與武戲執行技能（v3.0 相位雙軌與物理防滑版）
+# H3 打鬥導演與武戲執行技能（v4.0 雙軌運作架構・相位雙軌與物理防滑版）
 
 把「動作合乎真實步態力學、打得拳拳到肉、出片極致銳利且 100% 鎖美型顏值」整合成一條從**上游導演編排（姿態—位移相容律＋離散步態三拍）→ 雙語同步編譯與防滑閘門 → 中游 `PRISM + SelfLiftH3Sampler`（一採 `P7/P8` 相位正負雙軌 `MAIDialRack` ＋ 二採 `--hires-dials phase-motion` 解耦精修）→ 量化與貼地滑行驗收**的完整 Agent 工作流。
 
 > **核心鐵律**：① 先導演戰鬥，再寫提示詞；接地靜態姿態（跪／蹲／馬步）嚴禁同鏡寫衝刺平移並必掛 `--anchor` 釘樁防滑，主動進攻嚴禁濫用 `slide/skid`；② 雙人實戰黃金鏡長 **`2.2–2.8s`（15 秒 5–6 鏡）**，留足幀數演完跨步與轉胯；③ 美型國漫／AI 漫劇特寫走 **A 檔冷靜微表情＋`--anchor`**；④ 出片主力走 **`--engine selflift --preset P7/P8 --hires-dials phase-motion`**，精準對沖 `h3_storm` 的 `+0.375` 共線運動洩漏。
+
+---
+
+## 第零階段：雙軌啟動路由（v4.0，收到訊息先判斷要不要停下來問）
+
+完整話術、四大維度選項與《影片內容與時間軸主要動作概要》模板見 **`references/interactive-director-flow.md`**。
+
+| 軌道 | 觸發條件 | 運作行為 |
+|---|---|---|
+| **軌道 A · 靜默自動增強** | 日常對話中要求生成／修改含打鬥、武俠仙俠、刀劍兵刃、怪獸機甲、爆氣鬥氣、力場衝擊波、大招特效、高速追逐的提示詞或影片，**已給明確角色／場景／動作意圖、未點名詢問技能** | 零打擾：不彈選單，內部套用姿態—位移防滑律、9 大載體路由、A 檔冷靜微表情、防動態破圖身體機制句法、雙語 1:1 切點同步與 `validate_prompt.py`，直接交付雙語提示詞與建議渲染指令（不主動啟動 GPU） |
+| **軌道 B · 互動式分階段導演** | ① 點名本技能（`h3-combat-impact`、「用武戲技能幫我設計…」）② 詢問技能用法／功能 ③ 只丟參考圖或模糊想法（「幫我拍一段帥氣打鬥」） | 三階段閉環：**階段 1** 四大維度輕量選項（附推薦預設，可秒選）→ **階段 2**《影片內容與時間軸主要動作概要》**強制審閱閘門**，以「請問同意照這份分鏡概要推進，還是對哪幾秒的招式、鬥氣特效或勝負結果有調整建議？」停下 → **階段 3** 確認後才編譯雙語稿、跑 `validate_prompt.py --check-sync` 0 FAIL，再交付或呼叫 `render_comfy.py` |
+
+**裁決規則**：點名技能但需求已講清楚 → 仍走軌道 B，階段 1 預填成一行確認，**階段 2 閘門絕不跳過**（「你決定」也一樣）；只有使用者明確說「不用給我看概要，直接出」才改走軌道 A。軌道 B 閘門通過前，**嚴禁輸出長篇英文 Prompt 或啟動 GPU 算圖**。
+
+> 名詞對照：軌道 A／B（要不要停下來問）≠ 模式 A／B（原創 vs 逆向，見 1.1）≠ A 檔／B 檔（表情分檔）；軌道 B 的選項寫成 `1-A … 4-B`，素材情境寫成 `S1 … S6`。
 
 ---
 
@@ -18,8 +33,8 @@ agent_created: true
 
 | 使用者狀態 | 入口模式 | 做法 |
 |---|---|---|
-| 給了明確角色/場景/需求 | **模式 A · 原創導演** | 直接執行四階段漏斗，不問廢話 |
-| 給了參考圖但未說明方向 | **引導模式** | 依素材先給建議再給 3–5 個情境選項（見 `references/guided-mode.md`） |
+| 給了明確角色/場景/需求 | **模式 A · 原創導演** | 軌道 A 直接執行四階段漏斗，不問廢話（點名技能時走軌道 B 預填） |
+| 給了參考圖但未說明方向 | **軌道 B 階段 1** | 依素材情境 S1–S6 換算推薦值，再問四大維度（見 `references/guided-mode.md`、`interactive-director-flow.md`） |
 | 給了參考打鬥影片要求拆解或復刻 | **模式 B · 逆向＋衍生** | `ffprobe`/`ffmpeg` 抽幀與 `measure_motion.py --fps24` 拆解 → 補缺資產 → 產出 **1 復刻 + 2 衍生** 三方案並列一採抽卡（見 `references/reverse-and-remix.md`） |
 
 ### 1.2 時長優先路由（先於段落格式）
@@ -155,9 +170,10 @@ python scripts/measure_sharpness.py out/fight_v3.mp4
 
 ## 參考檔案與工具索引
 
-### 新增核心（v2.0 – v3.0）
+### 新增核心（v2.0 – v4.0）
 | 檔案 | 內容 |
 |---|---|
+| `references/interactive-director-flow.md` | v4.0 雙軌運作：軌道 A 靜默自動增強檢核表、軌道 B 三階段話術（四大維度選項→時間軸概要閘門→定稿出片）、《影片內容與時間軸主要動作概要》標準模板與完整對話範例 |
 | `references/fight-directing-contract.md` | 上游導演合約：5 級事實優先級、零推斷帳本、9 大載體路由、6 種非對稱攻防、180° 軸線與雙色光軌、姿態—位移防滑律、雙語同步編譯 |
 | `references/comfyui-dials-guide.md` | `ComfyUI-Dials` v3.0 完整調用指南：5376 維運動洩漏係數 $M_{\text{eff}}$、19 轉盤速查、P1–P9 配方、正負雙軌（`--anchor/--burst/--hitstop`）、`SelfLift` 一採二採解耦與 De-rope |
 | `references/reverse-and-remix.md` | 雙入口工作流：模式 A 原創導演、模式 B 參考片逆向＋1 復刻 2 衍生並列抽卡、一採→二採→三採流水線 |
@@ -183,6 +199,7 @@ python scripts/measure_sharpness.py out/fight_v3.mp4
 | 腳本 | 用途 |
 |---|---|
 | `scripts/render_comfy.py` | 本機 ComfyUI 出片引擎：支援 `PRISM + SelfLiftH3Sampler`（14 步）與 Pika 6 步、`MAIDialRack`（P1–P9／`--anchor/--burst/--hitstop`）、`--hires-dials` 解耦、De-rope 與 `ReCaVSR 2x` 2K 超分 |
-| `scripts/validate_prompt.py` | 驗證官方格式、時間碼、否定詞、表情肌肉與美型臉防過激（`--face-style`）、招式多樣性、防滑閘門、雙語切點同步（`--check-sync`） |
+| `scripts/validate_prompt.py` | 驗證官方格式、時間碼、否定詞、表情肌肉與美型臉防過激（`--face-style`）、招式多樣性、防滑閘門、雙語切點同步（`--check-sync`）；v4.0 加防動態破圖 WARN（空泛打鬥句缺身體機制、`<1.5s` 短鏡堆疊 ≥4 個翻轉旋轉詞）與劇本式（`[參考鎖]…[硬約束]`）檢核 |
+| `scripts/render_v3_flagship.py` | 9 套 v3 旗艦漫劇批次渲染（全部 P7/P8/P9 正負雙軌；`--dry` 只看 Dial 運動預算、`--force` 覆蓋重跑） |
 | `scripts/measure_motion.py` / `measure_sharpness.py` / `measure_staging.py` / `measure_light_event.py` | 24fps 歸一化運動曲線、靜止對稱（`--symmetry`）、貼地滑行檢測（`--footplant`）、拉普拉斯清晰度、鏡長與光影事件量測 |
 | `scripts/compare_clips.py` / `impact_frame.py` / `seam_check.py` | 固定 seed 並排動態圖與運動對照、後製 2 幀衝擊幀合成、接縫死格檢測 |

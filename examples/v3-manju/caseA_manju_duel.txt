@@ -6,10 +6,10 @@
 
 **0—3 秒（即時開戰與首次完整攻防）**：
 - `[00:00.000]` 鏡 1（低位弧形推進）：開場半秒內交鋒。緋雪低重心斜掠突刺，霜絕橫闊劍硬架火星爆濺；她轉腕壓切腰際，霜絕沉肘格擋震退半步，積雪炸飛。
-- `[00:01.600]` 鏡 2（貼身低位側跟）：霜絕反手上挑撕開雪霧；緋雪貼地滑步閃過，低掃腿踢向前踝迫其失衡，紅衣下擺拉直。
+- `[00:01.600]` 鏡 2（貼身低位側跟）：霜絕反手上挑撕開雪霧；緋雪低身側步閃過，低掃腿踢向前踝迫其失衡，紅衣下擺拉直。
 
 **3—6 秒（改變軸線與首次明確命中）**：
-- `[00:03.100]` 鏡 3（動態中景下搖）：霜絕踩石燈台躍起雙手重劈；緋雪斜劍卸力仍被震滑數尺，靴底擦雪迸火。
+- `[00:03.100]` 鏡 3（動態中景下搖）：霜絕踩石燈台躍起雙手重劈；緋雪斜劍卸力仍被震退數步，靴跟踏雪迸火。
 - `[00:04.500]` 鏡 4（廣角仰拍跟隨）：霜絕落地肩撞接冰藍平斬，將緋雪轟飛撞斷石柱炸出碎石濃塵；她翻滾拍地彈回低姿。
 
 **6—10 秒（技術交換與第一次逆轉）**：
@@ -22,7 +22,7 @@
 - `[00:11.500]` 鏡 9（貼地側跟）：霜絕蹬踏墜石折返，低位盲區橫掃逼得緋雪躍空。
 
 **13—15 秒（三拍終結與明確結果）**：
-- `[00:13.000]` 鏡 10（張力中景切入後緩拉）：霜絕落勢再劈，緋雪落地走三拍——點尖破架、繞右側盲區、重劈護手並側踢膝彎；冰藍闊劍脫手插雪，霜絕單膝跪滑胸口起伏微喘、眉峰微鎖，緋雪滑步劍指對方、唇線沉靜，衣袍碎雪火星飛揚至末幀。
+- `[00:13.000]` 鏡 10（張力中景切入後緩拉）：霜絕落勢再劈，緋雪落地走三拍——點尖破架、繞右側盲區、重劈護手並側踢膝彎；冰藍闊劍脫手插雪，霜絕單膝重跪胸口起伏微喘、眉峰微鎖，緋雪踏前一步劍指對方、唇線沉靜，衣袍碎雪火星飛揚至末幀。
 
 ```text
 subject_definitions:
@@ -47,9 +47,9 @@ High-end 2.5D AI manju guoman rendering with crisp painterly shading, luminous h
 
 [Shot 1] High-end 2.5D AI manju guoman rendering with crisp lighting and sharp blade arcs. First contact occurs within half a second. A low medium tracking shot swoops into <Subject 3> as <Subject 1> lunges low thrusting crimson steel at his throat; <Subject 2> blocks horizontally in sparks, and she rides the recoil into a waist cut he parries with a dropped elbow as snow blasts outward. Camera arcs inward fast.
 
-[Shot 2] At 00:01.600, the camera cuts to a low over-the-shoulder shot as <Subject 2> whips an upward blue arc through snow mist. <Subject 1> slides beneath the steel and snaps a low sweep kick at his ankle, wind flattening her skirt. Camera tracks sideways fast.
+[Shot 2] At 00:01.600, the camera cuts to a low over-the-shoulder shot as <Subject 2> whips an upward blue arc through snow mist. <Subject 1> ducks beneath the steel and snaps a low sweep kick at his ankle, wind flattening her skirt. Camera tracks sideways fast.
 
-[Shot 3] At 00:03.100, the camera cuts to a medium shot as <Subject 2> vaults off the lantern into a two-handed overhead cleave, cape billowing. <Subject 1> angles her jian to deflect and skids back spraying sparks. Camera tilts down fast.
+[Shot 3] At 00:03.100, the camera cuts to a medium shot as <Subject 2> vaults off the lantern into a two-handed overhead cleave, cape billowing. <Subject 1> angles her jian to deflect and stamps back two short steps, heels spraying sparks. Camera tilts down fast.
 
 [Shot 4] At 00:04.500, the camera cuts to a wide low tracking shot as <Subject 2> lands into a shoulder slam and flat cut clipping her vambrace, hurling <Subject 1> through a stone pillar. The column shatters into rubble as she slaps one palm down mid-roll to spring back sprinting; camera jolts on impact and settles cleanly.
 
@@ -63,7 +63,7 @@ High-end 2.5D AI manju guoman rendering with crisp painterly shading, luminous h
 
 [Shot 9] At 00:11.500, the camera cuts to a ground-skimming shot as <Subject 2> kicks off a falling stone to rebound sideways and whips a low sweep, forcing <Subject 1> to vault overhead. Camera skims fast past debris.
 
-[Shot 10] At 00:13.000, the camera cuts to a medium shot as <Subject 2> lands into a final chop. <Subject 1> executes a three-beat finish: tapping his tip, darting right, and slamming his crossguard while kicking behind his knee. His broad-jian spins into snow as he drops onto one knee skidding back, chest rising on a quick breath with brows lightly furrowed; <Subject 1> slides forward pointing steel, lips composed as ribbons, cape, snow, and embers race through the final frame. Camera jolts and pulls back smoothly.
+[Shot 10] At 00:13.000, the camera cuts to a medium shot as <Subject 2> lands into a final chop. <Subject 1> executes a three-beat finish: tapping his tip, darting right, and slamming his crossguard while kicking behind his knee. His broad-jian spins into snow as he drops hard onto one knee, chest rising on a quick breath with brows lightly furrowed; <Subject 1> steps forward pointing steel, lips composed as ribbons, cape, snow, and embers race through the final frame. Camera jolts and pulls back smoothly.
 
 overall_soundscape: Boots crunching snow, wind whooshes, crisp steel clashes, pillar shatter, palm slap, knee and elbow hits, and a spinning sword ringing into snow.
 
