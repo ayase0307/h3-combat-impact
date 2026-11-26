@@ -26,14 +26,24 @@
 
 - **全場抽色灰階** → 執行層用 `h3_colour_drain`（時停或致命一擊前 `0.3s` 瞬切 `+4.0`，`interp: step`），為 `0.1–0.2s` 快切盤，只畫 `0.25–0.35s` 窄脈衝（見 `comfyui-dials-guide.md`）。
 - **衝擊閃幀** → 用 `h3_impact_frame` 窄脈衝，或後製 `scripts/impact_frame.py`（路線 C）；**不要把「兩幀」直接寫進一個 shot 時長**（`impact-frame-inline.md` 實測：寫兩幀模型會給整段黑白鏡頭）。
-- 這些盤須搭配 `"audio": "protect"`。**時停類能力不得長開 `P5 / P6`**（避免末段退化為 2D 萬花筒）。
+- 這些盤須搭配 `"audio": "protect"`。`P5 / P6` 在 `fight-directing-contract.md` §7.4 明文禁止用於「直線毀滅大招與近身肉搏」；時停鏡若含近身肉搏或單向光束，同樣適用，建議改用 P7／P8。
 
 ### 0.3 來源與可信度
 
-- 動漫機制型能力：整理自公開的高人氣作品中「有機制的能力設計」（空間、影、線、重力、時間、物質變形等）的共通模式，轉譯為 H3 可演的物理語言，**不採用任何作品專有名詞**。
-- 作畫語法：整理自日本動畫作畫社群公認的鏡頭手法。**畫師名只作為「風格線索」記錄，不進任何英文 H3 句。**
-- 核驗備註：網路檢索僅確認「yutapon cubes」得名於中村豐（Yutaka Nakamura）以立方碎片狀爆破碎片聞名（Wikipedia 說明）。
-  其餘畫師的個人風格標示一律為「社群印象」，**未逐幀核實**，請當靈感索引而非定論。
+- **Part A（異能機制）**：由本技能作者依 `character-signature-skill.md` 的「四節點母題」與 `fight-directing-contract.md` 的「能力型六問」原則，歸納動漫常見的機制型能力類別（空間、影、線、重力、時間、物質變形等），再轉譯成 H3 可演的物理語言，**不採用任何作品專有名詞**。網路檢索只得到泛論（「能力要有清楚規則、外觀要讓人看懂它如何運作」），沒有逐能力的視覺拆解資料，因此各條目的 H3 句與導演提醒屬**導演化設計**，並非某部作品的還原。
+- **Part B（作畫語法）**：鏡頭手法本身（魚眼拉遠、速度線追拍、插切、反相閃幀等）屬作畫社群通用語彙，畫師名**只作靈感索引**，不進任何英文 H3 句。
+
+#### 作畫人名核驗表（2026-11-26 網路檢索結果）
+
+| 人名 | 檢索到的公開資料 | 對應本檔 | 可信度 |
+|---|---|---|---|
+| 中村豐（Yutaka Nakamura） | Wikipedia：碎片動畫常呈立方體，故稱 **yutapon cubes**；描述其打戲為重擊感強、善用衝擊幀；Animetudes 文章指其常用一拍一／一拍二的高幀率，碎片受大塚康生影響並被稱 Nakamura debris | SK-01、SK-06 | 已核實（二手來源） |
+| 吉成曜（Yoh Yoshinari） | Wikipedia／日文詞條：《天元突破》的「吉成爆發」爆炸特效、《FLCL》高難度動作；中文個人部落格另提關節運動強調與跟拍運鏡（非官方資料） | SK-01（爆炸形狀參考）、SK-05（跟拍） | 部分核實；「擠壓拉伸殘像」一說**未找到來源，已刪除對其的歸屬** |
+| 沓名健一（Kenichi Kutsuna） | 文春採訪：以《鬼滅之刃 無限列車篇》為例，解說夜戰色彩少時，發光呼吸特效如何以作畫、攝影、3DCG 組合擴展色彩並製造視覺刺激的緩急 | A4 物質變形系（單一主色發光）、§0.1 | 部分核實（僅採訪，無作畫風格系統資料） |
+| 竹內哲也 | 公開資料只有履歷（原畫參與多部作品、作畫監督），**沒有作畫風格描述** | 無 | 未核實，不作任何風格主張 |
+| 伍柏諭 | 檢索**未找到任何相關資料** | 無 | 未核實，不引用 |
+
+> 以上五人中，只有中村豐的「立方碎石」有明確公開依據；其餘人名請勿拿來當「某某式」的保證。
 
 ---
 
@@ -81,7 +91,7 @@
 ### US-05 指尖隱形鋼絲：切裂石柱與牽引變向
 
 - **機制**：指尖輕彈 → 一道極細反光線繃緊庭院 → 石柱被切成石板 → 身體沿線被拉向新角度
-- **H3**：`flicks her fingers and an invisible filament snaps taut across the courtyard with a thin glint, shearing a stone pillar into slabs, then hauls her body sideways along the wire into a new angle of attack`
+- **H3**：`flicks her fingers and an invisible filament snaps taut across the courtyard with a thin glint, shearing a stone pillar into slabs that crash down in a cloud of dust, then hauls her body sideways along the wire into a new angle of attack`
 - **物理結果／殘留**：石粉切口平整、細線高光、落石
 - **戰術**：用環境結構做路線改變
 - **導演**：線只能「閃一下」，不要寫成滿畫面紅線
@@ -97,7 +107,7 @@
 ### US-07 磁力牽引金屬
 
 - **機制**：掌心向前攤開 → 對手劍與甲片被吸向掌心 → 飛來的金屬環繞成盾
-- **H3**：`spreads his palm forward and the opponent's sword jerks out of her grip, the steel plates of her armour peeling off and flying toward his hand to circle him as a spinning shield`
+- **H3**：`spreads his palm forward and the opponent's sword jerks out of her grip, the steel plates of her armour peeling off and flying toward his hand with a ringing clatter to circle him as a spinning shield, sparks jumping where the plates collide`
 - **物理結果／殘留**：金屬鳴響、甲片碰撞火花、她的空手
 - **戰術**：解除對手兵器、化為己用
 - **導演**：先寫「她握著劍」再被奪，因果才完整
@@ -108,7 +118,7 @@
 
 - **機制**：全畫面瞬間褪成灰階 → 雨滴懸停空中 → 他在雨滴間走過 → 刀鋒把一滴雨切成兩半 → 色彩倒灌、對手防線塌陷
 - **H3**：`the whole courtyard drains to grey in one instant and every raindrop stays suspended in the air as he strides between them, his blade parting a single drop into two halves before the colour floods back and her guard collapses`
-- **執行層**：`h3_colour_drain +4.0`（`0.3s` 瞬切）＋ `"audio": "protect"`；需把「抽色」寫成獨立短鏡 ≥1.2 秒
+- **執行層**：首選 `h3_colour_drain +4.0`（`0.3s` 瞬切、`interp: step`）窄脈衝，作用在同一鏡內的抽色段，並加 `"audio": "protect"`；**不要把整鏡寫成灰階**。僅當走「提示詞內嵌衝擊幀」路線（`impact-frame-inline.md`）時，才把抽色寫成 ≥1.2 秒的獨立短鏡
 - **物理結果／殘留**：雨滴切口、倒灌的色彩、防線崩塌
 - **戰術**：以視覺奇觀終結
 - **導演**：全場灰階只給一個「彩色」元素（刀光），否則畫面無焦點
@@ -124,7 +134,7 @@
 ### US-10 殘影分身左右夾擊／真身上空重劈
 
 - **機制**：留下兩個半透明殘影左右衝擊 → 對手分神 → 真身從上方重劈
-- **H3**：`splits into two translucent afterimages that rush in from the left and right while the real body vaults above, bringing the sword down onto his shoulders as his blade is still turning toward the decoys`
+- **H3**：`splits into two translucent afterimages that rush in from the left and right while the real body vaults above, bringing the sword down onto his shoulders as his blade is still turning toward the decoys, the ground cracking under the impact and the afterimages bursting into points of light`
 - **物理結果／殘留**：殘影在碰到對手時散成光點、重劈使地面龜裂
 - **戰術**：虛實換位（`character-signature-skill.md` 母題 4 連閃殘影）
 - **導演**：空中轉體動詞 0；真身落點要與殘影有明顯高度差
@@ -150,7 +160,7 @@
 ### US-13 砂鐵聚散化刃
 
 - **機制**：灑出的砂鐵在空中聚成長刃 → 揮斬後散開 → 再聚為新形
-- **H3**：`scatters a handful of iron sand that gathers mid-air into a long blade, cuts through the guard, then breaks apart into a drifting cloud and reforms as a second blade at her back`
+- **H3**：`scatters a handful of iron sand that gathers mid-air into a long blade and cuts through the guard. The blade then breaks apart into a drifting cloud and reforms as a second blade at her back`
 - **物理結果／殘留**：砂粒在空氣中的軌跡、切痕
 - **戰術**：多方向切割，防守困難
 - **導演**：形變不可超過三段，以保持清晰
@@ -192,13 +202,13 @@
 - **H3**：`the stone slab detonates into heavy geometric blocks of rock that tumble outward in a wide arc, each block turning slowly in the air with a thin trail of dust`
 - **時長**：1.2–2.0 秒
 - **為什麼有效**：方塊有明確體積與稜角，比「碎片」更有重量感；慢速自轉提供「爆炸前後」的時間層次
-- **來源**：中村豐式爆破碎石（社群稱 yutapon cubes；已核實命名來源）
+- **來源**：立方碎片爆破（社群稱 yutapon cubes，得名於中村豐；見 §0.3 核驗表）
 - **禁忌**：方塊數量寫「約十餘塊」即可，過多會變成霧團；不要與全場煙塵同時給滿
 
 ### SK-02 極端廣角魚眼透視拳逼近鏡頭瞬間拉遠
 
 - **語法**：廣角魚眼鏡頭，拳頭逼近鏡頭佔滿畫面 → 鏡頭快速拉遠，顯示全身與受擊者
-- **H3**：`through a very wide fisheye lens her fist swells toward the camera until it fills the frame, then the lens snaps back to a medium wide shot as the punch lands on his jaw and his head whips sideways`
+- **H3**：`through a very wide fisheye lens her fist swells toward the camera until it fills the frame, then the lens snaps back to a medium wide shot as the punch lands on his jaw, his head whips sideways and a shock ring of dust bursts off the wall behind him`
 - **時長**：1.2–1.6 秒
 - **為什麼有效**：透視誇張強化衝擊，拉遠給出接觸結果
 - **禁忌**：「拉遠」必須在拳接觸之後；寫成「拉遠後再出拳」會導致節奏顛倒
@@ -206,7 +216,7 @@
 ### SK-03 劍尖逼近鏡頭瞬間拉遠
 
 - **語法**：劍尖指向鏡頭、鏡頭保持微距 → 劍尖穿過 → 鏡頭向後拉出，顯示對手側身閃過
-- **H3**：`the sword point races toward the lens in extreme foreshortening, then the camera pulls back to show him twisting his torso sideways so the blade passes a thumb's width from his ribs`
+- **H3**：`the sword point races toward the lens in extreme foreshortening, then the camera pulls back to show him twisting his torso sideways so the blade passes a thumb's width from his ribs, tearing his sleeve and throwing sparks off the pillar behind him`
 - **時長**：1.4–2.0 秒
 - **為什麼有效**：把「險些命中」轉成視覺高潮
 - **禁忌**：`twisting` 算 1 個轉體動詞，勿與其他空中動作疊加
@@ -214,10 +224,10 @@
 ### SK-04 高速橫移流線背景追拍（Speed-Line Tracking Pan）
 
 - **語法**：鏡頭與角色同速橫移，背景拉成水平速度線
-- **H3**：`the camera tracks sideways at the same speed as the runner so the background streaks into long horizontal lines while the figure stays sharp, his coat snapping behind him with each stride`
+- **H3**：`the camera tracks sideways at the same speed as the runner so the background streaks into long horizontal lines while the figure stays sharp, his coat snapping behind him with each stride and dust jumping from every footfall`
 - **時長**：1.6–2.4 秒
 - **為什麼有效**：角色清晰、背景模糊，提供速度而不依賴大位移
-- **執行層**：需與 `--anchor` 合用（接地姿態禁用，見 `fight-directing-contract.md` §7.1）
+- **執行層**：奔跑追拍屬動態交鋒，用 `--burst`（正向運動軌）；**不要掛 `--anchor`**（anchor 只用於定樁、接地姿態與穩態特寫，見 `fight-directing-contract.md` §7.1、§7.4）
 - **禁忌**：不要寫 `slides` / `skates`；步態仍須寫 `drives off / lunges / plants`
 
 ### SK-05 背動長鏡頭（貼背跟拍）
@@ -233,7 +243,7 @@
 - **語法**：接觸瞬間畫面黑白反相閃一下 → 動作短暫停頓（卡肉）→ 立刻切遠景，煙塵沖天
 - **H3**：`on contact the frame flashes in inverted black and white for an instant and the impact lingers for a quarter of a second, then the shot cuts to a distant view as a tall column of smoke and dust rises from the point of impact`
 - **時長**：1.2 秒（閃幀）＋ 1.5–2.0 秒（遠景）
-- **執行層**：`h3_impact_frame` 窄脈衝（`+4.6~+5.0`、`0.25–0.35s`）或後製 `scripts/impact_frame.py`；**「兩幀」不能寫進 shot 時長**，需當作獨立短鏡或後製
+- **執行層**：重擊瞬間打 `--hitstop`（`0.25s` 負向頓幀＋`+4.8` 衝擊閃幀，見 `fight-directing-contract.md` §7.4），閃幀用 `h3_impact_frame` 窄脈衝（`+4.6~+5.0`、`0.25–0.35s`），或後製 `scripts/impact_frame.py`；**「兩幀」不能寫進 shot 時長**，需當作窄脈衝或後製
 - **為什麼有效**：反相閃幀＋停頓製造「命中重量」，遠景煙柱交代規模
 - **禁忌**：無停頓模式下頓幀只能是「畫面持續晃動的卡肉」，不是人物靜止
 
@@ -257,10 +267,10 @@
 ### SK-09 擠壓拉伸殘像拳（Smear Frame Fist）
 
 - **語法**：拳頭在揮出途中被拉長成一道弧形殘像，接觸瞬間回復正常形狀
-- **H3**：`her arm stretches into a blurred arc of motion as the punch whips forward, and snaps back to its normal shape at the instant the knuckles land on his cheek`
+- **H3**：`her arm stretches into a blurred arc of motion as the punch whips forward, and snaps back to its normal shape at the instant the knuckles land on his cheek, whipping his head round in a burst of sweat spray`
 - **時長**：0.8–1.2 秒
 - **為什麼有效**：賦予日式作畫的誇張感
-- **來源**：吉成曜式擠壓拉伸（社群印象，未逐幀核實）
+- **來源**：作畫社群通用的 smear（殘像拉伸）手法，未歸屬任何特定畫師（早先的畫師歸屬無來源，已移除）
 - **禁忌**：只能用在「近戰拳腳」，不能用在長兵器
 
 ### SK-10 低角仰視巨大揮擊＋前景碎片遮擋視差
@@ -298,7 +308,7 @@
 ### SK-14 景深切焦（Rack Focus）前景刀刃→背景敵人
 
 - **語法**：前景刀鋒清晰、背景敵人模糊 → 焦點切到背景，敵人露出表情
-- **H3**：`the focus shifts from the sharp edge of the blade in the foreground to the blurred enemy behind it, who sharpens into view with his jaw set and his eyes fixed on the steel`
+- **H3**：`the focus shifts from the sharp edge of the blade in the foreground to the blurred enemy behind it, who sharpens into view with his jaw set and his eyes fixed on the steel, a spark drifting across the lens`
 - **時長**：1.0–1.4 秒
 - **為什麼有效**：快速建立「威脅—反應」的因果
 - **禁忌**：不要用在連續動作中間（會破壞節奏）
@@ -332,7 +342,7 @@
 - [ ] 單鏡空中轉體動詞 ≤ 3
 - [ ] 閃幀／頓幀的「兩幀」未直接寫進 shot 時長
 - [ ] 全篇主動進攻位移沒有 `slides / skids / glides`
-- [ ] 時停類能力沒有長開 `P5 / P6`
+- [ ] 含近身肉搏或單向光束的時停鏡沒有長開 `P5 / P6`
 - [ ] 一個畫面只有一個主色
 
 ---
@@ -342,7 +352,7 @@
 | 症狀 | 根因 | 修法 |
 |---|---|---|
 | 能力畫成通用光球 | 沒寫形狀與接觸物 | 回 §0.1 六問 |
-| 時停鏡整段變黑白 | 把「抽色」當整鏡寫 | 獨立短鏡＋窄脈衝 |
+| 時停鏡整段變黑白 | 把「抽色」當整鏡寫 | 同鏡內窄脈衝（`h3_colour_drain` 0.25–0.35s）；內嵌路線才用獨立短鏡 |
 | 方塊碎石糊成煙霧 | 數量過多或同時給塵幕 | 方塊 10 餘塊＋薄塵尾 |
 | 魚眼拳沒有拉遠 | 順序寫反 | 拳接觸後才拉遠 |
 | 分身與本體難分 | 沒有高度差或色彩差 | 殘影半透明＋真身在上空 |

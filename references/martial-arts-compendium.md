@@ -15,7 +15,7 @@
 |---|---|---|
 | 1 | **嚴禁直譯招式名／流派名**（不寫 `Baji`、`Wing Chun`、`Muay Thai`、`iaido`、`kusarigama` 等） | ❌ `Baji Tie Shan Kao` → ✅ `sinks his hips and drives the whole side of his shoulder and back into her chest` |
 | 2 | **零否定詞**：不得出現 `no` / `not` / `never` / `without` / `instead of` / `rather than` | 想表達「不退」就寫 `keeps driving forward` |
-| 3 | **一招一句**；一句內最多 2 個因果連動（發力 → 接觸 → 結果） | 不用逗號堆三招 |
+| 3 | **一招一句為原則**；單句最多 2 個因果連動（發力 → 接觸 → 結果），確需第三段（如纏繞、反彈）時另起一句 | 不用逗號堆三招 |
 | 4 | **必含物理結果**：碎裂、彈跳、衣料炸開、火花、塵土至少一項 | `the flagstones crack in a spider web` |
 | 5 | **摔技必過「真摔判準」**（見 §0.2） | 有離地弧線＋砸地結果 |
 | 6 | **單鏡空中轉體動詞 ≤ 3**（`spins / flips / twists / rotates / somersaults / cartwheels / corkscrews / pivots in the air`） | 超過就拆鏡或刪動詞，防 H3 解剖崩壞 |
@@ -30,7 +30,7 @@
 2. **砸地環境結果**：落點必須留下破壞或反彈（石板裂成蛛網、木桌碎成木片、地面彈起塵環、人體反彈一次）。
 3. **摔後即銜接**：摔者的重心已被摔動作帶走（落地蹲姿、單膝壓制、順勢追擊），不得原地復位。
 
-> 句庫中以 `【真摔】` 標示者，已內建以上三條。
+> 句庫中以 `【真摔】` 標示者，**句子本身內建前兩條（離地弧線＋砸地結果）**；第三條（摔後銜接）寫在條目的「真摔三條」備註，須在下一鏡的開頭句落實（例如「他蹲姿落地、立刻起身」），不可省略。
 
 ### 0.3 影視動作參考（導演靈感，非招式出處）
 
@@ -63,7 +63,7 @@
 
 - **流派**：八極拳（肘法）
 - **機制**：短促跺步 → 彎肘直線頂入中線 → 肘尖撐開雙臂防守
-- **H3**：`steps in on a short stamp and rams his bent elbow straight up the centre of her guard, the point of the elbow forcing her raised forearms apart and driving her chest wide open`
+- **H3**：`steps in on a short stamp and rams his bent elbow straight up the centre of her guard, the point of the elbow forcing her raised forearms apart and driving her chest wide open as grit jumps off the flagstones under his stamp`
 - **關鍵詞**：`short stamp`, `bent elbow`, `forcing her forearms apart`
 - **戰術**：硬破雙臂格擋，為下一招（靠、膝）開門
 - **導演**：配方位置固定為「第一招」，後接 TA-01
@@ -72,7 +72,7 @@
 
 - **流派**：八極拳
 - **機制**：後腳震地 → 雙臂由下向上弧形搶出 → 雙拳或雙掌同時轟擊交叉防守
-- **H3**：`stamps his rear boot as both arms swing up and outward in a climbing double strike, the paired fists hammering through her crossed guard and bouncing her backward across the stone`
+- **H3**：`stamps his rear boot as both arms swing up and outward in a climbing double strike, the paired fists hammering through her crossed guard and bouncing her backward across the stone in a puff of dust`
 - **關鍵詞**：`climbing double strike`, `hammering through her crossed guard`
 - **戰術**：以雙手同時力量壓過單臂防禦
 - **導演**：單鏡只寫一次雙拳動作，避免「連環」被壓成糊影
@@ -81,7 +81,7 @@
 
 - **流派**：詠春（中線、守中用中、消打同步）
 - **機制**：掌心朝上托在對方腕下 → 引偏來勢 → 同一條中線直拳反擊
-- **H3**：`turns his palm up beneath her punching wrist and deflects it off the centreline, then fires a straight punch along the same line in the same breath while her arm is still travelling past his shoulder`
+- **H3**：`turns his palm up beneath her punching wrist and deflects it off the centreline, then fires a straight punch along the same line in the same breath while her arm is still travelling past his shoulder and her sleeve snaps from the deflection`
 - **關鍵詞**：`palm up beneath her wrist`, `deflects it off the centreline`, `same line in the same breath`
 - **戰術**：接防與反擊在同一拍內完成，換手點用
 - **導演**：這是「主導權換手」的標準鏡頭；寫清「她的拳從他肩旁擦過」，換手才可讀
@@ -90,7 +90,7 @@
 
 - **流派**：詠春（直拳、短橋寸勁）
 - **機制**：半臂距離 → 垂直立拳沿中線連續打出 → 每拳靠手腕爆發
-- **H3**：`stacks three short vertical punches down her centreline from a hand's breadth away, each fist landing as his wrist snaps straight, shaking her breastbone in quick pulses`
+- **H3**：`stacks three short vertical punches down her centreline from a hand's breadth away, each fist landing as his wrist snaps straight, shaking her breastbone in quick pulses that ripple her jacket`
 - **關鍵詞**：`three short vertical punches`, `centreline`, `wrist snaps straight`
 - **戰術**：貼身壓制，節奏取勝
 - **導演**：一鏡最多 3 拳；超過 3 拳 H3 會糊成單一動作
@@ -99,7 +99,7 @@
 
 - **流派**：詠春（腳法簡短、低位、攔截）
 - **機制**：對手前進踏步的瞬間 → 前腳側向短踹膝／小腿 → 打斷步幅
-- **H3**：`lifts his lead leg in a short sideways thrust and drives the blade edge of his boot into her front knee as she steps forward, folding her stride and cutting her advance short`
+- **H3**：`lifts his lead leg in a short sideways thrust and drives the blade edge of his boot into her front knee as she steps forward, folding her stride and cutting her advance short as dust bursts from under her boot`
 - **關鍵詞**：`short sideways thrust`, `blade edge of his boot`, `front knee`
 - **戰術**：以低位攔截打斷對手進攻，改變水平面
 - **導演**：「下盤／絆」配額來源；目標寫「前膝」，不寫「踢腿」
@@ -108,7 +108,7 @@
 
 - **流派**：八卦掌（圓走、扣擺步、繞到側背）
 - **機制**：前腳向內扣步 → 沿對手出招手臂外側圓走 → 到肩胛後方掌推脊背
-- **H3**：`hooks his front foot inward and circles along the outside of her striking arm, arriving behind her shoulder blade where an open palm drives into her spine and pitches her forward onto her toes`
+- **H3**：`hooks his front foot inward and circles along the outside of her striking arm, arriving behind her shoulder blade where an open palm drives into her spine and pitches her forward onto her toes as her cloak whips outward`
 - **關鍵詞**：`hooks his front foot inward`, `circles along the outside`, `behind her shoulder blade`
 - **戰術**：打盲區、繞背（對應 `move-library.md` 03 繞後）
 - **導演**：位移寫成「圓弧＋最後一個接觸」，不寫繞圈對視
@@ -141,7 +141,7 @@
 
 - **流派**：泰拳（膝法）
 - **機制**：兩步助跑 → 單腳起跳 → 膝尖朝下頜 → 雙手同時抓開對手防守
-- **H3**：`sprints two strides and leaps with one knee driven high and the other leg tucked, his lead kneecap slamming under her chin as both hands clamp her guard apart, and her head snaps back with her heels leaving the floor`
+- **H3**：`sprints two strides and leaps with one knee driven high and the other leg tucked, his lead kneecap slamming under her chin as both hands clamp her guard apart, and her head snaps back with her heels leaving the floor and her hair whipping upward`
 - **關鍵詞**：`sprints two strides`, `knee driven high`, `clamp her guard apart`
 - **戰術**：以衝刺速度取勝、打斷防守
 - **導演**：空中轉體動詞為 0；可再加 1 個接地翻滾而不破圖
@@ -150,7 +150,7 @@
 
 - **流派**：泰拳（低位踢）
 - **機制**：支撐腳旋轉 → 後腿脛骨平弧掃出 → 砍在大腿外側
-- **H3**：`pivots on his planted foot and swings his rear shin around in a flat arc, chopping it into the meat of her thigh, the impact buckling her leg and turning her hip away from him`
+- **H3**：`pivots on his planted foot and swings his rear shin around in a flat arc, chopping it into the meat of her thigh, the impact buckling her leg and turning her hip away from him as a shock ripples through her trouser leg`
 - **關鍵詞**：`pivots on his planted foot`, `rear shin`, `flat arc`, `meat of her thigh`
 - **戰術**：削弱支撐、為上段鋪路（下盤配額）
 - **導演**：接觸點寫「大腿外側」，才與 TA-06 的「膝」分得開
@@ -159,7 +159,7 @@
 
 - **流派**：泰拳（頸部纏抱、近距離膝）
 - **機制**：雙手扣後頸 → 向下拉頭 → 起膝頂肋／腹 → 換腿重複
-- **H3**：`wraps both hands behind her neck and pulls her head down onto a rising knee, then repeats on the other leg, each knee lifting her ribs as her torso folds over his thighs`
+- **H3**：`wraps both hands behind her neck and pulls her head down onto a rising knee, then repeats on the other leg, each knee lifting her ribs as her torso folds over his thighs and her breath bursts out in a sharp gasp`
 - **關鍵詞**：`wraps both hands behind her neck`, `rising knee`, `torso folds over his thighs`
 - **戰術**：近身壓制、連續擊打
 - **導演**：不算真摔；若要接摔，下一鏡接 MG-08 或 MG-09
@@ -168,7 +168,7 @@
 
 - **流派**：拳擊（搖閃 bob & weave、肝臟擊）
 - **機制**：低頭潛過揮拳 → 沿對手手臂外側搖閃 → 左勾拳打肋下肝區
-- **H3**：`bobs under her swinging fist and weaves along the outside of her arm, then screws a left hook into the soft spot beneath her ribs, her whole torso folding toward the punch`
+- **H3**：`bobs under her swinging fist and weaves along the outside of her arm, then screws a left hook into the soft spot beneath her ribs, her whole torso folding toward the punch as sweat sprays off her jaw`
 - **關鍵詞**：`bobs under`, `weaves along the outside`, `screws a left hook`, `beneath her ribs`
 - **戰術**：閃躲即反擊（換手點）
 - **導演**：目標寫「肋下」，避免與頭部拳混淆
@@ -177,7 +177,7 @@
 
 - **流派**：踢拳／跆拳式後踢
 - **機制**：背對對手 → 後腳腳跟直線蹬出 → 腹部受擊整個人離地後撞牆
-- **H3**：`spins his back toward her, lifts the heel of his rear boot and thrusts it straight into her stomach, the kick launching her backward through the air until she crashes against the wall at shoulder height`
+- **H3**：`spins his back toward her, lifts the heel of his rear boot and thrusts it straight into her stomach, the kick launching her backward through the air until she crashes against the wall at shoulder height and cracks the plaster in a starburst`
 - **關鍵詞**：`spins his back toward her`, `heel thrusts straight`, `launching her backward`
 - **戰術**：分開距離、製造空間
 - **導演**：轉體動詞 1 個；擊退固定水平撞牆，不寫斜向地面
@@ -195,7 +195,7 @@
 
 - **流派**：柔道（背負投）
 - **機制**：潛入對手臂下 → 拉袖過胸 → 彎腰把人背起 → 過肩弧線摔砸
-- **H3**：`ducks under her arm, drags her sleeve across his chest and bends forward, hoisting her over his shoulder in a high arc so her back slams flat onto the stone and her body bounces once off the floor`
+- **H3**：`ducks under her arm, drags her sleeve across his chest and bends forward, hoisting her over his shoulder in a high arc so her back slams flat onto the stone, which cracks in a spider web, and her body bounces once off the floor`
 - **真摔三條**：① 過肩高弧 ② 石地「背部平砸＋身體彈起一次」 ③ 他仍抓著袖口、半蹲準備壓制
 - **戰術**：借力反摔、換手
 - **導演**：地面材質寫「石」或「木板」，彈跳感才明確；避免寫 mat 軟墊
@@ -204,7 +204,7 @@
 
 - **流派**：MMA／摔跤（飛身頭部夾摔，如三角絞變體）
 - **機制**：起跳 → 雙腿夾住對手頸部 → 扭腰翻轉 → 把人從腿上甩過、面朝下砸地
-- **H3**：`leaps and clamps both thighs around her neck in mid-air, twists his hips to swing her over his legs, and pile-drives her face-first into the ground in a heavy arc as he lands in a crouch`
+- **H3**：`leaps and clamps both thighs around her neck in mid-air, twists his hips to swing her over his legs, and brings her down face-first onto the flagstones in a heavy arc, the stone cracking in a starburst as he lands in a crouch`
 - **真摔三條**：① 夾頸後的翻越弧線 ② 臉朝下砸地、塵環炸開 ③ 他蹲姿落地、立刻起身
 - **空中轉體動詞**：`leaps`、`twists`、`swing`（共 3，已達上限，不可再加）
 - **戰術**：高光終結動作；一場戲最多一次
@@ -233,11 +233,11 @@
 - **戰術**：以速度取先機、破對手先手
 - **導演**：全片只給一次「拔」，之後刀不再入鞘（維持無停頓）
 
-### CW-02 居合・踏入橫一文字抜付
+### CW-02 居合・踏入橫一文字拔付
 
 - **流派**：日本居合術
 - **機制**：深弓步踏入 → 拔刀水平橫斬腰部 → 身體仍向前推
-- **H3**：`lunges deep on a long step and draws the blade horizontally across her waist, the edge leaving a flat silver arc as his body keeps travelling past her hip`
+- **H3**：`lunges deep on a long step and draws the blade horizontally across her waist, the edge leaving a flat silver arc as his body keeps travelling past her hip and her cloak splits along the cut`
 - **關鍵詞**：`lunges deep`, `horizontally across her waist`, `body keeps travelling past`
 - **戰術**：貼身擦身斬、與 CW-01 形成「斜／平」雙軸
 - **導演**：位移寫「錯身」而非「站定」
@@ -246,7 +246,7 @@
 
 - **流派**：日本居合術（血振、納刀）
 - **機制**：刀橫甩去除刃上殘液 → 平滑入鞘 → 同時轉向下一敵
-- **H3**：`flicks the blade sharply to one side to throw the droplets off the steel, then guides it back into the scabbard in one smooth line as he already turns his shoulders toward the next opponent`
+- **H3**：`flicks the blade sharply to one side to throw the droplets off the steel, then guides it back into the scabbard in one smooth line as he already turns his shoulders toward the next opponent, the flung droplets spattering the stone`
 - **關鍵詞**：`flicks the blade sharply`, `throw the droplets`, `already turns toward the next opponent`
 - **戰術**：群戰節奏的小結點
 - **導演**：僅用於多敵場景；單挑終結不建議用（會變成站定收勢，違反無停頓）
@@ -255,7 +255,7 @@
 
 - **流派**：歐洲長劍／雙手重劍（half-sword 技法）
 - **機制**：一手握刃中段 → 護手鉤住對手持劍臂 → 把武器槓桿壓向地面 → 劍柄頭反擊
-- **H3**：`grips the blade halfway down its length with a gloved left hand and hooks the crossguard over her sword arm, levering the heavy steel down toward the floor as his right hand swings the pommel up into her jaw`
+- **H3**：`grips the blade halfway down its length with a gloved left hand and hooks the crossguard over her sword arm, levering the heavy steel down toward the floor as his right hand swings the pommel up into her jaw and a spark jumps from the locked steel`
 - **關鍵詞**：`grips the blade halfway`, `hooks the crossguard`, `levering ... down`, `pommel up into her jaw`
 - **戰術**：近身壓制、破對手武器線
 - **導演**：握刃必寫 `gloved`，避免模型畫成割手
@@ -273,7 +273,7 @@
 
 - **流派**：中式／歐洲長槍術（攔、拿、扎）
 - **機制**：槍桿畫圓攔開對手兵器 → 槍尖沿中線直刺 → 停在胸骨前一掌
-- **H3**：`circles the spear shaft to beat her blade aside and thrusts the point straight along her centreline, the tip stopping a hand's breadth from her breastbone while the shaft still hums with the motion`
+- **H3**：`circles the spear shaft to beat her blade aside and thrusts the point straight along her centreline, the tip stopping a hand's breadth from her breastbone while the shaft still hums with the motion and a ring of dust jumps off the floor beside her`
 - **關鍵詞**：`circles the spear shaft`, `beat her blade aside`, `along her centreline`
 - **戰術**：以距離優勢壓制短兵
 - **導演**：寫 `shaft still hums` 保持連續運動，避免變成定格擺姿
@@ -291,7 +291,7 @@
 
 - **流派**：棍術反制
 - **機制**：對手突刺 → 雙手抓桿 → 踏入槍尖內側 → 肘擊下頜 → 奪走桿子
-- **H3**：`catches the shaft with both hands as she thrusts, steps inside the point and slams his elbow into her jaw, wrenching the pole out of her grip as her head snaps sideways`
+- **H3**：`catches the shaft with both hands as she thrusts, steps inside the point and slams his elbow into her jaw, wrenching the pole out of her grip as her head snaps sideways and splinters fly off the shaft`
 - **關鍵詞**：`catches the shaft`, `steps inside the point`, `wrenching the pole`
 - **戰術**：長兵被貼身後的不利（反制專用）
 - **導演**：換手點；先寫對手突刺才有「被抓」的因果
@@ -300,7 +300,7 @@
 
 - **流派**：中式劍術（纏、抹、撩）
 - **機制**：劍身貼住對手劍身畫小圈 → 劍刃沿其劍身逼近 → 小幅抹切手腕
-- **H3**：`wraps the flat of his sword around her blade in a tight circle and runs the edge along hers, closing into a quick flick across her wrist as her fingers loosen on the grip`
+- **H3**：`wraps the flat of his sword around her blade in a tight circle and runs the edge along hers, closing into a quick flick across her wrist as sparks scatter from the grinding steel and her fingers loosen on the grip`
 - **關鍵詞**：`wraps the flat`, `tight circle`, `runs the edge along hers`, `flick across her wrist`
 - **戰術**：奪械、不靠硬砍
 - **導演**：與 `move-library.md` 絞刃奪械同源；本條強調「抹腕」
@@ -324,7 +324,7 @@
 
 - **兵器**：同上
 - **機制**：一抽收攏傘面 → 傘尖當槍頭突進 → 刺入對手防線
-- **H3**：`pulls the canopy shut in one motion and lunges forward with the steel tip leading, the closed umbrella punching through the opening in her guard like a spear`
+- **H3**：`pulls the canopy shut in one motion and lunges forward with the steel tip leading, the closed umbrella punching through the opening in her guard like a spear and the steel tip leaves a spray of sparks across her pauldron`
 - **關鍵詞**：`pulls the canopy shut`, `steel tip leading`, `punching through the opening`
 - **戰術**：由守轉攻（QM-01 → QM-02 即「守→突」換手點）
 - **導演**：兩鏡之間傘的開合狀態必須銜接
@@ -333,7 +333,7 @@
 
 - **兵器**：鎖鏈鐮刀（一端鐮刃、一端鎖鏈配重）
 - **機制**：甩出配重鏈 → 纏繞對手持劍手腕 → 全背力量拉扯
-- **H3**：`flings the weighted chain so it coils around her sword wrist, then yanks hard with his whole back, pulling her arm and body forward and off her feet`
+- **H3**：`flings the weighted chain so it coils around her sword wrist, then yanks hard with his whole back, pulling her arm and body forward and off her feet as the links ring against the floor`
 - **關鍵詞**：`weighted chain coils around her sword wrist`, `yanks hard with his whole back`
 - **戰術**：奪走平衡與武器線
 - **導演**：纏繞結果要在同一鏡看到（鏈圈勒緊、袖口皺起）
@@ -360,7 +360,7 @@
 
 - **兵器**：同上
 - **機制**：手腕翻轉繞過夾住的刀 → 展開扇緣 → 短弧貼向喉部
-- **H3**：`rolls his wrist over the trapped blade and flips an open fan edge up toward her throat in a short slicing arc, the steel ribs glinting as she jerks her chin back`
+- **H3**：`rolls his wrist over the trapped blade and flips an open fan edge up toward her throat in a short slicing arc, the steel ribs glinting as she jerks her chin back and a spark snaps off the fan ribs`
 - **關鍵詞**：`rolls his wrist over`, `open fan edge`, `short slicing arc`
 - **戰術**：近身終結／威懾；接 QM-05
 - **導演**：「喉」只寫逼近，避免血腥過度觸發限制；結果寫「她後仰」
@@ -369,7 +369,7 @@
 
 - **兵器**：九節鞭（節節鋼環連接）
 - **機制**：鞭尾貼地甩出 → 抽中石磚炸裂 → 鞭身繞到對手小腿後方纏住
-- **H3**：`snaps the segmented whip low so it snakes across the floor, cracks against a stone slab that bursts into fragments, and whips around behind her legs to wrap her calves`
+- **H3**：`snaps the segmented whip low so it snakes across the floor and cracks against a stone slab that bursts into fragments. The whip then curls around behind her legs and wraps her calves`
 - **關鍵詞**：`segmented whip`, `snakes across the floor`, `bursts into fragments`, `wrap her calves`
 - **戰術**：繞過正面防守、從盲區纏腳
 - **導演**：必寫鞭有「節」（`segmented`）才不會被畫成繩子
